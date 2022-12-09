@@ -28,12 +28,6 @@ const SContainer = styled.div`
 `;
 
 function Navigation() {
-  // const [currentPath, setCurrentPath] = useState();
-  // console.log(currentPath);
-
-  // const handlePathChange = (path) => {
-  //   setCurrentPath(path);
-  // };
   const [currentPath, setCurrentPath] = useRecoilState(pathState);
   console.log(currentPath);
 
@@ -50,10 +44,10 @@ function Navigation() {
         onClick={() => handlePathChange('/home')}
       />
       <NavigationLink
-        path="/login"
-        icon={currentPath === '/login' ? filledChatIcon : chatIcon}
+        path="/chat"
+        icon={currentPath === '/chat' ? filledChatIcon : chatIcon}
         linkName="채팅"
-        onClick={() => handlePathChange('/login')}
+        onClick={() => handlePathChange('/chat')}
       />
       <NavigationLink
         path="/post"
