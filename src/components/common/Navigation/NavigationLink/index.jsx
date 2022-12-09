@@ -1,6 +1,8 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import pathState from '../../../../atoms/path';
 
 const SLink = styled(Link)`
   width: 3rem;
@@ -12,16 +14,18 @@ const SLink = styled(Link)`
 `;
 
 const SLinkText = styled.p`
-  color: ${({ theme }) => theme.color.LIGHT_BLUE};
+  color: ${({ isSame, theme }) =>
+    isSame ? theme.color.LIGHT_BLUE : theme.color.GRAY};
 `;
 
 function NavigationLink({ path, icon, linkName, onClick }) {
-  // 'path => /home'
+  const currenPath = useRecoilValue(pathState);
+  console.log(currenPath, path);
 
   return (
     <SLink to={path} onClick={onClick}>
       <img src={icon} alt={path} />
-      <SLinkText path={path}>{linkName}</SLinkText>
+      <SLinkText isSame={currenPath === path}>{linkName}</SLinkText>
     </SLink>
   );
 }

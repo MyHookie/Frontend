@@ -29,7 +29,6 @@ const SContainer = styled.div`
 
 function Navigation() {
   const [currentPath, setCurrentPath] = useRecoilState(pathState);
-  console.log(currentPath);
 
   const handlePathChange = (path) => {
     setCurrentPath(path);
