@@ -7,8 +7,10 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.2.0",
+    "babel-loader": "^9.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-is": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.6",
@@ -51,5 +53,6 @@
     "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.0"
-  }
+  },
+  "packageManager": "yarn@3.3.0"
 }
