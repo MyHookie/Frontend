@@ -14,7 +14,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks'],
   rules: {
     'react/destructuring-assignment': [0, 'always'],
     'react/prop-types': 'off',
@@ -25,5 +25,11 @@ module.exports = {
     'no-useless-concat': 'off',
     'react/no-unknown-property': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: 'useRecoilCallback',
+      },
+    ],
   },
 };
