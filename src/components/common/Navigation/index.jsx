@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import homeIcon from '../../../assets/icon/icon-home.png';
 import filledHomeIcon from '../../../assets/icon/icon-home-fill.png';
@@ -10,6 +11,7 @@ import postIcon from '../../../assets/icon/icon-edit.png';
 import profileIcon from '../../../assets/icon/icon-user.png';
 import filledProfileIcon from '../../../assets/icon/icon-user-fill.png';
 import NavigationLink from './NavigationLink';
+import pathState from '../../../atoms/path';
 
 const SContainer = styled.div`
   position: fixed;
@@ -26,7 +28,13 @@ const SContainer = styled.div`
 `;
 
 function Navigation() {
-  const [currentPath, setCurrentPath] = useState();
+  // const [currentPath, setCurrentPath] = useState();
+  // console.log(currentPath);
+
+  // const handlePathChange = (path) => {
+  //   setCurrentPath(path);
+  // };
+  const [currentPath, setCurrentPath] = useRecoilState(pathState);
   console.log(currentPath);
 
   const handlePathChange = (path) => {
