@@ -11,11 +11,17 @@ const SLink = styled(Link)`
   gap: 0.5rem;
 `;
 
+const SLinkText = styled.p`
+  color: ${({ theme }) => theme.color.LIGHT_BLUE};
+`;
+
 function NavigationLink({ path, icon, linkName, onClick }) {
+  // 'path => /home'
+
   return (
     <SLink to={path} onClick={onClick}>
       <img src={icon} alt={path} />
-      <p>{linkName}</p>
+      <SLinkText path={path}>{linkName}</SLinkText>
     </SLink>
   );
 }
