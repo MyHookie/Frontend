@@ -1,13 +1,13 @@
 import React from 'react';
 import Navigation from '../../components/common/Navigation';
 
-function Home() {
+function Chat() {
   return (
     <div>
-      Ho2e
+      Chat
       <Navigation />
     </div>
   );
 }
 
-export default Home;
+export default Chat;

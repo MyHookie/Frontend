@@ -1,11 +1,11 @@
-export const fontSize = {
+const fontSize = {
   EXTRA_LARGE: '2.4rem',
   LARGE: '1.8rem',
   MEDIUM: '1.4rem',
   SMALL: '1.2rem',
 };
 
-export const color = {
+const color = {
   LIGHT_BLUE: '#5095FA',
   ACTIVE_BLUE: '#2D7CEF',
   DISABLED_BLUE: 'rgba(80, 149, 250, 0.4)',
@@ -19,7 +19,15 @@ export const color = {
   WHITE: '#FFFFFF',
 };
 
-export const borderRadius = {
+const borderRadius = {
   BASE: '1rem',
   ROUND: '50%',
 };
+
+const theme = {
+  fontSize,
+  color,
+  borderRadius,
+};
+
+export default theme;
