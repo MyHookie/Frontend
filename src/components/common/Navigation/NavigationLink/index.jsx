@@ -20,12 +20,13 @@ const SLinkText = styled.p`
 
 function NavigationLink({ path, icon, linkName, onClick }) {
   const currenPath = useRecoilValue(pathState);
-  console.log(currenPath, path);
 
   return (
     <SLink to={path} onClick={onClick}>
       <img src={icon} alt={path} />
-      <SLinkText isSame={currenPath === path}>{linkName}</SLinkText>
+      <SLinkText isSame={path !== '/post' && currenPath === path}>
+        {linkName}
+      </SLinkText>
     </SLink>
   );
 }
