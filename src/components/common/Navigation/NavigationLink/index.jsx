@@ -24,7 +24,7 @@ function NavigationLink({ path, icon, linkName, onClick }) {
   return (
     <SLink to={path} onClick={onClick}>
       <img src={icon} alt={path} />
-      <SLinkText isSame={path !== '/post' && currenPath === path}>
+      <SLinkText isSame={path !== '/post/upload' && currenPath === path}>
         {linkName}
       </SLinkText>
     </SLink>

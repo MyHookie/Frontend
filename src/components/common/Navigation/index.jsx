@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import homeIcon from '../../../assets/icon/icon-home.png';
@@ -49,10 +48,10 @@ function Navigation() {
         onClick={() => handlePathChange('/chat')}
       />
       <NavigationLink
-        path="/post"
+        path="/post/upload"
         icon={postIcon}
         linkName="글쓰기"
-        onClick={() => handlePathChange('/post')}
+        onClick={() => handlePathChange('/post/upload')}
       />
       <NavigationLink
         path="/profile"
