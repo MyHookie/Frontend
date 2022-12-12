@@ -14,12 +14,14 @@ import Follower from './pages/Profile/Follower';
 import Following from './pages/Profile/Following';
 import ProfileSetting from './pages/Profile/ProfileSetting';
 import Splash from './pages/Splash';
+import Welcome from './pages/Welcome';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Splash />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign" element={<Sign />} />
         <Route path="/home" element={<Home />} />
