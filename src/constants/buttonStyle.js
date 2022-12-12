@@ -16,6 +16,7 @@ export const MEDIUM_BUTTON = {
 export const SMALL_BUTTON = {
   padding: '0.7rem',
   fontSize: '1.4rem',
+  width: '9rem',
 };
 
 export const FOLLOW_BUTTON = {

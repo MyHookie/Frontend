@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SButton = styled.button`
-  width: 100%;
+  width: ${({ buttonStyle }) =>
+    buttonStyle.width ? buttonStyle.width : '100%'};
   font-size: ${({ buttonStyle }) => buttonStyle.fontSize};
   padding: ${({ buttonStyle }) => buttonStyle.padding};
   background-color: ${({ theme }) => theme.color.LIGHT_BLUE};
