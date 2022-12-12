@@ -4,7 +4,7 @@ import Navigation from '../../components/common/Navigation';
 function Home() {
   return (
     <div>
-      Ho2e
+      home
       <Navigation />
     </div>
   );
