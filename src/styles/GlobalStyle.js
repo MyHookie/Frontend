@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body{
-    font-family: LINESeedKR-Bd;
+    font-family: LINESeedKR-Rg;
     min-height: 100vh;
 
     box-sizing: border-box;
