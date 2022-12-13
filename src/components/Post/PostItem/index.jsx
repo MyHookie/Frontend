@@ -73,7 +73,7 @@ const SBottomContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  margin-left: 0.5rem;
+  margin-left: 0.3rem;
   gap: 0.5rem;
 `;
 
