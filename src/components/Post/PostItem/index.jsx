@@ -11,7 +11,7 @@ const SPostItem = styled.li`
   position: relative;
   width: 100%;
   padding: 1.4rem;
-  border: 1px solid gray;
+  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1rem;
 `;
 
