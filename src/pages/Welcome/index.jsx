@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../../components/common/Button/index';
 import { EXTRA_LARGE_BUTTON } from '../../constants/buttonStyle';
@@ -29,15 +29,29 @@ const SLogo = styled.img`
 `;
 
 function Welcome() {
+  const navigate = useNavigate();
+
+  const handleToSignup = () => {
+    navigate('/signup');
+  };
+
+  const handleToLogin = () => {
+    navigate('/login');
+  };
+
   return (
     <SContainer>
       <SLogo src={Logo} alt="후키 로고" />
-      <Link to="/signup">
-        <Button buttonStyle={EXTRA_LARGE_BUTTON} text="회원가입" />
-      </Link>
-      <Link to="/login">
-        <Button buttonStyle={EXTRA_LARGE_BUTTON} text="이메일로 로그인" />
-      </Link>
+      <Button
+        buttonStyle={EXTRA_LARGE_BUTTON}
+        text="회원가입"
+        onClick={handleToSignup}
+      />
+      <Button
+        buttonStyle={EXTRA_LARGE_BUTTON}
+        text="이메일로 로그인"
+        onClick={handleToLogin}
+      />
     </SContainer>
   );
 }
