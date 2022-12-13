@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Title from '../../../components/Title';
-import FormInput from '../../../components/Form/FormInput';
+import FormInput from '../../../components/FormInput';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
