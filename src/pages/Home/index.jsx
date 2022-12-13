@@ -14,9 +14,10 @@ const SContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: calc(100 + 4.4) vh;
 
   padding: 0.9rem;
+  margin-bottom: 6rem;
 `;
 
 const SEmptyContainer = styled.section`
