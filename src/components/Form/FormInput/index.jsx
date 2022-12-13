@@ -16,7 +16,6 @@ const Input = styled.input`
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   color: ${({ theme }) => theme.color.DARK_GRAY};
-  background-color: ${({ theme }) => theme.color.WHITE};
 
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
