@@ -79,6 +79,34 @@ function Follower() {
             background="pink"
           />
         </SContent>
+
+        <SContent>
+          <SImg src={basicProfilSmallImg} alt="프로필 이미지" />
+          <STextItem>
+            <STextUserId>
+              안녕하세요, 사용자 이름입니다. 이러쿵 저러쿵 어쩌고 저쩌고
+            </STextUserId>
+            <STextIntroduction>
+              안녕하세요, 제 소개를 하자면요. 이러쿵 저러쿵 어쩌고 저쩌고
+            </STextIntroduction>
+          </STextItem>
+          <Button cancel text="취소" buttonStyle={FOLLOW_BUTTON} />
+        </SContent>
+
+        <SContent>
+          <SImg src={basicProfilSmallImg} alt="프로필 이미지" />
+          <STextItem>
+            <STextUserId>userId</STextUserId>
+            <STextIntroduction>Hello, world!</STextIntroduction>
+          </STextItem>
+          <Button
+            cancel
+            text="취소"
+            buttonStyle={FOLLOW_BUTTON}
+            color="green"
+            background="pink"
+          />
+        </SContent>
       </SContainer>
     </div>
   );
