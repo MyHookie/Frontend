@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LARGE_BUTTON } from '../../../constants/buttonStyle';
+import Button from '../../common/Button';
 import FormInput from '../FormInput';
 
 const FormContainer = styled.form`
@@ -35,6 +37,7 @@ function SignUpForm() {
           autoComplete: 'off',
         }}
       />
+      <Button text="회원가입" buttonStyle={LARGE_BUTTON} />
     </FormContainer>
   );
 }
