@@ -9,12 +9,12 @@ const SContainer = styled.li`
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 `;
 
-const SDialogBox = styled.span`
+const SDialogBox = styled.div`
   position: relative;
-  font-size: inherit;
-  width: 24rem;
+  max-width: 24rem;
+  min-height: 4.2rem;
   padding: 1rem 1.2rem;
-  margin-left: 5.4rem;
+  margin-left: calc(4.2rem + 1.2rem);
   border: 1px solid #dddddd;
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
   border-top-left-radius: 0;
@@ -22,26 +22,26 @@ const SDialogBox = styled.span`
 
 const STime = styled.time`
   position: absolute;
-  bottom: 1.2rem;
-  left: 24.6rem;
+  right: -3rem;
+  bottom: 0;
   font-size: 1rem;
   color: ${({ theme }) => theme.color.GRAY};
+`;
+
+const SImg = styled.img.attrs({
+  src: `${profile}`,
+})`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 42px;
 `;
 
 function MessageItem({ text, time }) {
   return (
     <SContainer>
-      <img
-        src={profile}
-        alt="상대방의 프로필 이미지입니다."
-        style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          width: '42px',
-          height: '42px',
-        }}
-      />
+      <SImg />
       <SDialogBox>
         {text}
         <STime>{time}</STime>
