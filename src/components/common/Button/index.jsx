@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const SButton = styled.button`
   width: ${({ buttonStyle }) =>
@@ -19,11 +19,30 @@ const SButton = styled.button`
     cursor: default;
     background-color: ${({ theme }) => theme.color.DISABLED_BLUE};
   }
+
+  ${(type) =>
+    type.cancel &&
+    css`
+      color: ${({ theme }) => theme.color.GRAY};
+      background-color: ${({ theme }) => theme.color.WHITE};
+      border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+
+      &:active,
+      &:hover {
+        background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+        color: ${({ theme }) => theme.color.WHITE};
+      }
+    `}
 `;
 
-function Button({ text, buttonStyle, onClick, disabled }) {
+function Button({ text, buttonStyle, onClick, disabled, ...type }) {
   return (
-    <SButton buttonStyle={buttonStyle} disabled={disabled} onClick={onClick}>
+    <SButton
+      {...type}
+      buttonStyle={buttonStyle}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {text}
     </SButton>
   );
