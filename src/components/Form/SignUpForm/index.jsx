@@ -6,6 +6,9 @@ import FormInput from '../FormInput';
 
 const FormContainer = styled.form`
   margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 `;
 
 function SignUpForm() {
@@ -18,6 +21,8 @@ function SignUpForm() {
           type: 'email',
           placeholder: '이메일 주소를 입력해주세요.',
         }}
+        warningMsg="* 이미 가입된 이메일 주소입니다."
+        isValide
       />
       <FormInput
         id="password"

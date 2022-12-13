@@ -1,19 +1,22 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const SLabel = styled.label`
+const SContainer = styled.div``;
+
+const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 `;
 
-const SInput = styled.input`
+const Input = styled.input`
   display: block;
   width: 100%;
-  margin: 0.7rem 0 4rem;
-  padding: 1.2rem 2rem;
+  margin-top: 0.7rem;
+  padding: 1.2rem 1.5rem;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   color: ${({ theme }) => theme.color.DARK_GRAY};
+  background-color: ${({ theme }) => theme.color.WHITE};
 
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
@@ -29,12 +32,19 @@ const SInput = styled.input`
     `}
 `;
 
-function FormInput({ id, label, inputProps }) {
+const WarningMessage = styled.p`
+  color: ${({ theme }) => theme.color.RED};
+  margin-top: 0.5rem;
+  display: ${({ isEmail }) => (isEmail ? 'block' : 'none')};
+`;
+
+function FormInput({ id, label, inputProps, warningMsg, isValide, isEmail }) {
   return (
-    <>
-      <SLabel htmlFor={id}>{label}</SLabel>
-      <SInput id={id} {...inputProps} />
-    </>
+    <SContainer>
+      <Label htmlFor={id}>{label}</Label>
+      <Input id={id} {...inputProps} isValide={isValide} />
+      <WarningMessage isEmail>{warningMsg}</WarningMessage>
+    </SContainer>
   );
 }
 
