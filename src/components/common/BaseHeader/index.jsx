@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SContainer = styled.header`
+  position: sticky;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
