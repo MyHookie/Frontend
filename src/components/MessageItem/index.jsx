@@ -34,8 +34,8 @@ const SImg = styled.img.attrs({
   position: absolute;
   top: 0;
   left: 0;
-  width: 42px;
-  height: 42px;
+  width: 4.2rem;
+  height: 4.2rem;
 `;
 
 function MessageItem({ text, time }) {
