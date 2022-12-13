@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     overflow-x: hidden;
     box-sizing: border-box;
+    line-height: 1.854rem;
   }
 
   a{

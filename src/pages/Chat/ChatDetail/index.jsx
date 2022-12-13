@@ -7,14 +7,16 @@ import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 import rightIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import MessageInputBar from '../../../components/MessageInput';
 
-const SContainer = styled.div``;
-
+const SContainer = styled.div`
+  background-color: #f2f2f2;
+`;
 const SMessageList = styled.ul`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  min-height: 90vh;
   gap: 0.9rem;
-  padding: 0 16px;
-  margin-top: 30px;
+  padding: 3rem 1.6rem 8rem;
 `;
 
 const dummyText = {
@@ -30,6 +32,8 @@ const dummyTime = {
   time3: '12:50',
 };
 
+const dummyImg = 'https://via.placeholder.com/240x240/D9D9D9/000000';
+
 const nickName = '사용자 닉네임';
 
 function ChatDetail() {
@@ -38,8 +42,10 @@ function ChatDetail() {
       <BaseHeader leftIcon={leftIcon} title={nickName} rightIcon={rightIcon} />
       <SMessageList>
         <MessageItem text={dummyText.message1} time={dummyTime.time1} />
-        <MessageItem text={dummyText.message2} time={dummyTime.time2} />
+        <MessageItem img={dummyImg} time={dummyTime.time2} />
         <MessageItemYours text={dummyText.message3} time={dummyTime.time3} />
+        <MessageItemYours text={dummyText.message3} time={dummyTime.time3} />
+        <MessageItemYours img={dummyImg} time={dummyTime.time3} />
       </SMessageList>
       <MessageInputBar />
     </SContainer>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../Button';
+import Button from '../Button';
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import { SMALL_BUTTON } from '../../../constants/buttonStyle';
 

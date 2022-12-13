@@ -9,6 +9,7 @@ const SChattingBar = styled.div`
   align-items: center;
   height: 6rem;
   width: 100%;
+  background-color: ${({ theme }) => theme.color.WHITE};
   padding: 0 2rem;
   border-top: 1px solid #dddddd;
 `;

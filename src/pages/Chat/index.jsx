@@ -2,12 +2,7 @@ import React from 'react';
 import Navigation from '../../components/common/Navigation';
 
 function Chat() {
-  return (
-    <div>
-      Chat
-      <Navigation />
-    </div>
-  );
+  return <Navigation />;
 }
 
 export default Chat;
