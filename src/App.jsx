@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Login from './pages/Auth/Login';
-import Sign from './pages/Auth/Sign';
+import SignUp from './pages/Auth/SignUp';
 import Chat from './pages/Chat';
 import ChatDetail from './pages/Chat/ChatDetail';
 import NotFound from './pages/NotFound';
@@ -23,7 +23,7 @@ function App() {
         <Route path="/" element={<Splash />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/sign" element={<Sign />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/home" element={<Home />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/chat/:id" element={<ChatDetail />} />
