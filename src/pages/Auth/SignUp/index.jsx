@@ -1,5 +1,6 @@
 import React, { createContext, useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Title from '../../../components/Title';
@@ -24,16 +25,19 @@ const FormContainer = styled.form`
 
 //
 
-const handleButtonClick = () => console.log('click');
-
 function SignUp() {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/welcome');
+  };
+
   const [signUpEmailValue, setSignUpEmailValue] = useRecoilState(signUpEmail);
   const [signUpPasswordValue, setSignUpPasswordValue] =
     useRecoilState(signUpPassword);
 
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
-    console.log(signUpEmailValue);
   };
 
   return (
