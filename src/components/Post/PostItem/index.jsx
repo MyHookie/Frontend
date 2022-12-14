@@ -7,6 +7,8 @@ import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
 import commentIcon from '../../../assets/icon/icon-message-circle.png';
 import { multiEllipsis } from '../../../styles/Util';
+import BottomSheet from '../../Modal/BottomSheet';
+import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 
 const SPostItem = styled.li`
   position: relative;
@@ -111,7 +113,7 @@ const SDate = styled.time`
 const SVerticalButton = styled.button`
   position: absolute;
   top: 1.4rem;
-  right: 1.7rem;
+  right: 1.3rem;
 
   width: 1.8rem;
 `;
@@ -127,45 +129,64 @@ function PostItem({
   author,
   goPostDetailPage,
 }) {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const handleBottomSheetOpen = (e) => {
+    e.stopPropagation();
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
   return (
-    <SPostItem onClick={() => goPostDetailPage(postId)}>
-      <SUserInfoContainer>
-        <img src={profileImg} alt="프로필 이미지" />
-        <STextBox>
-          <SUserName>{author.username}</SUserName>
-          <SAccountName>{author.accountname}</SAccountName>
-        </STextBox>
-      </SUserInfoContainer>
-      <SContents>
-        <STagList>
-          <STagItem>#메리마스메리크리스ㅁㅇㄴㅁㄴ마스메리크리스마스</STagItem>
-          <STagItem>#메리크스</STagItem>
-          <STagItem>#메리스마스</STagItem>
-        </STagList>
-        {content}
-      </SContents>
-      {image && (
-        <SImageContainer>
-          <SImage src={image} alt="img" />
-        </SImageContainer>
+    <>
+      <SPostItem onClick={() => goPostDetailPage(postId)}>
+        <SUserInfoContainer>
+          <img src={profileImg} alt="프로필 이미지" />
+          <STextBox>
+            <SUserName>{author.username}</SUserName>
+            <SAccountName>{author.accountname}</SAccountName>
+          </STextBox>
+        </SUserInfoContainer>
+        <SContents>
+          <STagList>
+            <STagItem>#메리마스메리크리스ㅁㅇㄴㅁㄴ마스메리크리스마스</STagItem>
+            <STagItem>#메리크스</STagItem>
+            <STagItem>#메리스마스</STagItem>
+          </STagList>
+          {content}
+        </SContents>
+        {image && (
+          <SImageContainer>
+            <SImage src={image} alt="img" />
+          </SImageContainer>
+        )}
+        <SBottomContainer>
+          <SIConContainer>
+            <SIcon>
+              <img
+                src={hearted ? filledHeartIcon : heartIcon}
+                alt="좋아요 수"
+              />
+              {heartedCount}
+            </SIcon>
+            <SIcon>
+              <img src={commentIcon} alt="댓글 수" />
+              {commentCount}
+            </SIcon>
+          </SIConContainer>
+          <SDate>{createdAt}</SDate>
+        </SBottomContainer>
+        <SVerticalButton onClick={handleBottomSheetOpen}>
+          <img src={verticalIcon} alt="포스트 설정 버튼" />
+        </SVerticalButton>
+      </SPostItem>
+      {isBottomSheetOpen && (
+        <BottomSheet handleClose={handleBottomSheetOpen}>
+          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
+          <BottomSheetContent text="신고하기" />
+          <BottomSheetContent text="신고하기" />
+        </BottomSheet>
       )}
-      <SBottomContainer>
-        <SIConContainer>
-          <SIcon>
-            <img src={hearted ? filledHeartIcon : heartIcon} alt="좋아요 수" />
-            {heartedCount}
-          </SIcon>
-          <SIcon>
-            <img src={commentIcon} alt="댓글 수" />
-            {commentCount}
-          </SIcon>
-        </SIConContainer>
-        <SDate>{createdAt}</SDate>
-      </SBottomContainer>
-      <SVerticalButton>
-        <img src={verticalIcon} alt="포스트 설정 버튼" />
-      </SVerticalButton>
-    </SPostItem>
+    </>
   );
 }
 
