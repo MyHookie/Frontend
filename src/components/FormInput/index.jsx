@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
+import { FormContext } from '../../pages/Auth/SignUp';
 
 const SContainer = styled.div``;
 
@@ -24,8 +25,8 @@ const Input = styled.input`
     border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
   }
 
-  ${({ isValide }) =>
-    isValide &&
+  ${({ isValid }) =>
+    isValid &&
     css`
       border: 1px solid ${({ theme }) => theme.color.RED};
     `}
@@ -37,11 +38,22 @@ const WarningMessage = styled.p`
   display: ${({ isEmail }) => (isEmail ? 'block' : 'none')};
 `;
 
-function FormInput({ id, label, inputProps, warningMsg, isValide, isEmail }) {
+function FormInput({ id, label, inputProps, warningMsg, isValid, isEmail }) {
+  const { formData, setFormData } = useContext(FormContext);
+
   return (
     <SContainer>
       <Label htmlFor={id}>{label}</Label>
-      <Input id={id} {...inputProps} isValide={isValide} />
+      <Input
+        id={id}
+        {...inputProps}
+        value={formData[id]}
+        onChange={(e) => {
+          console.log(formData);
+          setFormData({ ...formData, [id]: e.target.value });
+        }}
+        isValid={isValid}
+      />
       <WarningMessage isEmail>{warningMsg}</WarningMessage>
     </SContainer>
   );
