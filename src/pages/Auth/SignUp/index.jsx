@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,10 +35,35 @@ function SignUp() {
   const [signUpEmailValue, setSignUpEmailValue] = useRecoilState(signUpEmail);
   const [signUpPasswordValue, setSignUpPasswordValue] =
     useRecoilState(signUpPassword);
+  const [emailValid, setEmailValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
 
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
   };
+  const handlePwValue = (e) => {
+    setSignUpPasswordValue(e.target.value);
+  };
+
+  const checkIsValid = useCallback(() => {
+    const email = signUpEmailValue;
+    const password = signUpPasswordValue;
+    const EMAIL_REGEX =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    const PW_REGEX = /^[a-zA-Z0-9]{6,16}$/;
+
+    if (EMAIL_REGEX.test(email) || !email) {
+      setEmailValid(true);
+    } else {
+      setEmailValid(false);
+    }
+    if (PW_REGEX.test(password) || !password) {
+      setPasswordValid(true);
+    } else {
+      setPasswordValid(false);
+    }
+    console.log(passwordValid);
+  });
 
   return (
     <SContainer>
@@ -55,6 +80,7 @@ function SignUp() {
           }}
           warningMsg="* 이미 가입된 이메일 주소입니다."
           handleSignUpState={handleEmailValue}
+          onBlur={checkIsValid}
         />
         <FormInput
           id="password"
@@ -64,7 +90,8 @@ function SignUp() {
             placeholder: '비밀번호를 입력해주세요.',
             autoComplete: 'off',
           }}
-          // handleSignUpState={signUpPasswordValue}
+          handleSignUpState={handlePwValue}
+          onBlur={checkIsValid}
         />
         <FormInput
           id="confirmPassword"

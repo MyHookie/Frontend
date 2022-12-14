@@ -38,11 +38,23 @@ const WarningMessage = styled.p`
   display: ${({ isEmail }) => (isEmail ? 'block' : 'none')};
 `;
 
-function FormInput({ id, label, inputProps, warningMsg, handleSignUpState }) {
+function FormInput({
+  id,
+  label,
+  inputProps,
+  warningMsg,
+  handleSignUpState,
+  onBlur,
+}) {
   return (
     <SContainer>
       <Label htmlFor={id}>{label}</Label>
-      <Input id={id} {...inputProps} onChange={handleSignUpState} />
+      <Input
+        id={id}
+        {...inputProps}
+        onChange={handleSignUpState}
+        onBlur={onBlur}
+      />
       <WarningMessage>{warningMsg}</WarningMessage>
     </SContainer>
   );
