@@ -26,7 +26,7 @@ const SCommentTime = styled.span`
   vertical-align: top;
   color: ${({ theme }) => theme.color.LIGHT_GRAY};
 
-  &:before {
+  &::before {
     content: 'ㆍ';
     padding-left: 0.6rem;
   }
