@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import profileImg from '../../../assets/basic-profile_small.png';
@@ -6,6 +6,7 @@ import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
 import commentIcon from '../../../assets/icon/icon-message-circle.png';
+import { multiEllipsis } from '../../../styles/Util';
 
 const SPostItem = styled.li`
   position: relative;
@@ -19,10 +20,10 @@ const SUserInfoContainer = styled.div`
   display: flex;
   align-items: center;
 
-  margin-bottom: 1.6rem;
-  gap: 1.8rem;
+  margin-bottom: 1.5rem;
+  gap: 1.4rem;
   img {
-    width: 50px;
+    width: 5rem;
   }
 `;
 
@@ -30,7 +31,6 @@ const STextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.3rem;
 `;
 
 const SUserName = styled.p`
@@ -40,20 +40,29 @@ const SUserName = styled.p`
 const SAccountName = styled.p`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
+  margin-bottom: 0.4rem;
 `;
 
-const STagList = styled.p`
-  background-color: lightblue;
-  padding: 0.3rem 0.6rem;
+const SContents = styled.div`
+  ${multiEllipsis}
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-`;
-
-const SContents = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  line-height: 1.8rem;
 
   margin-bottom: 1.4rem;
+`;
+
+const STagList = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+`;
+
+const STagItem = styled.li`
+  background-color: lightblue;
+  padding: 0.2rem 0.6rem;
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
+  border-radius: ${({ theme }) => theme.borderRadius.BASE};
 `;
 
 const SImageContainer = styled.div`
@@ -66,7 +75,6 @@ const SImage = styled.img`
   height: 23rem;
   object-fit: contain;
   border-radius: 1rem;
-  background-color: tomato;
 `;
 
 const SBottomContainer = styled.div`
@@ -79,7 +87,8 @@ const SBottomContainer = styled.div`
 
 const SIConContainer = styled.div`
   display: flex;
-  gap: 1.7rem;
+  gap: 1.5rem;
+  margin-bottom: 0.2rem;
 `;
 
 const SIcon = styled.div`
@@ -94,12 +103,12 @@ const SIcon = styled.div`
   }
 `;
 
-const SDate = styled.div`
+const SDate = styled.time`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
 `;
 
-const SVerticleButton = styled.button`
+const SVerticalButton = styled.button`
   position: absolute;
   top: 1.4rem;
   right: 1.7rem;
@@ -108,6 +117,7 @@ const SVerticleButton = styled.button`
 `;
 
 function PostItem({
+  postId,
   content,
   image,
   createdAt,
@@ -115,18 +125,25 @@ function PostItem({
   heartedCount,
   commentCount,
   author,
+  goPostDetailPage,
 }) {
   return (
-    <SPostItem>
+    <SPostItem onClick={() => goPostDetailPage(postId)}>
       <SUserInfoContainer>
         <img src={profileImg} alt="프로필 이미지" />
         <STextBox>
           <SUserName>{author.username}</SUserName>
           <SAccountName>{author.accountname}</SAccountName>
-          <STagList>#메리크리스마스</STagList>
         </STextBox>
       </SUserInfoContainer>
-      <SContents>{content}</SContents>
+      <SContents>
+        <STagList>
+          <STagItem>#메리마스메리크리스ㅁㅇㄴㅁㄴ마스메리크리스마스</STagItem>
+          <STagItem>#메리크스</STagItem>
+          <STagItem>#메리스마스</STagItem>
+        </STagList>
+        {content}
+      </SContents>
       {image && (
         <SImageContainer>
           <SImage src={image} alt="img" />
@@ -135,7 +152,7 @@ function PostItem({
       <SBottomContainer>
         <SIConContainer>
           <SIcon>
-            <img src={hearted ? heartIcon : filledHeartIcon} alt="좋아요 수" />
+            <img src={hearted ? filledHeartIcon : heartIcon} alt="좋아요 수" />
             {heartedCount}
           </SIcon>
           <SIcon>
@@ -145,9 +162,9 @@ function PostItem({
         </SIConContainer>
         <SDate>{createdAt}</SDate>
       </SBottomContainer>
-      <SVerticleButton>
+      <SVerticalButton>
         <img src={verticalIcon} alt="포스트 설정 버튼" />
-      </SVerticleButton>
+      </SVerticalButton>
     </SPostItem>
   );
 }
