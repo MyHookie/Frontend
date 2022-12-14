@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import dummyList from '../dummyList';
 import PostItem from '../PostItem';
@@ -14,11 +15,18 @@ const SPostList = styled.ul`
 `;
 
 function PostList() {
+  const navigate = useNavigate();
+
+  const goPostDetailPage = (id) => {
+    navigate(`/post/${id}`);
+  };
+
   return (
     <SPostList>
       {dummyList.map((item) => (
         <PostItem
           key={item.id}
+          postId={item.id}
           content={item.content}
           author={item.author}
           image={item.image}
@@ -26,6 +34,7 @@ function PostList() {
           heartedCount={item.heartedCount}
           commentCount={item.commentCount}
           createdAt={item.createdAt}
+          goPostDetailPage={goPostDetailPage}
         />
       ))}
     </SPostList>

@@ -40,8 +40,8 @@ const SearchInput = styled.input`
 
 function SearchHeader({ leftClick }) {
   return (
-    <SContainer onClick={leftClick}>
-      <SButton>
+    <SContainer>
+      <SButton onClick={leftClick}>
         <img src={arrowIcon} alt="뒤로가기" />
       </SButton>
       <SearchInput type="text" placeholder="계정 검색" />
