@@ -31,6 +31,10 @@ const STitle = styled.p`
   font-size: 1.4rem;
 `;
 
+const SImage = styled.img`
+  width: 8rem;
+`;
+
 function BaseHeader({
   leftIcon,
   leftClick,
@@ -38,6 +42,7 @@ function BaseHeader({
   rightClick,
   rightAlt,
   title,
+  image,
 }) {
   return (
     <SContainer>
@@ -47,6 +52,7 @@ function BaseHeader({
         </SButton>
       )}
       {title && <STitle>{title}</STitle>}
+      {image && <SImage src={image} alt="로고이미지" />}
       {rightIcon ? (
         <SButton onClick={rightClick}>
           <img src={rightIcon} alt={rightAlt} />

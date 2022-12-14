@@ -11,6 +11,7 @@ import dummyList from '../../components/Post/dummyList';
 import PostList from '../../components/Post/PostList';
 import UserSearch from '../../components/UserSearch';
 import SearchHeader from '../../components/common/SearchHeader';
+import HookieImage from '../../assets/Hookie.png';
 
 const SContainer = styled.main`
   display: flex;
@@ -56,7 +57,7 @@ function Home() {
     <>
       {!isSearch ? (
         <BaseHeader
-          title="후키 피드"
+          image={HookieImage}
           rightIcon={searchIcon}
           rightClick={handleSearchActive}
           rightAlt="검색창 이동"
