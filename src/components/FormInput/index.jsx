@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import { FormContext } from '../../pages/Auth/SignUp';
+import { useRecoilState } from 'recoil';
 
 const SContainer = styled.div``;
 
@@ -38,23 +38,12 @@ const WarningMessage = styled.p`
   display: ${({ isEmail }) => (isEmail ? 'block' : 'none')};
 `;
 
-function FormInput({ id, label, inputProps, warningMsg, isValid, isEmail }) {
-  const { formData, setFormData } = useContext(FormContext);
-
+function FormInput({ id, label, inputProps, warningMsg, handleSignUpState }) {
   return (
     <SContainer>
       <Label htmlFor={id}>{label}</Label>
-      <Input
-        id={id}
-        {...inputProps}
-        value={formData[id]}
-        onChange={(e) => {
-          console.log(formData);
-          setFormData({ ...formData, [id]: e.target.value });
-        }}
-        isValid={isValid}
-      />
-      <WarningMessage isEmail>{warningMsg}</WarningMessage>
+      <Input id={id} {...inputProps} onChange={handleSignUpState} />
+      <WarningMessage>{warningMsg}</WarningMessage>
     </SContainer>
   );
 }
