@@ -1,6 +1,5 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useRecoilState } from 'recoil';
 
 const SContainer = styled.div``;
 
@@ -35,7 +34,6 @@ const Input = styled.input`
 const WarningMessage = styled.p`
   color: ${({ theme }) => theme.color.RED};
   margin-top: 0.5rem;
-  display: ${({ isEmail }) => (isEmail ? 'block' : 'none')};
 `;
 
 function FormInput({
@@ -44,7 +42,9 @@ function FormInput({
   inputProps,
   warningMsg,
   handleSignUpState,
-  onBlur,
+  handleOnBlur,
+  signUpValid,
+  inputValue,
 }) {
   return (
     <SContainer>
@@ -53,9 +53,12 @@ function FormInput({
         id={id}
         {...inputProps}
         onChange={handleSignUpState}
-        onBlur={onBlur}
+        onBlur={handleOnBlur}
+        value={inputValue}
       />
-      <WarningMessage>{warningMsg}</WarningMessage>
+      {!signUpValid && inputValue?.length > 0 && (
+        <WarningMessage>{warningMsg}</WarningMessage>
+      )}
     </SContainer>
   );
 }

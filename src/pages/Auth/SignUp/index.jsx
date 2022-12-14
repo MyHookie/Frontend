@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,35 +35,53 @@ function SignUp() {
   const [signUpEmailValue, setSignUpEmailValue] = useRecoilState(signUpEmail);
   const [signUpPasswordValue, setSignUpPasswordValue] =
     useRecoilState(signUpPassword);
-  const [emailValid, setEmailValid] = useState(true);
-  const [passwordValid, setPasswordValid] = useState(true);
+  const [checkPwValue, setCheckPwValue] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [checkPwValid, setCheckPwValid] = useState(false);
+  const [emailWarningMsg, setEmailWarningMsg] = useState('');
+  const [pwWarningMsg, setPwWarningMsg] = useState('');
+  const [checkPwWarningMsg, setCheckPwWarningMsg] = useState('');
 
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
-  };
-  const handlePwValue = (e) => {
-    setSignUpPasswordValue(e.target.value);
-  };
 
-  const checkIsValid = useCallback(() => {
     const email = signUpEmailValue;
-    const password = signUpPasswordValue;
     const EMAIL_REGEX =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const PW_REGEX = /^[a-zA-Z0-9]{6,16}$/;
 
-    if (EMAIL_REGEX.test(email) || !email) {
+    if (EMAIL_REGEX.test(email)) {
       setEmailValid(true);
+      setEmailWarningMsg('* 이메일 형식이 올바르지 않습니다.');
     } else {
       setEmailValid(false);
     }
-    if (PW_REGEX.test(password) || !password) {
+  };
+
+  const handlePwValue = (e) => {
+    setSignUpPasswordValue(e.target.value);
+
+    const password = signUpPasswordValue;
+    const PW_REGEX = /^[a-zA-Z0-9]{6,16}$/;
+
+    if (PW_REGEX.test(password)) {
       setPasswordValid(true);
+      setPwWarningMsg('* 대,소문자, 숫자를 포함하여 6~16자 입력해주세요.');
     } else {
       setPasswordValid(false);
     }
-    console.log(passwordValid);
-  });
+  };
+
+  const handleCheckPwValue = (e) => {
+    setCheckPwValue(e.target.value);
+
+    if (signUpPasswordValue !== checkPwValue) {
+      setCheckPwValid(true);
+      setCheckPwWarningMsg('* 비밀번호가 일치하지 않습니다.');
+    } else {
+      setCheckPwValid(false);
+    }
+  };
 
   return (
     <SContainer>
@@ -78,9 +96,10 @@ function SignUp() {
             type: 'email',
             placeholder: '이메일 주소를 입력해주세요.',
           }}
-          warningMsg="* 이미 가입된 이메일 주소입니다."
           handleSignUpState={handleEmailValue}
-          onBlur={checkIsValid}
+          signUpValid={emailValid}
+          inputValue={signUpEmailValue}
+          warningMsg={emailWarningMsg}
         />
         <FormInput
           id="password"
@@ -91,7 +110,9 @@ function SignUp() {
             autoComplete: 'off',
           }}
           handleSignUpState={handlePwValue}
-          onBlur={checkIsValid}
+          signUpValid={passwordValid}
+          inputValue={signUpPasswordValue}
+          warningMsg={pwWarningMsg}
         />
         <FormInput
           id="confirmPassword"
@@ -101,8 +122,12 @@ function SignUp() {
             placeholder: '비밀번호를 한번 더 입력해주세요.',
             autoComplete: 'off',
           }}
+          handleSignUpState={handleCheckPwValue}
+          signUpValid={checkPwValid}
+          inputValue={checkPwValue}
+          warningMsg={checkPwWarningMsg}
         />
-        <Button text="회원가입" buttonStyle={LARGE_BUTTON} />
+        <Button text="회원가입" buttonStyle={LARGE_BUTTON} disabled />
       </FormContainer>
     </SContainer>
   );
