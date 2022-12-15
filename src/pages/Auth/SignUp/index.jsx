@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -23,8 +23,6 @@ const FormContainer = styled.form`
   gap: 3rem;
 `;
 
-//
-
 function SignUp() {
   const navigate = useNavigate();
 
@@ -36,52 +34,51 @@ function SignUp() {
   const [signUpPasswordValue, setSignUpPasswordValue] =
     useRecoilState(signUpPassword);
   const [checkPwValue, setCheckPwValue] = useState('');
+
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [checkPwValid, setCheckPwValid] = useState(false);
+
   const [emailWarningMsg, setEmailWarningMsg] = useState('');
   const [pwWarningMsg, setPwWarningMsg] = useState('');
   const [checkPwWarningMsg, setCheckPwWarningMsg] = useState('');
 
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
-
-    const email = signUpEmailValue;
-    const EMAIL_REGEX =
-      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-    if (EMAIL_REGEX.test(email)) {
-      setEmailValid(true);
-      setEmailWarningMsg('* 이메일 형식이 올바르지 않습니다.');
-    } else {
-      setEmailValid(false);
-    }
   };
-
   const handlePwValue = (e) => {
     setSignUpPasswordValue(e.target.value);
-
-    const password = signUpPasswordValue;
-    const PW_REGEX = /^[a-zA-Z0-9]{6,16}$/;
-
-    if (PW_REGEX.test(password)) {
-      setPasswordValid(true);
-      setPwWarningMsg('* 대,소문자, 숫자를 포함하여 6~16자 입력해주세요.');
-    } else {
-      setPasswordValid(false);
-    }
   };
-
   const handleCheckPwValue = (e) => {
     setCheckPwValue(e.target.value);
+  };
 
-    if (signUpPasswordValue !== checkPwValue) {
+  useEffect(() => {
+    const EMAIL_REGEX =
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    const PW_REGEX = /^[a-zA-Z0-9]{6,16}$/;
+
+    if (EMAIL_REGEX.test(signUpEmailValue)) {
+      setEmailValid(true);
+    } else {
+      setEmailValid(false);
+      setEmailWarningMsg('* 이메일 형식이 올바르지 않습니다.');
+    }
+
+    if (PW_REGEX.test(signUpPasswordValue)) {
+      setPasswordValid(true);
+    } else {
+      setPasswordValid(false);
+      setPwWarningMsg('* 대,소문자, 숫자를 포함하여 6~16자 입력해주세요.');
+    }
+
+    if (signUpPasswordValue === checkPwValue) {
       setCheckPwValid(true);
-      setCheckPwWarningMsg('* 비밀번호가 일치하지 않습니다.');
     } else {
       setCheckPwValid(false);
+      setCheckPwWarningMsg('* 비밀번호가 일치하지 않습니다.');
     }
-  };
+  }, [signUpEmailValue, signUpPasswordValue, checkPwValue]);
 
   return (
     <SContainer>

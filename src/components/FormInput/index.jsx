@@ -1,6 +1,24 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+function checkValid(signUpValid, inputValue) {
+  if (inputValue.length === 0) {
+    return css`
+      border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+    `;
+  }
+
+  if (!signUpValid && inputValue.length > 0) {
+    return css`
+      border: 1px solid ${({ theme }) => theme.color.RED};
+    `;
+  }
+
+  return css`
+    border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
+  `;
+}
+
 const SContainer = styled.div``;
 
 const Label = styled.label`
@@ -20,15 +38,8 @@ const Input = styled.input`
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
-  }
 
-  ${({ isValid }) =>
-    isValid &&
-    css`
-      border: 1px solid ${({ theme }) => theme.color.RED};
-    `}
+  ${({ signUpValid, inputValue }) => checkValid(signUpValid, inputValue)}
 `;
 
 const WarningMessage = styled.p`
@@ -42,7 +53,6 @@ function FormInput({
   inputProps,
   warningMsg,
   handleSignUpState,
-  handleOnBlur,
   signUpValid,
   inputValue,
 }) {
@@ -52,9 +62,10 @@ function FormInput({
       <Input
         id={id}
         {...inputProps}
+        inputValue={inputValue}
+        signUpValid={signUpValid}
         onChange={handleSignUpState}
-        onBlur={handleOnBlur}
-        value={inputValue}
+        onKeyDown={handleSignUpState}
       />
       {!signUpValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>
