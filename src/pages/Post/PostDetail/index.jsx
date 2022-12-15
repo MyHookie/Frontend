@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import BaseHeader from '../../../components/common/BaseHeader';
@@ -10,6 +10,8 @@ import { IR } from '../../../styles/Util';
 
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
+import BottomSheet from '../../../components/Modal/BottomSheet';
+import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 
 const STitle = styled.h2`
   ${IR}
@@ -27,14 +29,28 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const handleBottomSheetOpen = (e) => {
+    e.stopPropagation();
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
   return (
     <>
       <BaseHeader
         leftIcon={arrowIcon}
         rightIcon={verticalIcon}
-        rightClick={() => {}}
+        rightClick={handleBottomSheetOpen}
         rightAlt="포스트 설정 버튼"
       />
+      {isBottomSheetOpen && (
+        <BottomSheet handleClose={handleBottomSheetOpen}>
+          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
+          <BottomSheetContent text="신고하기" />
+          <BottomSheetContent text="신고하기" />
+        </BottomSheet>
+      )}
 
       <SContents>
         <STitle>게시물 상세 페이지</STitle>
