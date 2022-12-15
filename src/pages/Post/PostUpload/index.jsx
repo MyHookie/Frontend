@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
@@ -81,6 +82,7 @@ function PostUpload() {
   const [tag, setTags] = useState('');
   const [tagList, setTagList] = useState([]);
   const imageInput = useRef();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setTags(e.target.value);
@@ -101,9 +103,13 @@ function PostUpload() {
     imageInput.current.click();
   };
 
+  const goBackPage = () => {
+    navigate(-1);
+  };
+
   return (
     <>
-      <ConfirmHeader />
+      <ConfirmHeader leftClick={goBackPage} />
       <SContainer>
         <STagContainer>
           <STagInput
