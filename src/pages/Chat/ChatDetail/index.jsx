@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import BaseHeader from '../../../components/common/BaseHeader';
 import MessageItem from '../../../components/MessageItem';
 import MessageItemYours from '../../../components/MessageItemYours';
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 import rightIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import MessageInputBar from '../../../components/MessageInput';
+import BottomSheet from '../../../components/Modal/BottomSheet';
+import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 
 const SContainer = styled.div`
   background-color: #f2f2f2;
@@ -37,9 +40,34 @@ const dummyImg = 'https://via.placeholder.com/240x240/D9D9D9/000000';
 const nickName = '사용자 닉네임';
 
 function ChatDetail() {
+  const navigate = useNavigate();
+  const leftClick = () => {
+    navigate(`/Chat`);
+  };
+
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const handleBottomSheetOpen = (e) => {
+    e.stopPropagation();
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
   return (
     <SContainer>
-      <BaseHeader leftIcon={leftIcon} title={nickName} rightIcon={rightIcon} />
+      <BaseHeader
+        leftIcon={leftIcon}
+        title={nickName}
+        leftClick={leftClick}
+        rightIcon={rightIcon}
+        rightClick={handleBottomSheetOpen}
+      />
+      {isBottomSheetOpen && (
+        <BottomSheet handleClose={handleBottomSheetOpen}>
+          <BottomSheetContent text="신고하기" />
+          <BottomSheetContent text="신고하기" />
+        </BottomSheet>
+      )}
+
       <SMessageList>
         <MessageItem text={dummyText.message1} time={dummyTime.time1} />
         <MessageItem img={dummyImg} time={dummyTime.time2} />
