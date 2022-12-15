@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { render } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
@@ -64,6 +65,7 @@ const SImageContainer = styled.div`
 
   img {
     width: 10.4rem;
+    min-width: 10.4rem;
     border-radius: 1.5rem;
     object-fit: cover;
 
@@ -106,16 +108,29 @@ function PostUpload() {
 
   const [imageSrc, setImageSrc] = useState([]);
 
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
+  const handleImagePreview = (e) => {
+    const fileArray = e.target.files;
+    const files = [];
+
+    if (fileArray.length > 3) {
+      return;
+    }
+
+    for (let i = 0; i < fileArray.length; i += 1) {
+      const reader = new FileReader();
+
       reader.onload = () => {
-        setImageSrc([...imageSrc, reader.result]);
-        resolve();
+        files.push(reader.result);
+        setImageSrc([...imageSrc, ...files]);
       };
-    });
+
+      reader.readAsDataURL(fileArray[i]);
+    }
   };
+
+  useEffect(() => {
+    console.log(imageSrc);
+  }, [imageSrc]);
 
   const handleInputChange = (e) => {
     setTags(e.target.value);
@@ -186,7 +201,7 @@ function PostUpload() {
               accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
               multiple
               style={{ display: 'none' }}
-              onChange={(e) => encodeFileToBase64(e.target.files[0])}
+              onChange={handleImagePreview}
             />
             {imageSrc &&
               imageSrc.map((src) => <img src={src} alt="미리보기 이미지" />)}
