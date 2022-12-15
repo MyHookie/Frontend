@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import profileImg from '../../../assets/basic-profile_small.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
@@ -16,6 +16,12 @@ const SPostItem = styled.li`
   padding: 1.4rem;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1rem;
+
+  ${({ detail }) =>
+    detail &&
+    css`
+      border: none;
+    `}
 `;
 
 const SUserInfoContainer = styled.div`
@@ -50,6 +56,13 @@ const SContents = styled.div`
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 
   margin-bottom: 1.4rem;
+
+  ${({ detail }) =>
+    detail &&
+    css`
+      overflow: auto;
+      display: block;
+    `}
 `;
 
 const STagList = styled.ul`
@@ -128,6 +141,7 @@ function PostItem({
   commentCount,
   author,
   goPostDetailPage,
+  detail,
 }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
@@ -138,7 +152,10 @@ function PostItem({
 
   return (
     <>
-      <SPostItem onClick={() => goPostDetailPage(postId)}>
+      <SPostItem
+        detail={detail}
+        onClick={() => (detail ? null : goPostDetailPage(postId))}
+      >
         <SUserInfoContainer>
           <img src={profileImg} alt="프로필 이미지" />
           <STextBox>
@@ -146,7 +163,7 @@ function PostItem({
             <SAccountName>{author.accountname}</SAccountName>
           </STextBox>
         </SUserInfoContainer>
-        <SContents>
+        <SContents detail={detail}>
           <STagList>
             <STagItem>#메리마스메리크리스ㅁㅇㄴㅁㄴ마스메리크리스마스</STagItem>
             <STagItem>#메리크스</STagItem>
@@ -175,9 +192,11 @@ function PostItem({
           </SIConContainer>
           <SDate>{createdAt}</SDate>
         </SBottomContainer>
-        <SVerticalButton onClick={handleBottomSheetOpen}>
-          <img src={verticalIcon} alt="포스트 설정 버튼" />
-        </SVerticalButton>
+        {!detail && (
+          <SVerticalButton onClick={handleBottomSheetOpen}>
+            <img src={verticalIcon} alt="포스트 설정 버튼" />
+          </SVerticalButton>
+        )}
       </SPostItem>
       {isBottomSheetOpen && (
         <BottomSheet handleClose={handleBottomSheetOpen}>

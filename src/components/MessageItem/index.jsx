@@ -49,15 +49,14 @@ const SUploadedImgContainer = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
 `;
 
+const SUploadedImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+`;
+
 function MessageItem({ text, time, img }) {
-  const SUploadedImg = styled.img.attrs({
-    src: `${img}`,
-  })`
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  `;
   return (
     <SMessageItem>
       <SProfileImg />
