@@ -38,7 +38,7 @@ const SProfileImg = styled.img`
   width: 3.6rem;
 `;
 
-const SVerticalImg = styled.img`
+const SVerticalButton = styled.button`
   width: 2rem;
 `;
 
@@ -63,9 +63,9 @@ function CommentItem() {
           userId
           <SCommentTime>5분 전</SCommentTime>
         </SUserInfo>
-        <button type="button" onClick={handleBottomSheetOpen}>
-          <SVerticalImg src={verticalIcon} alt="댓글 설정 버튼" />
-        </button>
+        <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
+          <img src={verticalIcon} alt="댓글 설정 버튼" />
+        </SVerticalButton>
         {isBottomSheetOpen && (
           <BottomSheet handleClose={handleBottomSheetOpen}>
             {/* 로그인 한 경우(내 댓글인 경우) => 삭제 아니면 신고하기 */}
