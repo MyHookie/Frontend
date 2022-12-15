@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import emailValidAxios from '../../../api/emailValidAxios';
 
 import Title from '../../../components/Title';
 import FormInput from '../../../components/FormInput';
@@ -44,6 +45,7 @@ function SignUp() {
   const [checkPwWarningMsg, setCheckPwWarningMsg] = useState('');
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
+  const [isUser, setIsUser] = useState(false);
 
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
@@ -88,6 +90,29 @@ function SignUp() {
     }
     return setButtonNotAllow(true);
   }, [emailValid, passwordValid, checkPwValid]);
+
+  const handleJoinClick = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      try {
+        const res = await emailValidAxios.post('/emailvalid', {
+          user: {
+            email: signUpEmailValue,
+          },
+        });
+
+        if (res.data.message === '이미 가입된 이메일 주소 입니다.') {
+          setIsUser(true);
+          setEmailValid(false);
+          setEmailWarningMsg('* 이미 가입된 이메일 주소입니다.');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [buttonNotAllow]
+  );
 
   return (
     <SContainer>
@@ -137,6 +162,7 @@ function SignUp() {
           text="회원가입"
           buttonStyle={LARGE_BUTTON}
           disabled={buttonNotAllow}
+          onClick={handleJoinClick}
         />
       </FormContainer>
     </SContainer>
