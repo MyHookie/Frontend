@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import BaseHeader from '../../../components/common/BaseHeader';
+import PostItem from '../../../components/Post/PostItem';
+import dummyList from '../../../components/Post/dummyList';
 import CommentItem from '../../../components/Comment/CommentItem';
 import CommentInput from '../../../components/Comment/CommentInput';
 import { IR } from '../../../styles/Util';
@@ -16,11 +18,6 @@ const STitle = styled.h2`
 const SContents = styled.section`
   height: 110vh;
   font-size: 1.4rem;
-`;
-
-const SPost = styled.div`
-  height: 45rem;
-  background-color: tomato;
 `;
 
 const SDividingLine = styled.div`
@@ -38,12 +35,26 @@ function PostDetail() {
         rightClick={() => {}}
         rightAlt="포스트 설정 버튼"
       />
+
       <SContents>
         <STitle>게시물 상세 페이지</STitle>
-        <SPost />
+        {/* 현재 주소에서 유저 아이디만 잘라서 가져와 게시물 상세 페이지 보여주기 */}
+        <PostItem
+          key={dummyList[0].id}
+          postId={dummyList[0].id}
+          content={dummyList[0].content}
+          author={dummyList[0].author}
+          image={dummyList[0].image}
+          hearted={dummyList[0].hearted}
+          heartedCount={dummyList[0].heartedCount}
+          commentCount={dummyList[0].commentCount}
+          createdAt={dummyList[0].createdAt}
+          detail
+        />
         <SDividingLine />
         <CommentItem />
       </SContents>
+
       <CommentInput />
     </>
   );
