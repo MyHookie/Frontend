@@ -22,6 +22,10 @@ function Chat() {
     navigate(`/home`);
   };
 
+  const usernameClick = () => {
+    navigate(`/chat/:id`);
+  };
+
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const handleBottomSheetOpen = (e) => {
@@ -38,12 +42,11 @@ function Chat() {
       />
       {isBottomSheetOpen && (
         <BottomSheet handleClose={handleBottomSheetOpen}>
-          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
           <BottomSheetContent text="편집" />
           <BottomSheetContent text="채팅방 정렬" />
         </BottomSheet>
       )}
-      <SContainer>
+      <SContainer onClick={usernameClick}>
         <UserItem
           username="유저 닉네임"
           text="이곳에는 가장 최근 채팅 내용이 들어갑니당"
