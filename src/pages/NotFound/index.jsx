@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import { LARGE_BUTTON } from '../../constants/buttonStyle';
 import ErrorImg from '../../assets/404_img.png';
@@ -29,11 +30,16 @@ const SUploadedImg = styled.img`
 `;
 
 function NotFound() {
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <SContainer>
       <SUploadedImg src={ErrorImg} />
       <Stext>페이지를 찾을 수 없습니다. :&#40; </Stext>
-      <SButton buttonStyle={LARGE_BUTTON} text="이전 페이지" />
+      <SButton onClick={goBack} buttonStyle={LARGE_BUTTON} text="이전 페이지" />
     </SContainer>
   );
 }
