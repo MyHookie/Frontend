@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
 const SContainer = styled.div`
@@ -9,8 +9,8 @@ const SContainer = styled.div`
 
   padding: 0 1.4rem;
 `;
+
 const STagContainer = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   padding: 1rem 0rem;
 
   form {
@@ -32,22 +32,25 @@ const STagInput = styled.input`
 
 const STagList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  height: 2.5rem;
+
+  min-height: 3.5rem;
   width: 100%;
-  overflow-x: scroll;
+  padding-bottom: 1rem;
+
+  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
 
 const STagItem = styled.li`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
-  background-color: lightblue;
-  padding: 0.5rem 0.7rem;
+  background-color: ${({ tagColor }) => tagColor};
+  padding: 0.3rem 0.8rem;
   border-radius: 1.5rem;
 `;
 
 const SImageContainer = styled.div`
   height: 10.4rem;
-  margin: 1rem 0rem;
   padding-bottom: 1rem;
   box-sizing: content-box;
 
@@ -81,6 +84,7 @@ const SContent = styled.textarea`
 function PostUpload() {
   const [tag, setTags] = useState('');
   const [tagList, setTagList] = useState([]);
+  const [tagColor, setTagColor] = useState('');
   const imageInput = useRef();
   const navigate = useNavigate();
 
@@ -88,13 +92,29 @@ function PostUpload() {
     setTags(e.target.value);
   };
 
+  const getTagColors = () => {
+    const colors = [
+      '#9EB8EB',
+      '#E8BAB3',
+      '#DFD3C3',
+      '#CCDEC1',
+      '#D1AEC0',
+      '#9ADECE',
+      '#CEDEB4',
+    ];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    return randomColor;
+  };
+
   const handleTagPush = (e) => {
     if (e.nativeEvent.isComposing) {
       return;
     }
 
-    if (e.key === 'Enter' && tagList.length < 3) {
-      setTagList([...tagList, tag]);
+    if (e.key === 'Enter') {
+      setTagColor(getTagColors());
+      setTagList([...tagList, `#${tag}`]);
       setTags('');
     }
   };
@@ -118,11 +138,13 @@ function PostUpload() {
             onChange={handleInputChange}
             onKeyDown={handleTagPush}
             maxLength="10"
-            placeholder="#장소 #위치 #카테고리 (최대 3개)"
+            placeholder="#장소 #위치 #카테고리"
           />
           <STagList>
             {tagList.map((tags) => (
-              <STagItem key={Math.random()}>{tags}</STagItem>
+              <STagItem key={Math.random()} tagColor={tagColor}>
+                {tags}
+              </STagItem>
             ))}
           </STagList>
         </STagContainer>
