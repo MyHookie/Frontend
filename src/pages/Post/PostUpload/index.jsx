@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
 const SContainer = styled.div`
@@ -50,17 +50,32 @@ const STagItem = styled.li`
 `;
 
 const SImageContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+
   height: 10.4rem;
   padding-bottom: 1rem;
   box-sizing: content-box;
 
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+
+  gap: 1rem;
+
+  img {
+    width: 10.4rem;
+    border-radius: 1.5rem;
+    object-fit: cover;
+
+    border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  }
 `;
 
 const SImageInput = styled.div`
   height: 100%;
   width: 10.4rem;
 
+  flex: 0 0 auto;
   font-size: 3.6rem;
   display: flex;
   align-items: center;
@@ -78,7 +93,8 @@ const SContent = styled.textarea`
   line-height: 1.8rem;
   resize: none;
 
-  padding: 1rem;
+  margin-top: 2rem;
+  padding: 0rem 1rem;
 `;
 
 function PostUpload() {
@@ -87,6 +103,19 @@ function PostUpload() {
   const [tagColor, setTagColor] = useState('');
   const imageInput = useRef();
   const navigate = useNavigate();
+
+  const [imageSrc, setImageSrc] = useState([]);
+
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileBlob);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc([...imageSrc, reader.result]);
+        resolve();
+      };
+    });
+  };
 
   const handleInputChange = (e) => {
     setTags(e.target.value);
@@ -154,10 +183,13 @@ function PostUpload() {
             <input
               ref={imageInput}
               type="file"
-              accept="image/jpg, image/jpeg, image/png"
+              accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
               multiple
               style={{ display: 'none' }}
+              onChange={(e) => encodeFileToBase64(e.target.files[0])}
             />
+            {imageSrc &&
+              imageSrc.map((src) => <img src={src} alt="미리보기 이미지" />)}
           </SImageContainer>
           <SContent type="text" placeholder="후기를 입력해주세요!" />
         </form>
