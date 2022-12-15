@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import BaseHeader from '../../../components/common/BaseHeader';
+import BottomSheet from '../../../components/Modal/BottomSheet';
+import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 import PostItem from '../../../components/Post/PostItem';
 import dummyList from '../../../components/Post/dummyList';
 import CommentItem from '../../../components/Comment/CommentItem';
@@ -10,8 +12,6 @@ import { IR } from '../../../styles/Util';
 
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
-import BottomSheet from '../../../components/Modal/BottomSheet';
-import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 
 const STitle = styled.h2`
   ${IR}
