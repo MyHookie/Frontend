@@ -43,6 +43,7 @@ const Input = styled.input`
 `;
 
 const WarningMessage = styled.p`
+  position: absolute;
   color: ${({ theme }) => theme.color.RED};
   margin-top: 0.5rem;
 `;

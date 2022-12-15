@@ -21,13 +21,17 @@ const FormContainer = styled.form`
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 3.5rem;
+`;
+
+const SignUpButton = styled(Button)`
+  margin-top: 1.5rem;
 `;
 
 function SignUp() {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  const goToWelcomePage = () => {
     navigate('/welcome');
   };
 
@@ -120,7 +124,7 @@ function SignUp() {
 
   return (
     <SContainer>
-      <Title leftIcon={leftIcon} handleButtonClick={handleButtonClick}>
+      <Title leftIcon={leftIcon} handleButtonClick={goToWelcomePage}>
         이메일로 회원가입
       </Title>
       <FormContainer>
@@ -162,7 +166,7 @@ function SignUp() {
           inputValue={checkPwValue}
           warningMsg={checkPwWarningMsg}
         />
-        <Button
+        <SignUpButton
           text="회원가입"
           buttonStyle={LARGE_BUTTON}
           disabled={buttonNotAllow}
