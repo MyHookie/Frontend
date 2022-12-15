@@ -64,7 +64,7 @@ function SignUp() {
   useEffect(() => {
     const EMAIL_REGEX =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const PW_REGEX = /^[a-zA-Z0-9]{6,16}$/;
+    const PW_REGEX = /^[a-zA-Z0-9]{8,}$/;
 
     if (EMAIL_REGEX.test(signUpEmailValue)) {
       setEmailValid(true);
@@ -77,7 +77,9 @@ function SignUp() {
       setPasswordValid(true);
     } else {
       setPasswordValid(false);
-      setPwWarningMsg('* 대,소문자, 숫자를 포함하여 6~16자 입력해주세요.');
+      setPwWarningMsg(
+        '* 비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 합니다.'
+      );
     }
 
     if (signUpPasswordValue === checkPwValue) {
@@ -109,7 +111,7 @@ function SignUp() {
         if (res.data.message === '이미 가입된 이메일 주소 입니다.') {
           setIsUser(true);
           setEmailValid(false);
-          setEmailWarningMsg('* 이미 가입된 이메일 주소입니다.');
+          setEmailWarningMsg('* 이미 가입된 이메일입니다.');
         }
 
         if (res.data.message === '사용 가능한 이메일 입니다.') {
@@ -133,7 +135,7 @@ function SignUp() {
           label="이메일"
           inputProps={{
             type: 'email',
-            placeholder: '이메일 주소를 입력해주세요.',
+            placeholder: '이메일을 입력해주세요.',
           }}
           handleSignUpState={handleEmailValue}
           signUpValid={emailValid}
@@ -158,7 +160,7 @@ function SignUp() {
           label="비밀번호 확인"
           inputProps={{
             type: 'password',
-            placeholder: '비밀번호를 한번 더 입력해주세요.',
+            placeholder: '확인을 위해 비밀번호를 한번 더 입력해주세요.',
             autoComplete: 'off',
           }}
           handleSignUpState={handleCheckPwValue}
