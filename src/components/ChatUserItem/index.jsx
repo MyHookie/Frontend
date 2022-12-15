@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { slEllipsis } from '../../styles/Util';
 
 const SContent = styled.div`
@@ -55,7 +54,7 @@ const SDate = styled.p`
   margin-top: 2.5rem;
 `;
 
-function UserItem({ username, text, image, date, isActive }) {
+function ChatUserItem({ username, text, image, date, isActive }) {
   return (
     <SContent>
       <SImg src={image} alt="프로필 이미지" />
@@ -75,4 +74,4 @@ function UserItem({ username, text, image, date, isActive }) {
   );
 }
 
-export default UserItem;
+export default ChatUserItem;

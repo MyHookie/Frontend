@@ -6,7 +6,7 @@ import BaseHeader from '../../components/common/BaseHeader';
 import leftIcon from '../../assets/icon/icon-arrow-left.png';
 import rightIcon from '../../assets/icon/s-icon-more-vertical.png';
 import profile from '../../assets/basic-profile_small.png';
-import UserItem from '../../components/UserItem';
+import ChatUserItem from '../../components/ChatUserItem';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 
@@ -47,34 +47,33 @@ function Chat() {
         </BottomSheet>
       )}
       <SContainer onClick={usernameClick}>
-        <UserItem
+        <ChatUserItem
           username="유저 닉네임"
           text="이곳에는 가장 최근 채팅 내용이 들어갑니당"
           image={profile}
           date={DummyDate}
           isActive
         />
-        <UserItem
+        <ChatUserItem
           username="예를들면 애월읍 위니브 감귤농장"
           text="이곳에는 가장 최근 채팅 내용이 들어갑니당"
           image={profile}
           date={DummyDate}
           isActive
         />
-        <UserItem
+        <ChatUserItem
           username="애월읍 위니브 감귤농장2"
           text="이곳에는 가장 최근 채팅 내용이 들어갑니당"
           image={profile}
           date={DummyDate}
         />
-        <UserItem
+        <ChatUserItem
           username="애월읍 위니브 감귤농장3"
           text="이곳에는 가장 최근 채팅 내용이 들어갑니당"
           image={profile}
           date={DummyDate}
         />
       </SContainer>
-
       <Navigation />
     </div>
   );
