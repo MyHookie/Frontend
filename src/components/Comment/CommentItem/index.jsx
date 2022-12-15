@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import BottomSheet from '../../Modal/BottomSheet';
+import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
@@ -36,7 +38,7 @@ const SProfileImg = styled.img`
   width: 3.6rem;
 `;
 
-const SVerticalImg = styled.img`
+const SVerticalButton = styled.button`
   width: 2rem;
 `;
 
@@ -46,6 +48,13 @@ const SComments = styled.p`
 `;
 
 function CommentItem() {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const handleBottomSheetOpen = (e) => {
+    e.stopPropagation();
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
   return (
     <SContents>
       <SCommentsInfo>
@@ -54,9 +63,16 @@ function CommentItem() {
           userId
           <SCommentTime>5분 전</SCommentTime>
         </SUserInfo>
-        <button type="button">
-          <SVerticalImg src={verticalIcon} alt="댓글 설정 버튼" />
-        </button>
+        <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
+          <img src={verticalIcon} alt="댓글 설정 버튼" />
+        </SVerticalButton>
+        {isBottomSheetOpen && (
+          <BottomSheet handleClose={handleBottomSheetOpen}>
+            {/* 로그인 한 경우(내 댓글인 경우) => 삭제 아니면 신고하기 */}
+            <BottomSheetContent text="신고하기" />
+            <BottomSheetContent text="신고하기" />
+          </BottomSheet>
+        )}
       </SCommentsInfo>
       <SComments>comments</SComments>
     </SContents>
