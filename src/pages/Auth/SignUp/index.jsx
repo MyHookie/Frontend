@@ -107,6 +107,10 @@ function SignUp() {
           setEmailValid(false);
           setEmailWarningMsg('* 이미 가입된 이메일 주소입니다.');
         }
+
+        if (res.data.message === '사용 가능한 이메일 입니다.') {
+          navigate('/profile');
+        }
       } catch (error) {
         console.log(error);
       }
