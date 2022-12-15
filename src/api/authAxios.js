@@ -1,5 +1,7 @@
 import axios from 'axios';
 
-export const authAxios = axios.create({
+const authAxios = axios.create({
   baseURL: 'https://mandarin.api.weniv.co.kr/user',
 });
+
+export default authAxios;
