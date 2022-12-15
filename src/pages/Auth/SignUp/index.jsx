@@ -43,6 +43,8 @@ function SignUp() {
   const [pwWarningMsg, setPwWarningMsg] = useState('');
   const [checkPwWarningMsg, setCheckPwWarningMsg] = useState('');
 
+  const [buttonNotAllow, setButtonNotAllow] = useState(true);
+
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
   };
@@ -79,6 +81,13 @@ function SignUp() {
       setCheckPwWarningMsg('* 비밀번호가 일치하지 않습니다.');
     }
   }, [signUpEmailValue, signUpPasswordValue, checkPwValue]);
+
+  useEffect(() => {
+    if (emailValid && passwordValid && checkPwValid) {
+      return setButtonNotAllow(false);
+    }
+    return setButtonNotAllow(true);
+  }, [emailValid, passwordValid, checkPwValid]);
 
   return (
     <SContainer>
@@ -124,7 +133,11 @@ function SignUp() {
           inputValue={checkPwValue}
           warningMsg={checkPwWarningMsg}
         />
-        <Button text="회원가입" buttonStyle={LARGE_BUTTON} disabled />
+        <Button
+          text="회원가입"
+          buttonStyle={LARGE_BUTTON}
+          disabled={buttonNotAllow}
+        />
       </FormContainer>
     </SContainer>
   );
