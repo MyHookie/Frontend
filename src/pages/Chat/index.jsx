@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../../components/common/Navigation';
@@ -7,6 +7,8 @@ import leftIcon from '../../assets/icon/icon-arrow-left.png';
 import rightIcon from '../../assets/icon/s-icon-more-vertical.png';
 import profile from '../../assets/basic-profile_small.png';
 import UserItem from '../../components/UserItem';
+import BottomSheet from '../../components/Modal/BottomSheet';
+import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 
 const SContainer = styled.div`
   padding: 2.4rem 1.6rem;
@@ -20,13 +22,27 @@ function Chat() {
     navigate(`/home`);
   };
 
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const handleBottomSheetOpen = (e) => {
+    e.stopPropagation();
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
   return (
     <div>
       <BaseHeader
         leftIcon={leftIcon}
         rightIcon={rightIcon}
         leftClick={leftClick}
+        rightClick={handleBottomSheetOpen}
       />
+      {isBottomSheetOpen && (
+        <BottomSheet handleClose={handleBottomSheetOpen}>
+          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
+          <BottomSheetContent text="편집" />
+          <BottomSheetContent text="채팅방 정렬" />
+        </BottomSheet>
+      )}
       <SContainer>
         <UserItem
           username="유저 닉네임"
@@ -55,6 +71,7 @@ function Chat() {
           date={DummyDate}
         />
       </SContainer>
+
       <Navigation />
     </div>
   );
