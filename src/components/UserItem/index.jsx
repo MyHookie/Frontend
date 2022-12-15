@@ -14,6 +14,21 @@ const SUserInfo = styled.div`
   margin: 0 1.2rem;
 `;
 
+const SUserInfoActive = styled.div`
+  width: 65%;
+  margin: 0 1.2rem;
+  &::before {
+    content: '';
+    z-index: 99;
+    position: absolute;
+    left: 1.6rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+    border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  }
+`;
+
 const SImg = styled.img`
   position: relative;
   width: 4.2rem;
@@ -40,14 +55,21 @@ const SDate = styled.p`
   margin-top: 2.5rem;
 `;
 
-function UserItem({ username, text, image, date }) {
+function UserItem({ username, text, image, date, isActive }) {
   return (
     <SContent>
       <SImg src={image} alt="프로필 이미지" />
-      <SUserInfo>
-        <SUserId>{username}</SUserId>
-        <SText>{text}</SText>
-      </SUserInfo>
+      {isActive ? (
+        <SUserInfoActive>
+          <SUserId>{username}</SUserId>
+          <SText>{text}</SText>
+        </SUserInfoActive>
+      ) : (
+        <SUserInfo>
+          <SUserId>{username}</SUserId>
+          <SText>{text}</SText>
+        </SUserInfo>
+      )}
       {date && <SDate>{date}</SDate>}
     </SContent>
   );
