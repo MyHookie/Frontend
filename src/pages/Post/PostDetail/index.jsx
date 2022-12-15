@@ -16,7 +16,7 @@ const STitle = styled.h2`
 `;
 
 const SContents = styled.section`
-  height: 110vh;
+  height: 115vh;
   font-size: 1.4rem;
 `;
 
