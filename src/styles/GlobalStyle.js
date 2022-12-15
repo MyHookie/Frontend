@@ -82,6 +82,10 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none;
     resize: none; 
   }
+
+  li {
+    list-style: none;
+  }
 `;
 
 export default GlobalStyle;
