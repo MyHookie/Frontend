@@ -15,7 +15,7 @@ function checkValid(signUpValid, inputValue) {
   }
 
   return css`
-    border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+    border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
   `;
 }
 
