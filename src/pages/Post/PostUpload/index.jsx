@@ -111,6 +111,38 @@ function PostUpload() {
   const [imageFile, setImageFile] = useState([]);
   const imageInput = useRef();
 
+  const fetchImage = async (images, index) => {
+    const formData = new FormData();
+    formData.append('image', images[index]);
+    try {
+      const res = await axios.post(
+        `https://mandarin.api.weniv.co.kr/image/uploadfile`,
+        formData
+      );
+      return res.data.filename;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const createPost = async (e) => {
+    e.preventDefault();
+    const promiseImageArray = [];
+
+    for (let index = 0; index < imageFile.length; index += 1) {
+      promiseImageArray.push(fetchImage(imageFile, index));
+    }
+
+    const imageUrls = await Promise.all(promiseImageArray);
+    console.log(imageUrls.join(', '));
+
+    const contents = JSON.stringify({
+      tags: tagList,
+      content,
+    });
+    console.log(contents);
+  };
+
   const handleImagePreview = (e) => {
     const fileArray = e.target.files;
     const files = [];
@@ -179,7 +211,7 @@ function PostUpload() {
 
   return (
     <>
-      <ConfirmHeader leftClick={goBackPage} />
+      <ConfirmHeader leftClick={goBackPage} rightClick={createPost} />
       <SContainer>
         <STagContainer>
           <STagInput
