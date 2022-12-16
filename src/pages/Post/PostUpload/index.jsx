@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { render } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
@@ -103,36 +103,37 @@ function PostUpload() {
   const [tag, setTags] = useState('');
   const [tagList, setTagList] = useState([]);
   const [tagColor, setTagColor] = useState('');
-  const imageInput = useRef();
+  const [content, setContent] = useState('');
   const navigate = useNavigate();
 
-  const [imageSrc, setImageSrc] = useState([]);
+  const [base64Image, setBase64Image] = useState([]);
+  const [imageFile, setImageFile] = useState([]);
+  const imageInput = useRef();
 
   const handleImagePreview = (e) => {
     const fileArray = e.target.files;
     const files = [];
 
     if (fileArray.length > 3) {
+      alert('이미지는 한번에 3개까지만 추가할 수 있습니다.');
       return;
     }
+
+    setImageFile([...imageFile, ...fileArray]);
 
     for (let i = 0; i < fileArray.length; i += 1) {
       const reader = new FileReader();
 
       reader.onload = () => {
         files.push(reader.result);
-        setImageSrc([...imageSrc, ...files]);
+        setBase64Image([...base64Image, ...files]);
       };
 
       reader.readAsDataURL(fileArray[i]);
     }
   };
 
-  useEffect(() => {
-    console.log(imageSrc);
-  }, [imageSrc]);
-
-  const handleInputChange = (e) => {
+  const handleTagChange = (e) => {
     setTags(e.target.value);
   };
 
@@ -167,6 +168,10 @@ function PostUpload() {
     imageInput.current.click();
   };
 
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
   const goBackPage = () => {
     navigate(-1);
   };
@@ -179,7 +184,7 @@ function PostUpload() {
           <STagInput
             type="text"
             value={tag}
-            onChange={handleInputChange}
+            onChange={handleTagChange}
             onKeyDown={handleTagPush}
             maxLength="10"
             placeholder="#장소 #위치 #카테고리"
@@ -203,10 +208,15 @@ function PostUpload() {
               style={{ display: 'none' }}
               onChange={handleImagePreview}
             />
-            {imageSrc &&
-              imageSrc.map((src) => <img src={src} alt="미리보기 이미지" />)}
+            {base64Image &&
+              base64Image.map((src) => <img src={src} alt="미리보기 이미지" />)}
           </SImageContainer>
-          <SContent type="text" placeholder="후기를 입력해주세요!" />
+          <SContent
+            type="text"
+            placeholder="후기를 입력해주세요!"
+            value={content}
+            onChange={handleContentChange}
+          />
         </form>
       </SContainer>
     </>
