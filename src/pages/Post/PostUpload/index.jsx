@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
@@ -141,7 +141,31 @@ function PostUpload() {
       content,
     });
     console.log(contents);
+
+    // try {
+    //   const response = fetchPost(imageUrls, contents);
+    //   response.then(navigate(`/profile`));
+    // } catch (error) {
+    //   return error;
+    // }
   };
+
+  // const fetchPost = async (imageUrls, contents) {
+  //   await axios({
+  //     url: `https://mandarin.api.weniv.co.kr/post`,
+  //     method: 'post',
+  //     headers: {
+  //       Authorization: `Bearer ${userToken}`,
+  //       'Content-type': 'application/json',
+  //     },
+  //     data: {
+  //       post: {
+  //         content: contents,
+  //         image: imageUrls.join(', '),
+  //       },
+  //     },
+  //   });
+  // }
 
   const handleImagePreview = (e) => {
     const fileArray = e.target.files;
