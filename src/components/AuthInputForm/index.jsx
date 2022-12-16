@@ -2,20 +2,20 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 function checkValid(signUpValid, inputValue) {
-  if (inputValue.length === 0) {
+  if (inputValue?.length === 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
     `;
   }
 
-  if (!signUpValid && inputValue.length > 0) {
+  if (!signUpValid && inputValue?.length > 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.RED};
     `;
   }
 
   return css`
-    border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
+    border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   `;
 }
 
