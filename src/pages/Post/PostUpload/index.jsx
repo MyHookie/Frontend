@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import axios from 'axios';
 import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
@@ -191,7 +192,7 @@ function PostUpload() {
           />
           <STagList>
             {tagList.map((tags) => (
-              <STagItem key={Math.random()} tagColor={tagColor}>
+              <STagItem key={nanoid()} tagColor={tagColor}>
                 {tags}
               </STagItem>
             ))}
@@ -209,7 +210,9 @@ function PostUpload() {
               onChange={handleImagePreview}
             />
             {base64Image &&
-              base64Image.map((src) => <img src={src} alt="미리보기 이미지" />)}
+              base64Image.map((src) => (
+                <img key={nanoid()} src={src} alt="미리보기 이미지" />
+              ))}
           </SImageContainer>
           <SContent
             type="text"
