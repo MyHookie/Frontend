@@ -48,7 +48,7 @@ const WarningMessage = styled.p`
   margin-top: 0.5rem;
 `;
 
-function FormInput({
+function AuthInputForm({
   id,
   label,
   inputProps,
@@ -75,4 +75,4 @@ function FormInput({
   );
 }
 
-export default FormInput;
+export default AuthInputForm;
