@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import emailValidAxios from '../../../api/emailValidAxios';
 
 import Title from '../../../components/Title';
-import FormInput from '../../../components/FormInput';
+import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import { signUpEmail, signUpPassword } from '../../../atoms/auth';
@@ -130,7 +130,7 @@ function SignUp() {
         이메일로 회원가입
       </Title>
       <FormContainer>
-        <FormInput
+        <AuthInputForm
           id="email"
           label="이메일"
           inputProps={{
@@ -142,7 +142,7 @@ function SignUp() {
           inputValue={signUpEmailValue}
           warningMsg={emailWarningMsg}
         />
-        <FormInput
+        <AuthInputForm
           id="password"
           label="비밀번호"
           inputProps={{
@@ -155,7 +155,7 @@ function SignUp() {
           inputValue={signUpPasswordValue}
           warningMsg={pwWarningMsg}
         />
-        <FormInput
+        <AuthInputForm
           id="confirmPassword"
           label="비밀번호 확인"
           inputProps={{

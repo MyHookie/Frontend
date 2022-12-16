@@ -2,13 +2,13 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 function checkValid(signUpValid, inputValue) {
-  if (inputValue.length === 0) {
+  if (inputValue?.length === 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
     `;
   }
 
-  if (!signUpValid && inputValue.length > 0) {
+  if (!signUpValid && inputValue?.length > 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.RED};
     `;
@@ -48,7 +48,7 @@ const WarningMessage = styled.p`
   margin-top: 0.5rem;
 `;
 
-function FormInput({
+function AuthInputForm({
   id,
   label,
   inputProps,
@@ -75,4 +75,4 @@ function FormInput({
   );
 }
 
-export default FormInput;
+export default AuthInputForm;
