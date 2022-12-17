@@ -34,6 +34,9 @@ const SInputForm = styled.input`
   width: 100%;
   margin: 0 1.8rem;
   border-style: none;
+  &::placeholder {
+    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  }
 `;
 
 const SButton = styled.button`
