@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 function checkValid(signUpValid, inputValue) {
@@ -54,9 +55,11 @@ function AuthInputForm({
   inputProps,
   warningMsg,
   handleSignUpState,
+  handleLoginState,
   signUpValid,
   inputValue,
 }) {
+  const location = useLocation();
   return (
     <SContainer>
       <Label htmlFor={id}>{label}</Label>
@@ -65,8 +68,22 @@ function AuthInputForm({
         {...inputProps}
         inputValue={inputValue}
         signUpValid={signUpValid}
-        onChange={handleSignUpState}
-        onKeyDown={handleSignUpState}
+        onChange={(e) => {
+          if (location.pathname === '/signup') {
+            handleSignUpState(e);
+          }
+          if (location.pathname === '/login') {
+            handleLoginState(e);
+          }
+        }}
+        onKeyDown={(e) => {
+          if (location.pathname === '/signup') {
+            handleSignUpState(e);
+          }
+          if (location.pathname === '/login') {
+            handleLoginState(e);
+          }
+        }}
       />
       {!signUpValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>
