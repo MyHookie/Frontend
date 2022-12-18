@@ -6,19 +6,18 @@ import BottomSheet from '../../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 import PostItem from '../../../components/Post/PostItem';
 import dummyList from '../../../components/Post/dummyList';
-import CommentItem from '../../../components/Comment/CommentItem';
 import CommentInput from '../../../components/Comment/CommentInput';
 import { IR } from '../../../styles/Util';
 
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
+import CommentList from '../../../components/Comment/CommentList';
 
 const STitle = styled.h2`
   ${IR}
 `;
 
 const SContents = styled.section`
-  height: 115vh;
   font-size: 1.4rem;
 `;
 
@@ -29,6 +28,18 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
+  const [commentData, setCommentData] = useState([]);
+
+  const onCreateCommentData = (dataId, content, createdAt, author) => {
+    const newCommentData = {
+      dataId,
+      content,
+      createdAt,
+      author,
+    };
+    setCommentData([...commentData, newCommentData]);
+  };
+
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const handleBottomSheetOpen = (e) => {
@@ -54,7 +65,6 @@ function PostDetail() {
 
       <SContents>
         <STitle>게시물 상세 페이지</STitle>
-        {/* 현재 주소에서 유저 아이디만 잘라서 가져와 게시물 상세 페이지 보여주기 */}
         <PostItem
           key={dummyList[0].id}
           postId={dummyList[0].id}
@@ -68,10 +78,11 @@ function PostDetail() {
           detail
         />
         <SDividingLine />
-        <CommentItem />
+        {/* {console.log(commentData)} */}
+        {commentData.length !== 0 && <CommentList commentData={commentData} />}
       </SContents>
 
-      <CommentInput />
+      <CommentInput onCreateCommentData={onCreateCommentData} />
     </>
   );
 }
