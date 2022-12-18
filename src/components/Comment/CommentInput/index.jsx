@@ -11,9 +11,7 @@ const SContents = styled.section`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-
   padding: 1.25rem 1.6rem;
-
   background-color: ${({ theme }) => theme.color.WHITE};
   border-top: 0.05rem solid ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
@@ -41,7 +39,7 @@ const SInputForm = styled.input`
 
 const SButton = styled.button`
   width: 2.5rem;
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   white-space: nowrap;
   color: ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
