@@ -64,7 +64,7 @@ function SignUp() {
   useEffect(() => {
     const EMAIL_REGEX =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    const PW_REGEX = /^[a-zA-Z0-9]{8,}$/;
+    const PW_REGEX = /^[a-zA-Z0-9]{6,}$/;
 
     if (EMAIL_REGEX.test(signUpEmailValue)) {
       setEmailValid(true);
@@ -78,7 +78,7 @@ function SignUp() {
     } else {
       setPasswordValid(false);
       setPwWarningMsg(
-        '* 비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 합니다.'
+        '* 비밀번호는 영문, 숫자를 포함하여 6자 이상이어야 합니다.'
       );
     }
 
