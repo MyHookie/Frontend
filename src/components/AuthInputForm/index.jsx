@@ -60,6 +60,16 @@ function AuthInputForm({
   inputValue,
 }) {
   const location = useLocation();
+
+  const setState = (e) => {
+    if (location.pathname === '/signup') {
+      handleSignUpState(e);
+    }
+    if (location.pathname === '/login') {
+      handleLoginState(e);
+    }
+  };
+
   return (
     <SContainer>
       <Label htmlFor={id}>{label}</Label>
@@ -68,22 +78,8 @@ function AuthInputForm({
         {...inputProps}
         inputValue={inputValue}
         signUpValid={signUpValid}
-        onChange={(e) => {
-          if (location.pathname === '/signup') {
-            handleSignUpState(e);
-          }
-          if (location.pathname === '/login') {
-            handleLoginState(e);
-          }
-        }}
-        onKeyDown={(e) => {
-          if (location.pathname === '/signup') {
-            handleSignUpState(e);
-          }
-          if (location.pathname === '/login') {
-            handleLoginState(e);
-          }
-        }}
+        onChange={setState}
+        onKeyDown={setState}
       />
       {!signUpValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>
