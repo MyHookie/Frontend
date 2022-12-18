@@ -5,7 +5,7 @@ import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 import { IR } from '../../../styles/Util';
 
 const SContents = styled.section`
-  position: fixed;
+  position: sticky;
   bottom: 0;
   display: flex;
   width: 100%;
@@ -22,6 +22,7 @@ const STitle = styled.h2`
 
 const SProfileImg = styled.img`
   width: 3.6rem;
+  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
 `;
 
 const SLabel = styled.label`
@@ -44,19 +45,51 @@ const SButton = styled.button`
   color: ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
 
-function CommentInput({ id, getCommentData }) {
-  const [commentValue, setCommentvalue] = useState('');
+function CommentInput({ id, onCreateCommentData }) {
+  const [commentData, setCommentData] = useState({
+    dataId: 'test',
+    content: '',
+    createdAt: '방금 전',
+    author: {
+      id: 'testId',
+      username: 'test',
+      accountname: 'test',
+      intro: 'Hello world!',
+      image: 'https://picsum.photos/250/250',
+      isfollow: true,
+    },
+  });
 
-  const handleCommentValue = (e) => {
-    setCommentvalue(e.target.value);
+  const handleCommentData = (e) => {
+    setCommentData({
+      ...commentData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handlePostClick = () => {
-    setCommentvalue('');
-    if (commentValue.length > 0) {
-      getCommentData(commentValue);
-    } else {
+  const handleCommentSubmit = () => {
+    if (commentData.content.length < 1) {
       alert('댓글을 입력해주세요.');
+    } else {
+      onCreateCommentData(
+        commentData.dataId,
+        commentData.content,
+        commentData.createdAt,
+        commentData.author
+      );
+      setCommentData({
+        dataId: 'test',
+        content: '',
+        createdAt: '방금 전',
+        author: {
+          id: 'testId',
+          username: 'test',
+          accountname: 'test',
+          intro: 'Hello world!',
+          image: 'https://picsum.photos/250/250',
+          isfollow: true,
+        },
+      });
     }
   };
 
@@ -68,10 +101,11 @@ function CommentInput({ id, getCommentData }) {
       <SInputForm
         id={id}
         placeholder="댓글 입력하기..."
-        value={commentValue}
-        onChange={handleCommentValue}
+        name="content"
+        value={commentData.content}
+        onChange={handleCommentData}
       />
-      <SButton type="button" onClick={handlePostClick}>
+      <SButton type="button" onClick={handleCommentSubmit}>
         게시
       </SButton>
     </SContents>
