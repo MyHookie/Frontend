@@ -9,3 +9,13 @@ export const signUpPassword = atom({
   key: 'signUpPassword',
   default: '',
 });
+
+export const userEmail = atom({
+  key: 'userEmail',
+  default: '',
+});
+
+export const userPassword = atom({
+  key: 'userPassword',
+  default: '',
+});

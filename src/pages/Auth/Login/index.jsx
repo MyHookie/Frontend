@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import Title from '../../../components/Title';
+import { userEmail, userPassword } from '../../../atoms/auth';
+import authAxios from '../../../api/authAxios';
 
 const SContainer = styled.div`
   padding: 3.4rem;
@@ -34,6 +37,31 @@ const SLink = styled(Link)`
 `;
 
 function Login() {
+  const [loginEmail, setLoginEmail] = useRecoilState(userEmail);
+  const [loginPassword, setLoginPassword] = useRecoilState(userPassword);
+
+  const handleLoginEmail = (e) => {
+    setLoginEmail(e.target.value);
+  };
+  const handleLoginPassword = (e) => {
+    setLoginPassword(e.target.value);
+  };
+
+  const handleLoginClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await authAxios.post('/login', {
+        user: {
+          email: loginEmail,
+          password: loginPassword,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <SContainer>
       <Title>로그인</Title>
@@ -45,6 +73,7 @@ function Login() {
             type: 'email',
             placeholder: '이메일을 입력해주세요',
           }}
+          handleLoginState={handleLoginEmail}
         />
         <AuthInputForm
           id="password"
@@ -53,8 +82,13 @@ function Login() {
             type: 'password',
             placeholder: '비밀번호를 입력해주세요',
           }}
+          handleLoginState={handleLoginPassword}
         />
-        <LoginButton text="로그인" buttonStyle={LARGE_BUTTON} />
+        <LoginButton
+          text="로그인"
+          buttonStyle={LARGE_BUTTON}
+          onClick={handleLoginClick}
+        />
       </SFormContainer>
       <SLink to="/signup">이메일로 회원가입</SLink>
     </SContainer>
