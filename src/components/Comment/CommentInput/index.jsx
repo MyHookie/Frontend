@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
@@ -44,14 +44,36 @@ const SButton = styled.button`
   color: ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
 
-function CommentInput({ id }) {
+function CommentInput({ id, getCommentData }) {
+  const [commentValue, setCommentvalue] = useState('');
+
+  const handleCommentValue = (e) => {
+    setCommentvalue(e.target.value);
+  };
+
+  const handlePostClick = () => {
+    setCommentvalue('');
+    if (commentValue.length > 0) {
+      getCommentData(commentValue);
+    } else {
+      alert('댓글을 입력해주세요.');
+    }
+  };
+
   return (
     <SContents>
       <STitle>댓글 입력</STitle>
       <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
       <SLabel htmlFor={id} />
-      <SInputForm id={id} placeholder="댓글 입력하기..." />
-      <SButton type="button">게시</SButton>
+      <SInputForm
+        id={id}
+        placeholder="댓글 입력하기..."
+        value={commentValue}
+        onChange={handleCommentValue}
+      />
+      <SButton type="button" onClick={handlePostClick}>
+        게시
+      </SButton>
     </SContents>
   );
 }
