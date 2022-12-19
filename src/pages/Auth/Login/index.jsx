@@ -52,7 +52,11 @@ function Login() {
 
   useEffect(() => {
     if (loginEmail && loginPassword) {
-      return setButtonNotAllow(false);
+      return (
+        setButtonNotAllow(false) ||
+        setIsCorrect(true) ||
+        setLoginWarningMsg(null)
+      );
     }
     return setButtonNotAllow(true);
   }, [loginEmail, loginPassword]);
