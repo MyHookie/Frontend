@@ -4,11 +4,9 @@ import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
-import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 
 const SContents = styled.div`
-  height: 5.8rem;
-  margin: 0 1.6rem 1.6rem;
+  margin: 0 0 1.6rem;
 `;
 
 const SCommentsInfo = styled.div`
@@ -36,6 +34,7 @@ const SCommentTime = styled.span`
 
 const SProfileImg = styled.img`
   width: 3.6rem;
+  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
 `;
 
 const SVerticalButton = styled.button`
@@ -47,7 +46,7 @@ const SComments = styled.p`
   font-size: 1.4rem;
 `;
 
-function CommentItem() {
+function CommentItem({ content, createdAt, author }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const handleBottomSheetOpen = (e) => {
@@ -58,10 +57,10 @@ function CommentItem() {
   return (
     <SContents>
       <SCommentsInfo>
-        <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
+        <SProfileImg src={author.image} alt="프로필 이미지" />
         <SUserInfo>
-          userId
-          <SCommentTime>5분 전</SCommentTime>
+          test
+          <SCommentTime>{createdAt}</SCommentTime>
         </SUserInfo>
         <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
           <img src={verticalIcon} alt="댓글 설정 버튼" />
@@ -74,7 +73,7 @@ function CommentItem() {
           </BottomSheet>
         )}
       </SCommentsInfo>
-      <SComments>comments</SComments>
+      <SComments>{content}</SComments>
     </SContents>
   );
 }
