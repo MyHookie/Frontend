@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 import BaseHeader from '../../components/common/BaseHeader';
 import Navigation from '../../components/common/Navigation';
 
@@ -7,11 +9,9 @@ import searchIcon from '../../assets/icon/icon-search.png';
 import logoGrey from '../../assets/logo_grey.png';
 import Button from '../../components/common/Button';
 import { LARGE_BUTTON } from '../../constants/buttonStyle';
-import dummyList from '../../components/Post/dummyList';
 import PostList from '../../components/Post/PostList';
 import UserSearch from '../../components/UserSearch';
-import SearchHeader from '../../components/common/SearchHeader';
-import HookieImage from '../../assets/Hookie.png';
+import hookieImage from '../../assets/Hookie.png';
 
 const SContainer = styled.main`
   display: flex;
@@ -45,9 +45,24 @@ const SEmptyContent = styled.p`
   margin-bottom: 2rem;
 `;
 
+const fetchPost = async () => {
+  const { data } = await axios.get(
+    'https://mandarin.api.weniv.co.kr/post/ddd112/userpost',
+    {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODAxZTI2MTdhZTY2NjU4MWJlNzgyOCIsImV4cCI6MTY3NjYyNDE5OCwiaWF0IjoxNjcxNDQwMTk4fQ.toouIyOrMna7FHJ9_uRTIalbaeaSNJGSTnB3F-aA_Yg`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
+  return data;
+};
+
 function Home() {
-  // right icon 클릭 => input창과 왼쪽 버튼을 갖는 header 생성 => 아래는 빈 흰바탕으로 채움
   const [isSearch, setIsSearch] = useState(false);
+
+  const { data, isLoading, isError } = useQuery('postList', fetchPost);
+  console.log(data, isError, isLoading);
 
   const handleSearchActive = () => {
     setIsSearch(!isSearch);
@@ -56,31 +71,34 @@ function Home() {
   return (
     <>
       {!isSearch ? (
-        <BaseHeader
-          image={HookieImage}
-          rightIcon={searchIcon}
-          rightClick={handleSearchActive}
-          rightAlt="검색창 이동"
-        />
-      ) : (
-        <SearchHeader leftClick={handleSearchActive} />
-      )}
-      {!isSearch ? (
-        <SContainer>
-          {dummyList.length > 0 ? (
-            <PostList />
-          ) : (
-            <SEmptyContainer>
-              <SEmptyImage src={logoGrey} alt="로고 이미지" />
-              <SEmptyContent>유저를 검색해 팔로우 해보세요!</SEmptyContent>
-              <Button text="검색하기" buttonStyle={LARGE_BUTTON} />
-            </SEmptyContainer>
-          )}
-        </SContainer>
-      ) : (
-        <UserSearch />
-      )}
+        <>
+          <BaseHeader
+            image={hookieImage}
+            rightIcon={searchIcon}
+            rightClick={handleSearchActive}
+            rightAlt="검색창 이동"
+          />
 
+          <SContainer>
+            {isLoading && <div>로딩중....</div>}
+            {data.post.length > 0 ? (
+              <PostList />
+            ) : (
+              <SEmptyContainer>
+                <SEmptyImage src={logoGrey} alt="로고 이미지" />
+                <SEmptyContent>유저를 검색해 팔로우 해보세요!</SEmptyContent>
+                <Button
+                  text="검색하기"
+                  buttonStyle={LARGE_BUTTON}
+                  onClick={handleSearchActive}
+                />
+              </SEmptyContainer>
+            )}
+          </SContainer>
+        </>
+      ) : (
+        <UserSearch handleSearchActive={handleSearchActive} />
+      )}
       <Navigation />
     </>
   );
