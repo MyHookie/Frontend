@@ -39,8 +39,7 @@ const SLink = styled(Link)`
 function Login() {
   const [loginEmail, setLoginEmail] = useRecoilState(userEmail);
   const [loginPassword, setLoginPassword] = useRecoilState(userPassword);
-  const [isEmail, setIsEmail] = useState(false);
-  const [isWrong, setIsWrong] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(true);
   const [loginWarningMsg, setLoginWarningMsg] = useState('');
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
@@ -62,15 +61,6 @@ function Login() {
     async (e) => {
       e.preventDefault();
 
-      // const EMAIL_REGEX =
-      //   /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-      // if (EMAIL_REGEX.test(loginEmail)) {
-      //   setIsEmail(true);
-      // } else {
-      //   setIsEmail(false);
-      //   setLoginWarningMsg('* 이메일 형식이 올바르지 않습니다.');
-      // }
-
       try {
         const res = await authAxios.post('/login', {
           user: {
@@ -84,10 +74,10 @@ function Login() {
         }
 
         if (res.data.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
-          setIsWrong(true);
+          setIsCorrect(false);
           setLoginWarningMsg('* 이메일 또는 비밀번호가 일치하지 않습니다.');
         } else {
-          setIsWrong(false);
+          setIsCorrect(true);
         }
       } catch (error) {
         console.log(error);
@@ -108,7 +98,7 @@ function Login() {
             placeholder: '이메일을 입력해주세요',
           }}
           handleLoginState={handleLoginEmail}
-          isWrong={isWrong}
+          isCorrect={isCorrect}
           inputValue={loginEmail}
           warningMsg={loginWarningMsg}
         />
@@ -121,6 +111,7 @@ function Login() {
           }}
           handleLoginState={handleLoginPassword}
           inputValue={loginPassword}
+          isCorrect={isCorrect}
         />
         <LoginButton
           text="로그인"

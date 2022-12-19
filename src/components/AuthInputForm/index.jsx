@@ -2,14 +2,14 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-function checkValid(signUpValid, inputValue, isWrong) {
+function checkValid(signUpValid, inputValue, isCorrect) {
   if (inputValue?.length === 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
     `;
   }
 
-  if (!signUpValid || inputValue?.length > 0 || isWrong) {
+  if (!signUpValid && inputValue?.length > 0 && !isCorrect) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.RED};
     `;
@@ -19,17 +19,6 @@ function checkValid(signUpValid, inputValue, isWrong) {
     border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
   `;
 }
-
-// function loginValid(isWrong) {
-//   if (isWrong) {
-//     return css`
-//       border: 1px solid ${({ theme }) => theme.color.RED};
-//     `;
-//   }
-//   return css`
-//     border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-//   `;
-// }
 
 const SContainer = styled.div``;
 
@@ -51,9 +40,9 @@ const Input = styled.input`
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
 
-  ${({ signUpValid, inputValue }) => checkValid(signUpValid, inputValue)}
+  ${({ signUpValid, inputValue, isCorrect }) =>
+    checkValid(signUpValid, inputValue, isCorrect)}
 `;
-/* ${({ isWrong }) => loginValid(isWrong)} */
 
 const WarningMessage = styled.p`
   position: absolute;
@@ -70,7 +59,7 @@ function AuthInputForm({
   handleLoginState,
   signUpValid,
   inputValue,
-  isWrong,
+  isCorrect,
 }) {
   const location = useLocation();
 
@@ -91,13 +80,14 @@ function AuthInputForm({
         {...inputProps}
         inputValue={inputValue}
         signUpValid={signUpValid}
+        isCorrect={isCorrect}
         onChange={setState}
         onKeyDown={setState}
       />
       {!signUpValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>
       )}
-      {isWrong && <WarningMessage>{warningMsg}</WarningMessage>}
+      {isCorrect && <WarningMessage>{warningMsg}</WarningMessage>}
     </SContainer>
   );
 }
