@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import BaseHeader from '../../../components/common/BaseHeader';
@@ -32,6 +33,12 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
+  const navigate = useNavigate();
+
+  const handleToHome = () => {
+    navigate('/home');
+  };
+
   const [commentData, setCommentData] = useState([]);
 
   const onCreateCommentData = (dataId, content, createdAt, author) => {
@@ -55,6 +62,7 @@ function PostDetail() {
     <SPostDetail>
       <BaseHeader
         leftIcon={arrowIcon}
+        leftClick={handleToHome}
         rightIcon={verticalIcon}
         rightClick={handleBottomSheetOpen}
         rightAlt="포스트 설정 버튼"
