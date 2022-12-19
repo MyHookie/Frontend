@@ -49,7 +49,6 @@ function SignUp() {
   const [checkPwWarningMsg, setCheckPwWarningMsg] = useState('');
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
-  const [isUser, setIsUser] = useState(false);
 
   const handleEmailValue = (e) => {
     setSignUpEmailValue(e.target.value);
@@ -109,7 +108,7 @@ function SignUp() {
         });
 
         if (res.data.message === '이미 가입된 이메일 주소 입니다.') {
-          setIsUser(true);
+          // setIsUser(true);
           setEmailValid(false);
           setEmailWarningMsg('* 이미 가입된 이메일입니다.');
         }
