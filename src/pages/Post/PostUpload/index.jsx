@@ -132,6 +132,23 @@ function PostUpload() {
     }
   };
 
+  const fetchPost = async (imageUrls, contents) => {
+    await axios({
+      url: `https://mandarin.api.weniv.co.kr/post`,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer (userToken 넣는 부분)`,
+        'Content-type': 'application/json',
+      },
+      data: {
+        post: {
+          content: contents,
+          image: imageUrls.join(', '),
+        },
+      },
+    });
+  };
+
   const createPost = async (e) => {
     e.preventDefault();
     const promiseImageArray = [];
@@ -141,38 +158,19 @@ function PostUpload() {
     }
 
     const imageUrls = await Promise.all(promiseImageArray);
-    console.log(imageUrls.join(', '));
 
     const contents = JSON.stringify({
       tags: tagList,
       content,
     });
-    console.log(contents);
 
-    // try {
-    //   const response = fetchPost(imageUrls, contents);
-    //   response.then(navigate(`/profile`));
-    // } catch (error) {
-    //   return error;
-    // }
+    try {
+      const response = fetchPost(imageUrls, contents);
+      return response.then(navigate(`/profile`));
+    } catch (error) {
+      return error;
+    }
   };
-
-  // const fetchPost = async (imageUrls, contents) {
-  //   await axios({
-  //     url: `https://mandarin.api.weniv.co.kr/post`,
-  //     method: 'post',
-  //     headers: {
-  //       Authorization: `Bearer ${userToken}`,
-  //       'Content-type': 'application/json',
-  //     },
-  //     data: {
-  //       post: {
-  //         content: contents,
-  //         image: imageUrls.join(', '),
-  //       },
-  //     },
-  //   });
-  // }
 
   const handleImagePreview = (e) => {
     const fileArray = e.target.files;
@@ -246,7 +244,6 @@ function PostUpload() {
             value={tag}
             onChange={handleTagChange}
             onKeyDown={handleTagPush}
-            maxLength="10"
             placeholder="#장소 #위치 #카테고리"
           />
           <STagList>
