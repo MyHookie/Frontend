@@ -5,7 +5,7 @@ import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 import { IR } from '../../../styles/Util';
 
 const SContents = styled.section`
-  position: sticky;
+  position: fixed;
   bottom: 0;
   display: flex;
   width: 100%;

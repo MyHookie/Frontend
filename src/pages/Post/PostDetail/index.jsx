@@ -13,12 +13,16 @@ import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import CommentList from '../../../components/Comment/CommentList';
 
-const STitle = styled.h2`
-  ${IR}
+const SPostDetail = styled.div`
+  padding-bottom: 5.8rem;
 `;
 
 const SContents = styled.section`
   font-size: 1.4rem;
+`;
+
+const STitle = styled.h2`
+  ${IR}
 `;
 
 const SDividingLine = styled.div`
@@ -48,7 +52,7 @@ function PostDetail() {
   };
 
   return (
-    <>
+    <SPostDetail>
       <BaseHeader
         leftIcon={arrowIcon}
         rightIcon={verticalIcon}
@@ -83,7 +87,7 @@ function PostDetail() {
       </SContents>
 
       <CommentInput onCreateCommentData={onCreateCommentData} />
-    </>
+    </SPostDetail>
   );
 }
 
