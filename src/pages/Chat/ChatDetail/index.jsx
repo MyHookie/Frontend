@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BaseHeader from '../../../components/common/BaseHeader';
-import MessageItem from '../../../components/MessageItem';
-import MessageItemYours from '../../../components/MessageItemYours';
+import MessageItem from '../../../Message/MessageItem';
+import MessageItemYours from '../../../Message/MessageItemYours';
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 import rightIcon from '../../../assets/icon/s-icon-more-vertical.png';
-import MessageInputBar from '../../../components/MessageInput';
+import MessageInputBar from '../../../Message/MessageInput';
 import BottomSheet from '../../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 
@@ -69,10 +69,10 @@ function ChatDetail() {
       )}
 
       <SMessageList>
-        <MessageItem text={dummyText.message1} time={dummyTime.time1} />
+        {/* <MessageItem text={dummyText.message1} time={dummyTime.time1} />
         <MessageItem img={dummyImg} time={dummyTime.time2} />
         <MessageItemYours text={dummyText.message3} time={dummyTime.time3} />
-        <MessageItemYours text={dummyText.message3} time={dummyTime.time3} />
+        <MessageItemYours text={dummyText.message3} time={dummyTime.time3} /> */}
         <MessageItemYours img={dummyImg} time={dummyTime.time3} />
       </SMessageList>
       <MessageInputBar />
