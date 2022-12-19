@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
@@ -41,6 +41,8 @@ function Login() {
   const [loginWarningMsg, setLoginWarningMsg] = useState('');
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
+  const navigate = useNavigate();
+
   const handleLoginEmail = (e) => {
     setLoginEmail(e.target.value);
   };
@@ -69,6 +71,7 @@ function Login() {
 
         if (!res.data.message) {
           console.log(res.data);
+          navigate('/home');
         }
 
         if (res.data.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
