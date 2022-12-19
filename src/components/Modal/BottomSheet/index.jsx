@@ -12,7 +12,7 @@ const ModalBackGround = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 
   left: 0px;
-  z-index: 120;
+  z-index: 110;
 `;
 
 const SBottomSheet = styled.div`
@@ -33,7 +33,7 @@ const SBottomSheet = styled.div`
   transform: translate(-50%);
 
   animation: fadeIn 0.5s;
-  z-index: 150;
+  z-index: 120;
 
   @keyframes fadeIn {
     from {

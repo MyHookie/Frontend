@@ -9,6 +9,7 @@ import commentIcon from '../../../assets/icon/icon-message-circle.png';
 import { multiEllipsis } from '../../../styles/Util';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
+import Dialog from '../../Modal/Dialog';
 
 const SPostItem = styled.li`
   position: relative;
@@ -144,10 +145,21 @@ function PostItem({
   detail,
 }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
     setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
+  const handleDialogOpen = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  const handlePostDelete = () => {
+    // post 삭제 로직 구현
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setIsDialogOpen(!isDialogOpen);
   };
 
   return (
@@ -201,9 +213,16 @@ function PostItem({
       {isBottomSheetOpen && (
         <BottomSheet handleClose={handleBottomSheetOpen}>
           {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
-          <BottomSheetContent text="신고하기" />
+          <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
           <BottomSheetContent text="신고하기" />
         </BottomSheet>
+      )}
+      {isDialogOpen && (
+        <Dialog
+          dialogText="게시물을 정말 삭제하시겠습니까?"
+          handleClose={handleDialogOpen}
+          handleSubmit={handlePostDelete}
+        />
       )}
     </>
   );
