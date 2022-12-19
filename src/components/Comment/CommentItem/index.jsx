@@ -41,10 +41,12 @@ const SVerticalButton = styled.button`
   width: 2rem;
 `;
 
-const SComments = styled.p`
+const SComments = styled.pre`
   margin: 0.4rem 4.8rem 0;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   word-break: break-all;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 `;
 
 function CommentItem({ content, createdAt, author }) {
