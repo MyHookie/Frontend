@@ -152,7 +152,13 @@ function PostItem({
     setIsBottomSheetOpen(!isBottomSheetOpen);
   };
 
-  const handleDialogOpen = (e) => {
+  const handleDialogOpen = () => {
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  const handlePostDelete = () => {
+    // post 삭제 로직 구현
+    setIsBottomSheetOpen(!isBottomSheetOpen);
     setIsDialogOpen(!isDialogOpen);
   };
 
@@ -211,7 +217,13 @@ function PostItem({
           <BottomSheetContent text="신고하기" />
         </BottomSheet>
       )}
-      {isDialogOpen && <Dialog />}
+      {isDialogOpen && (
+        <Dialog
+          dialogText="게시물을 정말 삭제하시겠습니까?"
+          handleClose={handleDialogOpen}
+          handleSubmit={handlePostDelete}
+        />
+      )}
     </>
   );
 }

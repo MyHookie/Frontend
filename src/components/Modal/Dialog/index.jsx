@@ -11,7 +11,7 @@ const ModalBackGround = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
 
-  z-index: 110;
+  z-index: 130;
 `;
 
 const SDialog = styled.div`
@@ -30,7 +30,7 @@ const SDialog = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
   transform: translate(-50%, -50%);
 
-  z-index: 120;
+  z-index: 140;
 `;
 
 const SDialogInfo = styled.p`
@@ -66,14 +66,14 @@ const SButton = styled.button`
   }
 `;
 
-function Dialog({ handleClose, handleSubmit }) {
+function Dialog({ handleClose, handleSubmit, dialogText }) {
   return (
     <>
       {createPortal(
         <>
           <ModalBackGround onClick={handleClose} />
           <SDialog>
-            <SDialogInfo>모달 내용</SDialogInfo>
+            <SDialogInfo>{dialogText}</SDialogInfo>
             <SButtonContainer>
               <SButton onClick={handleSubmit}>확인</SButton>
               <SButton onClick={handleClose}>취소</SButton>
