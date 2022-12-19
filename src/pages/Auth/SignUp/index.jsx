@@ -96,6 +96,11 @@ function SignUp() {
     return setButtonNotAllow(true);
   }, [emailValid, passwordValid, checkPwValid]);
 
+  useEffect(() => {
+    setSignUpEmailValue('');
+    setSignUpPasswordValue('');
+  }, []);
+
   const handleJoinClick = useCallback(
     async (e) => {
       e.preventDefault();
