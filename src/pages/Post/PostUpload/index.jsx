@@ -5,19 +5,24 @@ import axios from 'axios';
 import * as S from './index.styles';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
-import deleteButton from '../../../assets/icon/x_shadow.png';
 import TagItem from '../../../components/Post/TagItem';
 import PreviewImageItem from '../../../components/Post/PreviewImageItem';
 
 const getTagColors = () => {
   const colors = [
-    '#9EB8EB',
-    '#E8BAB3',
-    '#DFD3C3',
-    '#CCDEC1',
-    '#D1AEC0',
-    '#9ADECE',
-    '#CEDEB4',
+    '#DADAFC',
+    '#EDE1E3',
+    '#E8E7D2',
+    '#EFBAD6',
+    '#F9D9CA',
+    '#E1F1E7',
+    '#EEB8B8',
+    '#F5E892',
+    '#C5DAD1',
+    '#C9CBE0',
+    '#F7F2D4',
+    '#AEDDEF',
+    '#F5DDAD',
   ];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
@@ -117,6 +122,10 @@ function PostUpload() {
 
   const handleTagPush = (e) => {
     if (e.nativeEvent.isComposing) {
+      return;
+    }
+
+    if (e.target.value.length === 0) {
       return;
     }
 
