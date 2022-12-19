@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import Title from '../../../components/Title';
-import { userEmail, userPassword } from '../../../atoms/auth';
 import authAxios from '../../../api/authAxios';
 
 const SContainer = styled.div`
@@ -37,8 +35,8 @@ const SLink = styled(Link)`
 `;
 
 function Login() {
-  const [loginEmail, setLoginEmail] = useRecoilState(userEmail);
-  const [loginPassword, setLoginPassword] = useRecoilState(userPassword);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [isCorrect, setIsCorrect] = useState(true);
   const [loginWarningMsg, setLoginWarningMsg] = useState('');
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
