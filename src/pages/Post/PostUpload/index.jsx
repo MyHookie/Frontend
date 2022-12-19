@@ -62,13 +62,13 @@ function PostUpload() {
       tags: tagList,
       content,
     });
-
-    try {
-      const response = fetchPost(imageUrls, contents);
-      return response.then(navigate(`/profile`));
-    } catch (error) {
-      return error;
-    }
+    console.log(contents, imageUrls);
+    // try {
+    //   const response = fetchPost(imageUrls, contents);
+    //   return response.then(navigate(`/profile`));
+    // } catch (error) {
+    //   return error;
+    // }
   };
 
   const handleImagePreview = (e) => {
@@ -98,13 +98,28 @@ function PostUpload() {
     setTags(e.target.value);
   };
 
+  const getTagColors = () => {
+    const colors = [
+      '#9EB8EB',
+      '#E8BAB3',
+      '#DFD3C3',
+      '#CCDEC1',
+      '#D1AEC0',
+      '#9ADECE',
+      '#CEDEB4',
+    ];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+    return randomColor;
+  };
+
   const handleTagPush = (e) => {
     if (e.nativeEvent.isComposing) {
       return;
     }
 
     if (e.key === 'Enter') {
-      setTagList([...tagList, `#${tag}`]);
+      setTagList([...tagList, { text: `#${tag}`, color: getTagColors() }]);
       setTags('');
     }
   };
@@ -146,10 +161,11 @@ function PostUpload() {
             placeholder="#장소 #위치 #카테고리"
           />
           <S.TagList>
-            {tagList.map((tagText, index) => (
+            {tagList.map((tags, index) => (
               <TagItem
                 key={nanoid()}
-                tag={tagText}
+                tagText={tags.text}
+                tagColor={tags.color}
                 handleTagDelete={() => handleTagDelete(index)}
               />
             ))}

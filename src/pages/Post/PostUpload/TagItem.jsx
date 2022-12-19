@@ -8,27 +8,10 @@ const STagItem = styled.li`
   border-radius: 1.5rem;
 `;
 
-const getTagColors = () => {
-  const colors = [
-    '#9EB8EB',
-    '#E8BAB3',
-    '#DFD3C3',
-    '#CCDEC1',
-    '#D1AEC0',
-    '#9ADECE',
-    '#CEDEB4',
-  ];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-  return randomColor;
-};
-
-function TagItem({ tag, handleTagDelete }) {
-  // const [tagColor, setTagColor] = useState('');
-
+function TagItem({ tagText, tagColor, handleTagDelete }) {
   return (
-    <STagItem tagColor={getTagColors} onClick={handleTagDelete}>
-      {tag}
+    <STagItem tagColor={tagColor} onClick={handleTagDelete}>
+      {tagText}
     </STagItem>
   );
 }
