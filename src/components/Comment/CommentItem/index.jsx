@@ -44,6 +44,7 @@ const SVerticalButton = styled.button`
 const SComments = styled.p`
   margin: 0.4rem 4.8rem 0;
   font-size: 1.4rem;
+  word-break: break-all;
 `;
 
 function CommentItem({ content, createdAt, author }) {
