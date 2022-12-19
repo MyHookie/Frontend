@@ -2,108 +2,36 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 import axios from 'axios';
-import styled from 'styled-components';
+import * as S from './index.styles';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
-const SContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+import TagItem from '../../../components/Post/TagItem';
+import PreviewImageItem from '../../../components/Post/PreviewImageItem';
 
-  padding: 0 1.4rem;
-`;
+const getTagColors = () => {
+  const colors = [
+    '#DADAFC',
+    '#EDE1E3',
+    '#E8E7D2',
+    '#EFBAD6',
+    '#F9D9CA',
+    '#E1F1E7',
+    '#EEB8B8',
+    '#F5E892',
+    '#C5DAD1',
+    '#C9CBE0',
+    '#F7F2D4',
+    '#AEDDEF',
+    '#F5DDAD',
+  ];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-const STagContainer = styled.div`
-  padding: 1rem 0rem;
-
-  form {
-    margin-bottom: 1rem;
-  }
-`;
-
-const STagInput = styled.input`
-  width: 100%;
-  padding: 1.2rem 0.8rem;
-  border: none;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-
-  border-radius: 1.5rem;
-  &::placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
-  }
-`;
-
-const STagList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-  min-height: 3.5rem;
-  width: 100%;
-  padding-bottom: 1rem;
-
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-`;
-
-const STagItem = styled.li`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  background-color: ${({ tagColor }) => tagColor};
-  padding: 0.3rem 0.8rem;
-  border-radius: 1.5rem;
-`;
-
-const SImageContainer = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-
-  height: 10.4rem;
-  padding-bottom: 1rem;
-  box-sizing: content-box;
-
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-
-  gap: 1rem;
-
-  img {
-    width: 10.4rem;
-    min-width: 10.4rem;
-    border-radius: 1.5rem;
-    object-fit: cover;
-
-    border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  }
-`;
-
-const SImageInput = styled.div`
-  height: 100%;
-  width: 10.4rem;
-
-  flex: 0 0 auto;
-  font-size: 3.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 1.5rem;
-  color: ${({ theme }) => theme.color.GRAY};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
-`;
-
-const SContent = styled.textarea`
-  width: 100%;
-  height: 30vh;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  line-height: 1.8rem;
-  resize: none;
-
-  margin-top: 2rem;
-  padding: 0rem 1rem;
-`;
+  return randomColor;
+};
 
 function PostUpload() {
   const [tag, setTags] = useState('');
   const [tagList, setTagList] = useState([]);
-  const [tagColor, setTagColor] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
@@ -125,6 +53,23 @@ function PostUpload() {
     }
   };
 
+  const fetchPost = async (imageUrls, contents) => {
+    await axios({
+      url: `https://mandarin.api.weniv.co.kr/post`,
+      method: 'post',
+      headers: {
+        Authorization: `Bearer (userToken 넣는 부분)`,
+        'Content-type': 'application/json',
+      },
+      data: {
+        post: {
+          content: contents,
+          image: imageUrls.join(', '),
+        },
+      },
+    });
+  };
+
   const createPost = async (e) => {
     e.preventDefault();
     const promiseImageArray = [];
@@ -134,38 +79,19 @@ function PostUpload() {
     }
 
     const imageUrls = await Promise.all(promiseImageArray);
-    console.log(imageUrls.join(', '));
 
     const contents = JSON.stringify({
       tags: tagList,
       content,
     });
-    console.log(contents);
 
-    // try {
-    //   const response = fetchPost(imageUrls, contents);
-    //   response.then(navigate(`/profile`));
-    // } catch (error) {
-    //   return error;
-    // }
+    try {
+      const response = fetchPost(imageUrls, contents);
+      return response.then(navigate(`/profile`));
+    } catch (error) {
+      return error;
+    }
   };
-
-  // const fetchPost = async (imageUrls, contents) {
-  //   await axios({
-  //     url: `https://mandarin.api.weniv.co.kr/post`,
-  //     method: 'post',
-  //     headers: {
-  //       Authorization: `Bearer ${userToken}`,
-  //       'Content-type': 'application/json',
-  //     },
-  //     data: {
-  //       post: {
-  //         content: contents,
-  //         image: imageUrls.join(', '),
-  //       },
-  //     },
-  //   });
-  // }
 
   const handleImagePreview = (e) => {
     const fileArray = e.target.files;
@@ -194,29 +120,17 @@ function PostUpload() {
     setTags(e.target.value);
   };
 
-  const getTagColors = () => {
-    const colors = [
-      '#9EB8EB',
-      '#E8BAB3',
-      '#DFD3C3',
-      '#CCDEC1',
-      '#D1AEC0',
-      '#9ADECE',
-      '#CEDEB4',
-    ];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-    return randomColor;
-  };
-
   const handleTagPush = (e) => {
     if (e.nativeEvent.isComposing) {
       return;
     }
 
+    if (e.target.value.length === 0) {
+      return;
+    }
+
     if (e.key === 'Enter') {
-      setTagColor(getTagColors());
-      setTagList([...tagList, `#${tag}`]);
+      setTagList([...tagList, { text: `#${tag}`, color: getTagColors() }]);
       setTags('');
     }
   };
@@ -233,30 +147,44 @@ function PostUpload() {
     navigate(-1);
   };
 
+  const handleTagDelete = (targetIndex) => {
+    const newTagList = tagList.filter((_, index) => index !== targetIndex);
+    setTagList(newTagList);
+  };
+
+  const handleImageDelete = (targetIndex) => {
+    const newImageList = base64Image.filter(
+      (_, index) => index !== targetIndex
+    );
+    setBase64Image(newImageList);
+  };
+
   return (
     <>
       <ConfirmHeader leftClick={goBackPage} rightClick={createPost} />
-      <SContainer>
-        <STagContainer>
-          <STagInput
+      <S.Container>
+        <S.TagContainer>
+          <S.TagInput
             type="text"
             value={tag}
             onChange={handleTagChange}
             onKeyDown={handleTagPush}
-            maxLength="10"
             placeholder="#장소 #위치 #카테고리"
           />
-          <STagList>
-            {tagList.map((tags) => (
-              <STagItem key={nanoid()} tagColor={tagColor}>
-                {tags}
-              </STagItem>
+          <S.TagList>
+            {tagList.map((tags, index) => (
+              <TagItem
+                key={nanoid()}
+                tagText={tags.text}
+                tagColor={tags.color}
+                handleTagDelete={() => handleTagDelete(index)}
+              />
             ))}
-          </STagList>
-        </STagContainer>
+          </S.TagList>
+        </S.TagContainer>
         <form>
-          <SImageContainer>
-            <SImageInput onClick={handleImageAdd}>+</SImageInput>
+          <S.ImageContainer>
+            <S.ImageInput onClick={handleImageAdd}>+</S.ImageInput>
             <input
               ref={imageInput}
               type="file"
@@ -266,18 +194,22 @@ function PostUpload() {
               onChange={handleImagePreview}
             />
             {base64Image &&
-              base64Image.map((src) => (
-                <img key={nanoid()} src={src} alt="미리보기 이미지" />
+              base64Image.map((src, index) => (
+                <PreviewImageItem
+                  key={nanoid()}
+                  src={src}
+                  handleImageDelete={() => handleImageDelete(index)}
+                />
               ))}
-          </SImageContainer>
-          <SContent
+          </S.ImageContainer>
+          <S.Content
             type="text"
             placeholder="후기를 입력해주세요!"
             value={content}
             onChange={handleContentChange}
           />
         </form>
-      </SContainer>
+      </S.Container>
     </>
   );
 }
