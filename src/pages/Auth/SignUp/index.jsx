@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -30,6 +30,7 @@ const SignUpButton = styled(Button)`
 
 function SignUp() {
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const goToWelcomePage = () => {
     navigate('/welcome');
@@ -99,6 +100,7 @@ function SignUp() {
   useEffect(() => {
     setSignUpEmailValue('');
     setSignUpPasswordValue('');
+    inputRef.current.focus();
   }, []);
 
   const handleJoinClick = useCallback(
@@ -113,9 +115,9 @@ function SignUp() {
         });
 
         if (res.data.message === '이미 가입된 이메일 주소 입니다.') {
-          // setIsUser(true);
           setEmailValid(false);
           setEmailWarningMsg('* 이미 가입된 이메일입니다.');
+          inputRef.current.focus();
         }
 
         if (res.data.message === '사용 가능한 이메일 입니다.') {
@@ -137,6 +139,7 @@ function SignUp() {
         <AuthInputForm
           id="email"
           label="이메일"
+          inputRef={inputRef}
           inputProps={{
             type: 'email',
             placeholder: '이메일을 입력해주세요.',

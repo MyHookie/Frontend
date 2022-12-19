@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AuthInputForm from '../../../components/AuthInputForm';
@@ -42,6 +42,7 @@ function Login() {
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const handleLoginEmail = (e) => {
     setLoginEmail(e.target.value);
@@ -60,6 +61,10 @@ function Login() {
     }
     return setButtonNotAllow(true);
   }, [loginEmail, loginPassword]);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   const handleLoginClick = useCallback(
     async (e) => {
@@ -81,6 +86,7 @@ function Login() {
         if (res.data.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
           setIsCorrect(false);
           setLoginWarningMsg('* 이메일 또는 비밀번호가 일치하지 않습니다.');
+          inputRef.current.focus();
         } else {
           setIsCorrect(true);
         }
@@ -102,6 +108,7 @@ function Login() {
             type: 'email',
             placeholder: '이메일을 입력해주세요',
           }}
+          inputRef={inputRef}
           handleLoginState={handleLoginEmail}
           isCorrect={isCorrect}
           inputValue={loginEmail}

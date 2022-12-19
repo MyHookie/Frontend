@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
@@ -60,6 +60,7 @@ function AuthInputForm({
   signUpValid,
   inputValue,
   isCorrect,
+  inputRef,
 }) {
   const location = useLocation();
 
@@ -78,6 +79,7 @@ function AuthInputForm({
       <Input
         id={id}
         {...inputProps}
+        ref={inputRef}
         inputValue={inputValue}
         signUpValid={signUpValid}
         isCorrect={isCorrect}
