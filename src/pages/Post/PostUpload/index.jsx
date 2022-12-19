@@ -7,6 +7,7 @@ import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
 import deleteButton from '../../../assets/icon/x_shadow.png';
 import TagItem from '../../../components/Post/TagItem';
+import PreviewImageItem from '../../../components/Post/PreviewImageItem';
 
 const getTagColors = () => {
   const colors = [
@@ -185,15 +186,11 @@ function PostUpload() {
             />
             {base64Image &&
               base64Image.map((src, index) => (
-                <S.PreviewImageBox key={nanoid()}>
-                  <img src={src} alt="미리보기 이미지" />
-                  <button
-                    type="button"
-                    onClick={() => handleImageDelete(index)}
-                  >
-                    <img src={deleteButton} alt="미리보기 이미지 삭제" />
-                  </button>
-                </S.PreviewImageBox>
+                <PreviewImageItem
+                  key={nanoid()}
+                  src={src}
+                  handleImageDelete={() => handleImageDelete(index)}
+                />
               ))}
           </S.ImageContainer>
           <S.Content
