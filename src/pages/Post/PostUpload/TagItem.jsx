@@ -23,11 +23,11 @@ const getTagColors = () => {
   return randomColor;
 };
 
-function TagItem({ tag, index, handelTagDelete }) {
+function TagItem({ tag, handleTagDelete }) {
   // const [tagColor, setTagColor] = useState('');
 
   return (
-    <STagItem tagColor={getTagColors} onClick={handelTagDelete}>
+    <STagItem tagColor={getTagColors} onClick={handleTagDelete}>
       {tag}
     </STagItem>
   );

@@ -5,6 +5,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 import TagItem from './TagItem';
+import deleteButton from '../../../assets/icon/x_shadow.png';
 
 const SContainer = styled.div`
   display: flex;
@@ -57,14 +58,27 @@ const SImageContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
 
   gap: 1rem;
+`;
+
+const SPreviewImageBox = styled.div`
+  position: relative;
+
+  width: 10.4rem;
+  min-width: 10.4rem;
+  border-radius: 1.5rem;
+  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+
+  overflow: hidden;
 
   img {
-    width: 10.4rem;
-    min-width: 10.4rem;
-    border-radius: 1.5rem;
+    height: 100%;
     object-fit: cover;
-
-    border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  }
+  button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 1.8rem;
   }
 `;
 
@@ -210,9 +224,16 @@ function PostUpload() {
     navigate(-1);
   };
 
-  const handelTagDelete = (targetIndex) => {
+  const handleTagDelete = (targetIndex) => {
     const newTagList = tagList.filter((_, index) => index !== targetIndex);
     setTagList(newTagList);
+  };
+
+  const handleImageDelete = (targetIndex) => {
+    const newImageList = base64Image.filter(
+      (_, index) => index !== targetIndex
+    );
+    setBase64Image(newImageList);
   };
 
   return (
@@ -232,9 +253,8 @@ function PostUpload() {
             {tagList.map((tagText, index) => (
               <TagItem
                 key={nanoid()}
-                index={index}
                 tag={tagText}
-                handelTagDelete={() => handelTagDelete(index)}
+                handleTagDelete={() => handleTagDelete(index)}
               />
             ))}
           </STagList>
@@ -251,8 +271,16 @@ function PostUpload() {
               onChange={handleImagePreview}
             />
             {base64Image &&
-              base64Image.map((src) => (
-                <img key={nanoid()} src={src} alt="미리보기 이미지" />
+              base64Image.map((src, index) => (
+                <SPreviewImageBox key={nanoid()}>
+                  <img src={src} alt="미리보기 이미지" />
+                  <button
+                    type="button"
+                    onClick={() => handleImageDelete(index)}
+                  >
+                    <img src={deleteButton} alt="미리보기 이미지 삭제" />
+                  </button>
+                </SPreviewImageBox>
               ))}
           </SImageContainer>
           <SContent
