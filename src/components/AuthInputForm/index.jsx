@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-function checkValid(signUpValid, inputValue) {
+function checkValid(signUpValid, inputValue, isCorrect) {
   if (inputValue?.length === 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
     `;
   }
 
-  if (!signUpValid && inputValue?.length > 0) {
+  if (!signUpValid && inputValue?.length > 0 && !isCorrect) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.RED};
     `;
@@ -39,7 +40,8 @@ const Input = styled.input`
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
 
-  ${({ signUpValid, inputValue }) => checkValid(signUpValid, inputValue)}
+  ${({ signUpValid, inputValue, isCorrect }) =>
+    checkValid(signUpValid, inputValue, isCorrect)}
 `;
 
 const WarningMessage = styled.p`
@@ -54,23 +56,40 @@ function AuthInputForm({
   inputProps,
   warningMsg,
   handleSignUpState,
+  handleLoginState,
   signUpValid,
   inputValue,
+  isCorrect,
+  inputRef,
 }) {
+  const location = useLocation();
+
+  const setState = (e) => {
+    if (location.pathname === '/signup') {
+      handleSignUpState(e);
+    }
+    if (location.pathname === '/login') {
+      handleLoginState(e);
+    }
+  };
+
   return (
     <SContainer>
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
         {...inputProps}
+        ref={inputRef}
         inputValue={inputValue}
         signUpValid={signUpValid}
-        onChange={handleSignUpState}
-        onKeyDown={handleSignUpState}
+        isCorrect={isCorrect}
+        onChange={setState}
+        onKeyDown={setState}
       />
       {!signUpValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>
       )}
+      {isCorrect && <WarningMessage>{warningMsg}</WarningMessage>}
     </SContainer>
   );
 }

@@ -1,10 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import Title from '../../../components/Title';
+import authAxios from '../../../api/authAxios';
 
 const SContainer = styled.div`
   padding: 3.4rem;
@@ -34,6 +35,68 @@ const SLink = styled(Link)`
 `;
 
 function Login() {
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [isCorrect, setIsCorrect] = useState(true);
+  const [loginWarningMsg, setLoginWarningMsg] = useState('');
+  const [buttonNotAllow, setButtonNotAllow] = useState(true);
+
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  const handleLoginEmail = (e) => {
+    setLoginEmail(e.target.value);
+  };
+  const handleLoginPassword = (e) => {
+    setLoginPassword(e.target.value);
+  };
+
+  useEffect(() => {
+    if (loginEmail && loginPassword) {
+      return (
+        setButtonNotAllow(false) ||
+        setIsCorrect(true) ||
+        setLoginWarningMsg(null)
+      );
+    }
+    return setButtonNotAllow(true);
+  }, [loginEmail, loginPassword]);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const handleLoginClick = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      try {
+        const res = await authAxios.post('/login', {
+          user: {
+            email: loginEmail,
+            password: loginPassword,
+          },
+        });
+
+        if (!res.data.message) {
+          console.log(res.data);
+          navigate('/home');
+        }
+
+        if (res.data.message === '이메일 또는 비밀번호가 일치하지 않습니다.') {
+          setIsCorrect(false);
+          setLoginWarningMsg('* 이메일 또는 비밀번호가 일치하지 않습니다.');
+          inputRef.current.focus();
+        } else {
+          setIsCorrect(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [loginEmail, loginPassword]
+  );
+
   return (
     <SContainer>
       <Title>로그인</Title>
@@ -45,6 +108,11 @@ function Login() {
             type: 'email',
             placeholder: '이메일을 입력해주세요',
           }}
+          inputRef={inputRef}
+          handleLoginState={handleLoginEmail}
+          isCorrect={isCorrect}
+          inputValue={loginEmail}
+          warningMsg={loginWarningMsg}
         />
         <AuthInputForm
           id="password"
@@ -53,8 +121,16 @@ function Login() {
             type: 'password',
             placeholder: '비밀번호를 입력해주세요',
           }}
+          handleLoginState={handleLoginPassword}
+          inputValue={loginPassword}
+          isCorrect={isCorrect}
         />
-        <LoginButton text="로그인" buttonStyle={LARGE_BUTTON} />
+        <LoginButton
+          text="로그인"
+          buttonStyle={LARGE_BUTTON}
+          onClick={handleLoginClick}
+          disabled={buttonNotAllow}
+        />
       </SFormContainer>
       <SLink to="/signup">이메일로 회원가입</SLink>
     </SContainer>
