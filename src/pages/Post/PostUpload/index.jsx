@@ -4,8 +4,24 @@ import { nanoid } from 'nanoid';
 import axios from 'axios';
 import * as S from './index.styles';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
-import TagItem from './TagItem';
+
 import deleteButton from '../../../assets/icon/x_shadow.png';
+import TagItem from '../../../components/Post/TagItem';
+
+const getTagColors = () => {
+  const colors = [
+    '#9EB8EB',
+    '#E8BAB3',
+    '#DFD3C3',
+    '#CCDEC1',
+    '#D1AEC0',
+    '#9ADECE',
+    '#CEDEB4',
+  ];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+  return randomColor;
+};
 
 function PostUpload() {
   const [tag, setTags] = useState('');
@@ -62,13 +78,13 @@ function PostUpload() {
       tags: tagList,
       content,
     });
-    console.log(contents, imageUrls);
-    // try {
-    //   const response = fetchPost(imageUrls, contents);
-    //   return response.then(navigate(`/profile`));
-    // } catch (error) {
-    //   return error;
-    // }
+
+    try {
+      const response = fetchPost(imageUrls, contents);
+      return response.then(navigate(`/profile`));
+    } catch (error) {
+      return error;
+    }
   };
 
   const handleImagePreview = (e) => {
@@ -96,21 +112,6 @@ function PostUpload() {
 
   const handleTagChange = (e) => {
     setTags(e.target.value);
-  };
-
-  const getTagColors = () => {
-    const colors = [
-      '#9EB8EB',
-      '#E8BAB3',
-      '#DFD3C3',
-      '#CCDEC1',
-      '#D1AEC0',
-      '#9ADECE',
-      '#CEDEB4',
-    ];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-    return randomColor;
   };
 
   const handleTagPush = (e) => {
