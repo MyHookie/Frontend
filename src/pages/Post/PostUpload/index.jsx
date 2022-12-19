@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import axios from 'axios';
 import styled from 'styled-components';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
+import TagItem from './TagItem';
 
 const SContainer = styled.div`
   display: flex;
@@ -42,13 +43,6 @@ const STagList = styled.ul`
   padding-bottom: 1rem;
 
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-`;
-
-const STagItem = styled.li`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  background-color: ${({ tagColor }) => tagColor};
-  padding: 0.3rem 0.8rem;
-  border-radius: 1.5rem;
 `;
 
 const SImageContainer = styled.div`
@@ -103,7 +97,6 @@ const SContent = styled.textarea`
 function PostUpload() {
   const [tag, setTags] = useState('');
   const [tagList, setTagList] = useState([]);
-  const [tagColor, setTagColor] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate();
 
@@ -194,28 +187,12 @@ function PostUpload() {
     setTags(e.target.value);
   };
 
-  const getTagColors = () => {
-    const colors = [
-      '#9EB8EB',
-      '#E8BAB3',
-      '#DFD3C3',
-      '#CCDEC1',
-      '#D1AEC0',
-      '#9ADECE',
-      '#CEDEB4',
-    ];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-    return randomColor;
-  };
-
   const handleTagPush = (e) => {
     if (e.nativeEvent.isComposing) {
       return;
     }
 
     if (e.key === 'Enter') {
-      setTagColor(getTagColors());
       setTagList([...tagList, `#${tag}`]);
       setTags('');
     }
@@ -233,6 +210,11 @@ function PostUpload() {
     navigate(-1);
   };
 
+  const handelTagDelete = (targetIndex) => {
+    const newTagList = tagList.filter((_, index) => index !== targetIndex);
+    setTagList(newTagList);
+  };
+
   return (
     <>
       <ConfirmHeader leftClick={goBackPage} rightClick={createPost} />
@@ -247,10 +229,13 @@ function PostUpload() {
             placeholder="#장소 #위치 #카테고리"
           />
           <STagList>
-            {tagList.map((tags) => (
-              <STagItem key={nanoid()} tagColor={tagColor}>
-                {tags}
-              </STagItem>
+            {tagList.map((tagText, index) => (
+              <TagItem
+                key={nanoid()}
+                index={index}
+                tag={tagText}
+                handelTagDelete={() => handelTagDelete(index)}
+              />
             ))}
           </STagList>
         </STagContainer>
