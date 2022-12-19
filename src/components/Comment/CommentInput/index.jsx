@@ -29,10 +29,14 @@ const SLabel = styled.label`
   ${IR}
 `;
 
-const SInputForm = styled.input`
+const SInputForm = styled.textarea`
   width: 100%;
+  height: 1.9rem;
   margin: 0 1.8rem;
+  padding: 0;
   border-style: none;
+  font-family: 'LINESeedKR-Rg';
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
@@ -99,6 +103,7 @@ function CommentInput({ id, onCreateCommentData }) {
       <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
       <SLabel htmlFor={id} />
       <SInputForm
+        type="text"
         id={id}
         placeholder="댓글 입력하기..."
         name="content"
