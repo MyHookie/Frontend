@@ -42,11 +42,18 @@ const SInputForm = styled.textarea`
   }
 `;
 
-const SButton = styled.button`
+const SNotPostableButton = styled.button`
   width: 2.5rem;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   white-space: nowrap;
   color: ${({ theme }) => theme.color.LIGHT_GRAY};
+`;
+
+const SPostableButton = styled.button`
+  width: 2.5rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  white-space: nowrap;
+  color: ${({ theme }) => theme.color.LIGHT_BLUE};
 `;
 
 function CommentInput({ id, onCreateCommentData }) {
@@ -110,9 +117,15 @@ function CommentInput({ id, onCreateCommentData }) {
         value={commentData.content}
         onChange={handleCommentData}
       />
-      <SButton type="button" onClick={handleCommentSubmit}>
-        게시
-      </SButton>
+      {commentData.content.length === 0 ? (
+        <SNotPostableButton type="button" onClick={handleCommentSubmit}>
+          게시
+        </SNotPostableButton>
+      ) : (
+        <SPostableButton type="button" onClick={handleCommentSubmit}>
+          게시
+        </SPostableButton>
+      )}
     </SContents>
   );
 }
