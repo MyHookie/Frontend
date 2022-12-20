@@ -12,7 +12,7 @@ import PostUpload from './pages/Post/PostUpload';
 import Profile from './pages/Profile';
 import Follower from './pages/Profile/Follower';
 import Following from './pages/Profile/Following';
-import ProfileSetting from './pages/Profile/ProfileSetting';
+import ProfileSetting from './pages/Auth/ProfileSetting';
 import Splash from './pages/Splash';
 import Welcome from './pages/Welcome';
 
