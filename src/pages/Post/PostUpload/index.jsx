@@ -58,7 +58,7 @@ function PostUpload() {
       url: `https://mandarin.api.weniv.co.kr/post`,
       method: 'post',
       headers: {
-        Authorization: `Bearer (userToken 넣는 부분)`,
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
         'Content-type': 'application/json',
       },
       data: {

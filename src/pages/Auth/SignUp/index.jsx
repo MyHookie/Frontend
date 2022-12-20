@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import emailValidAxios from '../../../api/emailValidAxios';
@@ -8,7 +7,6 @@ import Title from '../../../components/Title';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
-import { signUpEmail, signUpPassword } from '../../../atoms/auth';
 
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 
@@ -36,9 +34,8 @@ function SignUp() {
     navigate('/welcome');
   };
 
-  const [signUpEmailValue, setSignUpEmailValue] = useRecoilState(signUpEmail);
-  const [signUpPasswordValue, setSignUpPasswordValue] =
-    useRecoilState(signUpPassword);
+  const [signUpEmail, setSignUpEmail] = useState('');
+  const [signUpPassword, setSignUpPassword] = useState('');
   const [checkPwValue, setCheckPwValue] = useState('');
 
   const [emailValid, setEmailValid] = useState(false);
@@ -52,10 +49,10 @@ function SignUp() {
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
   const handleEmailValue = (e) => {
-    setSignUpEmailValue(e.target.value);
+    setSignUpEmail(e.target.value);
   };
   const handlePwValue = (e) => {
-    setSignUpPasswordValue(e.target.value);
+    setSignUpPassword(e.target.value);
   };
   const handleCheckPwValue = (e) => {
     setCheckPwValue(e.target.value);
@@ -66,14 +63,14 @@ function SignUp() {
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     const PW_REGEX = /^[a-zA-Z0-9]{6,}$/;
 
-    if (EMAIL_REGEX.test(signUpEmailValue)) {
+    if (EMAIL_REGEX.test(signUpEmail)) {
       setEmailValid(true);
     } else {
       setEmailValid(false);
       setEmailWarningMsg('* 이메일 형식이 올바르지 않습니다.');
     }
 
-    if (PW_REGEX.test(signUpPasswordValue)) {
+    if (PW_REGEX.test(signUpPassword)) {
       setPasswordValid(true);
     } else {
       setPasswordValid(false);
@@ -82,13 +79,13 @@ function SignUp() {
       );
     }
 
-    if (signUpPasswordValue === checkPwValue) {
+    if (signUpPassword === checkPwValue) {
       setCheckPwValid(true);
     } else {
       setCheckPwValid(false);
       setCheckPwWarningMsg('* 비밀번호가 일치하지 않습니다.');
     }
-  }, [signUpEmailValue, signUpPasswordValue, checkPwValue]);
+  }, [signUpEmail, signUpPassword, checkPwValue]);
 
   useEffect(() => {
     if (emailValid && passwordValid && checkPwValid) {
@@ -98,8 +95,8 @@ function SignUp() {
   }, [emailValid, passwordValid, checkPwValid]);
 
   useEffect(() => {
-    setSignUpEmailValue('');
-    setSignUpPasswordValue('');
+    setSignUpEmail('');
+    setSignUpPassword('');
     inputRef.current.focus();
   }, []);
 
@@ -110,7 +107,7 @@ function SignUp() {
       try {
         const res = await emailValidAxios.post('/emailvalid', {
           user: {
-            email: signUpEmailValue,
+            email: signUpEmail,
           },
         });
 
@@ -121,7 +118,12 @@ function SignUp() {
         }
 
         if (res.data.message === '사용 가능한 이메일 입니다.') {
-          navigate('/profile');
+          navigate('/signup/profile', {
+            state: {
+              email: signUpEmail,
+              password: signUpPassword,
+            },
+          });
         }
       } catch (error) {
         console.log(error);
@@ -146,7 +148,7 @@ function SignUp() {
           }}
           handleSignUpState={handleEmailValue}
           signUpValid={emailValid}
-          inputValue={signUpEmailValue}
+          inputValue={signUpEmail}
           warningMsg={emailWarningMsg}
         />
         <AuthInputForm
@@ -159,7 +161,7 @@ function SignUp() {
           }}
           handleSignUpState={handlePwValue}
           signUpValid={passwordValid}
-          inputValue={signUpPasswordValue}
+          inputValue={signUpPassword}
           warningMsg={pwWarningMsg}
         />
         <AuthInputForm
