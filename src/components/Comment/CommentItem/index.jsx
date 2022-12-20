@@ -18,11 +18,11 @@ const SCommentsInfo = styled.div`
 const SUserInfo = styled.div`
   width: 100%;
   margin: 0 1.2rem;
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 `;
 
 const SCommentTime = styled.span`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
   vertical-align: top;
   color: ${({ theme }) => theme.color.LIGHT_GRAY};
 
@@ -41,9 +41,12 @@ const SVerticalButton = styled.button`
   width: 2rem;
 `;
 
-const SComments = styled.p`
+const SComments = styled.pre`
   margin: 0.4rem 4.8rem 0;
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  word-break: break-all;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 `;
 
 function CommentItem({ content, createdAt, author }) {
