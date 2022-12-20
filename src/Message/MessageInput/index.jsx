@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './index.style';
 
-function MessageInputBar({ handleInputChange, handleFormSubmit, value }) {
+function MessageInputBar({ handleInputChange, handleFormSubmit, value, ref }) {
   return (
     <S.ChattingBar onSubmit={handleFormSubmit}>
       <S.UploadFileIcon />

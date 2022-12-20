@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './index.style';
 import BaseHeader from '../../../components/common/BaseHeader';
@@ -55,6 +55,12 @@ function ChatDetail() {
     nextChatId.current += 1;
   };
 
+  const scrollRef = useRef();
+  console.log(scrollRef.current);
+  useEffect(() => {
+    scrollRef.current.scrollIntoView();
+  }, [chats]);
+
   return (
     <S.Container>
       <BaseHeader
@@ -88,6 +94,7 @@ function ChatDetail() {
         handleInputChange={handleInputChange}
         handleFormSubmit={handleFormSubmit}
       />
+      <div ref={scrollRef} />
     </S.Container>
   );
 }
