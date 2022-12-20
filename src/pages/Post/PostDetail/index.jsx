@@ -75,7 +75,7 @@ function PostDetail() {
         </BottomSheet>
       )}
 
-      <SContents>
+      {/* <SContents>
         <STitle>게시물 상세 페이지</STitle>
         <PostItem
           key={dummyList[0].id}
@@ -90,9 +90,8 @@ function PostDetail() {
           detail
         />
         <SDividingLine />
-        {/* {console.log(commentData)} */}
         {commentData.length !== 0 && <CommentList commentData={commentData} />}
-      </SContents>
+      </SContents> */}
 
       <CommentInput onCreateCommentData={onCreateCommentData} />
     </SPostDetail>

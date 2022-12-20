@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import dummyList from '../dummyList';
 import PostItem from '../PostItem';
 
 const SPostList = styled.ul`
@@ -14,7 +13,7 @@ const SPostList = styled.ul`
   gap: 2rem;
 `;
 
-function PostList() {
+function PostList({ postData }) {
   const navigate = useNavigate();
 
   const goPostDetailPage = (id) => {
@@ -23,17 +22,19 @@ function PostList() {
 
   return (
     <SPostList>
-      {dummyList.map((item) => (
+      {postData.map((item) => (
         <PostItem
           key={item.id}
           postId={item.id}
           content={item.content}
-          author={item.author}
           image={item.image}
-          hearted={item.hearted}
-          heartedCount={item.heartedCount}
-          commentCount={item.commentCount}
           createdAt={item.createdAt}
+          updatedAt={item.updatedAt}
+          hearted={item.hearted}
+          heartCount={item.heartCount}
+          comment={item.comment}
+          commentCount={item.commentCount}
+          author={item.author}
           goPostDetailPage={goPostDetailPage}
         />
       ))}
