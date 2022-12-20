@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { nanoid } from 'nanoid';
+import Slider from 'react-slick';
 
-import profileImg from '../../../assets/basic-profile_small.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
@@ -15,7 +16,7 @@ import TagItem from '../TagItem';
 const SPostItem = styled.li`
   position: relative;
   width: 100%;
-  padding: 1.4rem;
+  padding: 1.8rem;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1rem;
 
@@ -72,13 +73,19 @@ const STagList = styled.ul`
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
-const SImageContainer = styled.div`
+const StyledSlider = styled(Slider)`
   width: 100%;
   border-radius: 1rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 2rem;
+
+  .slick-dots {
+    li {
+      margin: -0.2rem;
+    }
+  }
 `;
 
 const SImage = styled.img`
@@ -98,7 +105,8 @@ const SBottomContainer = styled.div`
 const SIConContainer = styled.div`
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 0.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
 `;
 
 const SIcon = styled.div`
@@ -168,6 +176,11 @@ function PostItem({
     setImages(image.split(', '));
   }, []);
 
+  const settings = {
+    dots: true,
+    speed: 500,
+  };
+
   return (
     <>
       <SPostItem
@@ -190,14 +203,15 @@ function PostItem({
           {contents}
         </SContents>
         {image && (
-          <SImageContainer>
+          <StyledSlider {...settings}>
             {images.map((src) => (
               <SImage
+                key={nanoid()}
                 src={`https://mandarin.api.weniv.co.kr/${src}`}
                 alt="img"
               />
             ))}
-          </SImageContainer>
+          </StyledSlider>
         )}
         <SBottomContainer>
           <SIConContainer>
