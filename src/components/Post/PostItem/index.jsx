@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import profileImg from '../../../assets/basic-profile_small.png';
@@ -10,6 +10,7 @@ import { multiEllipsis } from '../../../styles/Util';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
+import TagItem from '../TagItem';
 
 const SPostItem = styled.li`
   position: relative;
@@ -74,13 +75,6 @@ const STagList = styled.ul`
   margin-bottom: 1rem;
 `;
 
-const STagItem = styled.li`
-  background-color: lightblue;
-  padding: 0.2rem 0.6rem;
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-`;
-
 const SImageContainer = styled.div`
   width: 100%;
   border-radius: 1rem;
@@ -138,7 +132,7 @@ function PostItem({
   image,
   createdAt,
   hearted,
-  heartedCount,
+  heartCount,
   commentCount,
   author,
   goPostDetailPage,
@@ -146,6 +140,9 @@ function PostItem({
 }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [tagArray, setTagArray] = useState([]);
+  const [contents, setContents] = useState('');
+  const [images, setImages] = useState([]);
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
@@ -162,6 +159,15 @@ function PostItem({
     setIsDialogOpen(!isDialogOpen);
   };
 
+  useEffect(() => {
+    console.log(JSON.parse(content));
+    const jsonContents = JSON.parse(content);
+
+    setTagArray(jsonContents.tags);
+    setContents(jsonContents.content);
+    setImages(image.split(', '));
+  }, []);
+
   return (
     <>
       <SPostItem
@@ -169,7 +175,7 @@ function PostItem({
         onClick={() => (detail ? null : goPostDetailPage(postId))}
       >
         <SUserInfoContainer>
-          <img src={profileImg} alt="프로필 이미지" />
+          <img src={author.image} alt="프로필 이미지" />
           <STextBox>
             <SUserName>{author.username}</SUserName>
             <SAccountName>{author.accountname}</SAccountName>
@@ -177,15 +183,20 @@ function PostItem({
         </SUserInfoContainer>
         <SContents detail={detail}>
           <STagList>
-            <STagItem>#메리마스메리크리스ㅁㅇㄴㅁㄴ마스메리크리스마스</STagItem>
-            <STagItem>#메리크스</STagItem>
-            <STagItem>#메리스마스</STagItem>
+            {tagArray.map((tag) => (
+              <TagItem tagText={tag.text} tagColor={tag.color} />
+            ))}
           </STagList>
-          {content}
+          {contents}
         </SContents>
         {image && (
           <SImageContainer>
-            <SImage src={image} alt="img" />
+            {images.map((src) => (
+              <SImage
+                src={`https://mandarin.api.weniv.co.kr/${src}`}
+                alt="img"
+              />
+            ))}
           </SImageContainer>
         )}
         <SBottomContainer>
@@ -195,14 +206,14 @@ function PostItem({
                 src={hearted ? filledHeartIcon : heartIcon}
                 alt="좋아요 수"
               />
-              {heartedCount}
+              {heartCount}
             </SIcon>
             <SIcon>
               <img src={commentIcon} alt="댓글 수" />
               {commentCount}
             </SIcon>
           </SIConContainer>
-          <SDate>{createdAt}</SDate>
+          <SDate>{createdAt.slice(0, 10)}</SDate>
         </SBottomContainer>
         {!detail && (
           <SVerticalButton onClick={handleBottomSheetOpen}>
