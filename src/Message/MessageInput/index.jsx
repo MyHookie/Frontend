@@ -1,14 +1,21 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import * as S from './index.style';
 
-function MessageInput() {
+function MessageInputBar({ handleInputChange, handleFormSubmit, value }) {
   return (
-    <S.ChattingBar>
+    <S.ChattingBar onSubmit={handleFormSubmit}>
       <S.UploadFileIcon />
-      <S.MessageInput required placeholder="메시지 입력하기..." />
-      <S.MessageSend type="submit">전송</S.MessageSend>
+      <S.MessageInput
+        required
+        placeholder="메시지 입력하기..."
+        value={value}
+        onChange={handleInputChange}
+      />
+      <S.MessageSend type="submit" inputText={value}>
+        전송
+      </S.MessageSend>
     </S.ChattingBar>
   );
 }
 
-export default MessageInput;
+export default MessageInputBar;

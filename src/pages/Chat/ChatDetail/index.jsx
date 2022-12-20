@@ -1,5 +1,4 @@
-import React, { useState, useCallback } from 'react';
-
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './index.style';
 import BaseHeader from '../../../components/common/BaseHeader';
@@ -10,20 +9,50 @@ import rightIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import MessageInputBar from '../../../Message/MessageInput';
 import BottomSheet from '../../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
+import chatData from './chatData.json';
 
 const id = '사용자 닉네임';
 
 function ChatDetail() {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [chats, setChats] = useState([]);
+  const [inputText, setInputText] = useState('');
+  const nextChatId = useRef(chatData.chats.length + 1);
   const navigate = useNavigate();
-  const leftClick = () => {
+
+  const goToChatList = () => {
     navigate(`/Chat`);
   };
-
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
     setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
+  const handleInputChange = (e) => {
+    setInputText(e.target.value);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (inputText.length === 0) {
+      return;
+    }
+
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+    const chat = {
+      id: nextChatId.current,
+      content: inputText,
+      date: `${hours}:${minutes}`,
+    };
+
+    setChats([...chats, chat]);
+    setInputText('');
+    nextChatId.current += 1;
   };
 
   return (
@@ -31,7 +60,7 @@ function ChatDetail() {
       <BaseHeader
         leftIcon={leftIcon}
         title={id}
-        leftClick={leftClick}
+        leftClick={goToChatList}
         rightIcon={rightIcon}
         rightClick={handleBottomSheetOpen}
       />
@@ -43,13 +72,22 @@ function ChatDetail() {
       )}
 
       <S.MessageList>
-        {/* <MessageItem text={dummyText.message1} time={dummyTime.time1} />
-        <MessageItem img={dummyImg} time={dummyTime.time2} />
-        <MessageItemYours text={dummyText.message3} time={dummyTime.time3} />
-        <MessageItemYours text={dummyText.message3} time={dummyTime.time3} /> */}
-        <MessageItemYours />
+        {chatData.chats.map((data) => (
+          <MessageItem key={data.id} text={data.content} time={data.date} />
+        ))}
+        {chats.map((data) => (
+          <MessageItemYours
+            key={data.id}
+            text={data.content}
+            time={data.date}
+          />
+        ))}
       </S.MessageList>
-      <MessageInputBar />
+      <MessageInputBar
+        value={inputText}
+        handleInputChange={handleInputChange}
+        handleFormSubmit={handleFormSubmit}
+      />
     </S.Container>
   );
 }
