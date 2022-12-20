@@ -47,10 +47,10 @@ const SEmptyContent = styled.p`
 
 const fetchPost = async () => {
   const { data } = await axios.get(
-    'https://mandarin.api.weniv.co.kr/post/ddd112/userpost',
+    'https://mandarin.api.weniv.co.kr/post/Test/userpost',
     {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODAxZTI2MTdhZTY2NjU4MWJlNzgyOCIsImV4cCI6MTY3NjYyNDE5OCwiaWF0IjoxNjcxNDQwMTk4fQ.toouIyOrMna7FHJ9_uRTIalbaeaSNJGSTnB3F-aA_Yg`,
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmVlM2FlMTdhZTY2NjU4MWE1ZTVhZiIsImV4cCI6MTY3NjY5NzIwNiwiaWF0IjoxNjcxNTEzMjA2fQ.N0OuxTSWl766e3Hek3bSlt2_okT1Wx2SF--0CONjMmw`,
         'Content-type': 'application/json',
       },
     }
@@ -70,7 +70,7 @@ function Home() {
 
   return (
     <>
-      {!isSearch ? (
+      {!isSearch && !isLoading ? (
         <>
           <BaseHeader
             image={hookieImage}
@@ -80,9 +80,8 @@ function Home() {
           />
 
           <SContainer>
-            {isLoading && <div>로딩중....</div>}
             {data.post.length > 0 ? (
-              <PostList />
+              <PostList postData={data.post} />
             ) : (
               <SEmptyContainer>
                 <SEmptyImage src={logoGrey} alt="로고 이미지" />
@@ -99,6 +98,7 @@ function Home() {
       ) : (
         <UserSearch handleSearchActive={handleSearchActive} />
       )}
+
       <Navigation />
     </>
   );
