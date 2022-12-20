@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import BaseHeader from '../../../components/common/BaseHeader';
@@ -13,12 +14,16 @@ import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import CommentList from '../../../components/Comment/CommentList';
 
-const STitle = styled.h2`
-  ${IR}
+const SPostDetail = styled.div`
+  padding-bottom: 5.8rem;
 `;
 
 const SContents = styled.section`
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+`;
+
+const STitle = styled.h2`
+  ${IR}
 `;
 
 const SDividingLine = styled.div`
@@ -28,6 +33,12 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
+  const navigate = useNavigate();
+
+  const handleToHome = () => {
+    navigate('/home');
+  };
+
   const [commentData, setCommentData] = useState([]);
 
   const onCreateCommentData = (dataId, content, createdAt, author) => {
@@ -48,9 +59,10 @@ function PostDetail() {
   };
 
   return (
-    <>
+    <SPostDetail>
       <BaseHeader
         leftIcon={arrowIcon}
+        leftClick={handleToHome}
         rightIcon={verticalIcon}
         rightClick={handleBottomSheetOpen}
         rightAlt="포스트 설정 버튼"
@@ -83,7 +95,7 @@ function PostDetail() {
       </SContents>
 
       <CommentInput onCreateCommentData={onCreateCommentData} />
-    </>
+    </SPostDetail>
   );
 }
 
