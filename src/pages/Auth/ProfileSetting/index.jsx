@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import * as S from './index.style';
+import Title from '../../../components/Title';
+import ProfileImageInput from '../../../components/ProfileImageInput';
 
 function ProfileSetting() {
   const { state } = useLocation();
@@ -11,7 +14,13 @@ function ProfileSetting() {
     if (!state?.email || !state?.password) navigate('/signup');
   }, []);
 
-  return <div>ProfileSetting</div>;
+  return (
+    <S.Container>
+      <Title>프로필 설정</Title>
+      <S.SubText>나중에 언제든지 변경할 수 있습니다.</S.SubText>
+      <ProfileImageInput />
+    </S.Container>
+  );
 }
 
 export default ProfileSetting;
