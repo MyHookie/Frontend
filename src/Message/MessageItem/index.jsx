@@ -8,11 +8,13 @@ function MessageItem({ text, time, img }) {
       {img ? (
         <S.UploadedImgContainer>
           <S.UploadedImg src={img} />
+          <S.Time>{time}</S.Time>
         </S.UploadedImgContainer>
       ) : (
-        <S.DialogBox>{text}</S.DialogBox>
+        <S.DialogBox>
+          {text} <S.Time>{time}</S.Time>
+        </S.DialogBox>
       )}
-      <S.Time>{time}</S.Time>
     </S.MessageItem>
   );
 }

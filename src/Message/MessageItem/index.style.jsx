@@ -23,7 +23,7 @@ export const DialogBox = styled.div`
 
 export const Time = styled.time`
   position: absolute;
-  right: 2rem;
+  right: -3.5rem;
   bottom: 0;
   font-size: 1rem;
   color: ${({ theme }) => theme.color.GRAY};
