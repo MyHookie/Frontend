@@ -1,11 +1,19 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import Title from '../../../components/Title';
 import authAxios from '../../../api/authAxios';
+import {
+  accountName,
+  isLoginState,
+  profileImageSrc,
+  userIntro,
+  userName,
+} from '../../../atoms/auth';
 
 const SContainer = styled.div`
   padding: 3.4rem;
@@ -37,6 +45,12 @@ const SLink = styled(Link)`
 function Login() {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const setAccountName = useSetRecoilState(accountName);
+  const setProfileImg = useSetRecoilState(profileImageSrc);
+  const setUserName = useSetRecoilState(userName);
+  const setUserIntro = useSetRecoilState(userIntro);
+
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const [isCorrect, setIsCorrect] = useState(true);
   const [loginWarningMsg, setLoginWarningMsg] = useState('');
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
@@ -79,7 +93,17 @@ function Login() {
         });
 
         if (!res.data.message) {
-          console.log(res.data);
+          const userData = res.data.user;
+          setUserName(userData.username);
+          setAccountName(userData.accountname);
+          setUserIntro(userData.intro);
+          setProfileImg(userData.image);
+
+          const { token: loginToken } = userData;
+          const { refreshToken } = userData;
+          localStorage.setItem('accessToken', loginToken);
+          localStorage.setItem('refreshToken', refreshToken);
+          setIsLogin(true);
           navigate('/home');
         }
 
