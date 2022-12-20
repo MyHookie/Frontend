@@ -26,13 +26,13 @@ const SImg = styled.img`
 const SUserId = styled.p`
   flex: 4 4 0;
   margin-bottom: 0.6rem;
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   ${slEllipsis}
 `;
 
 const SUserIntroduction = styled.p`
   flex: 4 4 0;
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
   ${slEllipsis}
 `;
