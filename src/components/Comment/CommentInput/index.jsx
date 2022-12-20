@@ -64,7 +64,7 @@ const SPostableButton = styled.button`
   color: ${({ theme }) => theme.color.LIGHT_BLUE};
 `;
 
-function CommentInput({ id, onCreateCommentData }) {
+function CommentInput({ onCreateCommentData }) {
   const [commentData, setCommentData] = useState({
     dataId: 'test',
     content: '',
@@ -134,17 +134,17 @@ function CommentInput({ id, onCreateCommentData }) {
     <SContents>
       <STitle>댓글 입력</STitle>
       <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
-      <SLabel htmlFor={id} />
-      <SInputForm
-        type="text"
-        id={id}
-        placeholder="댓글 입력하기..."
-        name="content"
-        value={commentData.content}
-        onChange={handleCommentData}
-        rows="1"
-        className="autoTextarea"
-      />
+      <SLabel>
+        <SInputForm
+          type="text"
+          placeholder="댓글 입력하기..."
+          name="content"
+          value={commentData.content}
+          onChange={handleCommentData}
+          rows="1"
+          className="autoTextarea"
+        />
+      </SLabel>
       {commentData.content.length === 0 ? (
         <SNotPostableButton type="button" onClick={handleCommentSubmit}>
           게시
