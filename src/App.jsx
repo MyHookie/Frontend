@@ -12,9 +12,10 @@ import PostUpload from './pages/Post/PostUpload';
 import Profile from './pages/Profile';
 import Follower from './pages/Profile/Follower';
 import Following from './pages/Profile/Following';
-import ProfileSetting from './pages/Auth/ProfileSetting';
 import Splash from './pages/Splash';
 import Welcome from './pages/Welcome';
+import ProfileEdit from './pages/Profile/ProfileEdit';
+import ProfileSetting from './pages/Auth/ProfileSetting';
 
 function App() {
   return (
@@ -23,18 +24,21 @@ function App() {
         <Route path="/" element={<Splash />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup">
+          <Route index element={<SignUp />} />
+          <Route path="profile" element={<ProfileSetting />} />
+        </Route>
         <Route path="/home" element={<Home />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/chat/:id" element={<ChatDetail />} />
-        <Route path="/post/*" element={<Outlet />}>
+        <Route path="/post">
           <Route path=":id" element={<PostDetail />} />
           <Route path="upload" element={<PostUpload />} />
           <Route path="edit/:id" element={<PostEdit />} />
         </Route>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile/*" element={<Outlet />}>
-          <Route path="setting" element={<ProfileSetting />} />
+        <Route path="/profile">
+          <Route index element={<Profile />} />
+          <Route path="edit" element={<ProfileEdit />} />
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>
