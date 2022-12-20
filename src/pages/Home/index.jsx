@@ -50,7 +50,7 @@ const fetchPost = async () => {
     'https://mandarin.api.weniv.co.kr/post/Test/userpost',
     {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZmVlM2FlMTdhZTY2NjU4MWE1ZTVhZiIsImV4cCI6MTY3NjY5NzIwNiwiaWF0IjoxNjcxNTEzMjA2fQ.N0OuxTSWl766e3Hek3bSlt2_okT1Wx2SF--0CONjMmw`,
+        Authorization: `Bearer 유저 토큰 키`,
         'Content-type': 'application/json',
       },
     }
