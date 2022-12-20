@@ -16,8 +16,6 @@ const SPostList = styled.ul`
 function PostList({ postData }) {
   const navigate = useNavigate();
 
-  console.log(postData);
-
   const goPostDetailPage = (id) => {
     navigate(`/post/${id}`);
   };

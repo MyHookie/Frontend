@@ -1,138 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
 import { nanoid } from 'nanoid';
-import Slider from 'react-slick';
+import * as S from './index.styles';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
 import commentIcon from '../../../assets/icon/icon-message-circle.png';
-import { multiEllipsis } from '../../../styles/Util';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import TagItem from '../TagItem';
-
-const SPostItem = styled.li`
-  position: relative;
-  width: 100%;
-  padding: 1.8rem;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: 1rem;
-
-  ${({ detail }) =>
-    detail &&
-    css`
-      border: none;
-    `}
-`;
-
-const SUserInfoContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  margin-bottom: 1.5rem;
-  gap: 1.4rem;
-  img {
-    width: 5rem;
-  }
-`;
-
-const STextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const SUserName = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-`;
-
-const SAccountName = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
-  margin-bottom: 0.4rem;
-`;
-
-const SContents = styled.div`
-  ${multiEllipsis}
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-
-  margin-bottom: 1.4rem;
-
-  ${({ detail }) =>
-    detail &&
-    css`
-      overflow: auto;
-      display: block;
-    `}
-`;
-
-const STagList = styled.ul`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-`;
-
-const StyledSlider = styled(Slider)`
-  width: 100%;
-  border-radius: 1rem;
-  margin-bottom: 2rem;
-
-  .slick-dots {
-    li {
-      margin: -0.2rem;
-    }
-  }
-`;
-
-const SImage = styled.img`
-  height: 23rem;
-  object-fit: contain;
-  border-radius: 1rem;
-`;
-
-const SBottomContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  margin-left: 0.3rem;
-  gap: 0.5rem;
-`;
-
-const SIConContainer = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.6rem;
-`;
-
-const SIcon = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
-
-  img {
-    width: 2.2rem;
-    margin-right: 0.7rem;
-  }
-`;
-
-const SDate = styled.time`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
-`;
-
-const SVerticalButton = styled.button`
-  position: absolute;
-  top: 1.4rem;
-  right: 1.3rem;
-
-  width: 1.8rem;
-`;
 
 function PostItem({
   postId,
@@ -168,7 +45,6 @@ function PostItem({
   };
 
   useEffect(() => {
-    console.log(JSON.parse(content));
     const jsonContents = JSON.parse(content);
 
     setTagArray(jsonContents.tags);
@@ -178,63 +54,63 @@ function PostItem({
 
   const settings = {
     dots: true,
-    speed: 500,
+    speed: 1000,
   };
 
   return (
     <>
-      <SPostItem
+      <S.PostItem
         detail={detail}
         onClick={() => (detail ? null : goPostDetailPage(postId))}
       >
-        <SUserInfoContainer>
+        <S.UserInfoContainer>
           <img src={author.image} alt="프로필 이미지" />
-          <STextBox>
-            <SUserName>{author.username}</SUserName>
-            <SAccountName>{author.accountname}</SAccountName>
-          </STextBox>
-        </SUserInfoContainer>
-        <SContents detail={detail}>
-          <STagList>
+          <S.TextBox>
+            <S.UserName>{author.username}</S.UserName>
+            <S.AccountName>{author.accountname}</S.AccountName>
+          </S.TextBox>
+        </S.UserInfoContainer>
+        <S.Contents detail={detail}>
+          <S.TagList>
             {tagArray.map((tag) => (
-              <TagItem tagText={tag.text} tagColor={tag.color} />
+              <TagItem key={nanoid()} tagText={tag.text} tagColor={tag.color} />
             ))}
-          </STagList>
+          </S.TagList>
           {contents}
-        </SContents>
+        </S.Contents>
         {image && (
-          <StyledSlider {...settings}>
+          <S.StyledSlider {...settings}>
             {images.map((src) => (
-              <SImage
+              <S.Image
                 key={nanoid()}
                 src={`https://mandarin.api.weniv.co.kr/${src}`}
                 alt="img"
               />
             ))}
-          </StyledSlider>
+          </S.StyledSlider>
         )}
-        <SBottomContainer>
-          <SIConContainer>
-            <SIcon>
+        <S.BottomContainer>
+          <S.IConContainer>
+            <S.Icon>
               <img
                 src={hearted ? filledHeartIcon : heartIcon}
                 alt="좋아요 수"
               />
               {heartCount}
-            </SIcon>
-            <SIcon>
+            </S.Icon>
+            <S.Icon>
               <img src={commentIcon} alt="댓글 수" />
               {commentCount}
-            </SIcon>
-          </SIConContainer>
-          <SDate>{createdAt.slice(0, 10)}</SDate>
-        </SBottomContainer>
+            </S.Icon>
+          </S.IConContainer>
+          <S.Date>{createdAt.slice(0, 10)}</S.Date>
+        </S.BottomContainer>
         {!detail && (
-          <SVerticalButton onClick={handleBottomSheetOpen}>
+          <S.VerticalButton onClick={handleBottomSheetOpen}>
             <img src={verticalIcon} alt="포스트 설정 버튼" />
-          </SVerticalButton>
+          </S.VerticalButton>
         )}
-      </SPostItem>
+      </S.PostItem>
       {isBottomSheetOpen && (
         <BottomSheet handleClose={handleBottomSheetOpen}>
           {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}

@@ -50,7 +50,7 @@ const fetchPost = async () => {
     'https://mandarin.api.weniv.co.kr/post/Test/userpost',
     {
       headers: {
-        Authorization: `Bearer 유저 토큰 키`,
+        Authorization: `Bearer 유저 토큰 입력`,
         'Content-type': 'application/json',
       },
     }
@@ -62,7 +62,6 @@ function Home() {
   const [isSearch, setIsSearch] = useState(false);
 
   const { data, isLoading, isError } = useQuery('postList', fetchPost);
-  console.log(data, isError, isLoading);
 
   const handleSearchActive = () => {
     setIsSearch(!isSearch);
