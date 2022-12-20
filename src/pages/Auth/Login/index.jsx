@@ -79,7 +79,14 @@ function Login() {
         });
 
         if (!res.data.message) {
-          console.log(res.data);
+          const userData = res.data.user;
+          console.log(userData);
+          const { token, accountname, image: profileImg } = userData;
+
+          localStorage.setItem('token', JSON.stringify(token));
+          localStorage.setItem('profileImg', JSON.stringify(profileImg));
+          localStorage.setItem('accountName', JSON.stringify(accountname));
+
           navigate('/home');
         }
 
