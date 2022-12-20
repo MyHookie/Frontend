@@ -56,7 +56,6 @@ function ChatDetail() {
   };
 
   const scrollRef = useRef();
-  console.log(scrollRef.current);
   useEffect(() => {
     scrollRef.current.scrollIntoView();
   }, [chats]);
