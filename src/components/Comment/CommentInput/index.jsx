@@ -44,27 +44,18 @@ const SInputForm = styled.textarea`
   }
 `;
 
-const SNotPostableButton = styled.button`
+const SButton = styled.button`
   position: absolute;
   right: 1.6rem;
   bottom: 2.1rem;
   width: 2.5rem;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   white-space: nowrap;
-  color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  color: ${({ theme, contentLength }) =>
+    contentLength === 0 ? theme.color.LIGHT_GRAY : theme.color.LIGHT_BLUE};
 `;
 
-const SPostableButton = styled.button`
-  position: absolute;
-  right: 1.6rem;
-  bottom: 2.1rem;
-  width: 2.5rem;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  white-space: nowrap;
-  color: ${({ theme }) => theme.color.LIGHT_BLUE};
-`;
-
-function CommentInput({ onCreateCommentData }) {
+function CommentInput({ id, onCreateCommentData }) {
   const [commentData, setCommentData] = useState({
     dataId: 'test',
     content: '',
@@ -80,6 +71,7 @@ function CommentInput({ onCreateCommentData }) {
   });
 
   const handleResizeHeight = () => {
+    //  DOM 접근할 때, useRef 사용해서 바꿔보기
     const textarea = document.querySelector('.autoTextarea');
 
     if (textarea) {
@@ -105,9 +97,6 @@ function CommentInput({ onCreateCommentData }) {
     if (commentData.content.length < 1) {
       alert('댓글을 입력해주세요.');
     } else {
-      const textarea = document.querySelector('.autoTextarea');
-      const height = textarea.scrollHeight;
-      textarea.style.height = 'auto';
       onCreateCommentData(
         commentData.dataId,
         commentData.content,
@@ -134,26 +123,25 @@ function CommentInput({ onCreateCommentData }) {
     <SContents>
       <STitle>댓글 입력</STitle>
       <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
-      <SLabel>
-        <SInputForm
-          type="text"
-          placeholder="댓글 입력하기..."
-          name="content"
-          value={commentData.content}
-          onChange={handleCommentData}
-          rows="1"
-          className="autoTextarea"
-        />
-      </SLabel>
-      {commentData.content.length === 0 ? (
-        <SNotPostableButton type="button" onClick={handleCommentSubmit}>
-          게시
-        </SNotPostableButton>
-      ) : (
-        <SPostableButton type="button" onClick={handleCommentSubmit}>
-          게시
-        </SPostableButton>
-      )}
+      <SLabel htmlFor={id}>댓글 입력창</SLabel>
+      <SInputForm
+        type="text"
+        id={id}
+        placeholder="댓글 입력하기..."
+        name="content"
+        value={commentData.content}
+        onChange={handleCommentData}
+        rows="1"
+        className="autoTextarea"
+      />
+
+      <SButton
+        type="button"
+        onClick={handleCommentSubmit}
+        contentLength={commentData.content.length}
+      >
+        게시
+      </SButton>
     </SContents>
   );
 }
