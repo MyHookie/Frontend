@@ -75,7 +75,6 @@ function CommentInput({ id, onCreateCommentData }) {
     const textarea = document.querySelector('.autoTextarea');
 
     if (textarea) {
-      textarea.style.height = 'auto';
       const height = textarea.scrollHeight;
       if (height < 57) {
         textarea.style.height = `${height + 1}px`;
@@ -97,6 +96,8 @@ function CommentInput({ id, onCreateCommentData }) {
     if (commentData.content.length < 1) {
       alert('댓글을 입력해주세요.');
     } else {
+      const textarea = document.querySelector('.autoTextarea');
+      textarea.style.height = 'auto';
       onCreateCommentData(
         commentData.dataId,
         commentData.content,
