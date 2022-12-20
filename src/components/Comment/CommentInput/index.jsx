@@ -9,9 +9,8 @@ const SContents = styled.section`
   bottom: 0;
   display: flex;
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 1.6rem;
+  justify-content: center;
+  padding: 2.3rem 1.6rem 2rem;
   background-color: ${({ theme }) => theme.color.WHITE};
   border-top: 0.05rem solid ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
@@ -21,6 +20,9 @@ const STitle = styled.h2`
 `;
 
 const SProfileImg = styled.img`
+  position: absolute;
+  left: 1.6rem;
+  bottom: 1.2rem;
   width: 3.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
 `;
@@ -30,19 +32,22 @@ const SLabel = styled.label`
 `;
 
 const SInputForm = styled.textarea`
-  width: 100%;
-  height: 1.9rem;
+  width: 70%;
   margin: 0 1.8rem;
   padding: 0;
   border-style: none;
   font-family: 'LINESeedKR-Rg';
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
 `;
 
 const SNotPostableButton = styled.button`
+  position: absolute;
+  right: 1.6rem;
+  bottom: 2.1rem;
   width: 2.5rem;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   white-space: nowrap;
@@ -50,6 +55,9 @@ const SNotPostableButton = styled.button`
 `;
 
 const SPostableButton = styled.button`
+  position: absolute;
+  right: 1.6rem;
+  bottom: 2.1rem;
   width: 2.5rem;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   white-space: nowrap;
@@ -71,17 +79,35 @@ function CommentInput({ id, onCreateCommentData }) {
     },
   });
 
+  const handleResizeHeight = () => {
+    const textarea = document.querySelector('.autoTextarea');
+
+    if (textarea) {
+      textarea.style.height = 'auto';
+      const height = textarea.scrollHeight;
+      if (height < 57) {
+        textarea.style.height = `${height + 1}px`;
+      } else {
+        textarea.style.height = `57px`;
+      }
+    }
+  };
+
   const handleCommentData = (e) => {
     setCommentData({
       ...commentData,
       [e.target.name]: e.target.value,
     });
+    handleResizeHeight();
   };
 
   const handleCommentSubmit = () => {
     if (commentData.content.length < 1) {
       alert('댓글을 입력해주세요.');
     } else {
+      const textarea = document.querySelector('.autoTextarea');
+      const height = textarea.scrollHeight;
+      textarea.style.height = 'auto';
       onCreateCommentData(
         commentData.dataId,
         commentData.content,
@@ -116,6 +142,8 @@ function CommentInput({ id, onCreateCommentData }) {
         name="content"
         value={commentData.content}
         onChange={handleCommentData}
+        rows="1"
+        className="autoTextarea"
       />
       {commentData.content.length === 0 ? (
         <SNotPostableButton type="button" onClick={handleCommentSubmit}>
