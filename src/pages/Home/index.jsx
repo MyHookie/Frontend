@@ -45,21 +45,21 @@ const SEmptyContent = styled.p`
   margin-bottom: 2rem;
 `;
 
-const fetchPost = async () => {
-  const { data } = await axios.get(
-    'https://mandarin.api.weniv.co.kr/post/Test/userpost',
-    {
-      headers: {
-        Authorization: `Bearer 유저 토큰 입력`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
-  return data;
-};
-
 function Home() {
   const [isSearch, setIsSearch] = useState(false);
+
+  const fetchPost = async () => {
+    const { data } = await axios.get(
+      'https://mandarin.api.weniv.co.kr/post/Test/userpost',
+      {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+          'Content-type': 'application/json',
+        },
+      }
+    );
+    return data;
+  };
 
   const { data, isLoading, isError } = useQuery('postList', fetchPost);
 
