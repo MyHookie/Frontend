@@ -81,13 +81,9 @@ function Login() {
         if (!res.data.message) {
           const userData = res.data.user;
           console.log(userData);
-          const {
-            token: loginToken,
-            image: profileImg,
-            accountname,
-          } = userData;
+          const { token, accountname, image: profileImg } = userData;
 
-          localStorage.setItem('accessToken', JSON.stringify(loginToken));
+          localStorage.setItem('token', JSON.stringify(token));
           localStorage.setItem('profileImg', JSON.stringify(profileImg));
           localStorage.setItem('accountName', JSON.stringify(accountname));
 
