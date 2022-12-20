@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import BaseHeader from '../../../components/common/BaseHeader';
 import FollowerItem from '../../../components/FollowerItem';
@@ -16,9 +17,18 @@ const STitle = styled.h2`
 `;
 
 function Follower() {
+  const navigate = useNavigate();
+
+  const handleToProfile = () => {
+    navigate('/profile');
+  };
   return (
     <div>
-      <BaseHeader leftIcon={arrowIcon} title="Follower" />
+      <BaseHeader
+        leftIcon={arrowIcon}
+        leftClick={handleToProfile}
+        title="Follower"
+      />
       <SContainer>
         <STitle>팔로워 페이지</STitle>
         {dummyList.map((item) =>
