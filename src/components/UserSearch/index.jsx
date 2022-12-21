@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchHeader from '../common/SearchHeader';
@@ -26,6 +27,8 @@ const userFetch = async (keyword) => {
 
 function UserSearch({ handleSearchActive }) {
   const [searchData, setSearchData] = useState('');
+  const navigate = useNavigate();
+
   const { data, isLoading, isError } = useQuery(
     ['searchUser', searchData],
     () => userFetch(searchData),
@@ -37,6 +40,10 @@ function UserSearch({ handleSearchActive }) {
 
   const handleSearchData = (e) => {
     setSearchData(e.target.value);
+  };
+
+  const goToProfile = (accountname) => {
+    navigate(`/profile/${accountname}`);
   };
 
   console.log(data, searchData);
@@ -56,8 +63,8 @@ function UserSearch({ handleSearchActive }) {
               key={user.id}
               image={user.image}
               username={user.username}
-              accountname={user.accountname}
               intro={user.intro}
+              goToProfile={() => goToProfile(user.accountname)}
             />
           ))}
         </SContainer>

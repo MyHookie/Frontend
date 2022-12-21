@@ -39,9 +39,9 @@ const SUserIntro = styled.p`
   padding-right: 7rem;
 `;
 
-function SearchedUser({ image, username, intro }) {
+function SearchedUser({ image, username, intro, goToProfile }) {
   return (
-    <SContent>
+    <SContent onClick={goToProfile}>
       <SUserImage src={image} alt="프로필 이미지" />
       <SUserInfo>
         <SUserName>{username}</SUserName>
