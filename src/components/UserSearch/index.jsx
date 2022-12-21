@@ -60,7 +60,7 @@ function UserSearch({ handleSearchActive }) {
         <SContainer>
           {data.map((user) => (
             <SearchedUser
-              key={user.id}
+              key={user._id}
               image={user.image}
               username={user.username}
               intro={user.intro}
