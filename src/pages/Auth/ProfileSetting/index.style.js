@@ -34,7 +34,7 @@ export const IntroContent = styled.textarea`
   margin-top: 0.7rem;
   padding: 1.2rem 1.5rem;
   word-wrap: break-word;
-  font-family: 'LINESeedKR-Rg';
+  font-family: Arial;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
