@@ -14,10 +14,14 @@ function ProfileSetting() {
   const [userID, setUserID] = useState('');
   const [userName, setUserName] = useState('');
   const [intro, setIntro] = useState('');
+
   const [userIdValid, setUserIdValid] = useState(false);
   const [userNameValid, setUserNameValid] = useState(false);
+
   const [idWarningMsg, setIdWarningMsg] = useState('');
   const [nameWarningMsg, setNameWarningMsg] = useState('');
+
+  const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
   // 인풋창 입력할 때마다 유효성 검사
   useEffect(() => {
@@ -36,6 +40,14 @@ function ProfileSetting() {
     } else {
       setUserNameValid(true);
     }
+  }, [userID, userName]);
+
+  // 아이디와 이름 유효성 통과 시 버튼 활성화
+  useEffect(() => {
+    if (userIdValid && userNameValid) {
+      return setButtonNotAllow(false);
+    }
+    return setButtonNotAllow(true);
   }, [userID, userName]);
 
   // 소개 textarea 높이
@@ -105,7 +117,11 @@ function ProfileSetting() {
             onChange={handleIntro}
           />
         </S.IntroFormContainer>
-        <S.JoinButton text="후키 시작하기" buttonStyle={LARGE_BUTTON} />
+        <S.JoinButton
+          text="후키 시작하기"
+          buttonStyle={LARGE_BUTTON}
+          disabled={buttonNotAllow}
+        />
       </S.FormContainer>
     </S.Container>
   );
