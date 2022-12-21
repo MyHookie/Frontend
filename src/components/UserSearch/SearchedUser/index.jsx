@@ -26,6 +26,10 @@ const SUserInfo = styled.div`
 
 const SUserName = styled.p`
   font-size: 1.4rem;
+
+  strong {
+    color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+  }
 `;
 
 const SUserIntro = styled.p`
@@ -35,12 +39,19 @@ const SUserIntro = styled.p`
   padding-right: 7rem;
 `;
 
-function SearchedUser({ image, username, intro, goToProfile }) {
+function SearchedUser({ image, username, intro, goToProfile, keyword }) {
+  const leftText = username.split(keyword)[0];
+  const rightText = username.split(keyword)[1];
+
   return (
     <SContent onClick={goToProfile}>
       <SUserImage src={image} alt="프로필 이미지" />
       <SUserInfo>
-        <SUserName>{username}</SUserName>
+        <SUserName>
+          {leftText}
+          <strong>{keyword}</strong>
+          {rightText}
+        </SUserName>
         <SUserIntro>{intro}</SUserIntro>
       </SUserInfo>
     </SContent>

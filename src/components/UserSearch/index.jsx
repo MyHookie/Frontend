@@ -34,21 +34,21 @@ const userFetch = async (keyword) => {
 };
 
 function UserSearch({ handleSearchActive }) {
-  const [searchData, setSearchData] = useState('');
+  const [keyword, setKeyword] = useState('');
   const [viewCount, setViewCount] = useState(1);
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery(
-    ['searchUser', searchData],
-    () => userFetch(searchData),
+    ['searchUser', keyword],
+    () => userFetch(keyword),
     {
-      enabled: !!searchData,
+      enabled: !!keyword,
       select: (result) => result.slice(0, viewCount * 10),
     }
   );
 
   const handleSearchData = (e) => {
-    setSearchData(e.target.value);
+    setKeyword(e.target.value);
   };
 
   const handleMoreView = () => {
@@ -59,12 +59,11 @@ function UserSearch({ handleSearchActive }) {
     navigate(`/profile/${accountname}`);
   };
 
-  console.log(data, searchData);
   return (
     <>
       <SearchHeader
         leftClick={handleSearchActive}
-        value={searchData}
+        value={keyword}
         onChange={handleSearchData}
       />
       {isLoading && <div>로딩 중 입니다.</div>}
@@ -77,6 +76,7 @@ function UserSearch({ handleSearchActive }) {
               image={user.image}
               username={user.username}
               intro={user.intro}
+              keyword={keyword}
               goToProfile={() => goToProfile(user.accountname)}
             />
           ))}
