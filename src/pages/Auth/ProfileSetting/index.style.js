@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Button from '../../../components/common/Button';
 
 export const Container = styled.div`
   display: flex;
@@ -14,8 +15,11 @@ export const SubText = styled.p`
   color: ${({ theme }) => theme.color.GRAY};
 `;
 
-export const ImageContainer = styled.div`
-  background-color: lightblue;
+export const FormContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  width: 100%;
 `;
 
-export const ProfileImg = styled.img``;
+export const JoinButton = styled(Button)``;

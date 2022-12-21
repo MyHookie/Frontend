@@ -7,7 +7,6 @@ function ProfileImageInput() {
     <S.Container>
       <S.ImageInput>
         <img src={profileImage} alt="프로필 이미지" />
-        {/* <img src={uploadIcon} alt="업로드 아이콘" className="upload-icon" /> */}
       </S.ImageInput>
     </S.Container>
   );
