@@ -22,6 +22,7 @@ function Follower() {
   const handleToProfile = () => {
     navigate('/profile');
   };
+
   return (
     <div>
       <BaseHeader
@@ -31,25 +32,7 @@ function Follower() {
       />
       <SContainer>
         <STitle>팔로워 페이지</STitle>
-        {dummyList.map((item) =>
-          item.isfollow ? (
-            <FollowerItem
-              key={item.id}
-              username={item.username}
-              intro={item.intro}
-              image={item.image}
-              state="취소"
-            />
-          ) : (
-            <FollowerItem
-              key={item.id}
-              username={item.username}
-              intro={item.intro}
-              image={item.image}
-              state="팔로우"
-            />
-          )
-        )}
+        <FollowerItem />
       </SContainer>
     </div>
   );
