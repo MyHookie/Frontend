@@ -8,12 +8,13 @@ export const Container = styled.div`
   &::after {
     content: '';
     position: absolute;
-    bottom: 2rem;
-    right: 7rem;
+    right: 0;
+    bottom: 0;
     width: 4rem;
     height: 4rem;
     background-image: url(${uploadIcon});
     background-size: cover;
+    cursor: pointer;
   }
 `;
 
@@ -23,4 +24,5 @@ export const ImageInput = styled.img`
   height: 12rem;
   margin: 0 auto;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  cursor: pointer;
 `;
