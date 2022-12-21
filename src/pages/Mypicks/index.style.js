@@ -39,21 +39,51 @@ export const ImageInput = styled.div`
   background-color: #f2f2f2;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
-export const imgtxt = styled.p`
+export const Imgtxt = styled.p`
   position: absolute;
   top: -3rem;
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
+  cursor: default;
 `;
-export const label = styled.label`
+
+export const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
 `;
-export const textarea = styled.textarea`
+export const Textarea = styled.textarea`
   display: block;
   margin-top: 10px;
   width: 32.2rem;
   height: 25px;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+`;
+
+export const LabelCheckBox = styled.label`
+  display: flex;
+  align-items: center;
+  user-select: none;
+  width: 30%;
+`;
+
+export const Checkbox = styled.input`
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1.5px solid gainsboro;
+  border-radius: 0.35rem;
+
+  &:checked {
+    border-color: transparent;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    background-size: 100% 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+  }
+`;
+
+export const StyledP = styled.p`
+  margin-left: 0.5rem;
 `;
