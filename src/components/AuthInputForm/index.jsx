@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-function checkValid(signUpValid, inputValue, isCorrect) {
+function checkValid(signUpValid, profileValid, inputValue, isCorrect) {
   if (inputValue?.length === 0) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
     `;
   }
 
-  if (!signUpValid && inputValue?.length > 0 && !isCorrect) {
+  if (!signUpValid && !profileValid && inputValue?.length > 0 && !isCorrect) {
     return css`
       border: 1px solid ${({ theme }) => theme.color.RED};
     `;
@@ -40,8 +40,8 @@ const Input = styled.input`
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
 
-  ${({ signUpValid, inputValue, isCorrect }) =>
-    checkValid(signUpValid, inputValue, isCorrect)}
+  ${({ signUpValid, profileValid, inputValue, isCorrect }) =>
+    checkValid(signUpValid, profileValid, inputValue, isCorrect)}
 `;
 
 const WarningMessage = styled.p`
@@ -57,7 +57,9 @@ function AuthInputForm({
   warningMsg,
   handleSignUpState,
   handleLoginState,
+  handleProfileState,
   signUpValid,
+  profileValid,
   inputValue,
   isCorrect,
   inputRef,
@@ -71,6 +73,9 @@ function AuthInputForm({
     if (location.pathname === '/login') {
       handleLoginState(e);
     }
+    if (location.pathname === '/signup/profile') {
+      handleProfileState(e);
+    }
   };
 
   return (
@@ -82,11 +87,12 @@ function AuthInputForm({
         ref={inputRef}
         inputValue={inputValue}
         signUpValid={signUpValid}
+        profileValid={profileValid}
         isCorrect={isCorrect}
         onChange={setState}
         onKeyDown={setState}
       />
-      {!signUpValid && inputValue?.length > 0 && (
+      {!signUpValid && !profileValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>
       )}
       {isCorrect && <WarningMessage>{warningMsg}</WarningMessage>}

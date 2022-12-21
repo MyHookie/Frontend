@@ -9,9 +9,36 @@ import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 function ProfileSetting() {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const textareaRef = useRef(null);
+
+  const [userID, setUserID] = useState('');
+  const [userName, setUserName] = useState('');
+  const [intro, setIntro] = useState('');
+  const [userIdValid, setUserIdValid] = useState(false);
+  const [userNameValid, setUserNameValid] = useState(false);
+  const [idWarningMsg, setIdWarningMsg] = useState('');
+  const [nameWarningMsg, setNameWarningMsg] = useState('');
+
+  // 인풋창 입력할 때마다 유효성 검사
+  useEffect(() => {
+    const ID_REGEX = /^[a-z0-9A-Z_.]{1,}$/;
+
+    if (ID_REGEX.test(userID)) {
+      setUserIdValid(true);
+    } else {
+      setUserIdValid(false);
+      setIdWarningMsg('* 영문, 숫자, 밑줄, 마침표만 사용할 수 있습니다.');
+    }
+
+    if (userName.length < 2 || userName.length > 10) {
+      setUserNameValid(false);
+      setNameWarningMsg('* 2~10자 이내로 입력해주세요');
+    } else {
+      setUserNameValid(true);
+    }
+  }, [userID, userName]);
 
   // 소개 textarea 높이
-  const textareaRef = useRef(null);
   const handleResizeHeight = () => {
     textareaRef.current.style.height = `38px`;
     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -21,6 +48,16 @@ function ProfileSetting() {
   useEffect(() => {
     if (!state?.email || !state?.password) navigate('/signup');
   }, []);
+
+  const handleUserID = (e) => {
+    setUserID(e.target.value);
+  };
+  const handleUserName = (e) => {
+    setUserName(e.target.value);
+  };
+  const handleIntro = (e) => {
+    setIntro(e.target.value);
+  };
 
   return (
     <S.Container>
@@ -35,6 +72,10 @@ function ProfileSetting() {
             type: 'text',
             placeholder: '아이디를 입력해주세요',
           }}
+          handleProfileState={handleUserID}
+          inputValue={userID}
+          profileValid={userIdValid}
+          warningMsg={idWarningMsg}
         />
         <AuthInputForm
           id="name"
@@ -43,6 +84,10 @@ function ProfileSetting() {
             type: 'text',
             placeholder: '이름을 입력해주세요',
           }}
+          handleProfileState={handleUserName}
+          inputValue={userName}
+          profileValid={userNameValid}
+          warningMsg={nameWarningMsg}
         />
         <S.IntroFormContainer>
           <S.Label htmlFor="intro">소개</S.Label>
@@ -56,6 +101,8 @@ function ProfileSetting() {
             wrap="hard"
             ref={textareaRef}
             onInput={handleResizeHeight}
+            value={intro}
+            onChange={handleIntro}
           />
         </S.IntroFormContainer>
         <S.JoinButton text="후키 시작하기" buttonStyle={LARGE_BUTTON} />
