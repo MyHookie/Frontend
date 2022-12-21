@@ -1,15 +1,14 @@
-import React from 'react';
 import styled from 'styled-components';
 import profile from '../../assets/basic-profile_small.png';
 
-const SMessageItem = styled.li`
+export const MessageItem = styled.li`
   position: relative;
   display: flex;
   align-items: center;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 `;
 
-const SDialogBox = styled.div`
+export const DialogBox = styled.div`
   position: relative;
   max-width: 24rem;
   min-height: 4.2rem;
@@ -22,15 +21,15 @@ const SDialogBox = styled.div`
   border-top-left-radius: 0;
 `;
 
-const STime = styled.time`
+export const Time = styled.time`
   position: absolute;
-  right: 2rem;
+  right: -3.5rem;
   bottom: 0;
   font-size: 1rem;
   color: ${({ theme }) => theme.color.GRAY};
 `;
 
-const SProfileImg = styled.img.attrs({
+export const ProfileImg = styled.img.attrs({
   src: `${profile}`,
 })`
   position: absolute;
@@ -41,7 +40,7 @@ const SProfileImg = styled.img.attrs({
   margin-left: auto;
 `;
 
-const SUploadedImgContainer = styled.div`
+export const UploadedImgContainer = styled.div`
   position: relative;
   margin-left: calc(4.2rem + 1.2rem);
   width: 24rem;
@@ -49,27 +48,9 @@ const SUploadedImgContainer = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
 `;
 
-const SUploadedImg = styled.img`
+export const UploadedImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
 `;
-
-function MessageItem({ text, time, img }) {
-  return (
-    <SMessageItem>
-      <SProfileImg />
-      {img ? (
-        <SUploadedImgContainer>
-          <SUploadedImg src={img} />
-        </SUploadedImgContainer>
-      ) : (
-        <SDialogBox>{text}</SDialogBox>
-      )}
-      <STime>{time}</STime>
-    </SMessageItem>
-  );
-}
-
-export default MessageItem;
