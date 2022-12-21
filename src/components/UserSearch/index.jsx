@@ -49,8 +49,19 @@ function UserSearch({ handleSearchActive }) {
       />
       {isLoading && <div>로딩 중 입니다.</div>}
       {isError && <div>에러 발생!!</div>}
-      {data && <SContainer>{data.map((user) => console.log(user))}</SContainer>}
-      ;
+      {data && (
+        <SContainer>
+          {data.map((user) => (
+            <SearchedUser
+              key={user.id}
+              image={user.image}
+              username={user.username}
+              accountname={user.accountname}
+              intro={user.intro}
+            />
+          ))}
+        </SContainer>
+      )}
     </>
   );
 }
