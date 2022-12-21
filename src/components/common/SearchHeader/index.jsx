@@ -38,13 +38,18 @@ const SearchInput = styled.input`
   }
 `;
 
-function SearchHeader({ leftClick }) {
+function SearchHeader({ leftClick, onChange, value }) {
   return (
     <SContainer>
       <SButton onClick={leftClick}>
         <img src={arrowIcon} alt="뒤로가기" />
       </SButton>
-      <SearchInput type="text" placeholder="계정 검색" />
+      <SearchInput
+        type="text"
+        placeholder="계정 검색"
+        value={value}
+        onChange={onChange}
+      />
     </SContainer>
   );
 }
