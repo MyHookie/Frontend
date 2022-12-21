@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import styled from 'styled-components';
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
 import leftIcon from '../../assets/icon/icon-arrow-left.png';
@@ -40,45 +40,42 @@ function index() {
 
       <S.Container>
         <S.ImageContainer>
-          <S.imgtxt>myPick 이미지 등록</S.imgtxt>
+          <S.Imgtxt>myPick 이미지 등록</S.Imgtxt>
           <S.ImageInput />
           <input
             type="file"
             accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
-            multiple
             style={{ display: 'none' }}
           />
         </S.ImageContainer>
-        <S.label htmlFor="something1">
-          항목1입니다
-          <S.textarea
+        <S.Label htmlFor="something1">
+          제목
+          <S.Textarea
             name=""
             id="something1"
             cols="30"
             rows="1"
             placeholder="2~15자 이내여야 합니다."
           />
-        </S.label>
-        <S.label htmlFor="something2">
-          항목2입니다
-          <S.textarea
-            name=""
-            id="something2"
-            cols="30"
-            rows="1"
-            placeholder="숫자만 입력 가능합니다."
-          />
-        </S.label>
-        <S.label htmlFor="something1">
-          항목3입니다
-          <S.textarea
+        </S.Label>
+        <S.Label htmlFor="something2">
+          가격
+          <S.Textarea name="" id="something2" cols="30" rows="1" />
+          <S.LabelCheckBox htmlFor="price">
+            <S.StyledP>가격 미정</S.StyledP>
+            <S.Checkbox type="checkbox" name="" id="price" />
+          </S.LabelCheckBox>
+        </S.Label>
+        <S.Label htmlFor="something1">
+          추천하는 이유
+          <S.Textarea
             name=""
             id="something3"
             cols="30"
             rows="1"
             placeholder="내용을 입력해주세요."
           />
-        </S.label>
+        </S.Label>
       </S.Container>
     </>
   );
