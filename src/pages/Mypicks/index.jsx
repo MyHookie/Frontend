@@ -37,12 +37,17 @@ function index() {
     setText(e.target.value);
   };
 
+  const [placeholderText, setPlaceholderText] =
+    useState('숫자만 입력 가능합니다.');
+
   const handleCheck = (e) => {
     setCheck(e.target.checked);
     if (check) {
+      setPlaceholderText('숫자만 입력 가능합니다.');
       setDisabled(false);
     } else {
       setText('');
+      setPlaceholderText('');
       setDisabled(true);
     }
   };
@@ -72,45 +77,40 @@ function index() {
             style={{ display: 'none' }}
           />
         </S.ImageContainer>
-        <S.Label htmlFor="something1">
-          제목
-          <S.Textarea
-            name=""
-            id="something1"
-            cols="30"
-            rows="1"
-            placeholder="2~15자 이내여야 합니다."
-          />
-        </S.Label>
-        <S.Label htmlFor="something2">
-          가격
-          <S.Textarea
-            value={text}
-            onChange={handleInputChange}
-            disabled={disabled}
-            name=""
-            id="something2"
-            cols="30"
-            rows="1"
-            placeholder={!disabled && '숫자만 입력 가능합니다.'}
-          />
-          <S.LabelCheckBox onClick={handleCheck} htmlFor="price">
-            <S.StyledP>가격 미정</S.StyledP>
-            <S.Checkbox type="checkbox" name="" id="price" />
-          </S.LabelCheckBox>
-        </S.Label>
-        <S.Label htmlFor="something1">
-          추천하는 이유
-          <S.Textarea
-            onChange={handleResizeHeight}
-            ref={textRef}
-            name=""
-            id="something3"
-            cols="30"
-            rows="1"
-            placeholder="내용을 입력해주세요."
-          />
-        </S.Label>
+        <S.Label htmlFor="something1">제목</S.Label>
+        <S.Textarea
+          name=""
+          id="something1"
+          cols="30"
+          rows="1"
+          placeholder="2~15자 이내여야 합니다."
+        />
+
+        <S.Label htmlFor="something2">가격</S.Label>
+        <S.Textarea
+          value={text}
+          onChange={handleInputChange}
+          disabled={disabled}
+          name=""
+          id="something2"
+          cols="30"
+          rows="1"
+          placeholder={placeholderText}
+        />
+        <S.Checkbox onClick={handleCheck} type="checkbox" name="" id="price" />
+        <S.LabelCheckBox htmlFor="price">
+          <S.StyledP>가격 미정</S.StyledP>
+        </S.LabelCheckBox>
+        <S.Label htmlFor="something1">후기</S.Label>
+        <S.Textarea
+          onChange={handleResizeHeight}
+          ref={textRef}
+          name=""
+          id="something3"
+          cols="30"
+          rows="1"
+          placeholder="후기를 남겨주세요."
+        />
       </S.Container>
     </>
   );
