@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 
 import Button from '../common/Button';
 import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
@@ -44,73 +43,27 @@ const SButton = styled(Button)`
   white-space: nowrap;
 `;
 
-function FollowerItem() {
-  const [followerData, setFollowerData] = useState([]);
-
-  const fetchFollowerList = async () => {
-    try {
-      const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr/profile/${JSON.parse(
-          localStorage.getItem('accountName')
-        )}/follower`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-      setFollowerData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchFollowerList();
-  }, []);
-
-  console.log(followerData, followerData.length);
-
-  const handleIsfollow = (item) => console.log(item);
-
+function FollowerItem({ data }) {
   return (
     <>
-      {followerData.length > 0 ? (
-        followerData.map((item) =>
-          item.isfollow ? (
-            <SContent key={item.username}>
-              <SImg src={item.image} alt="프로필 이미지" />
-              <SUserInfo>
-                <SUserId>{item.username}</SUserId>
-                <SUserIntroduction>{item.intro}</SUserIntroduction>
-              </SUserInfo>
-              <SButton
-                text="취소"
-                buttonStyle={FOLLOW_BUTTON}
-                onClick={handleIsfollow}
-                cancel
-              />
-            </SContent>
-          ) : (
-            <SContent key={item.username}>
-              <SImg src={item.image} alt="프로필 이미지" />
-              <SUserInfo>
-                <SUserId>{item.username}</SUserId>
-                <SUserIntroduction>{item.intro}</SUserIntroduction>
-              </SUserInfo>
-              <SButton
-                text="팔로우"
-                buttonStyle={FOLLOW_BUTTON}
-                onClick={() => handleIsfollow(item)}
-              />
-            </SContent>
-          )
-        )
+      {data.isfollow ? (
+        <SContent>
+          <SImg src={data.image} alt="프로필 이미지" />
+          <SUserInfo>
+            <SUserId>{data.username}</SUserId>
+            <SUserIntroduction>{data.intro}</SUserIntroduction>
+          </SUserInfo>
+          <SButton text="취소" buttonStyle={FOLLOW_BUTTON} cancel />
+        </SContent>
       ) : (
-        <p>팔로우가 없습니다.</p>
+        <SContent>
+          <SImg src={data.image} alt="프로필 이미지" />
+          <SUserInfo>
+            <SUserId>{data.username}</SUserId>
+            <SUserIntroduction>{data.intro}</SUserIntroduction>
+          </SUserInfo>
+          <SButton text="팔로우" buttonStyle={FOLLOW_BUTTON} />
+        </SContent>
       )}
     </>
   );
