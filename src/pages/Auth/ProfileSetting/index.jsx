@@ -10,6 +10,7 @@ function ProfileSetting() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const textareaRef = useRef(null);
+  const inputRef = useRef(null);
 
   const [userID, setUserID] = useState('');
   const [userName, setUserName] = useState('');
@@ -50,6 +51,10 @@ function ProfileSetting() {
     return setButtonNotAllow(true);
   }, [userID, userName]);
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   // 소개 textarea 높이
   const handleResizeHeight = () => {
     textareaRef.current.style.height = `38px`;
@@ -88,6 +93,7 @@ function ProfileSetting() {
           inputValue={userID}
           profileValid={userIdValid}
           warningMsg={idWarningMsg}
+          inputRef={inputRef}
         />
         <AuthInputForm
           id="name"
