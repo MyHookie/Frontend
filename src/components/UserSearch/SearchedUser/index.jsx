@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { slEllipsis } from '../../../styles/Util';
+import basicProfileImage from '../../../assets/basic-profile.png';
 
 const SContent = styled.div`
   display: flex;
@@ -43,9 +44,13 @@ function SearchedUser({ image, username, intro, goToProfile, keyword }) {
   const leftText = username.split(keyword)[0];
   const rightText = username.split(keyword)[1];
 
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
+
   return (
     <SContent onClick={goToProfile}>
-      <SUserImage src={image} alt="프로필 이미지" />
+      <SUserImage src={image} alt="프로필 이미지" onError={handleErrorImage} />
       <SUserInfo>
         <SUserName>
           {leftText}
