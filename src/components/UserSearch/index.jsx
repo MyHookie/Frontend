@@ -20,6 +20,13 @@ const SMoreView = styled.p`
   color: ${({ theme }) => theme.color.ACTIVE_BLUE};
 `;
 
+const SMessage = styled.p`
+  text-align: center;
+  margin-top: 1rem;
+
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+`;
+
 const userFetch = async (keyword) => {
   const { data } = await axios.get(
     `https://mandarin.api.weniv.co.kr/user/searchuser/?keyword=${keyword}`,
@@ -43,12 +50,13 @@ function UserSearch({ handleSearchActive }) {
     () => userFetch(keyword),
     {
       enabled: !!keyword,
-      select: (result) => result.slice(0, viewCount * 10),
+      select: (result) => result.slice(0, viewCount * 5),
     }
   );
 
   const handleSearchData = (e) => {
     setKeyword(e.target.value);
+    setViewCount(1);
   };
 
   const handleMoreView = () => {
@@ -68,21 +76,24 @@ function UserSearch({ handleSearchActive }) {
       />
       {isLoading && <div>로딩 중 입니다.</div>}
       {isError && <div>에러 발생!!</div>}
-      {data && (
-        <SContainer>
-          {data.map((user) => (
-            <SearchedUser
-              key={user._id}
-              image={user.image}
-              username={user.username}
-              intro={user.intro}
-              keyword={keyword}
-              goToProfile={() => goToProfile(user.accountname)}
-            />
-          ))}
+      <SContainer>
+        {data?.map((user) => (
+          <SearchedUser
+            key={user._id}
+            image={user.image}
+            username={user.username}
+            intro={user.intro}
+            keyword={keyword}
+            goToProfile={() => goToProfile(user.accountname)}
+          />
+        ))}
+        {data?.length > 0 && (
           <SMoreView onClick={handleMoreView}>더 보기</SMoreView>
-        </SContainer>
-      )}
+        )}
+        {keyword && data?.length === 0 && (
+          <SMessage>검색된 이용자가 없습니다.</SMessage>
+        )}
+      </SContainer>
     </>
   );
 }
