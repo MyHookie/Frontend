@@ -12,6 +12,14 @@ const SContainer = styled.div`
   background-color: ${({ theme }) => theme.color.WHITE};
 `;
 
+const SMoreView = styled.p`
+  text-align: center;
+  margin-bottom: 8rem;
+
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+`;
+
 const userFetch = async (keyword) => {
   const { data } = await axios.get(
     `https://mandarin.api.weniv.co.kr/user/searchuser/?keyword=${keyword}`,
@@ -27,6 +35,7 @@ const userFetch = async (keyword) => {
 
 function UserSearch({ handleSearchActive }) {
   const [searchData, setSearchData] = useState('');
+  const [viewCount, setViewCount] = useState(1);
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery(
@@ -34,12 +43,16 @@ function UserSearch({ handleSearchActive }) {
     () => userFetch(searchData),
     {
       enabled: !!searchData,
-      select: (result) => result.slice(0, 10),
+      select: (result) => result.slice(0, viewCount * 10),
     }
   );
 
   const handleSearchData = (e) => {
     setSearchData(e.target.value);
+  };
+
+  const handleMoreView = () => {
+    setViewCount(viewCount + 1);
   };
 
   const goToProfile = (accountname) => {
@@ -67,6 +80,7 @@ function UserSearch({ handleSearchActive }) {
               goToProfile={() => goToProfile(user.accountname)}
             />
           ))}
+          <SMoreView onClick={handleMoreView}>더 보기</SMoreView>
         </SContainer>
       )}
     </>

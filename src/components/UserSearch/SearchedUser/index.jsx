@@ -8,10 +8,6 @@ const SContent = styled.div`
   align-items: center;
   margin: 1.2rem 0rem;
   padding: 0rem 1rem;
-
-  &:last-child {
-    margin-bottom: 6rem;
-  }
 `;
 
 const SUserImage = styled.img`
