@@ -58,6 +58,9 @@ export const Textarea = styled.textarea`
   height: 25px;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const LabelCheckBox = styled.label`

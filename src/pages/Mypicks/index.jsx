@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
 import leftIcon from '../../assets/icon/icon-arrow-left.png';
+
 import * as S from './index.style';
 
 function index() {
@@ -15,6 +15,13 @@ function index() {
   const goBackPage = () => {
     navigate(-1);
   };
+
+  const textRef = useRef();
+
+  const handleResizeHeight = useCallback((e) => {
+    e.target.style.height = 'inherit';
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  }, []);
 
   const handleDialogOpen = (e) => {
     e.stopPropagation();
@@ -95,6 +102,8 @@ function index() {
         <S.Label htmlFor="something1">
           추천하는 이유
           <S.Textarea
+            onChange={handleResizeHeight}
+            ref={textRef}
             name=""
             id="something3"
             cols="30"
