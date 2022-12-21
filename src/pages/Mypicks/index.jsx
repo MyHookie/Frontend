@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ConfirmHeader from '../../components/common/ConfirmHeader';
-import leftIcon from '../../assets/icon/icon-arrow-left.png';
 import Dialog from '../../components/Modal/Dialog';
+import leftIcon from '../../assets/icon/icon-arrow-left.png';
+import uploadIconGrey from '../../assets/upload-file_grey.png';
 
 function index() {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ function index() {
   };
 
   const SContainer = styled.main`
-    position: relative;
     height: calc(100 + 4.4) vh;
     display: flex;
     flex-direction: column;
@@ -33,9 +33,22 @@ function index() {
   `;
 
   const SImageContainer = styled.div`
+    position: relative;
     height: 100%;
     padding-bottom: 1rem;
     border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 1.2rem;
+      bottom: 2.2rem;
+      width: 4rem;
+      height: 4rem;
+      background-image: url(${uploadIconGrey});
+      background-size: cover;
+    }
   `;
   const SImageInput = styled.div`
     height: 20.4rem;
@@ -46,22 +59,24 @@ function index() {
     align-items: center;
     justify-content: center;
     border-radius: 1.5rem;
-    color: ${({ theme }) => theme.color.GRAY};
-    background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    background-color: #f2f2f2;
+    border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   `;
 
   const Simgtxt = styled.p`
     position: absolute;
-    top: 3rem;
+    top: -3rem;
     font-size: ${({ theme }) => theme.fontSize.SMALL};
+    color: ${({ theme }) => theme.color.GRAY};
   `;
 
   const Slabel = styled.label`
     font-size: ${({ theme }) => theme.fontSize.SMALL};
-    color: ${({ theme }) => theme.color.DARK_GRAY}; ;
+    color: ${({ theme }) => theme.color.GRAY};
   `;
 
   const Stextarea = styled.textarea`
+    display: block;
     margin-top: 10px;
     width: 32.2rem;
     height: 25px;
@@ -87,7 +102,7 @@ function index() {
       <SContainer>
         <SImageContainer>
           <Simgtxt>myPick 이미지 등록</Simgtxt>
-          <SImageInput>+</SImageInput>
+          <SImageInput />
           <input
             type="file"
             accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
@@ -101,7 +116,7 @@ function index() {
             name=""
             id="something1"
             cols="30"
-            rows="10"
+            rows="1"
             placeholder="2~15자 이내여야 합니다."
           />
         </Slabel>
