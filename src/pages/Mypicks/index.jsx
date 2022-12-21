@@ -8,6 +8,9 @@ import * as S from './index.style';
 
 function index() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [text, setText] = useState('');
   const navigate = useNavigate();
   const goBackPage = () => {
     navigate(-1);
@@ -21,6 +24,20 @@ function index() {
   const handleSubmit = () => {
     console.log('myPick 등록');
     goBackPage();
+  };
+
+  const handleInputChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const handleCheck = (e) => {
+    setCheck(e.target.checked);
+    if (check) {
+      setDisabled(false);
+    } else {
+      setText('');
+      setDisabled(true);
+    }
   };
 
   return (
@@ -60,8 +77,17 @@ function index() {
         </S.Label>
         <S.Label htmlFor="something2">
           가격
-          <S.Textarea name="" id="something2" cols="30" rows="1" />
-          <S.LabelCheckBox htmlFor="price">
+          <S.Textarea
+            value={text}
+            onChange={handleInputChange}
+            disabled={disabled}
+            name=""
+            id="something2"
+            cols="30"
+            rows="1"
+            placeholder={!disabled && '숫자만 입력 가능합니다.'}
+          />
+          <S.LabelCheckBox onClick={handleCheck} htmlFor="price">
             <S.StyledP>가격 미정</S.StyledP>
             <S.Checkbox type="checkbox" name="" id="price" />
           </S.LabelCheckBox>
