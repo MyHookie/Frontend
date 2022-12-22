@@ -40,7 +40,7 @@ const userFetch = async (keyword) => {
   return data;
 };
 
-function UserSearch({ handleSearchActive }) {
+function UserSearch() {
   const [keyword, setKeyword] = useState('');
   const [viewCount, setViewCount] = useState(1);
   const navigate = useNavigate();
@@ -67,10 +67,14 @@ function UserSearch({ handleSearchActive }) {
     navigate(`/profile/${accountname}`);
   };
 
+  const goBackPage = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <SearchHeader
-        leftClick={handleSearchActive}
+        leftClick={goBackPage}
         value={keyword}
         onChange={handleSearchData}
       />

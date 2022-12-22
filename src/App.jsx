@@ -17,6 +17,7 @@ import Welcome from './pages/Welcome';
 import ProfileEdit from './pages/Profile/ProfileEdit';
 import ProfileSetting from './pages/Auth/ProfileSetting';
 import Mypicks from './pages/Mypicks';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="profile" element={<ProfileSetting />} />
         </Route>
         <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/chat/:id" element={<ChatDetail />} />
         <Route path="/post">
