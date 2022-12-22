@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
 
@@ -6,11 +6,22 @@ function ProfileImageInput() {
   const [profileImage, setProfileImage] = useState(basicProfileImage);
   const imageInput = useRef(null);
 
-  const handleImageChange = (e) => {
-    if (e.target.files[0]) {
-      setProfileImage(e.target.files[0]);
+  const handleImageChange = useCallback((e) => {
+    const currentImage = e.target.files[0];
+
+    if (currentImage) {
+      setProfileImage(currentImage);
+      // 이미지 소스 로컬스토리지에 저장
+      localStorage.setItem(
+        'image',
+        `https://mandarin.api.weniv.co.kr/${currentImage.name}`
+      );
     } else {
       setProfileImage(basicProfileImage); // 이미지 업로드 취소할 경우 기본 프로필 이미지로 설정
+      localStorage.setItem(
+        'image',
+        `https://mandarin.api.weniv.co.kr${basicProfileImage}`
+      );
     }
 
     // 업로드 이미지 preview
@@ -20,8 +31,8 @@ function ProfileImageInput() {
         setProfileImage(reader.result);
       }
     };
-    reader.readAsDataURL(e.target.files[0]);
-  };
+    reader.readAsDataURL(currentImage);
+  }, []);
 
   return (
     <S.Container
