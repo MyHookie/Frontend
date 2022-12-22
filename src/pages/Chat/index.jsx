@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import Navigation from '../../components/common/Navigation';
 import BaseHeader from '../../components/common/BaseHeader';
 import leftIcon from '../../assets/icon/icon-arrow-left.png';
@@ -10,11 +10,11 @@ import ChatUserItem from '../../components/ChatUserItem';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 
+const DummyDate = '22.12.15';
+
 const SContainer = styled.div`
   padding: 2.4rem 1.6rem;
 `;
-
-const DummyDate = '22.12.15';
 
 function Chat() {
   const navigate = useNavigate();

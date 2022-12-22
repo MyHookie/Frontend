@@ -16,6 +16,7 @@ import Splash from './pages/Splash';
 import Welcome from './pages/Welcome';
 import ProfileEdit from './pages/Profile/ProfileEdit';
 import ProfileSetting from './pages/Auth/ProfileSetting';
+import Mypicks from './pages/Mypicks';
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>
+        <Route path="/mypicks" element={<Mypicks />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

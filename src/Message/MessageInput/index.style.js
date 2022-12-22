@@ -1,8 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 import uploadFileIcon from '../../assets/upload-file_grey.png';
 
-const SChattingBar = styled.div`
+export const ChattingBar = styled.form`
   position: fixed;
   bottom: 0;
   display: flex;
@@ -14,14 +13,14 @@ const SChattingBar = styled.div`
   border-top: 1px solid #dddddd;
 `;
 
-const SUploadFileIcon = styled.img.attrs({
+export const UploadFileIcon = styled.img.attrs({
   src: `${uploadFileIcon}`,
 })`
   width: 3.6rem;
   height: 3.6rem;
 `;
 
-const SMessageInput = styled.input`
+export const MessageInput = styled.input`
   display: block;
   width: 80%;
   margin-left: 1.8rem;
@@ -35,26 +34,15 @@ const SMessageInput = styled.input`
   }
 `;
 
-const SMessageSend = styled.button`
+export const MessageSend = styled.button`
   width: 15%;
   margin-left: 1rem;
   padding: 1.2rem 0;
 
-  color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  color: ${({ inputText, theme }) =>
+    inputText ? theme.color.ACTIVE_BLUE : theme.color.LIGHT_GRAY};
 
   &:active {
     color: ${({ theme }) => theme.color.ACTIVE_BLUE};
   }
 `;
-
-function MessageInput() {
-  return (
-    <SChattingBar>
-      <SUploadFileIcon />
-      <SMessageInput placeholder="메시지 입력하기..." />
-      <SMessageSend type="submit">전송</SMessageSend>
-    </SChattingBar>
-  );
-}
-
-export default MessageInput;
