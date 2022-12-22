@@ -83,6 +83,7 @@ function ProfileSetting() {
   const handleStartClick = useCallback(
     async (e) => {
       e.preventDefault();
+      const imageSrc = JSON.parse(localStorage.getItem('image'));
 
       try {
         const res = await authAxios.post('/accountnamevalid', {
@@ -94,12 +95,34 @@ function ProfileSetting() {
         if (res.data.message === '이미 가입된 계정ID 입니다.') {
           setAccountNameValid(false);
           setAccountNameWarningMsg('* 이미 가입된 계정ID 입니다.');
+          inputRef.current.focus();
+        } else {
+          const response = await authAxios.post('/', {
+            user: {
+              username: userName,
+              email: state.email,
+              password: state.password,
+              accountname: accountName,
+              intro,
+              image: imageSrc,
+            },
+          });
+
+          console.log(response.data.user);
+          if (response.data.message === '회원가입 성공') {
+            const userData = response.data.user;
+            const { accountname } = userData;
+
+            localStorage.setItem('accountName', JSON.stringify(accountname));
+
+            navigate('/welcome');
+          }
         }
       } catch (error) {
         console.log(error);
       }
     },
-    [buttonNotAllow]
+    [userName, accountName, intro]
   );
 
   return (
