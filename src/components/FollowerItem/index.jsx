@@ -26,34 +26,35 @@ const SImg = styled.img`
 const SUserId = styled.p`
   flex: 4 4 0;
   margin-bottom: 0.6rem;
-  font-size: 1.4rem;
+  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   ${slEllipsis}
 `;
 
 const SUserIntroduction = styled.p`
   flex: 4 4 0;
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
   ${slEllipsis}
 `;
 
 const SButton = styled(Button)`
   flex: 1 1 0;
+  line-height: 1.4rem;
   white-space: nowrap;
 `;
 
-function FollowerItem({ username, intro, image, state }) {
+function FollowerItem({ data }) {
   return (
-    <SContent>
-      <SImg src={image} alt="프로필 이미지" />
+    <SContent key={data.username}>
+      <SImg src={data.image} alt="프로필 이미지" />
       <SUserInfo>
-        <SUserId>{username}</SUserId>
-        <SUserIntroduction>{intro}</SUserIntroduction>
+        <SUserId>{data.username}</SUserId>
+        <SUserIntroduction>{data.intro}</SUserIntroduction>
       </SUserInfo>
-      {state === '취소' ? (
-        <SButton text={state} buttonStyle={FOLLOW_BUTTON} cancel />
+      {data.isfollow ? (
+        <SButton text="취소" buttonStyle={FOLLOW_BUTTON} cancel />
       ) : (
-        <SButton text={state} buttonStyle={FOLLOW_BUTTON} />
+        <SButton text="팔로우" buttonStyle={FOLLOW_BUTTON} />
       )}
     </SContent>
   );
