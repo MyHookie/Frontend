@@ -13,20 +13,20 @@ function ProfileSetting() {
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
 
-  const [userID, setUserID] = useState('');
+  const [accountName, setAccountName] = useState('');
   const [userName, setUserName] = useState('');
   const [intro, setIntro] = useState('');
 
-  const [userIdValid, setUserIdValid] = useState(false);
+  const [accountNameValid, setAccountNameValid] = useState(false);
   const [userNameValid, setUserNameValid] = useState(false);
 
-  const [idWarningMsg, setIdWarningMsg] = useState('');
-  const [nameWarningMsg, setNameWarningMsg] = useState('');
+  const [accountNameWarningMsg, setAccountNameWarningMsg] = useState('');
+  const [userNameWarningMsg, setUserNameWarningMsg] = useState('');
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
-  const handleUserID = (e) => {
-    setUserID(e.target.value);
+  const handleAccountName = (e) => {
+    setAccountName(e.target.value);
   };
   const handleUserName = (e) => {
     setUserName(e.target.value);
@@ -37,30 +37,32 @@ function ProfileSetting() {
 
   // 인풋창 입력할 때마다 유효성 검사
   useEffect(() => {
-    const ID_REGEX = /^[a-z0-9A-Z_.]{1,}$/;
+    const ID_REGEX = /^[a-z0-9A-Z_.]{2,16}$/;
 
-    if (ID_REGEX.test(userID)) {
-      setUserIdValid(true);
+    if (ID_REGEX.test(accountName)) {
+      setAccountNameValid(true);
     } else {
-      setUserIdValid(false);
-      setIdWarningMsg('* 영문, 숫자, 밑줄, 마침표만 사용할 수 있습니다.');
+      setAccountNameValid(false);
+      setAccountNameWarningMsg(
+        '* 2~16자 이내의 영문, 숫자, 밑줄, 마침표만 사용할 수 있습니다.'
+      );
     }
 
     if (userName.length < 2 || userName.length > 10) {
       setUserNameValid(false);
-      setNameWarningMsg('* 2~10자 이내로 입력해주세요');
+      setUserNameWarningMsg('* 2~10자 이내로 입력해주세요');
     } else {
       setUserNameValid(true);
     }
-  }, [userID, userName]);
+  }, [accountName, userName]);
 
   // 아이디와 이름 유효성 통과 시 버튼 활성화
   useEffect(() => {
-    if (userIdValid && userNameValid) {
+    if (accountNameValid && userNameValid) {
       return setButtonNotAllow(false);
     }
     return setButtonNotAllow(true);
-  }, [userID, userName]);
+  }, [accountName, userName]);
 
   // 아이디 인풋창 자동 포커스
   useEffect(() => {
@@ -85,13 +87,13 @@ function ProfileSetting() {
       try {
         const res = await authAxios.post('/accountnamevalid', {
           user: {
-            accountname: userID,
+            accountname: accountName,
           },
         });
 
         if (res.data.message === '이미 가입된 계정ID 입니다.') {
-          setUserIdValid(false);
-          setIdWarningMsg('* 이미 가입된 계정ID 입니다.');
+          setAccountNameValid(false);
+          setAccountNameWarningMsg('* 이미 가입된 계정ID 입니다.');
         }
       } catch (error) {
         console.log(error);
@@ -113,10 +115,10 @@ function ProfileSetting() {
             type: 'text',
             placeholder: '아이디를 입력해주세요',
           }}
-          handleProfileState={handleUserID}
-          inputValue={userID}
-          profileValid={userIdValid}
-          warningMsg={idWarningMsg}
+          handleProfileState={handleAccountName}
+          inputValue={accountName}
+          profileValid={accountNameValid}
+          warningMsg={accountNameWarningMsg}
           inputRef={inputRef}
         />
         <AuthInputForm
@@ -129,7 +131,7 @@ function ProfileSetting() {
           handleProfileState={handleUserName}
           inputValue={userName}
           profileValid={userNameValid}
-          warningMsg={nameWarningMsg}
+          warningMsg={userNameWarningMsg}
         />
         <S.IntroFormContainer>
           <S.Label htmlFor="intro">소개</S.Label>
