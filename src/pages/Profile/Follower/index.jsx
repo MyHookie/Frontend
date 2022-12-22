@@ -51,7 +51,7 @@ function Follower() {
     fetchFollowerList();
   }, []);
 
-  // console.log(followerData, followerData.length);
+  console.log(followerData);
 
   return (
     <>
