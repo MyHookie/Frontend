@@ -46,7 +46,7 @@ const SButton = styled(Button)`
 function FollowerItem({ data }) {
   return (
     <>
-      {data.isfollow ? (
+      {data.isfollow === true && (
         <SContent>
           <SImg src={data.image} alt="프로필 이미지" />
           <SUserInfo>
@@ -54,15 +54,6 @@ function FollowerItem({ data }) {
             <SUserIntroduction>{data.intro}</SUserIntroduction>
           </SUserInfo>
           <SButton text="취소" buttonStyle={FOLLOW_BUTTON} cancel />
-        </SContent>
-      ) : (
-        <SContent>
-          <SImg src={data.image} alt="프로필 이미지" />
-          <SUserInfo>
-            <SUserId>{data.username}</SUserId>
-            <SUserIntroduction>{data.intro}</SUserIntroduction>
-          </SUserInfo>
-          <SButton text="팔로우" buttonStyle={FOLLOW_BUTTON} />
         </SContent>
       )}
     </>
