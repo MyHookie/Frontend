@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Button from '../common/Button';
 import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
 
 import { slEllipsis } from '../../styles/Util';
+import basicProfileImage from '../../assets/basic-profile.png';
 
 const SContent = styled.div`
   display: flex;
@@ -30,6 +32,12 @@ const SUserId = styled.p`
   ${slEllipsis}
 `;
 
+const SAccountName = styled.span`
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: ${({ theme }) => theme.color.GRAY};
+`;
+
 const SUserIntroduction = styled.p`
   flex: 4 4 0;
   font-size: ${({ theme }) => theme.fontSize.SMALL};
@@ -44,17 +52,82 @@ const SButton = styled(Button)`
 `;
 
 function FollowerItem({ data }) {
+  const [followState, setFollowState] = useState(data.isfollow);
+
+  const deleteFollowItem = async () => {
+    try {
+      await axios.delete(
+        `https://mandarin.api.weniv.co.kr/profile/${data.accountname}/unfollow`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const postFollowItem = async () => {
+    try {
+      await axios.post(
+        `https://mandarin.api.weniv.co.kr/profile/${data.accountname}/follow`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleIsFollow = () => {
+    if (followState) {
+      deleteFollowItem();
+      setFollowState(false);
+    } else {
+      postFollowItem();
+      setFollowState(true);
+    }
+  };
+
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
+
   return (
     <SContent key={data.username}>
-      <SImg src={data.image} alt="프로필 이미지" />
+      <SImg src={data.image} alt="프로필 이미지" onError={handleErrorImage} />
       <SUserInfo>
-        <SUserId>{data.username}</SUserId>
+        <SUserId>
+          {data.username}
+          <SAccountName>@{data.accountname}</SAccountName>
+        </SUserId>
         <SUserIntroduction>{data.intro}</SUserIntroduction>
       </SUserInfo>
-      {data.isfollow ? (
-        <SButton text="취소" buttonStyle={FOLLOW_BUTTON} cancel />
+      {followState ? (
+        <SButton
+          text="취소"
+          buttonStyle={FOLLOW_BUTTON}
+          onClick={handleIsFollow}
+          cancel
+        />
       ) : (
-        <SButton text="팔로우" buttonStyle={FOLLOW_BUTTON} />
+        <SButton
+          text="팔로우"
+          buttonStyle={FOLLOW_BUTTON}
+          onClick={handleIsFollow}
+        />
       )}
     </SContent>
   );
