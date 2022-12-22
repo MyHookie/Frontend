@@ -24,5 +24,6 @@ export const ImageInput = styled.img`
   height: 12rem;
   margin: 0 auto;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  object-fit: cover;
   cursor: pointer;
 `;
