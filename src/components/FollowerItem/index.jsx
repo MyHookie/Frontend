@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Button from '../common/Button';
 import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
@@ -53,9 +54,31 @@ const SButton = styled(Button)`
 function FollowerItem({ data }) {
   const [followState, setFollowState] = useState(data.isfollow);
 
+  const deleteFollowItem = async () => {
+    try {
+      await axios.delete(
+        `https://mandarin.api.weniv.co.kr/profile/${data.accountname}/unfollow`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleIsFollow = () => {
-    console.log(data);
-    return followState ? setFollowState(false) : setFollowState(true);
+    if (followState) {
+      deleteFollowItem();
+      setFollowState(false);
+    } else {
+      setFollowState(true);
+    }
   };
 
   const handleErrorImage = (e) => {
