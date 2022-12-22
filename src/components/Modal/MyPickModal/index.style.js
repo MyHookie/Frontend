@@ -11,12 +11,13 @@ export const ModalBackGround = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-position: relative;
+  position: fixed;
+  top: 4rem;
   display: flex;
   flex-direction: column;
   justify-contents: center;
   gap: 1rem;
- 
+  width: 30rem;
   height: 50rem;
   padding: 4.2rem 1.6rem 1rem;
   background-color: ${({ theme }) => theme.color.WHITE};
@@ -37,24 +38,22 @@ position: relative;
 
   @keyframes fadeIn {
     from {
-      bottom: -3rem;
       opacity: 0;
     }
     to {
-      bottom: 0rem;
       opacity: 1;
     }
   }
 `;
 
-export const Container = styled.main`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-contents: center;
   align-items: center;
   gap: 1rem;
   height: calc(100 + 4.4) vh;
-  padding: 6.2rem 3.4rem;
+
   overflow-y: hidden;
 `;
 
@@ -79,10 +78,10 @@ export const ImageInput = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex: 0 0 auto;
+  width: 100%;
+  height: 100%;
   border-radius: 1.5rem;
   background-color: #f2f2f2;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
