@@ -5,6 +5,7 @@ import Button from '../common/Button';
 import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
 
 import { slEllipsis } from '../../styles/Util';
+import basicProfileImage from '../../assets/basic-profile.png';
 
 const SContent = styled.div`
   display: flex;
@@ -50,9 +51,13 @@ const SButton = styled(Button)`
 `;
 
 function FollowerItem({ data }) {
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
+
   return (
     <SContent key={data.username}>
-      <SImg src={data.image} alt="프로필 이미지" />
+      <SImg src={data.image} alt="프로필 이미지" onError={handleErrorImage} />
       <SUserInfo>
         <SUserId>
           {data.username}
