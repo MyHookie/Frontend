@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 import BaseHeader from '../../components/common/BaseHeader';
 import Navigation from '../../components/common/Navigation';
-
 import searchIcon from '../../assets/icon/icon-search.png';
 import logoGrey from '../../assets/logo_grey.png';
 import Button from '../../components/common/Button';
@@ -47,6 +48,7 @@ const SEmptyContent = styled.p`
 
 function Home() {
   const [isSearch, setIsSearch] = useState(false);
+  const navigate = useNavigate();
 
   const fetchPost = async () => {
     const { data } = await axios.get(
@@ -63,18 +65,18 @@ function Home() {
 
   const { data, isLoading, isError } = useQuery('postList', fetchPost);
 
-  const handleSearchActive = () => {
-    setIsSearch(!isSearch);
+  const goToSearch = () => {
+    navigate('/search');
   };
 
   return (
     <>
-      {!isSearch && !isLoading ? (
+      {!isLoading && (
         <>
           <BaseHeader
             image={hookieImage}
             rightIcon={searchIcon}
-            rightClick={handleSearchActive}
+            rightClick={goToSearch}
             rightAlt="검색창 이동"
           />
 
@@ -88,14 +90,12 @@ function Home() {
                 <Button
                   text="검색하기"
                   buttonStyle={LARGE_BUTTON}
-                  onClick={handleSearchActive}
+                  onClick={goToSearch}
                 />
               </SEmptyContainer>
             )}
           </SContainer>
         </>
-      ) : (
-        <UserSearch handleSearchActive={handleSearchActive} />
       )}
 
       <Navigation />

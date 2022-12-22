@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchHeader from '../common/SearchHeader';
 import SearchedUser from './SearchedUser';
-
-const SContainer = styled.div`
-  height: calc(100 + 4.4) vh;
-  background-color: ${({ theme }) => theme.color.WHITE};
-`;
+import * as S from './index.styles';
 
 const userFetch = async (keyword) => {
   const { data } = await axios.get(
@@ -24,44 +20,65 @@ const userFetch = async (keyword) => {
   return data;
 };
 
-function UserSearch({ handleSearchActive }) {
-  const [searchData, setSearchData] = useState('');
+function UserSearch() {
+  const [keyword, setKeyword] = useState('');
+  const [viewCount, setViewCount] = useState(1);
+  const navigate = useNavigate();
+
   const { data, isLoading, isError } = useQuery(
-    ['searchUser', searchData],
-    () => userFetch(searchData),
+    ['searchUser', keyword],
+    () => userFetch(keyword),
     {
-      enabled: !!searchData,
-      select: (result) => result.slice(0, 10),
+      enabled: !!keyword,
+      select: (result) => result.slice(0, viewCount * 5),
     }
   );
 
   const handleSearchData = (e) => {
-    setSearchData(e.target.value);
+    setKeyword(e.target.value);
+    setViewCount(1);
   };
 
-  console.log(data, searchData);
+  const handleMoreView = () => {
+    setViewCount(viewCount + 1);
+  };
+
+  const goToProfile = (accountname) => {
+    navigate(`/profile/${accountname}`);
+  };
+
+  const goBackPage = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <SearchHeader
-        leftClick={handleSearchActive}
-        value={searchData}
+        leftClick={goBackPage}
+        value={keyword}
         onChange={handleSearchData}
       />
       {isLoading && <div>로딩 중 입니다.</div>}
       {isError && <div>에러 발생!!</div>}
-      {data && (
-        <SContainer>
-          {data.map((user) => (
-            <SearchedUser
-              key={user.id}
-              image={user.image}
-              username={user.username}
-              accountname={user.accountname}
-              intro={user.intro}
-            />
-          ))}
-        </SContainer>
-      )}
+      <S.Container>
+        {data?.map((user) => (
+          <SearchedUser
+            key={user._id}
+            image={user.image}
+            username={user.username}
+            intro={user.intro}
+            accountname={user.accountname}
+            keyword={keyword}
+            goToProfile={() => goToProfile(user.accountname)}
+          />
+        ))}
+        {data?.length > 0 && (
+          <S.MoreView onClick={handleMoreView}>더 보기</S.MoreView>
+        )}
+        {keyword && data?.length === 0 && (
+          <S.Message>검색된 이용자가 없습니다.</S.Message>
+        )}
+      </S.Container>
     </>
   );
 }
