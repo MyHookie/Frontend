@@ -26,10 +26,17 @@ const SUserInfo = styled.div`
 `;
 
 const SUserName = styled.p`
+  display: flex;
   font-size: 1.4rem;
 
   strong {
     color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+  }
+
+  span {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    color: ${({ theme }) => theme.color.GRAY};
   }
 `;
 
@@ -40,7 +47,14 @@ const SUserIntro = styled.p`
   padding-right: 7rem;
 `;
 
-function SearchedUser({ image, username, intro, goToProfile, keyword }) {
+function SearchedUser({
+  image,
+  username,
+  intro,
+  goToProfile,
+  accountname,
+  keyword,
+}) {
   const leftText = username.split(keyword)[0];
   const rightText = username.split(keyword)[1];
 
@@ -56,7 +70,9 @@ function SearchedUser({ image, username, intro, goToProfile, keyword }) {
           {leftText}
           <strong>{keyword}</strong>
           {rightText}
+          <span>@{accountname}</span>
         </SUserName>
+
         <SUserIntro>{intro}</SUserIntro>
       </SUserInfo>
     </SContent>

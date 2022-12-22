@@ -83,6 +83,7 @@ function UserSearch({ handleSearchActive }) {
             image={user.image}
             username={user.username}
             intro={user.intro}
+            accountname={user.accountname}
             keyword={keyword}
             goToProfile={() => goToProfile(user.accountname)}
           />
