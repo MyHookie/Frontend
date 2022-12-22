@@ -30,6 +30,12 @@ const SUserId = styled.p`
   ${slEllipsis}
 `;
 
+const SAccountName = styled.span`
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: ${({ theme }) => theme.color.GRAY};
+`;
+
 const SUserIntroduction = styled.p`
   flex: 4 4 0;
   font-size: ${({ theme }) => theme.fontSize.SMALL};
@@ -48,7 +54,10 @@ function FollowerItem({ data }) {
     <SContent key={data.username}>
       <SImg src={data.image} alt="프로필 이미지" />
       <SUserInfo>
-        <SUserId>{data.username}</SUserId>
+        <SUserId>
+          {data.username}
+          <SAccountName>@{data.accountname}</SAccountName>
+        </SUserId>
         <SUserIntroduction>{data.intro}</SUserIntroduction>
       </SUserInfo>
       {data.isfollow ? (
