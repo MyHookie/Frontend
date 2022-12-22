@@ -12,7 +12,8 @@ import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import TagItem from '../TagItem';
 
-import { deleteMyPost } from '../../../api/postApi';
+import { deleteMyPost } from '../../../api/post';
+import { deleteLikeFeed, postLikeFeed } from '../../../api/like';
 
 function PostItem({
   postId,
@@ -36,6 +37,18 @@ function PostItem({
   const [dialogMessage, setDialogMessage] = useState('');
 
   const deletePost = useMutation(() => deleteMyPost(postId));
+  const postLike = useMutation(() => postLikeFeed(postId));
+  const deleteLike = useMutation(() => deleteLikeFeed(postId));
+
+  const handleLike = (e) => {
+    e.stopPropagation();
+    console.log(hearted);
+    if (hearted) {
+      deleteLike.mutate();
+    } else {
+      postLike.mutate();
+    }
+  };
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
@@ -120,10 +133,13 @@ function PostItem({
         <S.BottomContainer>
           <S.IConContainer>
             <S.Icon>
-              <img
-                src={hearted ? filledHeartIcon : heartIcon}
-                alt="좋아요 수"
-              />
+              <button type="button" onClick={handleLike}>
+                <img
+                  src={hearted ? filledHeartIcon : heartIcon}
+                  alt="좋아요 수"
+                />
+              </button>
+
               {heartCount}
             </S.Icon>
             <S.Icon>

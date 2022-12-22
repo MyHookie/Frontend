@@ -11,7 +11,7 @@ import Button from '../../components/common/Button';
 import { LARGE_BUTTON } from '../../constants/buttonStyle';
 import PostList from '../../components/Post/PostList';
 import hookieImage from '../../assets/Hookie.png';
-import { getFollowPost, getMyPost } from '../../api/postApi';
+import { getFollowPost, getMyPost } from '../../api/post';
 
 const SContainer = styled.main`
   display: flex;
