@@ -26,3 +26,13 @@ export const getFollowPost = async () => {
   });
   return data;
 };
+
+export const deleteMyPost = async (postId) => {
+  const { data } = await fetcher.delete(`/post/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      'Content-type': 'application/json',
+    },
+  });
+  return data;
+};
