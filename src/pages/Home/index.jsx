@@ -49,10 +49,11 @@ const SEmptyContent = styled.p`
 function Home() {
   const [isSearch, setIsSearch] = useState(false);
   const navigate = useNavigate();
+  const accountname = JSON.parse(localStorage.getItem('accountName'));
 
   const fetchPost = async () => {
     const { data } = await axios.get(
-      'https://mandarin.api.weniv.co.kr/post/Test/userpost',
+      `https://mandarin.api.weniv.co.kr/post/${accountname}/userpost`,
       {
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
