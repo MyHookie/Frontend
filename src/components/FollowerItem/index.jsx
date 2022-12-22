@@ -72,11 +72,31 @@ function FollowerItem({ data }) {
     }
   };
 
+  const postFollowItem = async () => {
+    try {
+      await axios.post(
+        `https://mandarin.api.weniv.co.kr/profile/${data.accountname}/follow`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleIsFollow = () => {
     if (followState) {
       deleteFollowItem();
       setFollowState(false);
     } else {
+      postFollowItem();
       setFollowState(true);
     }
   };
