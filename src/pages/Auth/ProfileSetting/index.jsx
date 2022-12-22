@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './index.style';
 import Title from '../../../components/Title';
 import ProfileImageInput from '../../../components/ProfileImageInput';
 import AuthInputForm from '../../../components/AuthInputForm';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
+import authAxios from '../../../api/authAxios';
 
 function ProfileSetting() {
   const { state } = useLocation();
@@ -23,6 +24,16 @@ function ProfileSetting() {
   const [nameWarningMsg, setNameWarningMsg] = useState('');
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
+
+  const handleUserID = (e) => {
+    setUserID(e.target.value);
+  };
+  const handleUserName = (e) => {
+    setUserName(e.target.value);
+  };
+  const handleIntro = (e) => {
+    setIntro(e.target.value);
+  };
 
   // 인풋창 입력할 때마다 유효성 검사
   useEffect(() => {
@@ -51,6 +62,7 @@ function ProfileSetting() {
     return setButtonNotAllow(true);
   }, [userID, userName]);
 
+  // 아이디 인풋창 자동 포커스
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -66,15 +78,27 @@ function ProfileSetting() {
     if (!state?.email || !state?.password) navigate('/signup');
   }, []);
 
-  const handleUserID = (e) => {
-    setUserID(e.target.value);
-  };
-  const handleUserName = (e) => {
-    setUserName(e.target.value);
-  };
-  const handleIntro = (e) => {
-    setIntro(e.target.value);
-  };
+  const handleStartClick = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      try {
+        const res = await authAxios.post('/accountnamevalid', {
+          user: {
+            accountname: userID,
+          },
+        });
+
+        if (res.data.message === '이미 가입된 계정ID 입니다.') {
+          setUserIdValid(false);
+          setIdWarningMsg('* 이미 가입된 계정ID 입니다.');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [buttonNotAllow]
+  );
 
   return (
     <S.Container>
@@ -127,6 +151,7 @@ function ProfileSetting() {
           text="후키 시작하기"
           buttonStyle={LARGE_BUTTON}
           disabled={buttonNotAllow}
+          onClick={handleStartClick}
         />
       </S.FormContainer>
     </S.Container>
