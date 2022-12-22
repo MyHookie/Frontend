@@ -1,51 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { slEllipsis } from '../../../styles/Util';
+
 import basicProfileImage from '../../../assets/basic-profile.png';
-
-const SContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1.2rem 0rem;
-  padding: 0rem 1rem;
-`;
-
-const SUserImage = styled.img`
-  min-width: 5rem;
-  width: 5rem;
-  min-height: 5rem;
-  height: 5rem;
-  object-fit: cover;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
-`;
-
-const SUserInfo = styled.div`
-  width: 100%;
-  margin: 0 1.2rem;
-`;
-
-const SUserName = styled.p`
-  display: flex;
-  font-size: 1.4rem;
-
-  strong {
-    color: ${({ theme }) => theme.color.ACTIVE_BLUE};
-  }
-
-  span {
-    font-size: 1rem;
-    margin-left: 0.5rem;
-    color: ${({ theme }) => theme.color.GRAY};
-  }
-`;
-
-const SUserIntro = styled.p`
-  ${slEllipsis};
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.color.GRAY};
-  padding-right: 7rem;
-`;
+import * as S from './index.styles';
 
 function SearchedUser({
   image,
@@ -63,19 +19,18 @@ function SearchedUser({
   };
 
   return (
-    <SContent onClick={goToProfile}>
-      <SUserImage src={image} alt="프로필 이미지" onError={handleErrorImage} />
-      <SUserInfo>
-        <SUserName>
+    <S.Content onClick={goToProfile}>
+      <S.UserImage src={image} alt="프로필 이미지" onError={handleErrorImage} />
+      <S.UserInfo>
+        <S.UserName>
           {leftText}
           <strong>{keyword}</strong>
           {rightText}
           <span>@{accountname}</span>
-        </SUserName>
-
-        <SUserIntro>{intro}</SUserIntro>
-      </SUserInfo>
-    </SContent>
+        </S.UserName>
+        <S.UserIntro>{intro}</S.UserIntro>
+      </S.UserInfo>
+    </S.Content>
   );
 }
 

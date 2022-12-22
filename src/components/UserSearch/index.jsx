@@ -1,31 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SearchHeader from '../common/SearchHeader';
 import SearchedUser from './SearchedUser';
-
-const SContainer = styled.div`
-  height: calc(100 + 4.4) vh;
-  background-color: ${({ theme }) => theme.color.WHITE};
-`;
-
-const SMoreView = styled.p`
-  text-align: center;
-  margin-bottom: 8rem;
-
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.ACTIVE_BLUE};
-`;
-
-const SMessage = styled.p`
-  text-align: center;
-  margin-top: 1rem;
-
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-`;
+import * as S from './index.styles';
 
 const userFetch = async (keyword) => {
   const { data } = await axios.get(
@@ -80,7 +60,7 @@ function UserSearch() {
       />
       {isLoading && <div>로딩 중 입니다.</div>}
       {isError && <div>에러 발생!!</div>}
-      <SContainer>
+      <S.Container>
         {data?.map((user) => (
           <SearchedUser
             key={user._id}
@@ -93,12 +73,12 @@ function UserSearch() {
           />
         ))}
         {data?.length > 0 && (
-          <SMoreView onClick={handleMoreView}>더 보기</SMoreView>
+          <S.MoreView onClick={handleMoreView}>더 보기</S.MoreView>
         )}
         {keyword && data?.length === 0 && (
-          <SMessage>검색된 이용자가 없습니다.</SMessage>
+          <S.Message>검색된 이용자가 없습니다.</S.Message>
         )}
-      </SContainer>
+      </S.Container>
     </>
   );
 }
