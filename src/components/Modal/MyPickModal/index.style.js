@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-contents: center;
+  align-items: center;
+  gap: 1rem;
+  height: calc(100 + 4.4) vh;
+
+  overflow-y: hidden;
+`;
+
 export const ModalBackGround = styled.div`
   position: fixed;
   top: 0px;
@@ -19,7 +30,7 @@ export const ModalContainer = styled.div`
   gap: 1rem;
   width: 30rem;
   height: 50rem;
-  padding: 4.2rem 1.6rem 1rem;
+  padding: 4.5rem 1.6rem 3rem;
   background-color: ${({ theme }) => theme.color.WHITE};
 
   border-radius: 1.5rem;
@@ -29,12 +40,13 @@ export const ModalContainer = styled.div`
   animation: fadeIn 0.5s;
   z-index: 140;
 
-  overflow-y: scroll;
+  overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
   ::-webkit-scrollbar {
     display: none;
+  }
 
   @keyframes fadeIn {
     from {
@@ -44,17 +56,6 @@ export const ModalContainer = styled.div`
       opacity: 1;
     }
   }
-`;
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-contents: center;
-  align-items: center;
-  gap: 1rem;
-  height: calc(100 + 4.4) vh;
-
-  overflow-y: hidden;
 `;
 
 export const ImageContainer = styled.div`
