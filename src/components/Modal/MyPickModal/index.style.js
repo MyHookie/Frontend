@@ -11,13 +11,14 @@ export const ModalBackGround = styled.div`
 `;
 
 export const ModalContainer = styled.div`
+position: relative;
   display: flex;
   flex-direction: column;
   justify-contents: center;
   gap: 1rem;
  
   height: 50rem;
-  padding: 6.2rem 1.6rem 1rem;
+  padding: 4.2rem 1.6rem 1rem;
   background-color: ${({ theme }) => theme.color.WHITE};
 
   border-radius: 1.5rem;
@@ -114,4 +115,17 @@ export const Textarea = styled.p`
 
 export const TextContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+`;
+
+export const CloseModal = styled.button`
+  position: absolute;
+  top: 1.2rem;
+  right: 1.6rem;
+  width: 1.8rem;
+
+  border: none;
+
+  img {
+    filter: brightness(0.4);
+  }
 `;

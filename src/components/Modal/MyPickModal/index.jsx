@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as S from './index.style';
+import closeIcon from '../../../assets/icon/x.png';
 
-function MyPickModal() {
+function MyPickModal({ handleClose }) {
   return (
     <S.Container>
-      <S.ModalBackGround />
+      <S.ModalBackGround onClick={handleClose} />
       <S.ModalContainer>
+        <S.CloseModal onClick={handleClose}>
+          <img src={closeIcon} alt="모달창 닫기" />
+        </S.CloseModal>
         <S.ImageContainer>
           <S.ImageInput />
           <S.Imgtxt>myPick 이미지</S.Imgtxt>
