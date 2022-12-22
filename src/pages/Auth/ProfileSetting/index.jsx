@@ -16,6 +16,7 @@ function ProfileSetting() {
   const [accountName, setAccountName] = useState('');
   const [userName, setUserName] = useState('');
   const [intro, setIntro] = useState('');
+  const [image, setImage] = useState('');
 
   const [accountNameValid, setAccountNameValid] = useState(false);
   const [userNameValid, setUserNameValid] = useState(false);
@@ -33,6 +34,11 @@ function ProfileSetting() {
   };
   const handleIntro = (e) => {
     setIntro(e.target.value);
+  };
+
+  // 자식 컴포넌트에서 이미지 src 가져오기
+  const handleProfileImage = (targetImage) => {
+    setImage(targetImage);
   };
 
   // 인풋창 입력할 때마다 유효성 검사
@@ -83,7 +89,6 @@ function ProfileSetting() {
   const handleStartClick = useCallback(
     async (e) => {
       e.preventDefault();
-      const imageSrc = JSON.parse(localStorage.getItem('image'));
 
       try {
         const res = await authAxios.post('/accountnamevalid', {
@@ -104,7 +109,7 @@ function ProfileSetting() {
               password: state.password,
               accountname: accountName,
               intro,
-              image: imageSrc,
+              image: `https://mandarin.api.weniv.co.kr/${image}`,
             },
           });
 
@@ -129,7 +134,7 @@ function ProfileSetting() {
     <S.Container>
       <Title>프로필 설정</Title>
       <S.SubText>나중에 언제든지 변경할 수 있습니다.</S.SubText>
-      <ProfileImageInput />
+      <ProfileImageInput handleProfileImage={handleProfileImage} />
       <S.FormContainer>
         <AuthInputForm
           id="id"

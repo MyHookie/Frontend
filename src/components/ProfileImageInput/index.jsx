@@ -1,36 +1,51 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
 
-function ProfileImageInput() {
+function ProfileImageInput({ handleProfileImage }) {
   const [profileImage, setProfileImage] = useState(basicProfileImage);
   const imageInput = useRef(null);
+
+  const fetchImage = async (image) => {
+    const formData = new FormData();
+
+    formData.append('image', image);
+
+    try {
+      const res = await axios.post(
+        `https://mandarin.api.weniv.co.kr/image/uploadfile`,
+        formData
+      );
+
+      handleProfileImage(res.data.filename);
+
+      return res.data.filename;
+    } catch (error) {
+      return error;
+    }
+  };
 
   const handleImageChange = useCallback((e) => {
     const currentImage = e.target.files[0];
 
     if (currentImage) {
-      setProfileImage(currentImage);
-      // 이미지 소스 로컬스토리지에 저장
-      localStorage.setItem(
-        'image',
-        `https://mandarin.api.weniv.co.kr/${currentImage.name}`
-      );
+      fetchImage(currentImage);
     } else {
-      setProfileImage(basicProfileImage); // 이미지 업로드 취소할 경우 기본 프로필 이미지로 설정
-      localStorage.setItem(
-        'image',
-        `https://mandarin.api.weniv.co.kr${basicProfileImage}`
-      );
+      setProfileImage(basicProfileImage);
+      fetchImage(basicProfileImage);
     }
 
     // 업로드 이미지 preview
     const reader = new FileReader();
+
     reader.onload = () => {
       if (reader.readyState === 2) {
         setProfileImage(reader.result);
       }
     };
+
     reader.readAsDataURL(currentImage);
   }, []);
 
