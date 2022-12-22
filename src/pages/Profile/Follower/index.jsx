@@ -51,8 +51,6 @@ function Follower() {
     fetchFollowerList();
   }, []);
 
-  console.log(followerData);
-
   return (
     <>
       <BaseHeader

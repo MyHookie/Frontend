@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Button from '../common/Button';
@@ -51,6 +51,13 @@ const SButton = styled(Button)`
 `;
 
 function FollowerItem({ data }) {
+  const [followState, setFollowState] = useState(data.isfollow);
+
+  const handleIsFollow = () => {
+    console.log(data);
+    return followState ? setFollowState(false) : setFollowState(true);
+  };
+
   const handleErrorImage = (e) => {
     e.target.src = basicProfileImage;
   };
@@ -65,10 +72,19 @@ function FollowerItem({ data }) {
         </SUserId>
         <SUserIntroduction>{data.intro}</SUserIntroduction>
       </SUserInfo>
-      {data.isfollow ? (
-        <SButton text="취소" buttonStyle={FOLLOW_BUTTON} cancel />
+      {followState ? (
+        <SButton
+          text="취소"
+          buttonStyle={FOLLOW_BUTTON}
+          onClick={handleIsFollow}
+          cancel
+        />
       ) : (
-        <SButton text="팔로우" buttonStyle={FOLLOW_BUTTON} />
+        <SButton
+          text="팔로우"
+          buttonStyle={FOLLOW_BUTTON}
+          onClick={handleIsFollow}
+        />
       )}
     </SContent>
   );
