@@ -16,6 +16,8 @@ import Splash from './pages/Splash';
 import Welcome from './pages/Welcome';
 import ProfileEdit from './pages/Profile/ProfileEdit';
 import ProfileSetting from './pages/Auth/ProfileSetting';
+import Mypicks from './pages/Mypicks';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path="profile" element={<ProfileSetting />} />
         </Route>
         <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/chat/:id" element={<ChatDetail />} />
         <Route path="/post">
@@ -38,10 +41,13 @@ function App() {
         </Route>
         <Route path="/profile">
           <Route index element={<Profile />} />
+          <Route path=":id" element={<Profile />} />
           <Route path="edit" element={<ProfileEdit />} />
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>
+        <Route path="/mypicks" element={<Mypicks />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
