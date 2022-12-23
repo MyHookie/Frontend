@@ -10,11 +10,6 @@ export const contentState = atom({
   default: '',
 });
 
-export const imageFileListState = atom({
-  key: 'imageFileListState',
-  default: [],
-});
-
 export const imageSrcListState = atom({
   key: 'imageSrcListState',
   default: [],

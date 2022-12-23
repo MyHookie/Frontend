@@ -8,8 +8,9 @@ import PreviewImageItem from '../PreviewImageItem';
 import {
   tagListState,
   contentState,
-  imageFileListState,
+  imageSrcListState,
 } from '../../../atoms/post';
+import getImageFilename from '../../../api/image';
 
 const getTagColors = () => {
   const colors = [
@@ -34,27 +35,20 @@ const getTagColors = () => {
 
 function Posting({ editTagArray, editContent, editImages, edit }) {
   const [tag, setTags] = useState('');
-  const [base64Image, setBase64Image] = useState([]);
 
   const [tagList, setTagList] = useRecoilState(tagListState);
   const [content, setContent] = useRecoilState(contentState);
-  const [imageFileList, setImageFileList] = useRecoilState(imageFileListState);
+  const [imageSrcList, setImageSrcList] = useRecoilState(imageSrcListState);
 
   const imageInput = useRef();
 
   useEffect(() => {
     if (edit) {
-      const previewImages = [];
-
-      editImages.forEach((src) => {
-        previewImages.push(`https://mandarin.api.weniv.co.kr/${src}`);
-      });
-
-      setBase64Image([...previewImages]);
+      setImageSrcList(editImages);
       setTagList(editTagArray);
       setContent(editContent);
     } else {
-      setImageFileList([]);
+      setImageSrcList([]);
       setTagList([]);
       setContent('');
     }
@@ -64,34 +58,28 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
     imageInput.current.click();
   };
 
-  const handleImagePreview = (e) => {
+  const handleImagePreview = async (e) => {
     const fileArray = e.target.files;
-    const files = [];
+    const promiseImageArray = [];
 
     if (fileArray.length > 3) {
       alert('이미지는 한번에 3개까지만 추가할 수 있습니다.');
       return;
     }
 
-    setImageFileList([...imageFileList, ...fileArray]);
-
     for (let i = 0; i < fileArray.length; i += 1) {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        files.push(reader.result);
-        setBase64Image([...base64Image, ...files]);
-      };
-
-      reader.readAsDataURL(fileArray[i]);
+      promiseImageArray.push(getImageFilename(fileArray[i]));
     }
+
+    const imageUrls = await Promise.all(promiseImageArray);
+    setImageSrcList([...imageSrcList, ...imageUrls]);
   };
 
   const handleImageDelete = (targetIndex) => {
-    const newImageList = base64Image.filter(
+    const newImageList = imageSrcList.filter(
       (_, index) => index !== targetIndex
     );
-    setBase64Image(newImageList);
+    setImageSrcList(newImageList);
   };
 
   const handleTagChange = (e) => {
@@ -154,14 +142,13 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
             style={{ display: 'none' }}
             onChange={handleImagePreview}
           />
-          {base64Image &&
-            base64Image.map((src, index) => (
-              <PreviewImageItem
-                key={nanoid()}
-                src={src}
-                handleImageDelete={() => handleImageDelete(index)}
-              />
-            ))}
+          {imageSrcList?.map((src, index) => (
+            <PreviewImageItem
+              key={nanoid()}
+              src={`https://mandarin.api.weniv.co.kr/${src}`}
+              handleImageDelete={() => handleImageDelete(index)}
+            />
+          ))}
         </S.ImageContainer>
         <S.Content
           type="text"
