@@ -27,6 +27,25 @@ export const getFollowPost = async () => {
   return data;
 };
 
+export const createMyPost = async (imageUrls, contents) => {
+  const { data } = await axios.post(
+    `https://mandarin.api.weniv.co.kr/post`,
+    {
+      post: {
+        content: contents,
+        image: imageUrls.join(', '),
+      },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
+  return data;
+};
+
 export const deleteMyPost = async (postId) => {
   const { data } = await fetcher.delete(`/post/${postId}`, {
     headers: {
