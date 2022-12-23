@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import uploadIconGrey from '../../assets/upload-file_grey.png';
+import uploadIcon from '../../assets/upload-file.png';
 import { IR } from '../../styles/Util';
 
 export const Container = styled.main`
@@ -33,10 +34,11 @@ export const ImageInput = styled.div`
   top: 0;
   right: 0;
   left: 0;
+  z-index: 10;
   height: 100%;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1.5rem;
-  background-color: #f2f2f2;
+  background-color: transparent;
   cursor: pointer;
 
   &::after {
@@ -49,7 +51,21 @@ export const ImageInput = styled.div`
     background-image: url(${uploadIconGrey});
     background-size: cover;
   }
+
+  &:active {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      width: 4rem;
+      height: 4rem;
+      background-image: url(${uploadIcon});
+      background-size: cover;
+    }
+  }
 `;
+
 export const Imgtxt = styled.p`
   position: absolute;
   top: -3rem;
@@ -61,6 +77,16 @@ export const Imgtxt = styled.p`
 export const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
+`;
+
+export const img = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.5rem;
 `;
 
 // textarea, label에 fontfamily 임시 적용중
