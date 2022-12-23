@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { nanoid } from 'nanoid';
+import { useNavigate } from 'react-router-dom';
 import * as S from './index.styles';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
@@ -35,6 +36,7 @@ function PostItem({
   const [accountName, setAccountName] = useState('');
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
+  const navigate = useNavigate();
 
   const deletePost = useMutation(() => deleteMyPost(postId));
   const postLike = useMutation(() => postLikeFeed(postId));
@@ -93,6 +95,17 @@ function PostItem({
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
   }, []);
 
+  const goToEditPage = () => {
+    navigate(`/post/edit/${postId}`, {
+      state: {
+        postId,
+        editTagArray: tagArray,
+        editContent: contents,
+        editImages: images,
+      },
+    });
+  };
+
   const settings = {
     dots: true,
     speed: 1000,
@@ -139,7 +152,6 @@ function PostItem({
                   alt="좋아요 수"
                 />
               </button>
-
               {heartCount}
             </S.Icon>
             <S.Icon>
@@ -158,7 +170,7 @@ function PostItem({
       {isBottomSheetOpen && author.accountname === accountName && (
         <BottomSheet handleClose={handleBottomSheetOpen}>
           <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
-          <BottomSheetContent text="수정하기" />
+          <BottomSheetContent text="수정하기" onClick={goToEditPage} />
           <BottomSheetContent text="취소하기" />
         </BottomSheet>
       )}

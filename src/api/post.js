@@ -28,8 +28,8 @@ export const getFollowPost = async () => {
 };
 
 export const createMyPost = async (imageUrls, contents) => {
-  const { data } = await axios.post(
-    `https://mandarin.api.weniv.co.kr/post`,
+  const { data } = await fetcher.post(
+    `/post`,
     {
       post: {
         content: contents,
@@ -53,5 +53,24 @@ export const deleteMyPost = async (postId) => {
       'Content-type': 'application/json',
     },
   });
+  return data;
+};
+
+export const editMyPost = async (imageUrls, contents, postId) => {
+  const { data } = await fetcher.put(
+    `/post/${postId}`,
+    {
+      post: {
+        content: contents,
+        image: imageUrls.join(', '),
+      },
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
   return data;
 };

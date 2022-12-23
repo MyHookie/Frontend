@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { nanoid } from 'nanoid';
 import * as S from './index.styles';
@@ -32,7 +32,7 @@ const getTagColors = () => {
   return randomColor;
 };
 
-function Posting() {
+function Posting({ editTagArray, editContent, editImages, edit }) {
   const [tag, setTags] = useState('');
   const [base64Image, setBase64Image] = useState([]);
 
@@ -41,6 +41,24 @@ function Posting() {
   const [imageFileList, setImageFileList] = useRecoilState(imageFileListState);
 
   const imageInput = useRef();
+
+  useEffect(() => {
+    if (edit) {
+      const previewImages = [];
+
+      editImages.forEach((src) => {
+        previewImages.push(`https://mandarin.api.weniv.co.kr/${src}`);
+      });
+
+      setBase64Image([...previewImages]);
+      setTagList(editTagArray);
+      setContent(editContent);
+    } else {
+      setImageFileList([]);
+      setTagList([]);
+      setContent('');
+    }
+  }, []);
 
   const handleImageAdd = () => {
     imageInput.current.click();
