@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import { nanoid } from 'nanoid';
+import { useNavigate } from 'react-router-dom';
 import * as S from './index.styles';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
@@ -10,6 +12,9 @@ import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import TagItem from '../TagItem';
+
+import { deleteMyPost, reportFollowPost } from '../../../api/post';
+import { deleteLikeFeed, postLikeFeed } from '../../../api/like';
 
 function PostItem({
   postId,
@@ -28,21 +33,61 @@ function PostItem({
   const [tagArray, setTagArray] = useState([]);
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
+  const [accountName, setAccountName] = useState('');
+  const [dialogType, setDialogType] = useState('');
+  const [dialogMessage, setDialogMessage] = useState('');
+  const navigate = useNavigate();
+
+  const deletePost = useMutation(() => deleteMyPost(postId));
+  const postLike = useMutation(() => postLikeFeed(postId));
+  const deleteLike = useMutation(() => deleteLikeFeed(postId));
+  const reportPost = useMutation(() => reportFollowPost(postId));
+
+  const handleLike = (e) => {
+    e.stopPropagation();
+    console.log(hearted);
+    if (hearted) {
+      deleteLike.mutate();
+    } else {
+      postLike.mutate();
+    }
+  };
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
     setIsBottomSheetOpen(!isBottomSheetOpen);
   };
 
-  const handleDialogOpen = () => {
-    setIsDialogOpen(!isDialogOpen);
+  const handleDialogOpen = (e) => {
+    if (isDialogOpen) {
+      setIsDialogOpen(false);
+      setDialogType('');
+    } else {
+      setIsDialogOpen(true);
+      setDialogType(e.target.textContent);
+    }
   };
 
-  const handlePostDelete = () => {
-    // post 삭제 로직 구현
+  const handleDialogAction = () => {
+    if (dialogType === '삭제하기') {
+      deletePost.mutate();
+    } else if (dialogType === '신고하기') {
+      reportPost.mutate();
+      // console.log 대신 snackBar 모달로 대체 예정
+      console.log('신고되었습니다.');
+    }
+
     setIsBottomSheetOpen(!isBottomSheetOpen);
     setIsDialogOpen(!isDialogOpen);
   };
+
+  useEffect(() => {
+    if (dialogType === '삭제하기') {
+      setDialogMessage('정말 삭제하시겠습니까?');
+    } else if (dialogType === '신고하기') {
+      setDialogMessage('정말 신고하시겠습니까?');
+    }
+  }, [dialogType]);
 
   useEffect(() => {
     const jsonContents = JSON.parse(content);
@@ -50,7 +95,19 @@ function PostItem({
     setTagArray(jsonContents.tags);
     setContents(jsonContents.content);
     setImages(image.split(', '));
+    setAccountName(JSON.parse(localStorage.getItem('accountName')));
   }, []);
+
+  const goToEditPage = () => {
+    navigate(`/post/edit/${postId}`, {
+      state: {
+        postId,
+        editTagArray: tagArray,
+        editContent: contents,
+        editImages: images,
+      },
+    });
+  };
 
   const settings = {
     dots: true,
@@ -92,10 +149,12 @@ function PostItem({
         <S.BottomContainer>
           <S.IConContainer>
             <S.Icon>
-              <img
-                src={hearted ? filledHeartIcon : heartIcon}
-                alt="좋아요 수"
-              />
+              <button type="button" onClick={handleLike}>
+                <img
+                  src={hearted ? filledHeartIcon : heartIcon}
+                  alt="좋아요 수"
+                />
+              </button>
               {heartCount}
             </S.Icon>
             <S.Icon>
@@ -111,18 +170,24 @@ function PostItem({
           </S.VerticalButton>
         )}
       </S.PostItem>
-      {isBottomSheetOpen && (
+      {isBottomSheetOpen && author.accountname === accountName && (
         <BottomSheet handleClose={handleBottomSheetOpen}>
-          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
           <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
-          <BottomSheetContent text="신고하기" />
+          <BottomSheetContent text="수정하기" onClick={goToEditPage} />
+          <BottomSheetContent text="취소하기" />
+        </BottomSheet>
+      )}
+      {isBottomSheetOpen && author.accountname !== accountName && (
+        <BottomSheet handleClose={handleBottomSheetOpen}>
+          <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
+          <BottomSheetContent text="취소하기" />
         </BottomSheet>
       )}
       {isDialogOpen && (
         <Dialog
-          dialogText="게시물을 정말 삭제하시겠습니까?"
+          dialogText={dialogMessage}
           handleClose={handleDialogOpen}
-          handleSubmit={handlePostDelete}
+          handleSubmit={handleDialogAction}
         />
       )}
     </>
