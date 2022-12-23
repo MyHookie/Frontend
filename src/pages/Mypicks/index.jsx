@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
 import leftIcon from '../../assets/icon/icon-arrow-left.png';
@@ -17,6 +18,7 @@ function index() {
   };
 
   const textRef = useRef();
+  const imageInput = useRef();
 
   const handleResizeHeight = useCallback((e) => {
     e.target.style.height = 'inherit';
@@ -51,6 +53,19 @@ function index() {
       setDisabled(true);
     }
   };
+  const [imgFile, setImgFile] = useState('');
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
+  const handleImageAdd = () => {
+    imageInput.current.click();
+  };
 
   return (
     <>
@@ -70,12 +85,16 @@ function index() {
       <S.Container>
         <S.ImageContainer>
           <S.Imgtxt>myPick 이미지 등록</S.Imgtxt>
-          <S.ImageInput />
+          <S.ImageInput onClick={handleImageAdd} />
           <input
             type="file"
-            accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
+            accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic
+            "
+            ref={imageInput}
+            onChange={handleFileChange}
             style={{ display: 'none' }}
           />
+          {imgFile && <S.img src={imgFile} alt="" />}
         </S.ImageContainer>
         <S.Label htmlFor="something1">제목</S.Label>
         <S.Textarea
@@ -115,5 +134,4 @@ function index() {
     </>
   );
 }
-
 export default index;
