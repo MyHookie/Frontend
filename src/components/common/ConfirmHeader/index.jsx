@@ -27,13 +27,17 @@ const SButton = styled.button`
   width: 2.2rem;
 `;
 
-function ConfirmHeader({ leftClick, rightClick }) {
+function ConfirmHeader({ leftClick, rightClick, rightButtonText = '저장' }) {
   return (
     <SContainer>
       <SButton onClick={leftClick}>
         <img src={arrowIcon} alt="뒤로가기" />
       </SButton>
-      <Button onClick={rightClick} text="저장" buttonStyle={SMALL_BUTTON} />
+      <Button
+        onClick={rightClick}
+        text={rightButtonText}
+        buttonStyle={SMALL_BUTTON}
+      />
     </SContainer>
   );
 }
