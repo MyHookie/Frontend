@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,39 +10,9 @@ import Button from '../../components/common/Button';
 import { LARGE_BUTTON } from '../../constants/buttonStyle';
 import PostList from '../../components/Post/PostList';
 import hookieImage from '../../assets/Hookie.png';
+import * as S from './index.styles';
+
 import { getFollowPost, getMyPost } from '../../api/post';
-
-const SContainer = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: calc(100 + 4.4) vh;
-
-  padding: 0.9rem;
-  margin-bottom: 6rem;
-`;
-
-const SEmptyContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50%;
-
-  button {
-    width: 12rem;
-  }
-`;
-
-const SEmptyImage = styled.img`
-  width: 20rem;
-  margin-bottom: 2.6rem;
-`;
-
-const SEmptyContent = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
-  margin-bottom: 2rem;
-`;
 
 function Home() {
   const [allPost, setAllPost] = useState([]);
@@ -98,21 +67,21 @@ function Home() {
           rightAlt="검색창 이동"
         />
 
-        <SContainer>
+        <S.Container>
           {allPost.length > 0 ? (
             <PostList postData={allPost} />
           ) : (
-            <SEmptyContainer>
-              <SEmptyImage src={logoGrey} alt="로고 이미지" />
-              <SEmptyContent>유저를 검색해 팔로우 해보세요!</SEmptyContent>
+            <S.EmptyContainer>
+              <S.EmptyImage src={logoGrey} alt="로고 이미지" />
+              <S.EmptyContent>유저를 검색해 팔로우 해보세요!</S.EmptyContent>
               <Button
                 text="검색하기"
                 buttonStyle={LARGE_BUTTON}
                 onClick={goToSearch}
               />
-            </SEmptyContainer>
+            </S.EmptyContainer>
           )}
-        </SContainer>
+        </S.Container>
 
         <Navigation />
       </>
