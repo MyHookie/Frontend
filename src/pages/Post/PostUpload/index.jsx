@@ -20,9 +20,7 @@ function PostUpload() {
 
   const navigate = useNavigate();
 
-  const createPost = async (e) => {
-    e.preventDefault();
-
+  const createPost = async () => {
     const contents = JSON.stringify({
       tags: tagList,
       content,

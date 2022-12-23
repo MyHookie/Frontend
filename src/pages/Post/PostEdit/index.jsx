@@ -24,9 +24,7 @@ function PostEdit() {
 
   const navigate = useNavigate();
 
-  const editPost = async (e) => {
-    e.preventDefault();
-
+  const editPost = async () => {
     const contents = JSON.stringify({
       tags: tagList,
       content,

@@ -74,3 +74,17 @@ export const editMyPost = async (imageUrls, contents, postId) => {
   );
   return data;
 };
+
+export const reportFollowPost = async (postId) => {
+  const { data } = await fetcher.post(
+    `/post/${postId}/report`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
+  return data;
+};

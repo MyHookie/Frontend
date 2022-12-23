@@ -13,7 +13,7 @@ import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import TagItem from '../TagItem';
 
-import { deleteMyPost } from '../../../api/post';
+import { deleteMyPost, reportFollowPost } from '../../../api/post';
 import { deleteLikeFeed, postLikeFeed } from '../../../api/like';
 
 function PostItem({
@@ -41,6 +41,7 @@ function PostItem({
   const deletePost = useMutation(() => deleteMyPost(postId));
   const postLike = useMutation(() => postLikeFeed(postId));
   const deleteLike = useMutation(() => deleteLikeFeed(postId));
+  const reportPost = useMutation(() => reportFollowPost(postId));
 
   const handleLike = (e) => {
     e.stopPropagation();
@@ -71,6 +72,8 @@ function PostItem({
     if (dialogType === '삭제하기') {
       deletePost.mutate();
     } else if (dialogType === '신고하기') {
+      reportPost.mutate();
+      // console.log 대신 snackBar 모달로 대체 예정
       console.log('신고되었습니다.');
     }
 
