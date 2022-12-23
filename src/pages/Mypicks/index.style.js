@@ -12,24 +12,38 @@ export const Container = styled.main`
 
 export const ImageContainer = styled.div`
   position: relative;
-  height: 100%;
+  padding-top: 56.25%;
+  height: 0;
   padding-bottom: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  cursor: pointer;
+  margin-bottom: 1rem;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    height: 1px;
+    width: 100%;
+    margin-top: 2rem;
+    background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  }
 `;
 export const ImageInput = styled.div`
   display: flex;
   flex: 0 0 auto;
-  width: 100%;
-  height: 20.4rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1.5rem;
   background-color: #f2f2f2;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  cursor: pointer;
+
   &::after {
     content: '';
     position: absolute;
     right: 1.2rem;
-    bottom: 2.2rem;
+    bottom: 1.2rem;
     width: 4rem;
     height: 4rem;
     background-image: url(${uploadIconGrey});
