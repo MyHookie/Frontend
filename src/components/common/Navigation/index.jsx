@@ -22,7 +22,7 @@ const SContainer = styled.div`
 
   height: 6rem;
   width: 100%;
-  padding: 0rem 2rem;
+  padding: 0rem 2.7rem;
 
   background-color: ${({ theme }) => theme.color.WHITE};
   border-top: 1px solid #dddddd;
