@@ -9,6 +9,7 @@ export const UserInfoContainer = styled.div`
   align-items: center;
 
   width: 100%;
+  background-color: ${({ theme }) => theme.color.WHITE};
 `;
 
 export const FollowInfoContainer = styled.div`
@@ -72,6 +73,7 @@ export const ButtonContainer = styled.div`
   align-items: center;
 
   gap: 1rem;
+  padding-bottom: 2rem;
 `;
 
 export const IconButton = styled.button`
