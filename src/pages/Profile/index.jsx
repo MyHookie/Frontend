@@ -6,13 +6,14 @@ import BaseHeader from '../../components/common/BaseHeader';
 import Navigation from '../../components/common/Navigation';
 import leftArrowIcon from '../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../assets/icon/s-icon-more-vertical.png';
+import UserInfo from '../../components/Profile/UserInfo';
 
 import getProfileInfo from '../../api/profile';
-import UserInfo from '../../components/Profile/UserInfo';
+import { getMyPost } from '../../api/post';
 
 function Profile() {
   const param = useParams();
-  console.log(param);
+  const isMyPage = param.id === JSON.parse(localStorage.getItem('accountName'));
 
   const { data, isLoading, isError } = useQuery('profileInfo', () =>
     getProfileInfo(param.id)
@@ -39,6 +40,8 @@ function Profile() {
           userName={data.profile.username}
           accountName={data.profile.accountname}
           intro={data.profile.intro}
+          isFollow={data.profile.isfollow}
+          isMyPage={isMyPage}
         />
       )}
 
