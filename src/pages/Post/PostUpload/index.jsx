@@ -28,7 +28,7 @@ function PostUpload() {
 
     try {
       const response = createMyPost(imageSrcList, contents);
-      return response.then(navigate(`/profile`));
+      return response.then(navigate(-1));
     } catch (error) {
       return error;
     }
