@@ -21,7 +21,7 @@ function Follower() {
   const navigate = useNavigate();
 
   const handleToProfile = () => {
-    navigate('/profile');
+    navigate(-1);
   };
 
   const [followerData, setFollowerData] = useState([]);

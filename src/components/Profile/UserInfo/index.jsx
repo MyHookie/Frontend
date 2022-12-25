@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 import { MEDIUM_BUTTON } from '../../../constants/buttonStyle';
@@ -16,14 +17,24 @@ function UserInfo({
   isFollow,
   isMyPage,
 }) {
+  const navigate = useNavigate();
+
   const handleErrorImage = (e) => {
     e.target.src = basicProfileImage;
+  };
+
+  const goToFollowerPage = (accountname) => {
+    navigate(`/profile/${accountname}/follower`);
+  };
+
+  const goToFollowingPage = (accountname) => {
+    navigate(`/profile/${accountname}/following`);
   };
 
   return (
     <S.UserInfoContainer>
       <S.FollowInfoContainer>
-        <S.FollowInfo>
+        <S.FollowInfo onClick={() => goToFollowerPage(accountName)}>
           <S.FollowCount>{followerCount}</S.FollowCount>
           <S.FollowType>followers</S.FollowType>
         </S.FollowInfo>
@@ -32,7 +43,7 @@ function UserInfo({
           alt="프로필 이미지"
           onError={handleErrorImage}
         />
-        <S.FollowInfo>
+        <S.FollowInfo onClick={() => goToFollowingPage(accountName)}>
           <S.FollowCount>{followingCount}</S.FollowCount>
           <S.FollowType>followings</S.FollowType>
         </S.FollowInfo>
