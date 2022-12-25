@@ -1,33 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+
+import * as S from './index.styles';
 import AlbumPostItem from '../AlbumPostItem';
 import PostItem from '../PostItem';
-
-const SPostList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  gap: 1rem;
-
-  padding: 1rem;
-  padding-bottom: 7rem;
-`;
-
-const SPostAlbum = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: minmax(11rem, 11rem);
-
-  width: 100%;
-  gap: 1rem;
-
-  padding: 1rem;
-  margin-bottom: 7rem;
-`;
 
 function PostList({ postData, isAlbum }) {
   const navigate = useNavigate();
@@ -39,7 +15,7 @@ function PostList({ postData, isAlbum }) {
   return (
     <>
       {!isAlbum && (
-        <SPostList>
+        <S.PostList>
           {postData.map((item) => (
             <PostItem
               key={item.id}
@@ -56,14 +32,14 @@ function PostList({ postData, isAlbum }) {
               goPostDetailPage={goPostDetailPage}
             />
           ))}
-        </SPostList>
+        </S.PostList>
       )}
       {isAlbum && (
-        <SPostAlbum>
+        <S.PostAlbum>
           {postData.map((item) => (
             <AlbumPostItem key={item.id} image={item.image} />
           ))}
-        </SPostAlbum>
+        </S.PostAlbum>
       )}
     </>
   );
