@@ -31,6 +31,14 @@ function UserInfo({
     navigate(`/profile/${accountname}/following`);
   };
 
+  const goToProfileEditPage = () => {
+    navigate(`/profile/edit`);
+  };
+
+  const goToMyPicksPage = () => {
+    navigate(`/mypicks`);
+  };
+
   return (
     <S.UserInfoContainer>
       <S.FollowInfoContainer>
@@ -57,11 +65,13 @@ function UserInfo({
             <S.FollowButton
               text="프로필 수정"
               buttonStyle={MEDIUM_BUTTON}
+              onClick={goToProfileEditPage}
               cancel
             />
             <S.FollowButton
               text="myPick 등록"
               buttonStyle={MEDIUM_BUTTON}
+              onClick={goToMyPicksPage}
               cancel
             />
           </>
