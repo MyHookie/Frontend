@@ -15,6 +15,7 @@ import TagItem from '../TagItem';
 
 import { deleteMyPost, reportFollowPost } from '../../../api/post';
 import { deleteLikeFeed, postLikeFeed } from '../../../api/like';
+import Snackbar from '../../Modal/SnackBar';
 
 function PostItem({
   postId,
@@ -30,6 +31,7 @@ function PostItem({
 }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [tagArray, setTagArray] = useState([]);
   const [contents, setContents] = useState('');
   const [images, setImages] = useState([]);
@@ -68,13 +70,17 @@ function PostItem({
     }
   };
 
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
   const handleDialogAction = () => {
     if (dialogType === '삭제하기') {
       deletePost.mutate();
     } else if (dialogType === '신고하기') {
       reportPost.mutate();
-      // console.log 대신 snackBar 모달로 대체 예정
-      console.log('신고되었습니다.');
+      handleSnackBar();
     }
 
     setIsBottomSheetOpen(!isBottomSheetOpen);
@@ -124,7 +130,7 @@ function PostItem({
           <img src={author.image} alt="프로필 이미지" />
           <S.TextBox>
             <S.UserName>{author.username}</S.UserName>
-            <S.AccountName>{author.accountname}</S.AccountName>
+            <S.AccountName>@{author.accountname}</S.AccountName>
           </S.TextBox>
         </S.UserInfoContainer>
         <S.Contents detail={detail}>
@@ -190,6 +196,7 @@ function PostItem({
           handleSubmit={handleDialogAction}
         />
       )}
+      {isSnackBarOpen && <Snackbar content="신고가 접수되었습니다." />}
     </>
   );
 }

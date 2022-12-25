@@ -40,7 +40,6 @@ function App() {
           <Route path="edit/:id" element={<PostEdit />} />
         </Route>
         <Route path="/profile">
-          <Route index element={<Profile />} />
           <Route path=":id" element={<Profile />} />
           <Route path="edit" element={<ProfileEdit />} />
           <Route path="follower" element={<Follower />} />

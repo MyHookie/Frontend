@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 
 import homeIcon from '../../../assets/icon/icon-home.png';
 import filledHomeIcon from '../../../assets/icon/icon-home-fill.png';
@@ -21,7 +22,7 @@ const SContainer = styled.div`
 
   height: 6rem;
   width: 100%;
-  padding: 0rem 2rem;
+  padding: 0rem 2.7rem;
 
   background-color: ${({ theme }) => theme.color.WHITE};
   border-top: 1px solid #dddddd;
@@ -29,6 +30,13 @@ const SContainer = styled.div`
 
 function Navigation() {
   const [currentPath, setCurrentPath] = useRecoilState(pathState);
+  const accountName = JSON.parse(localStorage.getItem('accountName'));
+  const location = useLocation();
+
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  }, []);
+
 
   const handlePathChange = (path) => {
     setCurrentPath(path);
@@ -55,10 +63,10 @@ function Navigation() {
         onClick={() => handlePathChange('/post/upload')}
       />
       <NavigationLink
-        path="/profile"
-        icon={currentPath === '/profile' ? filledProfileIcon : profileIcon}
+        path={`/profile/${accountName}`}
+        icon={currentPath.includes('profile') ? filledProfileIcon : profileIcon}
         linkName="프로필"
-        onClick={() => handlePathChange('/profile')}
+        onClick={() => handlePathChange(`/profile/${accountName}`)}
       />
     </SContainer>
   );
