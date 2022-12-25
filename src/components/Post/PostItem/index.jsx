@@ -30,6 +30,7 @@ function PostItem({
   detail,
 }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [tagArray, setTagArray] = useState([]);
@@ -57,7 +58,16 @@ function PostItem({
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
 
   const handleDialogOpen = (e) => {
@@ -83,6 +93,7 @@ function PostItem({
       handleSnackBar();
     }
 
+    setBottomSheetTrigger(!bottomSheetTrigger);
     setIsBottomSheetOpen(!isBottomSheetOpen);
     setIsDialogOpen(!isDialogOpen);
   };
@@ -177,14 +188,20 @@ function PostItem({
         )}
       </S.PostItem>
       {isBottomSheetOpen && author.accountname === accountName && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
           <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
           <BottomSheetContent text="수정하기" onClick={goToEditPage} />
           <BottomSheetContent text="취소하기" />
         </BottomSheet>
       )}
       {isBottomSheetOpen && author.accountname !== accountName && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
           <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
           <BottomSheetContent text="취소하기" />
         </BottomSheet>

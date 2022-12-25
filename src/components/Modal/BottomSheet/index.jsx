@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import closeIcon from '../../../assets/icon/x.png';
 
 const ModalBackGround = styled.div`
@@ -14,6 +14,9 @@ const ModalBackGround = styled.div`
   left: 0px;
   z-index: 110;
 `;
+
+// 열릴때 fadeIn으로 0.5초만에 위로 올라옴
+// 닫힐때 fadeOut으로 0.5초만에 아래로 내려감
 
 const SBottomSheet = styled.div`
   display: flex;
@@ -32,8 +35,16 @@ const SBottomSheet = styled.div`
   border-top-right-radius: 1.5rem;
   transform: translate(-50%);
 
-  animation: fadeIn 0.5s;
   z-index: 120;
+
+  ${({ bottomSheetTrigger }) =>
+    bottomSheetTrigger
+      ? css`
+          animation: fadeIn 0.5s;
+        `
+      : css`
+          animation: fadeOut 0.5s;
+        `}
 
   @keyframes fadeIn {
     from {
@@ -43,6 +54,17 @@ const SBottomSheet = styled.div`
     to {
       bottom: 0rem;
       opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      bottom: 0rem;
+      opacity: 1;
+    }
+    to {
+      bottom: -3rem;
+      opacity: 0;
     }
   }
 `;
@@ -58,13 +80,13 @@ const SCloseModal = styled.button`
   }
 `;
 
-function BottomSheet({ handleClose, children }) {
+function BottomSheet({ handleClose, children, bottomSheetTrigger }) {
   return (
     <>
       {createPortal(
         <>
           <ModalBackGround onClick={handleClose} />
-          <SBottomSheet>
+          <SBottomSheet bottomSheetTrigger={bottomSheetTrigger}>
             <SCloseModal onClick={handleClose}>
               <img src={closeIcon} alt="모달창 닫기" />
             </SCloseModal>
