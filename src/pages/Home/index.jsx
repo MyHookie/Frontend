@@ -12,17 +12,18 @@ import PostList from '../../components/Post/PostList';
 import hookieImage from '../../assets/Hookie.png';
 import * as S from './index.styles';
 
-import { getFollowPost, getMyPost } from '../../api/post';
+import { getAccountPost, getFollowPost } from '../../api/post';
 
 function Home() {
   const [allPost, setAllPost] = useState([]);
   const navigate = useNavigate();
+  const myAccountName = JSON.parse(localStorage.getItem('accountName'));
 
   const {
     data: myPost,
     isLoading: isMyPostLoading,
     isError: isMyPostError,
-  } = useQuery('myPostList', getMyPost);
+  } = useQuery('myPostList', () => getAccountPost(myAccountName));
 
   const {
     data: followPost,

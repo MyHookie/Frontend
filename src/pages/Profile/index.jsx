@@ -18,7 +18,7 @@ import postAlbumOnIcon from '../../assets/icon/icon-post-album-on.png';
 import postAlbumOffIcon from '../../assets/icon/icon-post-album-off.png';
 
 import getProfileInfo from '../../api/profile';
-import { getMyPost } from '../../api/post';
+import { getAccountPost } from '../../api/post';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 
@@ -38,7 +38,7 @@ function Profile() {
     data: myPost,
     isLoading: isMyPostLoading,
     isError: isMyPostError,
-  } = useQuery('myPostList', getMyPost);
+  } = useQuery('myPostList', () => getAccountPost(param.accountname));
 
   const goBackPage = () => {
     navigate(-1);
