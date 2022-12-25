@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 
 import * as S from './index.styles';
@@ -19,8 +19,13 @@ import postAlbumOffIcon from '../../assets/icon/icon-post-album-off.png';
 
 import getProfileInfo from '../../api/profile';
 import { getMyPost } from '../../api/post';
+import BottomSheet from '../../components/Modal/BottomSheet';
+import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 
 function Profile() {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const navigate = useNavigate();
   const param = useParams();
   const isMyPage = param.id === JSON.parse(localStorage.getItem('accountName'));
 
@@ -38,14 +43,23 @@ function Profile() {
     console.log(data.profile);
   }
 
+  const goBackPage = () => {
+    navigate(-1);
+  };
+
+  const handleBottomSheetOpen = (e) => {
+    e.stopPropagation();
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+  };
+
   return (
     <>
       <BaseHeader
         leftIcon={leftArrowIcon}
-        leftClick={() => {}}
+        leftClick={goBackPage}
         rightIcon={verticalIcon}
         rightAlt="프로필 설정"
-        rightClick={() => {}}
+        rightClick={handleBottomSheetOpen}
       />
       <S.Container>
         {!isLoading && (
@@ -82,6 +96,12 @@ function Profile() {
       </S.Container>
 
       <Navigation />
+      {isBottomSheetOpen && (
+        <BottomSheet handleClose={handleBottomSheetOpen}>
+          <BottomSheetContent text="다크모드" />
+          <BottomSheetContent text="로그아웃" />
+        </BottomSheet>
+      )}
     </>
   );
 }
