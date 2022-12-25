@@ -24,7 +24,7 @@ function Splash() {
   return (
     <S.Container>
       <S.ImageContainer>
-        <S.SplashImage src={speechBubbleImage} />
+        <S.SplashImage src={speechBubbleImage} alt="후키 로고" />
       </S.ImageContainer>
     </S.Container>
   );
