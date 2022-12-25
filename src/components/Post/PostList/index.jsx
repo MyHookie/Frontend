@@ -37,7 +37,12 @@ function PostList({ postData, isAlbum }) {
       {isAlbum && (
         <S.PostAlbum>
           {postData.map((item) => (
-            <AlbumPostItem key={item.id} image={item.image} />
+            <AlbumPostItem
+              key={item.id}
+              postId={item.id}
+              image={item.image}
+              goPostDetailPage={goPostDetailPage}
+            />
           ))}
         </S.PostAlbum>
       )}

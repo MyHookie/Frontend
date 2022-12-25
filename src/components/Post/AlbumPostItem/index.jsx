@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import * as S from './index.styles';
 
-function AlbumPostItem({ image }) {
+function AlbumPostItem({ postId, image, goPostDetailPage }) {
   const [imageArray, setImageArray] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function AlbumPostItem({ image }) {
   return (
     <>
       {imageArray.length > 0 && (
-        <S.AlbumContainer>
+        <S.AlbumContainer onClick={() => goPostDetailPage(postId)}>
           <S.AlbumImage
             src={`https://mandarin.api.weniv.co.kr/${imageArray[0]}`}
             alt="앨범형 첫번째 이미지"
