@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 import { MEDIUM_BUTTON } from '../../../constants/buttonStyle';
@@ -7,6 +8,8 @@ import chatIcon from '../../../assets/icon/icon-message-circle-1.png';
 import shareIcon from '../../../assets/icon/icon-share.png';
 import basicProfileImage from '../../../assets/basic-profile.png';
 import Snackbar from '../../Modal/SnackBar';
+
+import { deleteFollow, postFollow } from '../../../api/follow';
 
 function UserInfo({
   followerCount,
@@ -21,6 +24,17 @@ function UserInfo({
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
   const navigate = useNavigate();
+
+  const followUser = useMutation(() => postFollow(accountName));
+  const unFollowUser = useMutation(() => deleteFollow(accountName));
+
+  const handleFollowUser = () => {
+    if (isFollow) {
+      unFollowUser.mutate();
+    } else {
+      followUser.mutate();
+    }
+  };
 
   const handleErrorImage = (e) => {
     e.target.src = basicProfileImage;
@@ -106,6 +120,7 @@ function UserInfo({
             <S.FollowButton
               text={isFollow ? '언팔로우' : '팔로우'}
               buttonStyle={MEDIUM_BUTTON}
+              onClick={handleFollowUser}
               cancel={isFollow && true}
             />
             <S.IconButton onClick={copyProfileAddress}>
