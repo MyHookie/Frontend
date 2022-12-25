@@ -39,9 +39,9 @@ function App() {
           <Route path="upload" element={<PostUpload />} />
           <Route path="edit/:id" element={<PostEdit />} />
         </Route>
-        <Route path="/profile">
-          <Route path=":id" element={<Profile />} />
-          <Route path="edit" element={<ProfileEdit />} />
+        <Route path="/profile/edit" element={<ProfileEdit />} />
+        <Route path="/profile/:accountname">
+          <Route index element={<Profile />} />
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>

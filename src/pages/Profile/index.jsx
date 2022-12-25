@@ -27,10 +27,11 @@ function Profile() {
 
   const navigate = useNavigate();
   const param = useParams();
-  const isMyPage = param.id === JSON.parse(localStorage.getItem('accountName'));
+  const isMyPage =
+    param.accountname === JSON.parse(localStorage.getItem('accountName'));
 
   const { data, isLoading, isError } = useQuery('profileInfo', () =>
-    getProfileInfo(param.id)
+    getProfileInfo(param.accountname)
   );
 
   const {
