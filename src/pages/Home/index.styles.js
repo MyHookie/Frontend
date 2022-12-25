@@ -5,9 +5,6 @@ export const Container = styled.main`
   flex-direction: column;
   align-items: center;
   height: calc(100 + 4.4) vh;
-
-  padding: 0.9rem;
-  margin-bottom: 6rem;
 `;
 
 export const EmptyContainer = styled.section`

@@ -10,7 +10,10 @@ const SPostList = styled.ul`
   align-items: center;
 
   width: 100%;
-  gap: 2rem;
+  gap: 1rem;
+
+  padding: 1rem;
+  padding-bottom: 7rem;
 `;
 
 function PostList({ postData }) {

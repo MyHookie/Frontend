@@ -30,11 +30,13 @@ const SContainer = styled.div`
 
 function Navigation() {
   const [currentPath, setCurrentPath] = useRecoilState(pathState);
+  const accountName = JSON.parse(localStorage.getItem('accountName'));
   const location = useLocation();
 
   useEffect(() => {
     setCurrentPath(location.pathname);
   }, []);
+
 
   const handlePathChange = (path) => {
     setCurrentPath(path);
@@ -61,10 +63,10 @@ function Navigation() {
         onClick={() => handlePathChange('/post/upload')}
       />
       <NavigationLink
-        path="/profile"
-        icon={currentPath === '/profile' ? filledProfileIcon : profileIcon}
+        path={`/profile/${accountName}`}
+        icon={currentPath.includes('profile') ? filledProfileIcon : profileIcon}
         linkName="프로필"
-        onClick={() => handlePathChange('/profile')}
+        onClick={() => handlePathChange(`/profile/${accountName}`)}
       />
     </SContainer>
   );

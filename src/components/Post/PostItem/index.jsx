@@ -130,7 +130,7 @@ function PostItem({
           <img src={author.image} alt="프로필 이미지" />
           <S.TextBox>
             <S.UserName>{author.username}</S.UserName>
-            <S.AccountName>{author.accountname}</S.AccountName>
+            <S.AccountName>@{author.accountname}</S.AccountName>
           </S.TextBox>
         </S.UserInfoContainer>
         <S.Contents detail={detail}>
