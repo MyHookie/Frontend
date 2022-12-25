@@ -32,7 +32,7 @@ function PostEdit() {
 
     try {
       const response = editMyPost(imageSrcList, contents, postId);
-      return response.then(navigate(`/profile`));
+      return response.then(navigate(-1));
     } catch (error) {
       return error;
     }
