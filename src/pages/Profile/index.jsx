@@ -40,10 +40,6 @@ function Profile() {
     isError: isMyPostError,
   } = useQuery('myPostList', getMyPost);
 
-  if (!isLoading) {
-    console.log(data.profile);
-  }
-
   const goBackPage = () => {
     navigate(-1);
   };

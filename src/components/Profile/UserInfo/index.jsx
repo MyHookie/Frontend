@@ -1,11 +1,12 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 import { MEDIUM_BUTTON } from '../../../constants/buttonStyle';
 import chatIcon from '../../../assets/icon/icon-message-circle-1.png';
 import shareIcon from '../../../assets/icon/icon-share.png';
 import basicProfileImage from '../../../assets/basic-profile.png';
+import Snackbar from '../../Modal/SnackBar';
 
 function UserInfo({
   followerCount,
@@ -17,6 +18,8 @@ function UserInfo({
   isFollow,
   isMyPage,
 }) {
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState('');
   const navigate = useNavigate();
 
   const handleErrorImage = (e) => {
@@ -37,6 +40,26 @@ function UserInfo({
 
   const goToMyPicksPage = () => {
     navigate(`/mypicks`);
+  };
+
+  const goToChatPage = () => {
+    navigate(`/chat`);
+  };
+
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
+  const copyProfileAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setSnackBarMessage('클립보드에 복사되었습니다.');
+      handleSnackBar();
+    } catch (e) {
+      setSnackBarMessage('복사가 실패했습니다.');
+      handleSnackBar();
+    }
   };
 
   return (
@@ -77,7 +100,7 @@ function UserInfo({
           </>
         ) : (
           <>
-            <S.IconButton>
+            <S.IconButton onClick={goToChatPage}>
               <img src={chatIcon} alt="채팅 아이콘" />
             </S.IconButton>
             <S.FollowButton
@@ -85,12 +108,13 @@ function UserInfo({
               buttonStyle={MEDIUM_BUTTON}
               cancel={isFollow && true}
             />
-            <S.IconButton>
+            <S.IconButton onClick={copyProfileAddress}>
               <img src={shareIcon} alt="공유 아이콘" />
             </S.IconButton>
           </>
         )}
       </S.ButtonContainer>
+      {isSnackBarOpen && <Snackbar content={snackBarMessage} />}
     </S.UserInfoContainer>
   );
 }
