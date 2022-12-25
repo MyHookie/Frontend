@@ -22,5 +22,5 @@ export const PostAlbum = styled.ul`
   gap: 1rem;
 
   padding: 1rem;
-  margin-bottom: 7rem;
+  padding-bottom: 10rem;
 `;
