@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
+import { useLocation } from 'react-router-dom';
 
 import homeIcon from '../../../assets/icon/icon-home.png';
 import filledHomeIcon from '../../../assets/icon/icon-home-fill.png';
@@ -21,7 +22,7 @@ const SContainer = styled.div`
 
   height: 6rem;
   width: 100%;
-  padding: 0rem 2rem;
+  padding: 0rem 2.7rem;
 
   background-color: ${({ theme }) => theme.color.WHITE};
   border-top: 1px solid #dddddd;
@@ -29,6 +30,11 @@ const SContainer = styled.div`
 
 function Navigation() {
   const [currentPath, setCurrentPath] = useRecoilState(pathState);
+  const location = useLocation();
+
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+  }, []);
 
   const handlePathChange = (path) => {
     setCurrentPath(path);

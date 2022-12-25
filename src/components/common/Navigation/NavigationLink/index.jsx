@@ -5,12 +5,18 @@ import { Link } from 'react-router-dom';
 import pathState from '../../../../atoms/path';
 
 const SLink = styled(Link)`
-  width: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 0.5rem;
+
+  width: 3rem;
+  gap: 0.2rem;
+  padding-top: 0.3rem;
+
+  img {
+    width: 2.5rem;
+  }
 `;
 
 const SLinkText = styled.p`
