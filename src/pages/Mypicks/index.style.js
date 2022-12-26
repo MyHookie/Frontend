@@ -17,6 +17,8 @@ export const ImageContainer = styled.div`
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+  background-color: #f2f2f2;
+  border-radius: 1.5rem;
 
   &::after {
     content: '';
@@ -34,11 +36,10 @@ export const ImageInput = styled.div`
   top: 0;
   right: 0;
   left: 0;
-  z-index: 10;
+  z-index: 99;
   height: 100%;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1.5rem;
-  background-color: transparent;
   cursor: pointer;
 
   &::after {
@@ -46,6 +47,7 @@ export const ImageInput = styled.div`
     position: absolute;
     right: 1.2rem;
     bottom: 1.2rem;
+    z-index: 99;
     width: 4rem;
     height: 4rem;
     background-image: url(${uploadIconGrey});
@@ -58,6 +60,7 @@ export const ImageInput = styled.div`
       position: absolute;
       right: 1.2rem;
       bottom: 1.2rem;
+      z-index: 99;
       width: 4rem;
       height: 4rem;
       background-image: url(${uploadIcon});
@@ -84,6 +87,7 @@ export const img = styled.img`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 15;
   height: 100%;
   object-fit: cover;
   border-radius: 1.5rem;
