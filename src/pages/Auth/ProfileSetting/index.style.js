@@ -45,4 +45,6 @@ export const IntroContent = styled.textarea`
   }
 `;
 
-export const JoinButton = styled(Button)``;
+export const JoinButton = styled(Button)`
+  margin-top: 2.5rem;
+`;

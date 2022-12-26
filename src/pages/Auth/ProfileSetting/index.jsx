@@ -7,10 +7,10 @@ import Title from '../../../components/Title';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import authAxios from '../../../api/authAxios';
 import {
+  isSubscribedAccountState,
   profileAccountName,
-  profileAccountNameValid,
-  profileAccountNameWarningMessage,
   profileImage,
+  profileInputValid,
   profileIntro,
   profileUserName,
 } from '../../../atoms/profileInfo';
@@ -25,10 +25,9 @@ function ProfileSetting() {
   const image = useRecoilValue(profileImage);
   const intro = useRecoilValue(profileIntro);
 
-  const setAccountNameValid = useSetRecoilState(profileAccountNameValid);
-  const setAccountNameWarningMsg = useSetRecoilState(
-    profileAccountNameWarningMessage
-  );
+  const { accountNameValid, userNameValid } = useRecoilValue(profileInputValid);
+
+  const setIsSubscribedAccount = useSetRecoilState(isSubscribedAccountState);
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
 
@@ -36,6 +35,17 @@ function ProfileSetting() {
   useEffect(() => {
     if (!state?.email || !state?.password) navigate('/signup');
   }, []);
+
+  useEffect(() => {
+    if (accountNameValid && userNameValid) {
+      setIsSubscribedAccount({
+        accountNameValid: true,
+        validWarningMessage: '',
+      });
+      return setButtonNotAllow(false);
+    }
+    return setButtonNotAllow(true);
+  }, [accountName, userName]);
 
   const handleStartClick = useCallback(
     async (e) => {
@@ -49,8 +59,10 @@ function ProfileSetting() {
         });
 
         if (res.data.message === '이미 가입된 계정ID 입니다.') {
-          setAccountNameValid(false);
-          setAccountNameWarningMsg('* 이미 가입된 계정ID 입니다.');
+          setIsSubscribedAccount({
+            accountNameValid: false,
+            validWarningMessage: '* 이미 가입된 사용자 ID 입니다.',
+          });
         } else {
           const response = await authAxios.post('/', {
             user: {
@@ -89,6 +101,7 @@ function ProfileSetting() {
         text="후키 시작하기"
         buttonStyle={LARGE_BUTTON}
         onClick={handleStartClick}
+        disabled={buttonNotAllow}
       />
     </S.Container>
   );

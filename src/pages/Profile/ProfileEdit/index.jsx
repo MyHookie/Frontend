@@ -11,10 +11,10 @@ import authAxios from '../../../api/authAxios';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 import ProfileInfoForm from '../../../components/Profile/ProfileInfoForm';
 import {
+  isSubscribedAccountState,
   profileAccountName,
-  profileAccountNameValid,
-  profileAccountNameWarningMessage,
   profileImage,
+  profileInputValid,
   profileIntro,
   profileUserName,
 } from '../../../atoms/profileInfo';
@@ -29,30 +29,26 @@ function ProfileEdit() {
   const image = useRecoilValue(profileImage);
   const intro = useRecoilValue(profileIntro);
 
-  const setAccountNameValid = useSetRecoilState(profileAccountNameValid);
-  const setAccountNameWarningMsg = useSetRecoilState(
-    profileAccountNameWarningMessage
-  );
+  const { accountNameValid, userNameValid } = useRecoilValue(profileInputValid);
+
+  const setIsSubscribedAccount = useSetRecoilState(isSubscribedAccountState);
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
-
-  // useEffect(() => {
-  //   setAccountName(state.accountName);
-  //   setUserName(state.userName);
-  //   setIntro(state.intro);
-  //   setImage(state.image);
-  // }, []);
 
   const goBackPage = () => {
     navigate(-1);
   };
 
-  // useEffect(() => {
-  //   if (accountNameValid && userNameValid) {
-  //     return setButtonNotAllow(false);
-  //   }
-  //   return setButtonNotAllow(true);
-  // }, [accountName, userName]);
+  useEffect(() => {
+    if (accountNameValid && userNameValid) {
+      setIsSubscribedAccount({
+        accountNameValid: true,
+        validWarningMessage: '',
+      });
+      return setButtonNotAllow(false);
+    }
+    return setButtonNotAllow(true);
+  }, [accountName, userName]);
 
   const handleStartClick = useCallback(
     async (e) => {
@@ -66,8 +62,10 @@ function ProfileEdit() {
         });
 
         if (res.data.message === '이미 가입된 계정ID 입니다.') {
-          setAccountNameValid(false);
-          setAccountNameWarningMsg('* 이미 가입된 사용자 ID 입니다.');
+          setIsSubscribedAccount({
+            accountNameValid: false,
+            validWarningMessage: '* 이미 가입된 사용자 ID 입니다.',
+          });
         } else {
           const response = await authAxios.put(
             '',
@@ -112,6 +110,7 @@ function ProfileEdit() {
         leftClick={goBackPage}
         rightClick={handleStartClick}
         rightButtonText="수정"
+        buttonNotAllow={buttonNotAllow}
       />
       <S.Container>
         <ProfileInfoForm />
