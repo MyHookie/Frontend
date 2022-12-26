@@ -12,7 +12,7 @@ import {
   profileUserName,
 } from '../../../atoms/profileInfo';
 
-function ProfileInfoForm() {
+function ProfileInfoForm({ edit, savedData }) {
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -27,6 +27,18 @@ function ProfileInfoForm() {
     accountNameWarningMessage,
     userNameWarningMessage,
   } = useRecoilValue(profileInputValid);
+
+  useEffect(() => {
+    if (edit) {
+      setAccountName(savedData.accountName);
+      setUserName(savedData.userName);
+      setIntro(savedData.intro);
+    } else {
+      setAccountName('');
+      setUserName('');
+      setIntro('');
+    }
+  }, []);
 
   const handleAccountName = (e) => {
     setAccountName(e.target.value);
@@ -51,7 +63,7 @@ function ProfileInfoForm() {
 
   return (
     <>
-      <ProfileImageInput />
+      <ProfileImageInput edit savedImage={savedData.profileImage} />
       <S.FormContainer>
         <AuthInputForm
           id="id"

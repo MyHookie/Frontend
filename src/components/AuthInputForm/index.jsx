@@ -58,9 +58,9 @@ function AuthInputForm({
   handleSignUpState,
   handleLoginState,
   handleProfileState,
+  inputValue,
   signUpValid,
   profileValid,
-  inputValue,
   isCorrect,
   inputRef,
 }) {
@@ -88,6 +88,7 @@ function AuthInputForm({
         id={id}
         {...inputProps}
         ref={inputRef}
+        value={inputValue}
         inputValue={inputValue}
         signUpValid={signUpValid}
         profileValid={profileValid}

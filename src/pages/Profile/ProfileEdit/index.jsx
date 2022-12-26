@@ -113,7 +113,7 @@ function ProfileEdit() {
         buttonNotAllow={buttonNotAllow}
       />
       <S.Container>
-        <ProfileInfoForm />
+        <ProfileInfoForm edit savedData={state} />
       </S.Container>
     </>
   );
