@@ -1,11 +1,14 @@
 import React, { useCallback, useRef, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
+import { profileImage } from '../../atoms/profileInfo';
 
-function ProfileImageInput({ handleProfileImage }) {
-  const [profileImage, setProfileImage] = useState(basicProfileImage);
+function ProfileImageInput() {
+  const [profileImages, setProfileImages] = useState(basicProfileImage);
+  const setImage = useSetRecoilState(profileImage);
   const imageInput = useRef(null);
 
   const fetchImage = async (image) => {
@@ -19,8 +22,8 @@ function ProfileImageInput({ handleProfileImage }) {
         formData
       );
 
-      handleProfileImage(res.data.filename);
-      setProfileImage(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
+      setProfileImages(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
+      setImage(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
 
       return res.data.filename;
     } catch (error) {
@@ -30,11 +33,12 @@ function ProfileImageInput({ handleProfileImage }) {
 
   const handleImageChange = useCallback((e) => {
     const currentImage = e.target.files[0];
+    console.log(currentImage);
 
     if (currentImage) {
       fetchImage(currentImage);
     } else {
-      setProfileImage(basicProfileImage);
+      setProfileImages(basicProfileImage);
       fetchImage(basicProfileImage);
     }
   }, []);
@@ -45,8 +49,7 @@ function ProfileImageInput({ handleProfileImage }) {
         imageInput.current.click();
       }}
     >
-      {/* {console.log(profileImage)} */}
-      <S.ImageInput src={profileImage} />
+      <S.ImageInput src={profileImages} />
       <input
         type="file"
         accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
