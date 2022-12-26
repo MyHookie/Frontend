@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import Snackbar from '../../Modal/SnackBar';
 import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 import { IR } from '../../../styles/Util';
 
@@ -56,6 +57,12 @@ const SButton = styled.button`
 `;
 
 function CommentInput({ id, onCreateCommentData }) {
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
   const [commentData, setCommentData] = useState({
     dataId: 'test',
     content: '',
@@ -94,7 +101,7 @@ function CommentInput({ id, onCreateCommentData }) {
 
   const handleCommentSubmit = () => {
     if (commentData.content.length < 1) {
-      alert('댓글을 입력해주세요.');
+      handleSnackBar();
     } else {
       const textarea = document.querySelector('.autoTextarea');
       textarea.style.height = 'auto';
@@ -143,6 +150,7 @@ function CommentInput({ id, onCreateCommentData }) {
       >
         게시
       </SButton>
+      {isSnackBarOpen && <Snackbar content="댓글을 입력해주세요." />}
     </SContents>
   );
 }
