@@ -63,7 +63,7 @@ function CommentItem({ content, createdAt, author }) {
         <SProfileImg src={author.image} alt="프로필 이미지" />
         <SUserInfo>
           test
-          <SCommentTime>{createdAt}</SCommentTime>
+          <SCommentTime>{createdAt.slice(0, 10)}</SCommentTime>
         </SUserInfo>
         <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
           <img src={verticalIcon} alt="댓글 설정 버튼" />

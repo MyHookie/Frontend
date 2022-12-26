@@ -63,23 +63,33 @@ function PostDetail() {
     }
   };
 
+  const [commentList, setCommentList] = useState([]);
+
+  const fetchCommentList = async (pathName) => {
+    try {
+      const response = await axios.get(
+        `https://mandarin.api.weniv.co.kr${pathName}/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      setCommentList(response.data.comments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const location = useLocation();
 
   useEffect(() => {
     fetchDetailPost(location.pathname);
+    fetchCommentList(location.pathname);
   }, []);
-
-  const [commentData, setCommentData] = useState([]);
-
-  const onCreateCommentData = (dataId, content, createdAt, author) => {
-    const newCommentData = {
-      dataId,
-      content,
-      createdAt,
-      author,
-    };
-    setCommentData([...commentData, newCommentData]);
-  };
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
@@ -89,7 +99,7 @@ function PostDetail() {
   };
 
   if (!isLoading) {
-    console.log(postDetailData);
+    // console.log(postDetailData);
   }
 
   return (
@@ -127,13 +137,13 @@ function PostDetail() {
             detail
           />
           <SDividingLine />
-          {commentData.length !== 0 && (
-            <CommentList commentData={commentData} />
+          {commentList.length !== 0 && (
+            <CommentList commentList={commentList} />
           )}
         </SContents>
       )}
 
-      <CommentInput onCreateCommentData={onCreateCommentData} />
+      <CommentInput />
     </SPostDetail>
   );
 }
