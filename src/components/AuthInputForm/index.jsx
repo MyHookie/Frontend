@@ -73,7 +73,10 @@ function AuthInputForm({
     if (location.pathname === '/login') {
       handleLoginState(e);
     }
-    if (location.pathname === '/signup/profile') {
+    if (
+      location.pathname === '/signup/profile' ||
+      location.pathname === '/profile/edit'
+    ) {
       handleProfileState(e);
     }
   };
