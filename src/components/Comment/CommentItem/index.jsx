@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
+import Dialog from '../../Modal/Dialog';
+import Snackbar from '../../Modal/SnackBar';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 
@@ -49,10 +53,16 @@ const SComments = styled.pre`
   word-wrap: break-word;
 `;
 
-function CommentItem({ content, createdAt, author }) {
+function CommentItem({ commentId, content, createdAt, author }) {
   const [accountName, setAccountName] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const [dialogType, setDialogType] = useState('');
+  const [dialogMessage, setDialogMessage] = useState('');
+  const location = useLocation();
+  const postId = location.pathname.slice(6);
 
   useEffect(() => {
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
@@ -72,6 +82,44 @@ function CommentItem({ content, createdAt, author }) {
     setIsBottomSheetOpen(true);
   };
 
+  const handleDialogOpen = (e) => {
+    if (isDialogOpen) {
+      setIsDialogOpen(false);
+      setDialogType('');
+    } else {
+      setIsDialogOpen(true);
+      setDialogType(e.target.textContent);
+    }
+  };
+
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
+  const handleDialogAction = () => {
+    console.log(dialogType);
+    if (dialogType === '댓글 삭제하기') {
+      console.log('삭제해!');
+      // deletePost.mutate();
+    } else if (dialogType === '댓글 신고하기') {
+      console.log('신고해!');
+      handleSnackBar();
+    }
+
+    setBottomSheetTrigger(!bottomSheetTrigger);
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  useEffect(() => {
+    if (dialogType === '댓글 삭제하기') {
+      setDialogMessage('정말 삭제하시겠습니까?');
+    } else if (dialogType === '댓글 신고하기') {
+      setDialogMessage('정말 신고하시겠습니까?');
+    }
+  }, [dialogType]);
+
   return (
     <SContents>
       <SCommentsInfo>
@@ -88,7 +136,10 @@ function CommentItem({ content, createdAt, author }) {
             handleClose={handleBottomSheetOpen}
             bottomSheetTrigger={bottomSheetTrigger}
           >
-            <BottomSheetContent text="댓글 삭제하기" />
+            <BottomSheetContent
+              text="댓글 삭제하기"
+              onClick={handleDialogOpen}
+            />
           </BottomSheet>
         )}
         {isBottomSheetOpen && author.accountname !== accountName && (
@@ -96,9 +147,20 @@ function CommentItem({ content, createdAt, author }) {
             handleClose={handleBottomSheetOpen}
             bottomSheetTrigger={bottomSheetTrigger}
           >
-            <BottomSheetContent text="댓글 신고하기" />
+            <BottomSheetContent
+              text="댓글 신고하기"
+              onClick={handleDialogOpen}
+            />
           </BottomSheet>
         )}
+        {isDialogOpen && (
+          <Dialog
+            dialogText={dialogMessage}
+            handleClose={handleDialogOpen}
+            handleSubmit={handleDialogAction}
+          />
+        )}
+        {isSnackBarOpen && <Snackbar content="신고가 접수되었습니다." />}
       </SCommentsInfo>
       <SComments>{content}</SComments>
     </SContents>

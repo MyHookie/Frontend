@@ -12,6 +12,7 @@ function CommentList({ commentList }) {
       {commentList.map((item) => (
         <CommentItem
           key={item.id}
+          commentId={item.id}
           content={item.content}
           createdAt={item.createdAt}
           author={item.author}
