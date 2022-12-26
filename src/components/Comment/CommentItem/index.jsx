@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
@@ -50,11 +50,26 @@ const SComments = styled.pre`
 `;
 
 function CommentItem({ content, createdAt, author }) {
+  const [accountName, setAccountName] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
+
+  useEffect(() => {
+    setAccountName(JSON.parse(localStorage.getItem('accountName')));
+  }, []);
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
 
   return (
@@ -68,11 +83,20 @@ function CommentItem({ content, createdAt, author }) {
         <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
           <img src={verticalIcon} alt="댓글 설정 버튼" />
         </SVerticalButton>
-        {isBottomSheetOpen && (
-          <BottomSheet handleClose={handleBottomSheetOpen}>
-            {/* 로그인 한 경우(내 댓글인 경우) => 삭제 아니면 신고하기 */}
-            <BottomSheetContent text="신고하기" />
-            <BottomSheetContent text="신고하기" />
+        {isBottomSheetOpen && author.accountname === accountName && (
+          <BottomSheet
+            handleClose={handleBottomSheetOpen}
+            bottomSheetTrigger={bottomSheetTrigger}
+          >
+            <BottomSheetContent text="댓글 삭제하기" />
+          </BottomSheet>
+        )}
+        {isBottomSheetOpen && author.accountname !== accountName && (
+          <BottomSheet
+            handleClose={handleBottomSheetOpen}
+            bottomSheetTrigger={bottomSheetTrigger}
+          >
+            <BottomSheetContent text="댓글 신고하기" />
           </BottomSheet>
         )}
       </SCommentsInfo>
