@@ -64,12 +64,11 @@ function CommentItem({ commentId, content, createdAt, author }) {
 
   const location = useLocation();
   const postId = location.pathname.slice(6);
-  const [DeleteMessage, setDeleteMessage] = useState('');
   const [isDeleteMessage, setIsDeleteMessage] = useState(false);
 
   const deleteCommentItem = async () => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}`,
         {
           headers: {
@@ -80,7 +79,27 @@ function CommentItem({ commentId, content, createdAt, author }) {
           },
         }
       );
-      setDeleteMessage(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const reportCommentItem = async () => {
+    try {
+      const response = await axios.post(
+        `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}/report`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      console.log(commentId);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -125,12 +144,11 @@ function CommentItem({ commentId, content, createdAt, author }) {
   };
 
   const handleDialogAction = () => {
-    console.log(dialogType);
     if (dialogType === '댓글 삭제하기') {
       deleteCommentItem();
       handleDeleteMessage();
     } else if (dialogType === '댓글 신고하기') {
-      console.log('신고해!');
+      reportCommentItem();
       handleSnackBar();
     }
 
