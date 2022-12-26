@@ -13,6 +13,7 @@ import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetCo
 
 function Profile() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
 
   const navigate = useNavigate();
   const param = useParams();
@@ -25,7 +26,16 @@ function Profile() {
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
 
   return (
@@ -44,7 +54,10 @@ function Profile() {
 
       <Navigation />
       {isBottomSheetOpen && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
           <BottomSheetContent text="다크모드" />
           <BottomSheetContent text="로그아웃" />
         </BottomSheet>
