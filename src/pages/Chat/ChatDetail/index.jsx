@@ -15,6 +15,7 @@ const id = '사용자 닉네임';
 
 function ChatDetail() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
   const [chats, setChats] = useState([]);
   const [inputText, setInputText] = useState('');
   const nextChatId = useRef(chatData.chats.length + 1);
@@ -26,7 +27,16 @@ function ChatDetail() {
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
 
   const handleInputChange = (e) => {
@@ -70,9 +80,11 @@ function ChatDetail() {
         rightClick={handleBottomSheetOpen}
       />
       {isBottomSheetOpen && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
-          <BottomSheetContent text="신고하기" />
-          <BottomSheetContent text="신고하기" />
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
+          <BottomSheetContent text="유저 신고하기" />
         </BottomSheet>
       )}
 

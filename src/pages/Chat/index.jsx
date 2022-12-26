@@ -27,11 +27,22 @@ function Chat() {
   };
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
+
   return (
     <div>
       <BaseHeader
@@ -41,8 +52,11 @@ function Chat() {
         rightClick={handleBottomSheetOpen}
       />
       {isBottomSheetOpen && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
-          <BottomSheetContent text="편집" />
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
+          <BottomSheetContent text="채팅방 편집" />
           <BottomSheetContent text="채팅방 정렬" />
         </BottomSheet>
       )}
