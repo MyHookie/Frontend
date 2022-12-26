@@ -7,7 +7,6 @@ const SCommentList = styled.div`
 `;
 
 function CommentList({ commentList }) {
-  console.log(commentList);
   return (
     <SCommentList>
       {commentList.map((item) => (

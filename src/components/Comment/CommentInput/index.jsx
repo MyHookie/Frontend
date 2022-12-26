@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 
 import Snackbar from '../../Modal/SnackBar';
@@ -56,26 +58,40 @@ const SButton = styled.button`
     contentLength === 0 ? theme.color.LIGHT_GRAY : theme.color.LIGHT_BLUE};
 `;
 
-function CommentInput({ id, onCreateCommentData }) {
+function CommentInput({ id }) {
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const handleSnackBar = () => {
     setIsSnackBarOpen(true);
     return setTimeout(() => setIsSnackBarOpen(false), 2000);
   };
 
-  const [commentData, setCommentData] = useState({
-    dataId: 'test',
-    content: '',
-    createdAt: '방금 전',
-    author: {
-      id: 'testId',
-      username: 'test',
-      accountname: 'test',
-      intro: 'Hello world!',
-      image: 'https://picsum.photos/250/250',
-      isfollow: true,
-    },
-  });
+  const [commentData, setCommentData] = useState('');
+  const location = useLocation();
+
+  const postCommentData = async () => {
+    try {
+      const response = await axios.post(
+        `https://mandarin.api.weniv.co.kr${location.pathname}/comments`,
+        {
+          comment: {
+            content: commentData,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      console.log(response);
+      setCommentData('');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const textarea = useRef(null);
 
@@ -92,37 +108,16 @@ function CommentInput({ id, onCreateCommentData }) {
   };
 
   const handleCommentData = (e) => {
-    setCommentData({
-      ...commentData,
-      [e.target.name]: e.target.value,
-    });
+    setCommentData(e.target.value);
     handleResizeHeight();
   };
 
   const handleCommentSubmit = () => {
-    if (commentData.content.length < 1) {
+    if (commentData.length < 1) {
       handleSnackBar();
     } else {
+      postCommentData();
       textarea.current.style.height = 'auto';
-      onCreateCommentData(
-        commentData.dataId,
-        commentData.content,
-        commentData.createdAt,
-        commentData.author
-      );
-      setCommentData({
-        dataId: 'test',
-        content: '',
-        createdAt: '방금 전',
-        author: {
-          id: 'testId',
-          username: 'test',
-          accountname: 'test',
-          intro: 'Hello world!',
-          image: 'https://picsum.photos/250/250',
-          isfollow: true,
-        },
-      });
     }
   };
 
@@ -136,7 +131,7 @@ function CommentInput({ id, onCreateCommentData }) {
         id={id}
         placeholder="댓글 입력하기..."
         name="content"
-        value={commentData.content}
+        value={commentData}
         onChange={handleCommentData}
         rows="1"
         ref={textarea}
@@ -145,7 +140,7 @@ function CommentInput({ id, onCreateCommentData }) {
       <SButton
         type="button"
         onClick={handleCommentSubmit}
-        contentLength={commentData.content.length}
+        contentLength={commentData.length}
       >
         게시
       </SButton>
