@@ -66,12 +66,11 @@ function CommentInput({ id }) {
   };
 
   const [commentData, setCommentData] = useState('');
-  const location = useLocation();
 
-  const postCommentData = async () => {
+  const postCommentData = async (pathName) => {
     try {
-      const response = await axios.post(
-        `https://mandarin.api.weniv.co.kr${location.pathname}/comments`,
+      await axios.post(
+        `https://mandarin.api.weniv.co.kr${pathName}/comments`,
         {
           comment: {
             content: commentData,
@@ -111,11 +110,13 @@ function CommentInput({ id }) {
     handleResizeHeight();
   };
 
+  const location = useLocation();
+
   const handleCommentSubmit = () => {
     if (commentData.length < 1) {
       handleSnackBar();
     } else {
-      postCommentData();
+      postCommentData(location.pathname);
       textarea.current.style.height = 'auto';
     }
   };
