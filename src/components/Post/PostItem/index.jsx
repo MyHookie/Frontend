@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
-import * as S from './index.styles';
 
+import * as S from './index.styles';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
@@ -30,6 +30,7 @@ function PostItem({
   detail,
 }) {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [tagArray, setTagArray] = useState([]);
@@ -57,7 +58,16 @@ function PostItem({
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
 
   const handleDialogOpen = (e) => {
@@ -83,6 +93,7 @@ function PostItem({
       handleSnackBar();
     }
 
+    setBottomSheetTrigger(!bottomSheetTrigger);
     setIsBottomSheetOpen(!isBottomSheetOpen);
     setIsDialogOpen(!isDialogOpen);
   };
@@ -177,16 +188,26 @@ function PostItem({
         )}
       </S.PostItem>
       {isBottomSheetOpen && author.accountname === accountName && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
-          <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
-          <BottomSheetContent text="수정하기" onClick={goToEditPage} />
-          <BottomSheetContent text="취소하기" />
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
+          <BottomSheetContent
+            text="게시글 삭제하기"
+            onClick={handleDialogOpen}
+          />
+          <BottomSheetContent text="게시글 수정하기" onClick={goToEditPage} />
         </BottomSheet>
       )}
       {isBottomSheetOpen && author.accountname !== accountName && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
-          <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
-          <BottomSheetContent text="취소하기" />
+        <BottomSheet
+          handleClose={handleBottomSheetOpen}
+          bottomSheetTrigger={bottomSheetTrigger}
+        >
+          <BottomSheetContent
+            text="게시글 신고하기"
+            onClick={handleDialogOpen}
+          />
         </BottomSheet>
       )}
       {isDialogOpen && (
