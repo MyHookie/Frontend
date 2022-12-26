@@ -25,6 +25,11 @@ const SButton = styled.button`
   background-color: inherit;
   cursor: pointer;
   width: 2.2rem;
+
+  &:disabled {
+    cursor: default;
+    background-color: ${({ theme }) => theme.color.DISABLED_BLUE};
+  }
 `;
 
 function ConfirmHeader({
