@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
-import * as S from './index.styles';
 
+import * as S from './index.styles';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
@@ -194,7 +194,6 @@ function PostItem({
         >
           <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
           <BottomSheetContent text="수정하기" onClick={goToEditPage} />
-          <BottomSheetContent text="취소하기" />
         </BottomSheet>
       )}
       {isBottomSheetOpen && author.accountname !== accountName && (
@@ -203,7 +202,6 @@ function PostItem({
           bottomSheetTrigger={bottomSheetTrigger}
         >
           <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
-          <BottomSheetContent text="취소하기" />
         </BottomSheet>
       )}
       {isDialogOpen && (

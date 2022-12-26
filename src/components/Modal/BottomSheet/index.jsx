@@ -15,19 +15,18 @@ const ModalBackGround = styled.div`
   z-index: 110;
 `;
 
-// 열릴때 fadeIn으로 0.5초만에 위로 올라옴
-// 닫힐때 fadeOut으로 0.5초만에 아래로 내려감
-
 const SBottomSheet = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
   position: fixed;
   bottom: 0px;
   left: 50%;
 
   width: 100%;
-  padding-bottom: 0.5rem;
+  padding: 1.5rem 2rem 1.5rem 2rem;
+  gap: 1rem;
   background: ${({ theme }) => theme.color.WHITE};
 
   box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.25);
@@ -71,7 +70,6 @@ const SBottomSheet = styled.div`
 
 const SCloseModal = styled.button`
   width: 2rem;
-  margin: 1.5rem 2rem 0.5rem 0rem;
 
   border: none;
 
@@ -86,6 +84,7 @@ function BottomSheet({ handleClose, children, bottomSheetTrigger }) {
       {createPortal(
         <>
           <ModalBackGround onClick={handleClose} />
+
           <SBottomSheet bottomSheetTrigger={bottomSheetTrigger}>
             <SCloseModal onClick={handleClose}>
               <img src={closeIcon} alt="모달창 닫기" />
