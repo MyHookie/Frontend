@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import Snackbar from '../../Modal/SnackBar';
@@ -77,18 +77,18 @@ function CommentInput({ id, onCreateCommentData }) {
     },
   });
 
-  const handleResizeHeight = () => {
-    //  DOM 접근할 때, useRef 사용해서 바꿔보기
-    const textarea = document.querySelector('.autoTextarea');
+  const textarea = useRef(null);
 
+  const handleResizeHeight = () => {
     if (textarea) {
-      const height = textarea.scrollHeight;
+      const height = textarea.current.scrollHeight;
       if (height < 57) {
-        textarea.style.height = `${height + 1}px`;
+        textarea.current.style.height = `${height}px`;
       } else {
-        textarea.style.height = `57px`;
+        textarea.current.style.height = `57px`;
       }
     }
+    textarea.current.focus();
   };
 
   const handleCommentData = (e) => {
@@ -103,8 +103,7 @@ function CommentInput({ id, onCreateCommentData }) {
     if (commentData.content.length < 1) {
       handleSnackBar();
     } else {
-      const textarea = document.querySelector('.autoTextarea');
-      textarea.style.height = 'auto';
+      textarea.current.style.height = 'auto';
       onCreateCommentData(
         commentData.dataId,
         commentData.content,
@@ -140,7 +139,7 @@ function CommentInput({ id, onCreateCommentData }) {
         value={commentData.content}
         onChange={handleCommentData}
         rows="1"
-        className="autoTextarea"
+        ref={textarea}
       />
 
       <SButton
