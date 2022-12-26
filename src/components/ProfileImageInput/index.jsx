@@ -6,15 +6,18 @@ import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
 import { profileImage } from '../../atoms/profileInfo';
 
-function ProfileImageInput({ edit, savedImage }) {
-  const [profileImages, setProfileImages] = useState(basicProfileImage);
+function ProfileImageInput({ savedImage }) {
+  const [profileImages, setProfileImages] = useState('');
   const setImage = useSetRecoilState(profileImage);
   const imageInput = useRef(null);
 
   useEffect(() => {
-    if (edit) {
+    console.log(savedImage);
+    if (savedImage) {
       setProfileImages(savedImage);
       setImage(savedImage);
+    } else {
+      setProfileImages(basicProfileImage);
     }
   }, []);
 

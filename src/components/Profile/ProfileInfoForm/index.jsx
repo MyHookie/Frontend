@@ -63,7 +63,7 @@ function ProfileInfoForm({ edit, savedData }) {
 
   return (
     <>
-      <ProfileImageInput edit savedImage={savedData.profileImage} />
+      <ProfileImageInput savedImage={savedData && savedData.profileImage} />
       <S.FormContainer>
         <AuthInputForm
           id="id"
