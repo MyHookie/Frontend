@@ -3,7 +3,7 @@ import uploadIconGrey from '../../assets/upload-file_grey.png';
 import uploadIcon from '../../assets/upload-file.png';
 import { IR } from '../../styles/Util';
 
-export const Container = styled.main`
+export const Container = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -75,11 +75,22 @@ export const Imgtxt = styled.p`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
   cursor: default;
+  &::after {
+    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
+    color: #ff5656;
+    margin-left: 0.6rem;
+  }
 `;
 
 export const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
+
+  &::after {
+    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
+    color: #ff5656;
+    margin-left: 0.6rem;
+  }
 `;
 
 export const img = styled.img`
@@ -109,6 +120,10 @@ export const Textarea = styled.textarea`
   &::placeholder {
     font-family: 'LINESeedKR-Rg';
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  }
+  &:read-only {
+    background: #efefef4d;
+    color: #efefef4d;
   }
 `;
 

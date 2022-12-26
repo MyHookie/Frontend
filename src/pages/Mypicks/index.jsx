@@ -10,8 +10,13 @@ function index() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [check, setCheck] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [text, setText] = useState('');
   const [imgFile, setImgFile] = useState('');
+  const [value, setValue] = useState('');
+  const [price, setPrice] = useState('');
+  const [link, setLink] = useState('');
+
+  const [isCorrect, setIsCorrect] = useState(true);
+
   const navigate = useNavigate();
   const goBackPage = () => {
     navigate(-1);
@@ -30,22 +35,41 @@ function index() {
     setIsDialogOpen(!isDialogOpen);
   };
 
+  // 폼 제출 유효성 검사
   const handleSubmit = () => {
-    console.log('myPick 등록');
-    goBackPage();
+    if (disabled === true) {
+      setPrice('0');
+    }
+
+    if (imgFile && value && price && link) {
+      console.log('myPick 등록');
+    } else {
+      console.log('필수 입력사항을 입력해주세요.');
+      setIsDialogOpen(!isDialogOpen);
+    }
+    // goBackPage();
   };
 
   const CheckNumber = (e) => {
     const onlyNumber = e.replace(/[^0-9]/g, '');
-    setText(onlyNumber);
+    setPrice(onlyNumber);
   };
 
   useEffect(() => {
-    CheckNumber(text);
-  }, [text]);
+    CheckNumber(price);
+  }, [price]);
 
-  const handleInputChange = (e) => {
-    setText(e.target.value);
+  const handleValueChange = (e) => {
+    setValue(e.target.value);
+    handleResizeHeight(e);
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+  };
+
+  const handleLinkChange = (e) => {
+    setLink(e.target.value);
   };
 
   const [placeholderText, setPlaceholderText] =
@@ -57,7 +81,7 @@ function index() {
       setPlaceholderText('숫자만 입력 가능합니다.');
       setDisabled(false);
     } else {
-      setText('');
+      setPrice('');
       setPlaceholderText('');
       setDisabled(true);
     }
@@ -106,8 +130,9 @@ function index() {
         </S.ImageContainer>
         <S.Label htmlFor="something1">한줄평</S.Label>
         <S.Textarea
-          onChange={handleResizeHeight}
+          onChange={handleValueChange}
           ref={textRef}
+          value={value}
           name=""
           id="something1"
           cols="30"
@@ -117,10 +142,11 @@ function index() {
         />
 
         <S.Label htmlFor="something2">가격</S.Label>
+
         <S.Textarea
-          value={text}
-          onChange={handleInputChange}
-          disabled={disabled}
+          value={price}
+          onChange={handlePriceChange}
+          readOnly={disabled}
           name=""
           id="something2"
           cols="30"
@@ -131,8 +157,11 @@ function index() {
         <S.LabelCheckBox htmlFor="price">
           <S.StyledP>가격 미정</S.StyledP>
         </S.LabelCheckBox>
-        <S.Label htmlFor="something1">링크</S.Label>
+        <S.Label htmlFor="something3">링크</S.Label>
         <S.Textarea
+          value={link}
+          onChange={handleLinkChange}
+          isCorrect={isCorrect}
           name=""
           id="something3"
           cols="30"
