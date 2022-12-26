@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useEffect, useRef } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import * as S from './index.styles';
 import ProfileImageInput from '../../ProfileImageInput';
 import AuthInputForm from '../../AuthInputForm';
 import {
+  isSubscribedAccountState,
   profileAccountName,
-  profileAccountNameValid,
-  profileAccountNameWarningMessage,
+  profileInputValid,
   profileIntro,
   profileUserName,
 } from '../../../atoms/profileInfo';
@@ -20,17 +20,13 @@ function ProfileInfoForm() {
   const [userName, setUserName] = useRecoilState(profileUserName);
   const [intro, setIntro] = useRecoilState(profileIntro);
 
-  const [accountNameValid, setAccountNameValid] = useRecoilState(
-    profileAccountNameValid
-  );
-  const [userNameValid, setUserNameValid] = useState(false);
-
-  const [accountNameWarningMsg, setAccountNameWarningMsg] = useRecoilState(
-    profileAccountNameWarningMessage
-  );
-  const [userNameWarningMsg, setUserNameWarningMsg] = useState('');
-
-  const [buttonNotAllow, setButtonNotAllow] = useState(true);
+  const isSubscribedAccount = useRecoilValue(isSubscribedAccountState);
+  const {
+    accountNameValid,
+    userNameValid,
+    accountNameWarningMessage,
+    userNameWarningMessage,
+  } = useRecoilValue(profileInputValid);
 
   const handleAccountName = (e) => {
     setAccountName(e.target.value);
@@ -42,38 +38,9 @@ function ProfileInfoForm() {
     setIntro(e.target.value);
   };
 
-  // 인풋창 입력할 때마다 유효성 검사
-  useEffect(() => {
-    const ID_REGEX = /^[a-z0-9A-Z_.]{2,16}$/;
-
-    if (ID_REGEX.test(accountName)) {
-      setAccountNameValid(true);
-    } else {
-      setAccountNameValid(false);
-      setAccountNameWarningMsg(
-        '* 2~16자 이내의 영문, 숫자, 밑줄, 마침표만 사용할 수 있습니다.'
-      );
-    }
-
-    if (userName.length < 2 || userName.length > 10) {
-      setUserNameValid(false);
-      setUserNameWarningMsg('* 2~10자 이내로 입력해주세요');
-    } else {
-      setUserNameValid(true);
-    }
-  }, [accountName, userName]);
-
-  // 아이디와 이름 유효성 통과 시 버튼 활성화
-  useEffect(() => {
-    if (accountNameValid && userNameValid) {
-      return setButtonNotAllow(false);
-    }
-    return setButtonNotAllow(true);
-  }, [accountName, userName]);
-
   // 아이디 인풋창 자동 포커스
   useEffect(() => {
-    console.log(inputRef);
+    inputRef.current.focus();
   }, []);
 
   // 소개 textarea 높이
@@ -95,8 +62,14 @@ function ProfileInfoForm() {
           }}
           handleProfileState={handleAccountName}
           inputValue={accountName}
-          profileValid={accountNameValid}
-          warningMsg={accountNameWarningMsg}
+          profileValid={
+            isSubscribedAccount.accountNameValid && accountNameValid
+          }
+          warningMsg={
+            isSubscribedAccount.accountNameValid
+              ? accountNameWarningMessage
+              : isSubscribedAccount.validWarningMessage
+          }
           inputRef={inputRef}
         />
         <AuthInputForm
@@ -109,7 +82,7 @@ function ProfileInfoForm() {
           handleProfileState={handleUserName}
           inputValue={userName}
           profileValid={userNameValid}
-          warningMsg={userNameWarningMsg}
+          warningMsg={userNameWarningMessage}
         />
         <S.IntroFormContainer>
           <S.Label htmlFor="intro">소개</S.Label>
