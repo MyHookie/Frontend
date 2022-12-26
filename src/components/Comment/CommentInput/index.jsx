@@ -86,7 +86,6 @@ function CommentInput({ id }) {
           },
         }
       );
-      console.log(response);
       setCommentData('');
     } catch (error) {
       console.log(error);
