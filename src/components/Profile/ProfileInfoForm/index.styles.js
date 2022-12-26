@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const FormContainer = styled.form`
   display: flex;
@@ -28,4 +28,10 @@ export const IntroContent = styled.textarea`
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
+
+  ${({ value }) =>
+    value.length > 0 &&
+    css`
+      border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
+    `}
 `;

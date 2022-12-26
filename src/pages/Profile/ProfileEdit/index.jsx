@@ -4,9 +4,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import * as S from './index.styles';
 
-import AuthInputForm from '../../../components/AuthInputForm';
-import ProfileImageInput from '../../../components/ProfileImageInput';
-
 import authAxios from '../../../api/authAxios';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 import ProfileInfoForm from '../../../components/Profile/ProfileInfoForm';
