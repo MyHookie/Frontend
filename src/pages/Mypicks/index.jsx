@@ -15,6 +15,7 @@ function index() {
   const [value, setValue] = useState('');
   const [price, setPrice] = useState('');
   const [link, setLink] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const textRef = useRef();
   const imageInput = useRef();
@@ -56,6 +57,7 @@ function index() {
       console.log('myPick 등록');
     } else {
       console.log('필수 입력사항을 입력해주세요.');
+      setIsError(true);
       setIsDialogOpen(!isDialogOpen);
     }
     // goBackPage();
@@ -114,6 +116,9 @@ function index() {
       )}
 
       <S.Container>
+        {isError && (
+          <S.WarningMsg>* 필수 입력사항을 입력해주세요.</S.WarningMsg>
+        )}
         <S.ImageContainer>
           <S.Imgtxt>myPick 이미지 등록</S.Imgtxt>
           <S.ImageInput onClick={handleImageAdd} />

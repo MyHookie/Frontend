@@ -180,3 +180,12 @@ export const StyledP = styled.p`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
 `;
+
+export const WarningMsg = styled.p`
+  position: absolute;
+  top: 8rem;
+  right: 3.4rem;
+  color: ${({ theme }) => theme.color.RED};
+  margin-right: 0.5rem;
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
+`;
