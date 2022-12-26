@@ -1,6 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
 import leftIcon from '../../assets/icon/icon-arrow-left.png';
@@ -12,6 +11,7 @@ function index() {
   const [check, setCheck] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [text, setText] = useState('');
+  const [imgFile, setImgFile] = useState('');
   const navigate = useNavigate();
   const goBackPage = () => {
     navigate(-1);
@@ -22,7 +22,7 @@ function index() {
 
   const handleResizeHeight = useCallback((e) => {
     e.target.style.height = 'inherit';
-    e.target.style.height = `${e.target.scrollHeight}px`;
+    e.target.style.height = `${e.target.scrollHeight + 1}px`;
   }, []);
 
   const handleDialogOpen = (e) => {
@@ -34,6 +34,15 @@ function index() {
     console.log('myPick 등록');
     goBackPage();
   };
+
+  const CheckNumber = (e) => {
+    const onlyNumber = e.replace(/[^0-9]/g, '');
+    setText(onlyNumber);
+  };
+
+  useEffect(() => {
+    CheckNumber(text);
+  }, [text]);
 
   const handleInputChange = (e) => {
     setText(e.target.value);
@@ -53,7 +62,6 @@ function index() {
       setDisabled(true);
     }
   };
-  const [imgFile, setImgFile] = useState('');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -94,15 +102,18 @@ function index() {
             onChange={handleFileChange}
             style={{ display: 'none' }}
           />
-          {imgFile && <S.img src={imgFile} alt="" />}
+          {imgFile && <S.img src={imgFile} alt="mypick 사진" />}
         </S.ImageContainer>
-        <S.Label htmlFor="something1">제목</S.Label>
+        <S.Label htmlFor="something1">한줄평</S.Label>
         <S.Textarea
+          onChange={handleResizeHeight}
+          ref={textRef}
           name=""
           id="something1"
           cols="30"
           rows="1"
-          placeholder="2~15자 이내여야 합니다."
+          maxLength="100"
+          placeholder="한줄평을 남겨주세요. (100자)"
         />
 
         <S.Label htmlFor="something2">가격</S.Label>
@@ -120,15 +131,13 @@ function index() {
         <S.LabelCheckBox htmlFor="price">
           <S.StyledP>가격 미정</S.StyledP>
         </S.LabelCheckBox>
-        <S.Label htmlFor="something1">후기</S.Label>
+        <S.Label htmlFor="something1">링크</S.Label>
         <S.Textarea
-          onChange={handleResizeHeight}
-          ref={textRef}
           name=""
           id="something3"
           cols="30"
           rows="1"
-          placeholder="후기를 남겨주세요."
+          placeholder="http://naver.com"
         />
       </S.Container>
     </>
