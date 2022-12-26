@@ -192,8 +192,11 @@ function PostItem({
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
-          <BottomSheetContent text="수정하기" onClick={goToEditPage} />
+          <BottomSheetContent
+            text="게시글 삭제하기"
+            onClick={handleDialogOpen}
+          />
+          <BottomSheetContent text="게시글 수정하기" onClick={goToEditPage} />
         </BottomSheet>
       )}
       {isBottomSheetOpen && author.accountname !== accountName && (
@@ -201,7 +204,10 @@ function PostItem({
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
+          <BottomSheetContent
+            text="게시글 신고하기"
+            onClick={handleDialogOpen}
+          />
         </BottomSheet>
       )}
       {isDialogOpen && (
