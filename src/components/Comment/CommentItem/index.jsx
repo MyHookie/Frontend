@@ -61,8 +61,30 @@ function CommentItem({ commentId, content, createdAt, author }) {
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
+
   const location = useLocation();
   const postId = location.pathname.slice(6);
+  const [DeleteMessage, setDeleteMessage] = useState('');
+  const [isDeleteMessage, setIsDeleteMessage] = useState(false);
+
+  const deleteCommentItem = async () => {
+    try {
+      const response = await axios.delete(
+        `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      setDeleteMessage(response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
@@ -97,11 +119,16 @@ function CommentItem({ commentId, content, createdAt, author }) {
     return setTimeout(() => setIsSnackBarOpen(false), 2000);
   };
 
+  const handleDeleteMessage = () => {
+    setIsDeleteMessage(true);
+    return setTimeout(() => setIsDeleteMessage(false), 2000);
+  };
+
   const handleDialogAction = () => {
     console.log(dialogType);
     if (dialogType === '댓글 삭제하기') {
-      console.log('삭제해!');
-      // deletePost.mutate();
+      deleteCommentItem();
+      handleDeleteMessage();
     } else if (dialogType === '댓글 신고하기') {
       console.log('신고해!');
       handleSnackBar();
@@ -161,6 +188,7 @@ function CommentItem({ commentId, content, createdAt, author }) {
           />
         )}
         {isSnackBarOpen && <Snackbar content="신고가 접수되었습니다." />}
+        {isDeleteMessage && <Snackbar content="댓글이 삭제되었습니다." />}
       </SCommentsInfo>
       <SComments>{content}</SComments>
     </SContents>
