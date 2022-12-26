@@ -11,10 +11,11 @@ function Splash() {
   const isLogin = useRecoilValue(loginState);
 
   useEffect(() => {
-    setTimeout(
+    const time = setTimeout(
       () => (!isLogin ? navigate('/welcome') : navigate('/home')),
       1800
     );
+    return () => clearTimeout(time);
   }, [isLogin]);
 
   return (
