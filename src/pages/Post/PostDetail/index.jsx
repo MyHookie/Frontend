@@ -91,11 +91,26 @@ function PostDetail() {
     fetchCommentList(location.pathname);
   }, []);
 
+  const [accountName, setAccountName] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
+
+  useEffect(() => {
+    setAccountName(JSON.parse(localStorage.getItem('accountName')));
+  }, []);
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setBottomSheetTrigger(!bottomSheetTrigger);
+
+    if (bottomSheetTrigger) {
+      setTimeout(() => {
+        setIsBottomSheetOpen(false);
+        setBottomSheetTrigger(false);
+      }, 500);
+    }
+
+    setIsBottomSheetOpen(true);
   };
 
   if (!isLoading) {
@@ -111,13 +126,25 @@ function PostDetail() {
         rightClick={handleBottomSheetOpen}
         rightAlt="포스트 설정 버튼"
       />
-      {isBottomSheetOpen && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
-          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
-          <BottomSheetContent text="신고하기" />
-          <BottomSheetContent text="신고하기" />
-        </BottomSheet>
-      )}
+      {isBottomSheetOpen &&
+        postDetailData.author.accountname === accountName && (
+          <BottomSheet
+            handleClose={handleBottomSheetOpen}
+            bottomSheetTrigger={bottomSheetTrigger}
+          >
+            <BottomSheetContent text="게시글 삭제하기" />
+            <BottomSheetContent text="게시글 수정하기" />
+          </BottomSheet>
+        )}
+      {isBottomSheetOpen &&
+        postDetailData.author.accountname !== accountName && (
+          <BottomSheet
+            handleClose={handleBottomSheetOpen}
+            bottomSheetTrigger={bottomSheetTrigger}
+          >
+            <BottomSheetContent text="게시글 신고하기" />
+          </BottomSheet>
+        )}
 
       {!isLoading && (
         <SContents>
