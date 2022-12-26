@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 
 import BaseHeader from '../../../components/common/BaseHeader';
@@ -39,6 +40,35 @@ function PostDetail() {
     navigate('/home');
   };
 
+  const [postDetailData, setPostDetailData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchDetailPost = async (pathName) => {
+    try {
+      const response = await axios.get(
+        `https://mandarin.api.weniv.co.kr${pathName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      setPostDetailData(response.data.post);
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    fetchDetailPost(location.pathname);
+  }, []);
+
   const [commentData, setCommentData] = useState([]);
 
   const onCreateCommentData = (dataId, content, createdAt, author) => {
@@ -58,6 +88,10 @@ function PostDetail() {
     setIsBottomSheetOpen(!isBottomSheetOpen);
   };
 
+  if (!isLoading) {
+    console.log(postDetailData);
+  }
+
   return (
     <SPostDetail>
       <BaseHeader
@@ -75,23 +109,29 @@ function PostDetail() {
         </BottomSheet>
       )}
 
-      {/* <SContents>
-        <STitle>게시물 상세 페이지</STitle>
-        <PostItem
-          key={dummyList[0].id}
-          postId={dummyList[0].id}
-          content={dummyList[0].content}
-          author={dummyList[0].author}
-          image={dummyList[0].image}
-          hearted={dummyList[0].hearted}
-          heartedCount={dummyList[0].heartedCount}
-          commentCount={dummyList[0].commentCount}
-          createdAt={dummyList[0].createdAt}
-          detail
-        />
-        <SDividingLine />
-        {commentData.length !== 0 && <CommentList commentData={commentData} />}
-      </SContents> */}
+      {!isLoading && (
+        <SContents>
+          <STitle>게시물 상세 페이지</STitle>
+          <PostItem
+            key={postDetailData.id}
+            postId={postDetailData.id}
+            content={postDetailData.content}
+            image={postDetailData.image}
+            createdAt={postDetailData.createdAt}
+            updatedAt={postDetailData.updatedAt}
+            hearted={postDetailData.hearted}
+            heartCount={postDetailData.heartCount}
+            comment={postDetailData.comment}
+            commentCount={postDetailData.commentCount}
+            author={postDetailData.author}
+            detail
+          />
+          <SDividingLine />
+          {commentData.length !== 0 && (
+            <CommentList commentData={commentData} />
+          )}
+        </SContents>
+      )}
 
       <CommentInput onCreateCommentData={onCreateCommentData} />
     </SPostDetail>
