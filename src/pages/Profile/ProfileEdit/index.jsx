@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 
@@ -10,6 +10,8 @@ import authAxios from '../../../api/authAxios';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 
 function ProfileEdit() {
+  const { state } = useLocation();
+  console.log(state);
   const navigate = useNavigate();
   const textareaRef = useRef(null);
   const inputRef = useRef(null);
@@ -26,6 +28,13 @@ function ProfileEdit() {
   const [userNameWarningMsg, setUserNameWarningMsg] = useState('');
 
   const [buttonNotAllow, setButtonNotAllow] = useState(true);
+
+  // useEffect(() => {
+  //   setAccountName(state.accountName);
+  //   setUserName(state.userName);
+  //   setIntro(state.intro);
+  //   setImage(state.image);
+  // }, []);
 
   const handleAccountName = (e) => {
     setAccountName(e.target.value);
