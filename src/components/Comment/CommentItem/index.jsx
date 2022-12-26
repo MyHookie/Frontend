@@ -98,8 +98,6 @@ function CommentItem({ commentId, content, createdAt, author }) {
           },
         }
       );
-      console.log(commentId);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

@@ -58,8 +58,8 @@ function PostDetail() {
       );
       setPostDetailData(response.data.post);
       setIsLoading(false);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
