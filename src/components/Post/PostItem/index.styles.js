@@ -76,6 +76,10 @@ export const StyledSlider = styled(Slider)`
       margin: -0.2rem;
     }
   }
+
+  .slick-arrow {
+    display: none !important;
+  }
 `;
 
 export const Image = styled.img`

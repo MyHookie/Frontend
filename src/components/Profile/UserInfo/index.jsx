@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
@@ -13,6 +13,8 @@ import { deleteFollow, postFollow } from '../../../api/follow';
 import getProfileInfo from '../../../api/profile';
 
 function UserInfo({ isMyPage, accountName }) {
+  const queryClient = useQueryClient();
+
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState('');
   const navigate = useNavigate();
@@ -21,8 +23,16 @@ function UserInfo({ isMyPage, accountName }) {
     getProfileInfo(accountName)
   );
 
-  const followUser = useMutation(() => postFollow(accountName));
-  const unFollowUser = useMutation(() => deleteFollow(accountName));
+  const followUser = useMutation(() => postFollow(accountName), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const unFollowUser = useMutation(() => deleteFollow(accountName), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
 
   const handleFollowUser = () => {
     if (data.profile.isfollow) {

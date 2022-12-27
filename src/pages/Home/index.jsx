@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQueries, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import BaseHeader from '../../components/common/BaseHeader';
@@ -58,36 +58,35 @@ function Home() {
     return <div>Error!!</div>;
   }
 
-  if (allPost) {
-    return (
-      <>
-        <BaseHeader
-          image={hookieImage}
-          rightIcon={searchIcon}
-          rightClick={goToSearch}
-          rightAlt="검색창 이동"
-        />
+  return (
+    <>
+      <BaseHeader
+        image={hookieImage}
+        rightIcon={searchIcon}
+        rightClick={goToSearch}
+        rightAlt="검색창 이동"
+      />
 
-        <S.Container>
-          {allPost.length > 0 ? (
-            <PostList postData={allPost} />
-          ) : (
-            <S.EmptyContainer>
-              <S.EmptyImage src={logoGrey} alt="로고 이미지" />
-              <S.EmptyContent>유저를 검색해 팔로우 해보세요!</S.EmptyContent>
-              <Button
-                text="검색하기"
-                buttonStyle={LARGE_BUTTON}
-                onClick={goToSearch}
-              />
-            </S.EmptyContainer>
-          )}
-        </S.Container>
+      <S.Container>
+        {console.log(myPost, followPost)}
+        {allPost.length > 0 ? (
+          <PostList postData={allPost} />
+        ) : (
+          <S.EmptyContainer>
+            <S.EmptyImage src={logoGrey} alt="로고 이미지" />
+            <S.EmptyContent>유저를 검색해 팔로우 해보세요!</S.EmptyContent>
+            <Button
+              text="검색하기"
+              buttonStyle={LARGE_BUTTON}
+              onClick={goToSearch}
+            />
+          </S.EmptyContainer>
+        )}
+      </S.Container>
 
-        <Navigation />
-      </>
-    );
-  }
+      <Navigation />
+    </>
+  );
 }
 
 export default Home;

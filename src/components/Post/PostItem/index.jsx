@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
+
+import basicProfileImage from '../../../assets/basic-profile.png';
 import BaseHeader from '../../common/BaseHeader';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
@@ -31,6 +33,8 @@ function PostItem({
   goPostDetailPage,
   detail,
 }) {
+  const queryClient = useQueryClient();
+
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,14 +47,29 @@ function PostItem({
   const [dialogMessage, setDialogMessage] = useState('');
   const navigate = useNavigate();
 
-  const deletePost = useMutation(() => deleteMyPost(postId));
-  const postLike = useMutation(() => postLikeFeed(postId));
-  const deleteLike = useMutation(() => deleteLikeFeed(postId));
-  const reportPost = useMutation(() => reportFollowPost(postId));
+  const deletePost = useMutation(() => deleteMyPost(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const postLike = useMutation(() => postLikeFeed(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const deleteLike = useMutation(() => deleteLikeFeed(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const reportPost = useMutation(() => reportFollowPost(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
 
   const handleLike = (e) => {
     e.stopPropagation();
-    console.log(hearted);
     if (hearted) {
       deleteLike.mutate();
     } else {
@@ -117,6 +136,10 @@ function PostItem({
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
   }, []);
 
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
+
   const goToEditPage = () => {
     navigate(`/post/edit/${postId}`, {
       state: {
@@ -128,13 +151,18 @@ function PostItem({
     });
   };
 
+  const goToProfilePage = (e, accountname) => {
+    e.stopPropagation();
+    navigate(`/profile/${accountname}`);
+  }
+  
   const handleToHome = () => {
     navigate('/home');
   };
 
   const settings = {
     dots: true,
-    speed: 1000,
+    speed: 200,
   };
 
   return (
@@ -153,8 +181,14 @@ function PostItem({
         detail={detail}
         onClick={() => (detail ? null : goPostDetailPage(postId))}
       >
-        <S.UserInfoContainer>
-          <img src={author.image} alt="프로필 이미지" />
+        <S.UserInfoContainer
+          onClick={(e) => goToProfilePage(e, author.accountname)}
+        >
+          <img
+            src={author.image}
+            alt="프로필 이미지"
+            onError={handleErrorImage}
+          />
           <S.TextBox>
             <S.UserName>{author.username}</S.UserName>
             <S.AccountName>@{author.accountname}</S.AccountName>
@@ -208,11 +242,8 @@ function PostItem({
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent
-            text="게시글 삭제하기"
-            onClick={handleDialogOpen}
-          />
-          <BottomSheetContent text="게시글 수정하기" onClick={goToEditPage} />
+          <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
+          <BottomSheetContent text="수정하기" onClick={goToEditPage} />
         </BottomSheet>
       )}
       {isBottomSheetOpen && author.accountname !== accountName && (
@@ -220,10 +251,7 @@ function PostItem({
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent
-            text="게시글 신고하기"
-            onClick={handleDialogOpen}
-          />
+          <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
         </BottomSheet>
       )}
       {isDialogOpen && (
