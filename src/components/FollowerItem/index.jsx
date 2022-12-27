@@ -8,7 +8,7 @@ import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
 import { slEllipsis } from '../../styles/Util';
 import basicProfileImage from '../../assets/basic-profile.png';
 
-const SContent = styled.div`
+const SContent = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
