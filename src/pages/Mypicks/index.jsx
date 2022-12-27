@@ -8,13 +8,14 @@ import * as S from './index.style';
 
 function index() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [check, setCheck] = useState(false);
+  const [noPriceCheck, setNoPriceCheck] = useState(false);
   const [readOnly, setReadOnly] = useState(false);
 
   const [imgFile, setImgFile] = useState('');
-  const [value, setValue] = useState('');
-  const [price, setPrice] = useState('');
-  const [link, setLink] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [inputPrice, setInputPrice] = useState('');
+  const [inputLink, setInputLink] = useState('');
+
   const [isError, setIsError] = useState(false);
 
   const textRef = useRef();
@@ -50,51 +51,53 @@ function index() {
   // 폼 제출 유효성 검사
   const handleSubmit = () => {
     if (readOnly === true) {
-      setPrice('0');
+      setInputPrice('0');
     }
 
-    if (imgFile && value && price && link) {
+    if (imgFile && inputValue && inputPrice && inputLink) {
       console.log('myPick 등록');
+      setIsError(false);
+      // 서버 전송
+      // goBackPage();
     } else {
       console.log('필수 입력사항을 입력해주세요.');
       setIsError(true);
       setIsDialogOpen(!isDialogOpen);
     }
-    // goBackPage();
   };
 
-  const CheckNumber = (e) => {
-    const onlyNumber = e.replace(/[^0-9]/g, '');
-    setPrice(onlyNumber);
+  const ReplaceNumber = (price) => {
+    const onlyNumber = price.replace(/[^0-9]/g, '');
+    setInputPrice(onlyNumber);
   };
 
   useEffect(() => {
-    CheckNumber(price);
-  }, [price]);
+    ReplaceNumber(inputPrice);
+  }, [inputPrice]);
 
   const handleValueChange = (e) => {
-    setValue(e.target.value);
+    setInputValue(e.target.value);
     handleResizeHeight(e);
   };
 
   const handlePriceChange = (e) => {
-    setPrice(e.target.value);
+    setInputPrice(e.target.value);
   };
 
   const handleLinkChange = (e) => {
-    setLink(e.target.value);
+    setInputLink(e.target.value);
   };
 
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
   const handleCheck = (e) => {
-    setCheck(e.target.checked);
-    if (check) {
+    setNoPriceCheck(e.target.checked);
+    if (noPriceCheck) {
       setPlaceholderText('숫자만 입력 가능합니다.');
       setReadOnly(false);
     } else {
-      setPrice('');
+      setInputPrice('');
       setPlaceholderText('');
       setReadOnly(true);
     }
@@ -136,7 +139,7 @@ function index() {
         <S.Textarea
           onChange={handleValueChange}
           ref={textRef}
-          value={value}
+          value={inputValue}
           name=""
           id="review"
           cols="30"
@@ -147,7 +150,7 @@ function index() {
 
         <S.Label htmlFor="price">가격</S.Label>
         <S.Textarea
-          value={price}
+          value={inputPrice}
           onChange={handlePriceChange}
           readOnly={readOnly}
           name=""
@@ -167,7 +170,7 @@ function index() {
         </S.LabelCheckBox>
         <S.Label htmlFor="link">링크</S.Label>
         <S.Textarea
-          value={link}
+          value={inputLink}
           onChange={handleLinkChange}
           name=""
           id="link"
