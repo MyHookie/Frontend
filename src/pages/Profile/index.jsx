@@ -10,6 +10,7 @@ import UserInfo from '../../components/Profile/UserInfo';
 import ProfilePost from '../../components/Profile/ProfilePost';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
+import MyPickItem from '../../components/Profile/MyPickItems';
 
 function Profile() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -49,6 +50,7 @@ function Profile() {
       />
       <S.Container>
         <UserInfo accountName={param.accountname} isMyPage={isMyPage} />
+        <MyPickItem />
         <ProfilePost accountName={param.accountname} />
       </S.Container>
 
