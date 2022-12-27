@@ -111,7 +111,7 @@ function Login() {
           disabled={buttonNotAllow}
         />
       </S.FormContainer>
-      <S.Link to="/signup">이메일로 회원가입</S.Link>
+      <S.SignUpLink to="/signup">이메일로 회원가입</S.SignUpLink>
     </S.Container>
   );
 }

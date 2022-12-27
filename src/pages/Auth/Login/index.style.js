@@ -18,7 +18,7 @@ export const LoginButton = styled(Button)`
   margin-top: 5rem;
 `;
 
-export const Link = styled(Link)`
+export const SignUpLink = styled(Link)`
   display: block;
   text-align: center;
   color: ${({ theme }) => theme.color.GRAY};
