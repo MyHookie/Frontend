@@ -52,7 +52,7 @@ const SButton = styled(Button)`
   white-space: nowrap;
 `;
 
-function FollowerItem({ data }) {
+function FollowItem({ data }) {
   const navigate = useNavigate();
 
   const handleToUserProfile = () => {
@@ -140,4 +140,4 @@ function FollowerItem({ data }) {
   );
 }
 
-export default FollowerItem;
+export default FollowItem;
