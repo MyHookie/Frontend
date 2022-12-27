@@ -55,7 +55,7 @@ function Follower() {
       <BaseHeader
         leftIcon={arrowIcon}
         leftClick={handleToProfile}
-        title="Follower"
+        title="Followers"
       />
       <SFollowerList>
         <h2>팔로워 페이지</h2>
