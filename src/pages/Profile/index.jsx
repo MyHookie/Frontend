@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
@@ -10,10 +10,14 @@ import UserInfo from '../../components/Profile/UserInfo';
 import ProfilePost from '../../components/Profile/ProfilePost';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
+import Dialog from '../../components/Modal/Dialog';
 
 function Profile() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogType, setDialogType] = useState('');
+  const [dialogMessage, setDialogMessage] = useState('');
 
   const navigate = useNavigate();
   const param = useParams();
@@ -38,6 +42,39 @@ function Profile() {
     setIsBottomSheetOpen(true);
   };
 
+  const handleDialogOpen = (e) => {
+    if (isDialogOpen) {
+      setIsDialogOpen(false);
+      setDialogType('');
+    } else {
+      setIsDialogOpen(true);
+      setDialogType(e.target.textContent);
+    }
+
+    if (isDialogOpen && e.target.textContent === '취소') {
+      setBottomSheetTrigger(!bottomSheetTrigger);
+      setIsBottomSheetOpen(!isBottomSheetOpen);
+      setIsDialogOpen(!isDialogOpen);
+    }
+  };
+
+  const handleDialogAction = () => {
+    if (dialogType === '로그아웃') {
+      localStorage.clear();
+      navigate('/welcome');
+    }
+
+    setBottomSheetTrigger(!bottomSheetTrigger);
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  useEffect(() => {
+    if (dialogType === '로그아웃') {
+      setDialogMessage('정말 로그아웃 하시겠습니까?');
+    }
+  }, [dialogType]);
+
   return (
     <>
       <BaseHeader
@@ -59,8 +96,15 @@ function Profile() {
           bottomSheetTrigger={bottomSheetTrigger}
         >
           <BottomSheetContent text="다크모드" />
-          <BottomSheetContent text="로그아웃" />
+          <BottomSheetContent text="로그아웃" onClick={handleDialogOpen} />
         </BottomSheet>
+      )}
+      {isDialogOpen && (
+        <Dialog
+          dialogText={dialogMessage}
+          handleClose={handleDialogOpen}
+          handleSubmit={handleDialogAction}
+        />
       )}
     </>
   );
