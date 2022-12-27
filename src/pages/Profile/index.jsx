@@ -60,8 +60,10 @@ function Profile() {
 
   const handleDialogAction = () => {
     if (dialogType === '로그아웃') {
-      console.log('wow');
+      localStorage.clear();
+      navigate('/welcome');
     }
+
     setBottomSheetTrigger(!bottomSheetTrigger);
     setIsBottomSheetOpen(!isBottomSheetOpen);
     setIsDialogOpen(!isDialogOpen);
