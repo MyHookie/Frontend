@@ -1,40 +1,31 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 import SearchHeader from '../common/SearchHeader';
 import SearchedUser from './SearchedUser';
 import * as S from './index.styles';
+import useDebounceValue from '../../hooks/useDebounceValue';
 
-const userFetch = async (keyword) => {
-  const { data } = await axios.get(
-    `https://mandarin.api.weniv.co.kr/user/searchuser/?keyword=${keyword}`,
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
-  return data;
-};
+import searchUser from '../../api/search';
 
 function UserSearch() {
   const [keyword, setKeyword] = useState('');
   const [viewCount, setViewCount] = useState(1);
   const navigate = useNavigate();
 
+  const debouncedSearchKeyword = useDebounceValue(keyword, 750);
+
   const { data, isLoading, isError } = useQuery(
-    ['searchUser', keyword],
-    () => userFetch(keyword),
+    ['searchUser', debouncedSearchKeyword],
+    () => searchUser(debouncedSearchKeyword),
     {
-      enabled: !!keyword,
+      enabled: !!debouncedSearchKeyword,
       select: (result) => result.slice(0, viewCount * 5),
     }
   );
 
-  const handleSearchData = (e) => {
+  const handleSearchKeyword = (e) => {
     setKeyword(e.target.value);
     setViewCount(1);
   };
@@ -56,7 +47,7 @@ function UserSearch() {
       <SearchHeader
         leftClick={goBackPage}
         value={keyword}
-        onChange={handleSearchData}
+        onChange={handleSearchKeyword}
       />
       {isLoading && <div>로딩 중 입니다.</div>}
       {isError && <div>에러 발생!!</div>}

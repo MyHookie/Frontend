@@ -21,6 +21,7 @@ import Mypicks from './pages/Mypicks';
 import Search from './pages/Search';
 import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function App() {
   const [isLogin, setIsLogin] = useRecoilState(loginState);
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/welcome" element={<Welcome />} />

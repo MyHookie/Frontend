@@ -17,12 +17,11 @@ function PostEdit() {
   const {
     state: { postId, editTagArray, editContent, editImages },
   } = useLocation();
+  const navigate = useNavigate();
 
   const tagList = useRecoilValue(tagListState);
   const content = useRecoilValue(contentState);
   const imageSrcList = useRecoilValue(imageSrcListState);
-
-  const navigate = useNavigate();
 
   const editPost = async () => {
     const contents = JSON.stringify({
@@ -32,7 +31,7 @@ function PostEdit() {
 
     try {
       const response = editMyPost(imageSrcList, contents, postId);
-      return response.then(navigate(-1));
+      return response.then(navigate('/home'));
     } catch (error) {
       return error;
     }
