@@ -50,6 +50,12 @@ function Profile() {
       setIsDialogOpen(true);
       setDialogType(e.target.textContent);
     }
+
+    if (isDialogOpen && e.target.textContent === '취소') {
+      setBottomSheetTrigger(!bottomSheetTrigger);
+      setIsBottomSheetOpen(!isBottomSheetOpen);
+      setIsDialogOpen(!isDialogOpen);
+    }
   };
 
   const handleDialogAction = () => {
