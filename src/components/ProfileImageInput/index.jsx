@@ -1,12 +1,25 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import axios from 'axios';
 
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
+import { profileImage } from '../../atoms/profileInfo';
 
-function ProfileImageInput({ handleProfileImage }) {
-  const [profileImage, setProfileImage] = useState(basicProfileImage);
+function ProfileImageInput({ savedImage }) {
+  const [profileImages, setProfileImages] = useState('');
+  const setImage = useSetRecoilState(profileImage);
   const imageInput = useRef(null);
+
+  useEffect(() => {
+    console.log(savedImage);
+    if (savedImage) {
+      setProfileImages(savedImage);
+      setImage(savedImage);
+    } else {
+      setProfileImages(basicProfileImage);
+    }
+  }, []);
 
   const fetchImage = async (image) => {
     const formData = new FormData();
@@ -19,7 +32,8 @@ function ProfileImageInput({ handleProfileImage }) {
         formData
       );
 
-      handleProfileImage(res.data.filename);
+      setProfileImages(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
+      setImage(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
 
       return res.data.filename;
     } catch (error) {
@@ -29,24 +43,14 @@ function ProfileImageInput({ handleProfileImage }) {
 
   const handleImageChange = useCallback((e) => {
     const currentImage = e.target.files[0];
+    console.log(currentImage);
 
     if (currentImage) {
       fetchImage(currentImage);
     } else {
-      setProfileImage(basicProfileImage);
+      setProfileImages(basicProfileImage);
       fetchImage(basicProfileImage);
     }
-
-    // 업로드 이미지 preview
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setProfileImage(reader.result);
-      }
-    };
-
-    reader.readAsDataURL(currentImage);
   }, []);
 
   return (
@@ -55,7 +59,7 @@ function ProfileImageInput({ handleProfileImage }) {
         imageInput.current.click();
       }}
     >
-      <S.ImageInput src={profileImage} />
+      <S.ImageInput src={profileImages} />
       <input
         type="file"
         accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
