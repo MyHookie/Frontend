@@ -51,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-scripts", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:5.0.1"],\
             ["react-slick", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:0.29.0"],\
             ["recoil", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:0.7.6"],\
+            ["recoil-persist", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.2.0"],\
             ["slick-carousel", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:1.8.1"],\
             ["styled-components", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:5.3.6"],\
             ["styled-reset", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.4.4"],\
@@ -9827,6 +9828,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-scripts", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:5.0.1"],\
             ["react-slick", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:0.29.0"],\
             ["recoil", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:0.7.6"],\
+            ["recoil-persist", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.2.0"],\
             ["slick-carousel", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:1.8.1"],\
             ["styled-components", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:5.3.6"],\
             ["styled-reset", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.4.4"],\
@@ -15331,6 +15333,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "react-dom",\
             "react-native",\
             "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["recoil-persist", [\
+        ["npm:4.2.0", {\
+          "packageLocation": "./.yarn/cache/recoil-persist-npm-4.2.0-8058958608-1c8a6be4bb.zip/node_modules/recoil-persist/",\
+          "packageDependencies": [\
+            ["recoil-persist", "npm:4.2.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/recoil-persist-virtual-49e9b125a6/0/cache/recoil-persist-npm-4.2.0-8058958608-1c8a6be4bb.zip/node_modules/recoil-persist/",\
+          "packageDependencies": [\
+            ["recoil-persist", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.2.0"],\
+            ["@types/recoil", null],\
+            ["recoil", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:0.7.6"]\
+          ],\
+          "packagePeers": [\
+            "@types/recoil",\
+            "recoil"\
           ],\
           "linkType": "HARD"\
         }]\
