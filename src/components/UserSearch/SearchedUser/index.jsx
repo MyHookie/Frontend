@@ -24,11 +24,11 @@ function SearchedUser({
       <S.UserInfo>
         <S.UserName>
           {username.includes(keyword) ? (
-            <p>
+            <>
               {leftText}
               <strong>{keyword}</strong>
               {rightText}
-            </p>
+            </>
           ) : (
             <>{username}</>
           )}
