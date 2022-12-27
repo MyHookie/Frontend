@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -9,7 +10,10 @@ import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomShee
 import PostItem from '../../../components/Post/PostItem';
 import dummyList from '../../../components/Post/dummyList';
 import CommentInput from '../../../components/Comment/CommentInput';
+import Dialog from '../../../components/Modal/Dialog';
+import Snackbar from '../../../components/Modal/SnackBar';
 import { IR } from '../../../styles/Util';
+import { deleteMyPost, reportFollowPost } from '../../../api/post';
 
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
@@ -91,13 +95,42 @@ function PostDetail() {
     fetchCommentList(location.pathname);
   }, []);
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogType, setDialogType] = useState('');
+  const [dialogMessage, setDialogMessage] = useState('');
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const [tagArray, setTagArray] = useState([]);
+  const [contents, setContents] = useState('');
+  const [images, setImages] = useState([]);
   const [accountName, setAccountName] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
 
+  const postId = location.pathname.slice(6);
+  const deletePost = useMutation(() => deleteMyPost(postId));
+  const reportPost = useMutation(() => reportFollowPost(postId));
+
   useEffect(() => {
+    if (!isLoading) {
+      const jsonContents = JSON.parse(postDetailData.content);
+
+      setTagArray(jsonContents.tags);
+      setContents(jsonContents.content);
+      setImages(postDetailData.image.split(', '));
+    }
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
   }, []);
+
+  const goToEditPage = () => {
+    navigate(`/post/edit/${postId}`, {
+      state: {
+        postId,
+        editTagArray: tagArray,
+        editContent: contents,
+        editImages: images,
+      },
+    });
+  };
 
   const handleBottomSheetOpen = (e) => {
     e.stopPropagation();
@@ -111,7 +144,45 @@ function PostDetail() {
     }
 
     setIsBottomSheetOpen(true);
+    console.log(postDetailData.author.accountname);
+    console.log(accountName);
   };
+
+  const handleDialogOpen = (e) => {
+    if (isDialogOpen) {
+      setIsDialogOpen(false);
+      setDialogType('');
+    } else {
+      setIsDialogOpen(true);
+      setDialogType(e.target.textContent);
+    }
+  };
+
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
+  const handleDialogAction = () => {
+    if (dialogType === '게시글 삭제하기') {
+      deletePost.mutate();
+    } else if (dialogType === '게시글 신고하기') {
+      reportPost.mutate();
+      handleSnackBar();
+    }
+
+    setBottomSheetTrigger(!bottomSheetTrigger);
+    setIsBottomSheetOpen(!isBottomSheetOpen);
+    setIsDialogOpen(!isDialogOpen);
+  };
+
+  useEffect(() => {
+    if (dialogType === '게시글 삭제하기') {
+      setDialogMessage('정말 삭제하시겠습니까?');
+    } else if (dialogType === '게시글 신고하기') {
+      setDialogMessage('정말 신고하시겠습니까?');
+    }
+  }, [dialogType]);
 
   if (!isLoading) {
     // console.log(postDetailData);
@@ -132,8 +203,11 @@ function PostDetail() {
             handleClose={handleBottomSheetOpen}
             bottomSheetTrigger={bottomSheetTrigger}
           >
-            <BottomSheetContent text="게시글 삭제하기" />
-            <BottomSheetContent text="게시글 수정하기" />
+            <BottomSheetContent
+              text="게시글 삭제하기"
+              onClick={handleDialogOpen}
+            />
+            <BottomSheetContent text="게시글 수정하기" onClick={goToEditPage} />
           </BottomSheet>
         )}
       {isBottomSheetOpen &&
@@ -142,9 +216,20 @@ function PostDetail() {
             handleClose={handleBottomSheetOpen}
             bottomSheetTrigger={bottomSheetTrigger}
           >
-            <BottomSheetContent text="게시글 신고하기" />
+            <BottomSheetContent
+              text="게시글 신고하기"
+              onClick={handleDialogOpen}
+            />
           </BottomSheet>
         )}
+      {isDialogOpen && (
+        <Dialog
+          dialogText={dialogMessage}
+          handleClose={handleDialogOpen}
+          handleSubmit={handleDialogAction}
+        />
+      )}
+      {isSnackBarOpen && <Snackbar content="신고가 접수되었습니다." />}
 
       {!isLoading && (
         <SContents>
