@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
@@ -134,7 +134,7 @@ function PostItem({
 
   const settings = {
     dots: true,
-    speed: 1000,
+    speed: 200,
   };
 
   return (
