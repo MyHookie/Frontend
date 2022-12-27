@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import heartIcon from '../../../assets/icon/icon-heart.png';
 import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
 import commentIcon from '../../../assets/icon/icon-message-circle.png';
+import basicProfileImage from '../../../assets/basic-profile.png';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
@@ -86,7 +87,6 @@ function PostItem({
   };
 
   const handleDialogAction = () => {
-    console.log(dialogType === '삭제하기');
     if (dialogType === '삭제하기') {
       deletePost.mutate();
     } else if (dialogType === '신고하기') {
@@ -115,6 +115,10 @@ function PostItem({
     setImages(image.split(', '));
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
   }, []);
+
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
 
   const goToEditPage = () => {
     navigate(`/post/edit/${postId}`, {
@@ -146,7 +150,11 @@ function PostItem({
         <S.UserInfoContainer
           onClick={(e) => goToProfilePage(e, author.accountname)}
         >
-          <img src={author.image} alt="프로필 이미지" />
+          <img
+            src={author.image}
+            alt="프로필 이미지"
+            onError={handleErrorImage}
+          />
           <S.TextBox>
             <S.UserName>{author.username}</S.UserName>
             <S.AccountName>@{author.accountname}</S.AccountName>
