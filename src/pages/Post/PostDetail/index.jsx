@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 
-import BaseHeader from '../../../components/common/BaseHeader';
-import BottomSheet from '../../../components/Modal/BottomSheet';
-import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 import PostItem from '../../../components/Post/PostItem';
-import dummyList from '../../../components/Post/dummyList';
+import CommentList from '../../../components/Comment/CommentList';
 import CommentInput from '../../../components/Comment/CommentInput';
 import { IR } from '../../../styles/Util';
-
-import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
-import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
-import CommentList from '../../../components/Comment/CommentList';
 
 const SPostDetail = styled.div`
   padding-bottom: 5.8rem;
@@ -33,67 +27,110 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
-  const navigate = useNavigate();
+  const [postDetailData, setPostDetailData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleToHome = () => {
-    navigate('/home');
+  const fetchDetailPost = async (pathName) => {
+    try {
+      const response = await axios.get(
+        `https://mandarin.api.weniv.co.kr${pathName}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      setPostDetailData(response.data.post);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const [commentData, setCommentData] = useState([]);
+  const [commentList, setCommentList] = useState([]);
 
-  const onCreateCommentData = (dataId, content, createdAt, author) => {
-    const newCommentData = {
-      dataId,
-      content,
-      createdAt,
-      author,
-    };
-    setCommentData([...commentData, newCommentData]);
+  const fetchCommentList = async (pathName) => {
+    try {
+      const response = await axios.get(
+        `https://mandarin.api.weniv.co.kr${pathName}/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      setCommentList(response.data.comments);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const location = useLocation();
 
-  const handleBottomSheetOpen = (e) => {
-    e.stopPropagation();
-    setIsBottomSheetOpen(!isBottomSheetOpen);
-  };
+  useEffect(() => {
+    fetchDetailPost(location.pathname);
+    fetchCommentList(location.pathname);
+  }, []);
+  // postDetail에서 fetch한 데이터를 postItem으로 전달하고, postItem에서 edit으로 이동
+
+  // Home => PostList => PostItem
+  // Home에서 데이터 fetch 받아오고 데이터를 => PostList => PostItem
+
+  // PostItem에 Modal
+  // Detail에서도 같은 역할을 하는 Modal
+  // 게시물 삭제하기 로직, 수정하기 로직도 PostItem에 있는데 Detail에서도 만듬
+
+  // 저 이벤트가 발생하는 트리거가 PostItem에서는 VerticalButton 이벤트 발생 트리거(모달창이 열림)
+  // Detail에서는 Header에 right으로 모달이 열린다
+
+  // Detail Page => PostItem
+
+  // 디테일 페이지에서 isModalOpen? 이것만 만들어서 내려주면 나머지는 PostItem
+
+  // 목표 => PostItem에 있는 삭제, 수정 로직을 Detail에서 사용하기
+
+  // PostItem의 VerticalButton이 열릴때 발생하는 모달 이벤트를 Detail에서 Header를 클릭할때 발생하게 만들면 될듯
+
+  // header 에서 눌렀을때 postItem에서 BottomSheet 모달이 열리게 하기
+
+  // 현재 상태는 postItem에서 VerticalButton을 클릭하면 isBottomSheet 상태가 변하면서 열린다.
+
+  // setIsBottomSheet을 Detail의 vertical에서도 클릭시 boolean값이 변하면 된다.
+  //
 
   return (
     <SPostDetail>
-      <BaseHeader
-        leftIcon={arrowIcon}
-        leftClick={handleToHome}
-        rightIcon={verticalIcon}
-        rightClick={handleBottomSheetOpen}
-        rightAlt="포스트 설정 버튼"
-      />
-      {isBottomSheetOpen && (
-        <BottomSheet handleClose={handleBottomSheetOpen}>
-          {/* 로그인 한 경우(내 글인 경우) => 삭제, 수정, 아니면 신고하기 */}
-          <BottomSheetContent text="신고하기" />
-          <BottomSheetContent text="신고하기" />
-        </BottomSheet>
+      {!isLoading && (
+        <SContents>
+          <STitle>게시물 상세 페이지</STitle>
+          <PostItem
+            key={postDetailData.id}
+            postId={postDetailData.id}
+            content={postDetailData.content}
+            image={postDetailData.image}
+            createdAt={postDetailData.createdAt}
+            updatedAt={postDetailData.updatedAt}
+            hearted={postDetailData.hearted}
+            heartCount={postDetailData.heartCount}
+            comment={postDetailData.comment}
+            commentCount={postDetailData.commentCount}
+            author={postDetailData.author}
+            detail
+          />
+          <SDividingLine />
+          {commentList.length !== 0 && (
+            <CommentList commentList={commentList} />
+          )}
+        </SContents>
       )}
 
-      {/* <SContents>
-        <STitle>게시물 상세 페이지</STitle>
-        <PostItem
-          key={dummyList[0].id}
-          postId={dummyList[0].id}
-          content={dummyList[0].content}
-          author={dummyList[0].author}
-          image={dummyList[0].image}
-          hearted={dummyList[0].hearted}
-          heartedCount={dummyList[0].heartedCount}
-          commentCount={dummyList[0].commentCount}
-          createdAt={dummyList[0].createdAt}
-          detail
-        />
-        <SDividingLine />
-        {commentData.length !== 0 && <CommentList commentData={commentData} />}
-      </SContents> */}
-
-      <CommentInput onCreateCommentData={onCreateCommentData} />
+      <CommentInput />
     </SPostDetail>
   );
 }

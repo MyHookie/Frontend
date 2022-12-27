@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import Button from '../common/Button';
 import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
@@ -8,7 +9,7 @@ import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
 import { slEllipsis } from '../../styles/Util';
 import basicProfileImage from '../../assets/basic-profile.png';
 
-const SContent = styled.div`
+const SContent = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,6 +53,12 @@ const SButton = styled(Button)`
 `;
 
 function FollowerItem({ data }) {
+  const navigate = useNavigate();
+
+  const handleToUserProfile = () => {
+    navigate(`../../profile/${data.accountname}`);
+  };
+
   const [followState, setFollowState] = useState(data.isfollow);
 
   const deleteFollowItem = async () => {
@@ -106,7 +113,7 @@ function FollowerItem({ data }) {
   };
 
   return (
-    <SContent key={data.username}>
+    <SContent key={data.username} onClick={handleToUserProfile}>
       <SImg src={data.image} alt="프로필 이미지" onError={handleErrorImage} />
       <SUserInfo>
         <SUserId>
