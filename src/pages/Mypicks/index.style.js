@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import uploadIconGrey from '../../assets/upload-file_grey.png';
+import uploadIcon from '../../assets/upload-file.png';
 import { IR } from '../../styles/Util';
 
-export const Container = styled.main`
+export const Container = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -16,6 +17,8 @@ export const ImageContainer = styled.div`
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+  background-color: #f2f2f2;
+  border-radius: 1.5rem;
 
   &::after {
     content: '';
@@ -33,10 +36,10 @@ export const ImageInput = styled.div`
   top: 0;
   right: 0;
   left: 0;
+  z-index: 99;
   height: 100%;
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   border-radius: 1.5rem;
-  background-color: #f2f2f2;
   cursor: pointer;
 
   &::after {
@@ -44,23 +47,61 @@ export const ImageInput = styled.div`
     position: absolute;
     right: 1.2rem;
     bottom: 1.2rem;
+    z-index: 99;
     width: 4rem;
     height: 4rem;
     background-image: url(${uploadIconGrey});
     background-size: cover;
   }
+
+  &:active {
+    &::after {
+      content: '';
+      position: absolute;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      z-index: 99;
+      width: 4rem;
+      height: 4rem;
+      background-image: url(${uploadIcon});
+      background-size: cover;
+    }
+  }
 `;
+
 export const Imgtxt = styled.p`
   position: absolute;
   top: -3rem;
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
   cursor: default;
+  &::after {
+    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
+    color: #ff5656;
+    margin-left: 0.6rem;
+  }
 `;
 
 export const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
+
+  &::after {
+    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
+    color: #ff5656;
+    margin-left: 0.6rem;
+  }
+`;
+
+export const img = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.5rem;
 `;
 
 // textarea, label에 fontfamily 임시 적용중
@@ -79,6 +120,10 @@ export const Textarea = styled.textarea`
   &::placeholder {
     font-family: 'LINESeedKR-Rg';
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  }
+  &:read-only {
+    background: #efefef4d;
+    color: #efefef4d;
   }
 `;
 
@@ -134,4 +179,13 @@ export const StyledP = styled.p`
   margin-left: 0.5rem;
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
+`;
+
+export const WarningMsg = styled.p`
+  position: absolute;
+  top: 8rem;
+  right: 3.4rem;
+  color: ${({ theme }) => theme.color.RED};
+  margin-right: 0.5rem;
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
 `;
