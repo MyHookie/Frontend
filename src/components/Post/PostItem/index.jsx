@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,6 +30,8 @@ function PostItem({
   goPostDetailPage,
   detail,
 }) {
+  const queryClient = useQueryClient();
+
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -42,14 +44,29 @@ function PostItem({
   const [dialogMessage, setDialogMessage] = useState('');
   const navigate = useNavigate();
 
-  const deletePost = useMutation(() => deleteMyPost(postId));
-  const postLike = useMutation(() => postLikeFeed(postId));
-  const deleteLike = useMutation(() => deleteLikeFeed(postId));
-  const reportPost = useMutation(() => reportFollowPost(postId));
+  const deletePost = useMutation(() => deleteMyPost(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const postLike = useMutation(() => postLikeFeed(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const deleteLike = useMutation(() => deleteLikeFeed(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
+  const reportPost = useMutation(() => reportFollowPost(postId), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
 
   const handleLike = (e) => {
     e.stopPropagation();
-    console.log(hearted);
     if (hearted) {
       deleteLike.mutate();
     } else {
