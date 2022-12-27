@@ -1,23 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
-import BaseHeader from '../../../components/common/BaseHeader';
-import BottomSheet from '../../../components/Modal/BottomSheet';
-import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 import PostItem from '../../../components/Post/PostItem';
-import dummyList from '../../../components/Post/dummyList';
-import CommentInput from '../../../components/Comment/CommentInput';
-import Dialog from '../../../components/Modal/Dialog';
-import Snackbar from '../../../components/Modal/SnackBar';
-import { IR } from '../../../styles/Util';
-import { deleteMyPost, reportFollowPost } from '../../../api/post';
-
-import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
-import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import CommentList from '../../../components/Comment/CommentList';
+import CommentInput from '../../../components/Comment/CommentInput';
+import { IR } from '../../../styles/Util';
 
 const SPostDetail = styled.div`
   padding-bottom: 5.8rem;
@@ -38,12 +27,6 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
-  const navigate = useNavigate();
-
-  const handleToHome = () => {
-    navigate('/home');
-  };
-
   const [postDetailData, setPostDetailData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -94,137 +77,35 @@ function PostDetail() {
     fetchDetailPost(location.pathname);
     fetchCommentList(location.pathname);
   }, []);
+  // postDetail에서 fetch한 데이터를 postItem으로 전달하고, postItem에서 edit으로 이동
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogType, setDialogType] = useState('');
-  const [dialogMessage, setDialogMessage] = useState('');
-  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
-  const [tagArray, setTagArray] = useState([]);
-  const [contents, setContents] = useState('');
-  const [images, setImages] = useState([]);
-  const [accountName, setAccountName] = useState('');
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
+  // Home => PostList => PostItem
+  // Home에서 데이터 fetch 받아오고 데이터를 => PostList => PostItem
 
-  const postId = location.pathname.slice(6);
-  const deletePost = useMutation(() => deleteMyPost(postId));
-  const reportPost = useMutation(() => reportFollowPost(postId));
+  // PostItem에 Modal
+  // Detail에서도 같은 역할을 하는 Modal
+  // 게시물 삭제하기 로직, 수정하기 로직도 PostItem에 있는데 Detail에서도 만듬
 
-  useEffect(() => {
-    if (!isLoading) {
-      const jsonContents = JSON.parse(postDetailData.content);
+  // 저 이벤트가 발생하는 트리거가 PostItem에서는 VerticalButton 이벤트 발생 트리거(모달창이 열림)
+  // Detail에서는 Header에 right으로 모달이 열린다
 
-      setTagArray(jsonContents.tags);
-      setContents(jsonContents.content);
-      setImages(postDetailData.image.split(', '));
-    }
-    setAccountName(JSON.parse(localStorage.getItem('accountName')));
-  }, []);
+  // Detail Page => PostItem
 
-  const goToEditPage = () => {
-    navigate(`/post/edit/${postId}`, {
-      state: {
-        postId,
-        editTagArray: tagArray,
-        editContent: contents,
-        editImages: images,
-      },
-    });
-  };
+  // 디테일 페이지에서 isModalOpen? 이것만 만들어서 내려주면 나머지는 PostItem
 
-  const handleBottomSheetOpen = (e) => {
-    e.stopPropagation();
-    setBottomSheetTrigger(!bottomSheetTrigger);
+  // 목표 => PostItem에 있는 삭제, 수정 로직을 Detail에서 사용하기
 
-    if (bottomSheetTrigger) {
-      setTimeout(() => {
-        setIsBottomSheetOpen(false);
-        setBottomSheetTrigger(false);
-      }, 500);
-    }
+  // PostItem의 VerticalButton이 열릴때 발생하는 모달 이벤트를 Detail에서 Header를 클릭할때 발생하게 만들면 될듯
 
-    setIsBottomSheetOpen(true);
-  };
+  // header 에서 눌렀을때 postItem에서 BottomSheet 모달이 열리게 하기
 
-  const handleDialogOpen = (e) => {
-    if (isDialogOpen) {
-      setIsDialogOpen(false);
-      setDialogType('');
-    } else {
-      setIsDialogOpen(true);
-      setDialogType(e.target.textContent);
-    }
-  };
+  // 현재 상태는 postItem에서 VerticalButton을 클릭하면 isBottomSheet 상태가 변하면서 열린다.
 
-  const handleSnackBar = () => {
-    setIsSnackBarOpen(true);
-    return setTimeout(() => setIsSnackBarOpen(false), 2000);
-  };
-
-  const handleDialogAction = () => {
-    if (dialogType === '게시글 삭제하기') {
-      deletePost.mutate();
-    } else if (dialogType === '게시글 신고하기') {
-      reportPost.mutate();
-      handleSnackBar();
-    }
-
-    setBottomSheetTrigger(!bottomSheetTrigger);
-    setIsBottomSheetOpen(!isBottomSheetOpen);
-    setIsDialogOpen(!isDialogOpen);
-  };
-
-  useEffect(() => {
-    if (dialogType === '게시글 삭제하기') {
-      setDialogMessage('정말 삭제하시겠습니까?');
-    } else if (dialogType === '게시글 신고하기') {
-      setDialogMessage('정말 신고하시겠습니까?');
-    }
-  }, [dialogType]);
+  // setIsBottomSheet을 Detail의 vertical에서도 클릭시 boolean값이 변하면 된다.
+  //
 
   return (
     <SPostDetail>
-      <BaseHeader
-        leftIcon={arrowIcon}
-        leftClick={handleToHome}
-        rightIcon={verticalIcon}
-        rightClick={handleBottomSheetOpen}
-        rightAlt="포스트 설정 버튼"
-      />
-      {isBottomSheetOpen &&
-        postDetailData.author.accountname === accountName && (
-          <BottomSheet
-            handleClose={handleBottomSheetOpen}
-            bottomSheetTrigger={bottomSheetTrigger}
-          >
-            <BottomSheetContent
-              text="게시글 삭제하기"
-              onClick={handleDialogOpen}
-            />
-            <BottomSheetContent text="게시글 수정하기" onClick={goToEditPage} />
-          </BottomSheet>
-        )}
-      {isBottomSheetOpen &&
-        postDetailData.author.accountname !== accountName && (
-          <BottomSheet
-            handleClose={handleBottomSheetOpen}
-            bottomSheetTrigger={bottomSheetTrigger}
-          >
-            <BottomSheetContent
-              text="게시글 신고하기"
-              onClick={handleDialogOpen}
-            />
-          </BottomSheet>
-        )}
-      {isDialogOpen && (
-        <Dialog
-          dialogText={dialogMessage}
-          handleClose={handleDialogOpen}
-          handleSubmit={handleDialogAction}
-        />
-      )}
-      {isSnackBarOpen && <Snackbar content="신고가 접수되었습니다." />}
-
       {!isLoading && (
         <SContents>
           <STitle>게시물 상세 페이지</STitle>
