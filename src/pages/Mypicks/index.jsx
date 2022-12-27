@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
@@ -8,19 +8,27 @@ import * as S from './index.style';
 
 function index() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [check, setCheck] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const [text, setText] = useState('');
+  const [noPriceCheck, setNoPriceCheck] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
+
+  const [imgFile, setImgFile] = useState('');
+  const [inputValue, setInputValue] = useState('');
+  const [inputPrice, setInputPrice] = useState('');
+  const [inputLink, setInputLink] = useState('');
+
+  const [isError, setIsError] = useState(false);
+
+  const textRef = useRef();
+  const imageInput = useRef();
+
   const navigate = useNavigate();
   const goBackPage = () => {
     navigate(-1);
   };
 
-  const textRef = useRef();
-
   const handleResizeHeight = useCallback((e) => {
     e.target.style.height = 'inherit';
-    e.target.style.height = `${e.target.scrollHeight}px`;
+    e.target.style.height = `${e.target.scrollHeight + 2}px`;
   }, []);
 
   const handleDialogOpen = (e) => {
@@ -28,27 +36,70 @@ function index() {
     setIsDialogOpen(!isDialogOpen);
   };
 
-  const handleSubmit = () => {
-    console.log('myPick 등록');
-    goBackPage();
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
+  const handleImageAdd = () => {
+    imageInput.current.click();
   };
 
-  const handleInputChange = (e) => {
-    setText(e.target.value);
+  // 폼 제출 유효성 검사
+  const handleSubmit = () => {
+    if (readOnly === true) {
+      setInputPrice('0');
+    }
+
+    if (imgFile && inputValue && inputPrice && inputLink) {
+      console.log('myPick 등록');
+      setIsError(false);
+      // 서버 전송
+      // goBackPage();
+    } else {
+      console.log('필수 입력사항을 입력해주세요.');
+      setIsError(true);
+      setIsDialogOpen(!isDialogOpen);
+    }
+  };
+
+  const ReplaceNumber = (price) => {
+    const onlyNumber = price.replace(/[^0-9]/g, '');
+    setInputPrice(onlyNumber);
+  };
+
+  useEffect(() => {
+    ReplaceNumber(inputPrice);
+  }, [inputPrice]);
+
+  const handleValueChange = (e) => {
+    setInputValue(e.target.value);
+    handleResizeHeight(e);
+  };
+
+  const handlePriceChange = (e) => {
+    setInputPrice(e.target.value);
+  };
+
+  const handleLinkChange = (e) => {
+    setInputLink(e.target.value);
   };
 
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
   const handleCheck = (e) => {
-    setCheck(e.target.checked);
-    if (check) {
+    setNoPriceCheck(e.target.checked);
+    if (noPriceCheck) {
       setPlaceholderText('숫자만 입력 가능합니다.');
-      setDisabled(false);
+      setReadOnly(false);
     } else {
-      setText('');
+      setInputPrice('');
       setPlaceholderText('');
-      setDisabled(true);
+      setReadOnly(true);
     }
   };
 
@@ -68,52 +119,67 @@ function index() {
       )}
 
       <S.Container>
+        {isError && (
+          <S.WarningMsg>* 필수 입력사항을 입력해주세요.</S.WarningMsg>
+        )}
         <S.ImageContainer>
           <S.Imgtxt>myPick 이미지 등록</S.Imgtxt>
-          <S.ImageInput />
+          <S.ImageInput onClick={handleImageAdd} />
           <input
             type="file"
-            accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic"
+            accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic
+            "
+            ref={imageInput}
+            onChange={handleFileChange}
             style={{ display: 'none' }}
           />
+          {imgFile && <S.img src={imgFile} alt="mypick 사진" />}
         </S.ImageContainer>
-        <S.Label htmlFor="something1">제목</S.Label>
+        <S.Label htmlFor="review">한줄평</S.Label>
         <S.Textarea
+          onChange={handleValueChange}
+          ref={textRef}
+          value={inputValue}
           name=""
-          id="something1"
+          id="review"
           cols="30"
           rows="1"
-          placeholder="2~15자 이내여야 합니다."
+          maxLength="100"
+          placeholder="한줄평을 남겨주세요. (100자)"
         />
 
-        <S.Label htmlFor="something2">가격</S.Label>
+        <S.Label htmlFor="price">가격</S.Label>
         <S.Textarea
-          value={text}
-          onChange={handleInputChange}
-          disabled={disabled}
+          value={inputPrice}
+          onChange={handlePriceChange}
+          readOnly={readOnly}
           name=""
-          id="something2"
+          id="price"
           cols="30"
           rows="1"
           placeholder={placeholderText}
         />
-        <S.Checkbox onClick={handleCheck} type="checkbox" name="" id="price" />
-        <S.LabelCheckBox htmlFor="price">
+        <S.Checkbox
+          onClick={handleCheck}
+          type="checkbox"
+          name=""
+          id="read-only"
+        />
+        <S.LabelCheckBox htmlFor="read-only">
           <S.StyledP>가격 미정</S.StyledP>
         </S.LabelCheckBox>
-        <S.Label htmlFor="something1">후기</S.Label>
+        <S.Label htmlFor="link">링크</S.Label>
         <S.Textarea
-          onChange={handleResizeHeight}
-          ref={textRef}
+          value={inputLink}
+          onChange={handleLinkChange}
           name=""
-          id="something3"
+          id="link"
           cols="30"
           rows="1"
-          placeholder="후기를 남겨주세요."
+          placeholder="http://naver.com"
         />
       </S.Container>
     </>
   );
 }
-
 export default index;
