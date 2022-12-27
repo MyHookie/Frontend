@@ -58,9 +58,9 @@ function AuthInputForm({
   handleSignUpState,
   handleLoginState,
   handleProfileState,
+  inputValue,
   signUpValid,
   profileValid,
-  inputValue,
   isCorrect,
   inputRef,
 }) {
@@ -73,7 +73,10 @@ function AuthInputForm({
     if (location.pathname === '/login') {
       handleLoginState(e);
     }
-    if (location.pathname === '/signup/profile') {
+    if (
+      location.pathname === '/signup/profile' ||
+      location.pathname === '/profile/edit'
+    ) {
       handleProfileState(e);
     }
   };
@@ -85,6 +88,7 @@ function AuthInputForm({
         id={id}
         {...inputProps}
         ref={inputRef}
+        value={inputValue}
         inputValue={inputValue}
         signUpValid={signUpValid}
         profileValid={profileValid}

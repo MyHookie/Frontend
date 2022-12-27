@@ -45,7 +45,14 @@ function UserInfo({ isMyPage, accountName }) {
   };
 
   const goToProfileEditPage = () => {
-    navigate(`/profile/edit`);
+    navigate(`/profile/edit`, {
+      state: {
+        userName: data.profile.username,
+        accountName: data.profile.accountname,
+        intro: data.profile.intro,
+        profileImage: data.profile.image,
+      },
+    });
   };
 
   const goToMyPicksPage = () => {
