@@ -144,8 +144,6 @@ function PostDetail() {
     }
 
     setIsBottomSheetOpen(true);
-    console.log(postDetailData.author.accountname);
-    console.log(accountName);
   };
 
   const handleDialogOpen = (e) => {
@@ -183,10 +181,6 @@ function PostDetail() {
       setDialogMessage('정말 신고하시겠습니까?');
     }
   }, [dialogType]);
-
-  if (!isLoading) {
-    // console.log(postDetailData);
-  }
 
   return (
     <SPostDetail>
