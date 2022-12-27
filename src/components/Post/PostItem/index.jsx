@@ -86,6 +86,7 @@ function PostItem({
   };
 
   const handleDialogAction = () => {
+    console.log(dialogType === '삭제하기');
     if (dialogType === '삭제하기') {
       deletePost.mutate();
     } else if (dialogType === '신고하기') {
@@ -126,6 +127,11 @@ function PostItem({
     });
   };
 
+  const goToProfilePage = (e, accountname) => {
+    e.stopPropagation();
+    navigate(`/profile/${accountname}`);
+  };
+
   const settings = {
     dots: true,
     speed: 1000,
@@ -137,7 +143,9 @@ function PostItem({
         detail={detail}
         onClick={() => (detail ? null : goPostDetailPage(postId))}
       >
-        <S.UserInfoContainer>
+        <S.UserInfoContainer
+          onClick={(e) => goToProfilePage(e, author.accountname)}
+        >
           <img src={author.image} alt="프로필 이미지" />
           <S.TextBox>
             <S.UserName>{author.username}</S.UserName>
@@ -192,11 +200,8 @@ function PostItem({
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent
-            text="게시글 삭제하기"
-            onClick={handleDialogOpen}
-          />
-          <BottomSheetContent text="게시글 수정하기" onClick={goToEditPage} />
+          <BottomSheetContent text="삭제하기" onClick={handleDialogOpen} />
+          <BottomSheetContent text="수정하기" onClick={goToEditPage} />
         </BottomSheet>
       )}
       {isBottomSheetOpen && author.accountname !== accountName && (
@@ -204,10 +209,7 @@ function PostItem({
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent
-            text="게시글 신고하기"
-            onClick={handleDialogOpen}
-          />
+          <BottomSheetContent text="신고하기" onClick={handleDialogOpen} />
         </BottomSheet>
       )}
       {isDialogOpen && (
