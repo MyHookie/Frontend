@@ -113,9 +113,14 @@ function FollowItem({ data }) {
   };
 
   return (
-    <SContent key={data.username} onClick={handleToUserProfile}>
-      <SImg src={data.image} alt="프로필 이미지" onError={handleErrorImage} />
-      <SUserInfo>
+    <SContent key={data.username}>
+      <SImg
+        src={data.image}
+        alt="프로필 이미지"
+        onError={handleErrorImage}
+        onClick={handleToUserProfile}
+      />
+      <SUserInfo onClick={handleToUserProfile}>
         <SUserId>
           {data.username}
           <SAccountName>@{data.accountname}</SAccountName>
