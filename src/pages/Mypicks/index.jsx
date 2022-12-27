@@ -60,7 +60,7 @@ function index() {
 
   useEffect(() => {
     ReplaceNumber(inputPrice);
-  }, []);
+  }, [inputPrice]);
 
   const handleValueChange = (e) => {
     setInputValue(e.target.value);
@@ -78,13 +78,14 @@ function index() {
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
-  const handleCheck = (e) => {
+  const handleCheckBox = (e) => {
     setNoPriceCheck(e.target.checked);
     if (noPriceCheck) {
+      setInputPrice('');
       setPlaceholderText('숫자만 입력 가능합니다.');
       setReadOnly(false);
     } else {
-      setInputPrice('');
+      setInputPrice('0123');
       setPlaceholderText('');
       setReadOnly(true);
     }
@@ -113,7 +114,7 @@ function index() {
   const myPickData = {
     product: {
       itemName: inputValue,
-      price: inputPrice,
+      price: parseInt(inputPrice, 10),
       link: inputLink,
       itemImage,
     },
@@ -137,15 +138,13 @@ function index() {
 
   // 폼 제출
   const handleSubmit = () => {
-    if (readOnly === true) {
-      setInputPrice(parseInt('0', 10));
-    }
-
     if (imgFile && inputValue && inputPrice && inputLink) {
       console.log('myPick 등록');
-      setIsError(false);
       uploadMyPick();
-      // goBackPage();
+      setIsError(false);
+      console.log(myPickData);
+      setIsDialogOpen(!isDialogOpen);
+      goBackPage();
     } else {
       console.log('필수 입력사항을 입력해주세요.');
       setIsError(true);
@@ -210,7 +209,7 @@ function index() {
           placeholder={placeholderText}
         />
         <S.Checkbox
-          onClick={handleCheck}
+          onClick={handleCheckBox}
           type="checkbox"
           name=""
           id="read-only"
