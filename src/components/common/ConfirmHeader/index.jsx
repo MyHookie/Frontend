@@ -25,9 +25,19 @@ const SButton = styled.button`
   background-color: inherit;
   cursor: pointer;
   width: 2.2rem;
+
+  &:disabled {
+    cursor: default;
+    background-color: ${({ theme }) => theme.color.DISABLED_BLUE};
+  }
 `;
 
-function ConfirmHeader({ leftClick, rightClick, rightButtonText = '저장' }) {
+function ConfirmHeader({
+  leftClick,
+  rightClick,
+  rightButtonText = '저장',
+  buttonNotAllow,
+}) {
   return (
     <SContainer>
       <SButton onClick={leftClick}>
@@ -37,6 +47,7 @@ function ConfirmHeader({ leftClick, rightClick, rightButtonText = '저장' }) {
         onClick={rightClick}
         text={rightButtonText}
         buttonStyle={SMALL_BUTTON}
+        disabled={buttonNotAllow}
       />
     </SContainer>
   );
