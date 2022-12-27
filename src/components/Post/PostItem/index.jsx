@@ -4,18 +4,20 @@ import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
-import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
-import heartIcon from '../../../assets/icon/icon-heart.png';
-import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
-import commentIcon from '../../../assets/icon/icon-message-circle.png';
+import BaseHeader from '../../common/BaseHeader';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import TagItem from '../TagItem';
+import Snackbar from '../../Modal/SnackBar';
+import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
+import heartIcon from '../../../assets/icon/icon-heart.png';
+import filledHeartIcon from '../../../assets/icon/icon-heart-fill.png';
+import commentIcon from '../../../assets/icon/icon-message-circle.png';
+import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 
 import { deleteMyPost, reportFollowPost } from '../../../api/post';
 import { deleteLikeFeed, postLikeFeed } from '../../../api/like';
-import Snackbar from '../../Modal/SnackBar';
 
 function PostItem({
   postId,
@@ -126,6 +128,10 @@ function PostItem({
     });
   };
 
+  const handleToHome = () => {
+    navigate('/home');
+  };
+
   const settings = {
     dots: true,
     speed: 1000,
@@ -133,6 +139,16 @@ function PostItem({
 
   return (
     <>
+      {detail && (
+        <BaseHeader
+          leftIcon={arrowIcon}
+          leftClick={handleToHome}
+          rightIcon={verticalIcon}
+          rightClick={handleBottomSheetOpen}
+          rightAlt="포스트 설정 버튼"
+        />
+      )}
+
       <S.PostItem
         detail={detail}
         onClick={() => (detail ? null : goPostDetailPage(postId))}

@@ -6,13 +6,13 @@ const SCommentList = styled.div`
   margin: 0 1.6rem;
 `;
 
-function CommentList({ commentData }) {
+function CommentList({ commentList }) {
   return (
     <SCommentList>
-      {commentData.map((item) => (
+      {commentList.map((item) => (
         <CommentItem
-          // key={item.dataId}
-          key={commentData.indexOf(item)}
+          key={item.id}
+          commentId={item.id}
           content={item.content}
           createdAt={item.createdAt}
           author={item.author}
