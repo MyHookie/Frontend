@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
@@ -63,6 +64,23 @@ function index() {
       console.log('필수 입력사항을 입력해주세요.');
       setIsError(true);
       setIsDialogOpen(!isDialogOpen);
+    }
+  };
+
+  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
+
+  const fetchImage = async (e) => {
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/image/uploadfile`,
+        formData
+      );
+      return response.data.filename;
+    } catch (error) {
+      return error;
     }
   };
 
