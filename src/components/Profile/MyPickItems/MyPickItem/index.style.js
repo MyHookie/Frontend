@@ -1,13 +1,12 @@
 import styled from 'styled-components';
+import { slEllipsis } from '../../../../styles/Util';
 
-//   ellipsis 적용 안되는 오류
 export const Item = styled.li`
   flex-shrink: 0;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
   width: 14rem;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const ImgContainer = styled.div`
@@ -32,6 +31,7 @@ export const Img = styled.img`
 export const ItemTitle = styled.p`
   width: 14rem;
   margin-top: 0.5rem;
+  ${slEllipsis}
 `;
 
 export const ItemPrice = styled.p`
