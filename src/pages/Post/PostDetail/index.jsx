@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -29,11 +29,15 @@ const SDividingLine = styled.div`
 function PostDetail() {
   const [postDetailData, setPostDetailData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [commentList, setCommentList] = useState([]);
+
+  const param = useParams();
+  const postId = param.id;
 
   const fetchDetailPost = async (pathName) => {
     try {
       const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr${pathName}`,
+        `https://mandarin.api.weniv.co.kr/post/${pathName}`,
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
@@ -50,12 +54,10 @@ function PostDetail() {
     }
   };
 
-  const [commentList, setCommentList] = useState([]);
-
   const fetchCommentList = async (pathName) => {
     try {
       const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr${pathName}/comments`,
+        `https://mandarin.api.weniv.co.kr/post/${pathName}/comments`,
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
@@ -66,16 +68,15 @@ function PostDetail() {
         }
       );
       setCommentList(response.data.comments);
+      console.log(commentList);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const location = useLocation();
-
   useEffect(() => {
-    fetchDetailPost(location.pathname);
-    fetchCommentList(location.pathname);
+    fetchDetailPost(postId);
+    fetchCommentList(postId);
   }, []);
 
   return (
