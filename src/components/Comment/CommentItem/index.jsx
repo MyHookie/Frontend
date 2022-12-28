@@ -8,6 +8,7 @@ import Dialog from '../../Modal/Dialog';
 import Snackbar from '../../Modal/SnackBar';
 
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
+import basicProfileImage from '../../../assets/basic-profile.png';
 
 const SContents = styled.div`
   margin: 0 0 1.6rem;
@@ -163,10 +164,18 @@ function CommentItem({ commentId, content, createdAt, author }) {
     }
   }, [dialogType]);
 
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
+
   return (
     <SContents>
       <SCommentsInfo>
-        <SProfileImg src={author.image} alt="프로필 이미지" />
+        <SProfileImg
+          src={author.image}
+          alt="프로필 이미지"
+          onError={handleErrorImage}
+        />
         <SUserInfo>
           {author.accountname}
           <SCommentTime>{createdAt.slice(0, 10)}</SCommentTime>
