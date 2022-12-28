@@ -1,38 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import AuthInputForm from '../../../components/AuthInputForm';
-import Button from '../../../components/common/Button';
+import { useNavigate } from 'react-router-dom';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import Title from '../../../components/Title';
+import AuthInputForm from '../../../components/AuthInputForm';
 import authAxios from '../../../api/authAxios';
-
-const SContainer = styled.div`
-  padding: 3.4rem;
-  height: 100vh;
-`;
-
-const SFormContainer = styled.form`
-  margin-top: 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
-`;
-
-const LoginButton = styled(Button)`
-  margin-top: 5rem;
-`;
-
-const SLink = styled(Link)`
-  display: block;
-  text-align: center;
-  color: ${({ theme }) => theme.color.GRAY};
-  margin-top: 2rem;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+import * as S from './index.style';
 
 function Login() {
   const [loginEmail, setLoginEmail] = useState('');
@@ -105,9 +77,9 @@ function Login() {
   );
 
   return (
-    <SContainer>
+    <S.Container>
       <Title>로그인</Title>
-      <SFormContainer>
+      <S.FormContainer>
         <AuthInputForm
           id="email"
           label="이메일"
@@ -132,15 +104,15 @@ function Login() {
           inputValue={loginPassword}
           isCorrect={isCorrect}
         />
-        <LoginButton
+        <S.LoginButton
           text="로그인"
           buttonStyle={LARGE_BUTTON}
           onClick={handleLoginClick}
           disabled={buttonNotAllow}
         />
-      </SFormContainer>
-      <SLink to="/signup">이메일로 회원가입</SLink>
-    </SContainer>
+      </S.FormContainer>
+      <S.SignUpLink to="/signup">이메일로 회원가입</S.SignUpLink>
+    </S.Container>
   );
 }
 
