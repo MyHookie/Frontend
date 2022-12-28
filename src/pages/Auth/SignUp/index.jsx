@@ -4,7 +4,6 @@ import * as S from './index.style';
 import emailValidAxios from '../../../api/emailValidAxios';
 import Title from '../../../components/Title';
 import AuthInputForm from '../../../components/AuthInputForm';
-import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
@@ -108,7 +107,7 @@ function SignUp() {
           });
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [buttonNotAllow]
