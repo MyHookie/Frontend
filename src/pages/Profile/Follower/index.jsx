@@ -9,12 +9,11 @@ import FollowerItem from '../../../components/FollowerItem';
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import { IR } from '../../../styles/Util';
 
-const SContainer = styled.section`
+const SFollowerList = styled.ul`
   padding: 24px 16px 0;
-`;
-
-const STitle = styled.h2`
-  ${IR}
+  h2 {
+    ${IR}
+  }
 `;
 
 function Follower() {
@@ -58,13 +57,13 @@ function Follower() {
         leftClick={handleToProfile}
         title="Follower"
       />
-      <SContainer>
-        <STitle>팔로워 페이지</STitle>
+      <SFollowerList>
+        <h2>팔로워 페이지</h2>
         {followerData.length > 0 &&
           followerData.map((data) => (
             <FollowerItem key={data.accountname} data={data} />
           ))}
-      </SContainer>
+      </SFollowerList>
     </>
   );
 }

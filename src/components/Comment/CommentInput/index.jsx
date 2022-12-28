@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 import styled from 'styled-components';
 
+import Snackbar from '../../Modal/SnackBar';
 import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 import { IR } from '../../../styles/Util';
 
@@ -55,68 +58,66 @@ const SButton = styled.button`
     contentLength === 0 ? theme.color.LIGHT_GRAY : theme.color.LIGHT_BLUE};
 `;
 
-function CommentInput({ id, onCreateCommentData }) {
-  const [commentData, setCommentData] = useState({
-    dataId: 'test',
-    content: '',
-    createdAt: '방금 전',
-    author: {
-      id: 'testId',
-      username: 'test',
-      accountname: 'test',
-      intro: 'Hello world!',
-      image: 'https://picsum.photos/250/250',
-      isfollow: true,
-    },
-  });
+function CommentInput({ id }) {
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
 
-  const handleResizeHeight = () => {
-    //  DOM 접근할 때, useRef 사용해서 바꿔보기
-    const textarea = document.querySelector('.autoTextarea');
+  const [commentData, setCommentData] = useState('');
 
-    if (textarea) {
-      const height = textarea.scrollHeight;
-      if (height < 57) {
-        textarea.style.height = `${height + 1}px`;
-      } else {
-        textarea.style.height = `57px`;
-      }
+  const postCommentData = async (pathName) => {
+    try {
+      await axios.post(
+        `https://mandarin.api.weniv.co.kr${pathName}/comments`,
+        {
+          comment: {
+            content: commentData,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      setCommentData('');
+    } catch (error) {
+      console.log(error);
     }
   };
 
+  const textarea = useRef(null);
+
+  const handleResizeHeight = () => {
+    if (textarea) {
+      const height = textarea.current.scrollHeight;
+      if (height < 57) {
+        textarea.current.style.height = `${height}px`;
+      } else {
+        textarea.current.style.height = `57px`;
+      }
+    }
+    textarea.current.focus();
+  };
+
   const handleCommentData = (e) => {
-    setCommentData({
-      ...commentData,
-      [e.target.name]: e.target.value,
-    });
+    setCommentData(e.target.value);
     handleResizeHeight();
   };
 
+  const location = useLocation();
+
   const handleCommentSubmit = () => {
-    if (commentData.content.length < 1) {
-      alert('댓글을 입력해주세요.');
+    if (commentData.length < 1) {
+      handleSnackBar();
     } else {
-      const textarea = document.querySelector('.autoTextarea');
-      textarea.style.height = 'auto';
-      onCreateCommentData(
-        commentData.dataId,
-        commentData.content,
-        commentData.createdAt,
-        commentData.author
-      );
-      setCommentData({
-        dataId: 'test',
-        content: '',
-        createdAt: '방금 전',
-        author: {
-          id: 'testId',
-          username: 'test',
-          accountname: 'test',
-          intro: 'Hello world!',
-          image: 'https://picsum.photos/250/250',
-          isfollow: true,
-        },
-      });
+      postCommentData(location.pathname);
+      textarea.current.style.height = 'auto';
     }
   };
 
@@ -130,19 +131,20 @@ function CommentInput({ id, onCreateCommentData }) {
         id={id}
         placeholder="댓글 입력하기..."
         name="content"
-        value={commentData.content}
+        value={commentData}
         onChange={handleCommentData}
         rows="1"
-        className="autoTextarea"
+        ref={textarea}
       />
 
       <SButton
         type="button"
         onClick={handleCommentSubmit}
-        contentLength={commentData.content.length}
+        contentLength={commentData.length}
       >
         게시
       </SButton>
+      {isSnackBarOpen && <Snackbar content="댓글을 입력해주세요." />}
     </SContents>
   );
 }

@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import Login from './pages/Auth/Login';
 import SignUp from './pages/Auth/SignUp';
 import Chat from './pages/Chat';
@@ -18,10 +19,22 @@ import ProfileEdit from './pages/Profile/ProfileEdit';
 import ProfileSetting from './pages/Auth/ProfileSetting';
 import Mypicks from './pages/Mypicks';
 import Search from './pages/Search';
+import checkTokenValid from './api/tokenValid';
+import loginState from './atoms/login';
+import ScrollToTop from './components/common/ScrollToTop';
 
 function App() {
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
+
+  useEffect(() => {
+    (async function () {
+      return (await checkTokenValid()) ? setIsLogin(true) : setIsLogin(false);
+    })();
+  }, []);
+
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/welcome" element={<Welcome />} />

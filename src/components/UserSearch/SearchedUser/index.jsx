@@ -23,11 +23,18 @@ function SearchedUser({
       <S.UserImage src={image} alt="프로필 이미지" onError={handleErrorImage} />
       <S.UserInfo>
         <S.UserName>
-          {leftText}
-          <strong>{keyword}</strong>
-          {rightText}
-          <span>@{accountname}</span>
+          {username.includes(keyword) ? (
+            <>
+              {leftText}
+              <strong>{keyword}</strong>
+              {rightText}
+            </>
+          ) : (
+            <>{username}</>
+          )}
         </S.UserName>
+        <S.UserAccountName>@{accountname}</S.UserAccountName>
+
         <S.UserIntro>{intro}</S.UserIntro>
       </S.UserInfo>
     </S.Content>
