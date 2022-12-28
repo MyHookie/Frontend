@@ -68,6 +68,26 @@ function PostItem({
     },
   });
 
+  const goToEditPage = () => {
+    navigate(`/post/edit/${postId}`, {
+      state: {
+        postId,
+        editTagArray: tagArray,
+        editContent: contents,
+        editImages: images,
+      },
+    });
+  };
+
+  const goToProfilePage = (e, accountname) => {
+    e.stopPropagation();
+    navigate(`/profile/${accountname}`);
+  };
+
+  const handleToHome = () => {
+    navigate('/home');
+  };
+
   const handleLike = (e) => {
     e.stopPropagation();
     if (hearted) {
@@ -109,6 +129,7 @@ function PostItem({
   const handleDialogAction = () => {
     if (dialogType === '삭제하기') {
       deletePost.mutate();
+      handleToHome();
     } else if (dialogType === '신고하기') {
       reportPost.mutate();
       handleSnackBar();
@@ -138,26 +159,6 @@ function PostItem({
 
   const handleErrorImage = (e) => {
     e.target.src = basicProfileImage;
-  };
-
-  const goToEditPage = () => {
-    navigate(`/post/edit/${postId}`, {
-      state: {
-        postId,
-        editTagArray: tagArray,
-        editContent: contents,
-        editImages: images,
-      },
-    });
-  };
-
-  const goToProfilePage = (e, accountname) => {
-    e.stopPropagation();
-    navigate(`/profile/${accountname}`);
-  };
-
-  const handleToHome = () => {
-    navigate('/home');
   };
 
   const settings = {
