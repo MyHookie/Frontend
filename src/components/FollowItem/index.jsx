@@ -8,6 +8,7 @@ import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
 
 import { slEllipsis } from '../../styles/Util';
 import basicProfileImage from '../../assets/basic-profile.png';
+import Snackbar from '../Modal/SnackBar';
 
 const SContent = styled.li`
   display: flex;
@@ -53,13 +54,14 @@ const SButton = styled(Button)`
 `;
 
 function FollowItem({ data }) {
+  const [followState, setFollowState] = useState(data.isfollow);
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+
   const navigate = useNavigate();
 
   const handleToUserProfile = () => {
     navigate(`../../profile/${data.accountname}`);
   };
-
-  const [followState, setFollowState] = useState(data.isfollow);
 
   const deleteFollowItem = async () => {
     try {
@@ -98,7 +100,16 @@ function FollowItem({ data }) {
     }
   };
 
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
   const handleIsFollow = () => {
+    if (data.accountname === JSON.parse(localStorage.getItem('accountName'))) {
+      handleSnackBar();
+      return;
+    }
     if (followState) {
       deleteFollowItem();
       setFollowState(false);
@@ -140,6 +151,9 @@ function FollowItem({ data }) {
           buttonStyle={FOLLOW_BUTTON}
           onClick={handleIsFollow}
         />
+      )}
+      {isSnackBarOpen && (
+        <Snackbar content="자기 자신을 팔로우 할 수 없습니다." />
       )}
     </SContent>
   );
