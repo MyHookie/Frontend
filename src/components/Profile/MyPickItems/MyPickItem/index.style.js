@@ -39,8 +39,4 @@ export const ItemPrice = styled.p`
   font-family: 'LINESeedKR-Bd';
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.ACTIVE_BLUE};
-
-  &::after {
-    content: '원';
-  }
 `;
