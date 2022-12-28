@@ -177,7 +177,7 @@ function CommentItem({ commentId, content, createdAt, author }) {
           onError={handleErrorImage}
         />
         <SUserInfo>
-          {author.accountname}
+          {author.username}
           <SCommentTime>{createdAt.slice(0, 10)}</SCommentTime>
         </SUserInfo>
         <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
