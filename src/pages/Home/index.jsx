@@ -68,7 +68,6 @@ function Home() {
       />
 
       <S.Container>
-        {console.log(myPost, followPost)}
         {allPost.length > 0 ? (
           <PostList postData={allPost} />
         ) : (

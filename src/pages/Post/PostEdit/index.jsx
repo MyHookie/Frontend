@@ -33,8 +33,7 @@ function PostEdit() {
   const editPost = useMutation({
     mutationFn: () => editMyPost(imageSrcList, contents, postId),
     onSuccess: () => {
-      navigate(`/post/${postId}`);
-      window.location.reload();
+      navigate(-1);
     },
   });
 
