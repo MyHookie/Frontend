@@ -124,7 +124,10 @@ function CommentInput({ id }) {
   return (
     <SContents>
       <STitle>댓글 입력</STitle>
-      <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
+      <SProfileImg
+        src={JSON.parse(localStorage.getItem('imageSrc'))}
+        alt="프로필 이미지"
+      />
       <SLabel htmlFor={id}>댓글 입력창</SLabel>
       <SInputForm
         type="text"
