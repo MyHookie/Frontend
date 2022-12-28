@@ -13,7 +13,7 @@ export const Container = styled.form`
 
 export const ImageContainer = styled.div`
   position: relative;
-  padding-top: 56.25%;
+  padding-top: 64.29%;
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
