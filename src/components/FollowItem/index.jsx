@@ -52,7 +52,7 @@ const SButton = styled(Button)`
   white-space: nowrap;
 `;
 
-function FollowerItem({ data }) {
+function FollowItem({ data }) {
   const navigate = useNavigate();
 
   const handleToUserProfile = () => {
@@ -113,9 +113,14 @@ function FollowerItem({ data }) {
   };
 
   return (
-    <SContent key={data.username} onClick={handleToUserProfile}>
-      <SImg src={data.image} alt="프로필 이미지" onError={handleErrorImage} />
-      <SUserInfo>
+    <SContent key={data.username}>
+      <SImg
+        src={data.image}
+        alt="프로필 이미지"
+        onError={handleErrorImage}
+        onClick={handleToUserProfile}
+      />
+      <SUserInfo onClick={handleToUserProfile}>
         <SUserId>
           {data.username}
           <SAccountName>@{data.accountname}</SAccountName>
@@ -140,4 +145,4 @@ function FollowerItem({ data }) {
   );
 }
 
-export default FollowerItem;
+export default FollowItem;
