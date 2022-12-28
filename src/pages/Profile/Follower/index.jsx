@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -24,13 +24,12 @@ function Follower() {
   };
 
   const [followerData, setFollowerData] = useState([]);
+  const param = useParams();
 
   const fetchFollowerList = async () => {
     try {
       const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr/profile/${JSON.parse(
-          localStorage.getItem('accountName')
-        )}/follower`,
+        `https://mandarin.api.weniv.co.kr/profile/${param.accountname}/follower`,
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
