@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Navigation from '../../components/common/Navigation';
 import BaseHeader from '../../components/common/BaseHeader';
@@ -18,23 +18,13 @@ const SContainer = styled.div`
 
 function Chat() {
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location.state);
 
   const leftClick = () => {
-    if (location.state === null) {
-      console.log('채팅방 다녀오지 않음');
-      // navigate(-1);
-    } else {
-      console.log('채팅방 다녀옴');
-      // navigte(-2);
-    }
+    navigate(-1);
   };
 
-  const usernameClick = () => {
-    navigate(`/chat/:id`, {
-      state: {},
-    });
+  const usernameClick = (e) => {
+    navigate(`/chat/:id`);
   };
 
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -55,7 +45,7 @@ function Chat() {
   };
 
   return (
-    <div>
+    <>
       <BaseHeader
         leftIcon={leftIcon}
         rightIcon={rightIcon}
@@ -100,7 +90,7 @@ function Chat() {
         />
       </SContainer>
       <Navigation />
-    </div>
+    </>
   );
 }
 

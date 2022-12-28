@@ -22,14 +22,9 @@ function ChatDetail() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location);
   console.log(location.state);
   const goToChatList = () => {
-    navigate(`/chat`, {
-      state: {
-        visitedChatroom: true,
-      },
-    });
+    navigate(-1);
   };
 
   const handleBottomSheetOpen = (e) => {
