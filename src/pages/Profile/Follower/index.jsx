@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import BaseHeader from '../../../components/common/BaseHeader';
-import FollowerItem from '../../../components/FollowerItem';
+import FollowItem from '../../../components/FollowItem';
 
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import { IR } from '../../../styles/Util';
@@ -55,13 +55,13 @@ function Follower() {
       <BaseHeader
         leftIcon={arrowIcon}
         leftClick={handleToProfile}
-        title="Follower"
+        title="Followers"
       />
       <SFollowerList>
         <h2>팔로워 페이지</h2>
         {followerData.length > 0 &&
           followerData.map((data) => (
-            <FollowerItem key={data.accountname} data={data} />
+            <FollowItem key={data.accountname} data={data} />
           ))}
       </SFollowerList>
     </>
