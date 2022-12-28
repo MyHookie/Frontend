@@ -77,32 +77,6 @@ function PostDetail() {
     fetchDetailPost(location.pathname);
     fetchCommentList(location.pathname);
   }, []);
-  // postDetail에서 fetch한 데이터를 postItem으로 전달하고, postItem에서 edit으로 이동
-
-  // Home => PostList => PostItem
-  // Home에서 데이터 fetch 받아오고 데이터를 => PostList => PostItem
-
-  // PostItem에 Modal
-  // Detail에서도 같은 역할을 하는 Modal
-  // 게시물 삭제하기 로직, 수정하기 로직도 PostItem에 있는데 Detail에서도 만듬
-
-  // 저 이벤트가 발생하는 트리거가 PostItem에서는 VerticalButton 이벤트 발생 트리거(모달창이 열림)
-  // Detail에서는 Header에 right으로 모달이 열린다
-
-  // Detail Page => PostItem
-
-  // 디테일 페이지에서 isModalOpen? 이것만 만들어서 내려주면 나머지는 PostItem
-
-  // 목표 => PostItem에 있는 삭제, 수정 로직을 Detail에서 사용하기
-
-  // PostItem의 VerticalButton이 열릴때 발생하는 모달 이벤트를 Detail에서 Header를 클릭할때 발생하게 만들면 될듯
-
-  // header 에서 눌렀을때 postItem에서 BottomSheet 모달이 열리게 하기
-
-  // 현재 상태는 postItem에서 VerticalButton을 클릭하면 isBottomSheet 상태가 변하면서 열린다.
-
-  // setIsBottomSheet을 Detail의 vertical에서도 클릭시 boolean값이 변하면 된다.
-  //
 
   return (
     <SPostDetail>
