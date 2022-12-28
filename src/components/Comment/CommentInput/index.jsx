@@ -4,7 +4,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import Snackbar from '../../Modal/SnackBar';
-import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 import { IR } from '../../../styles/Util';
 
 const SContents = styled.section`
@@ -91,18 +90,17 @@ function CommentInput({ id }) {
     }
   };
 
-  const textarea = useRef(null);
+  const textarea = useRef();
 
   const handleResizeHeight = () => {
-    if (textarea) {
-      const height = textarea.current.scrollHeight;
-      if (height < 57) {
-        textarea.current.style.height = `${height}px`;
-      } else {
-        textarea.current.style.height = `57px`;
-      }
+    textarea.current.style.height = 'auto';
+    const height = textarea.current.scrollHeight;
+    if (height < 57) {
+      textarea.current.style.height = `${height}px`;
+      console.log(`${height}px`);
+    } else {
+      textarea.current.style.height = `57px`;
     }
-    textarea.current.focus();
   };
 
   const handleCommentData = (e) => {
@@ -136,6 +134,7 @@ function CommentInput({ id }) {
         name="content"
         value={commentData}
         onChange={handleCommentData}
+        // onKeyDown={handlePressEnter}
         rows="1"
         ref={textarea}
       />
