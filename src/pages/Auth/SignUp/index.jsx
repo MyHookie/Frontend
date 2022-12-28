@@ -1,30 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import * as S from './index.style';
 import emailValidAxios from '../../../api/emailValidAxios';
-
 import Title from '../../../components/Title';
 import AuthInputForm from '../../../components/AuthInputForm';
 import Button from '../../../components/common/Button';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
-
-const SContainer = styled.div`
-  padding: 3.4rem;
-  height: 100vh;
-`;
-
-const FormContainer = styled.form`
-  margin-top: 4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
-`;
-
-const SignUpButton = styled(Button)`
-  margin-top: 1.5rem;
-`;
 
 function SignUp() {
   const navigate = useNavigate();
@@ -132,11 +115,11 @@ function SignUp() {
   );
 
   return (
-    <SContainer>
+    <S.Container>
       <Title leftIcon={leftIcon} handleButtonClick={goToWelcomePage}>
         이메일로 회원가입
       </Title>
-      <FormContainer>
+      <S.FormContainer>
         <AuthInputForm
           id="email"
           label="이메일"
@@ -176,14 +159,14 @@ function SignUp() {
           inputValue={checkPwValue}
           warningMsg={checkPwWarningMsg}
         />
-        <SignUpButton
+        <S.SignUpButton
           text="회원가입"
           buttonStyle={LARGE_BUTTON}
           disabled={buttonNotAllow}
           onClick={handleJoinClick}
         />
-      </FormContainer>
-    </SContainer>
+      </S.FormContainer>
+    </S.Container>
   );
 }
 
