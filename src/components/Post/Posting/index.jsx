@@ -44,9 +44,13 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
 
   useEffect(() => {
     if (edit) {
-      setImageSrcList(editImages);
       setTagList(editTagArray);
       setContent(editContent);
+      if (editImages[0]) {
+        setImageSrcList(editImages);
+      } else {
+        setImageSrcList([]);
+      }
     } else {
       setImageSrcList([]);
       setTagList([]);

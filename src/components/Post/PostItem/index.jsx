@@ -134,7 +134,7 @@ function PostItem({
     setContents(jsonContents.content);
     setImages(image.split(', '));
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
-  }, []);
+  }, [content]);
 
   const handleErrorImage = (e) => {
     e.target.src = basicProfileImage;
@@ -154,8 +154,8 @@ function PostItem({
   const goToProfilePage = (e, accountname) => {
     e.stopPropagation();
     navigate(`/profile/${accountname}`);
-  }
-  
+  };
+
   const handleToHome = () => {
     navigate('/home');
   };
