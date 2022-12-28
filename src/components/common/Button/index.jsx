@@ -16,7 +16,7 @@ const SButton = styled.button`
   }
 
   &:disabled {
-    cursor: default;
+    cursor: not-allowed;
     background-color: ${({ theme }) => theme.color.DISABLED_BLUE};
   }
 

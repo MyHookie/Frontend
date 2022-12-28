@@ -24,18 +24,18 @@ export const UserInfo = styled.div`
 `;
 
 export const UserName = styled.p`
-  display: flex;
+  display: inline-block;
   font-size: 1.4rem;
 
   strong {
     color: ${({ theme }) => theme.color.ACTIVE_BLUE};
   }
+`;
 
-  span {
-    font-size: 1rem;
-    margin-left: 0.5rem;
-    color: ${({ theme }) => theme.color.GRAY};
-  }
+export const UserAccountName = styled.span`
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: ${({ theme }) => theme.color.GRAY};
 `;
 
 export const UserIntro = styled.p`

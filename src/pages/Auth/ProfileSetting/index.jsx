@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-
 import * as S from './index.style';
 import Title from '../../../components/Title';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
@@ -75,7 +74,6 @@ function ProfileSetting() {
             },
           });
 
-          console.log(response.data.user);
           if (response.data.message === '회원가입 성공') {
             const userData = response.data.user;
             const { accountname } = userData;
@@ -86,7 +84,7 @@ function ProfileSetting() {
           }
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [userName, accountName, intro]

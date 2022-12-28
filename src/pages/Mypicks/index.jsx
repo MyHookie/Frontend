@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ConfirmHeader from '../../components/common/ConfirmHeader';
 import Dialog from '../../components/Modal/Dialog';
@@ -18,6 +19,8 @@ function index() {
 
   const [isError, setIsError] = useState(false);
 
+  const [itemImage, setItemImage] = useState('');
+
   const textRef = useRef();
   const imageInput = useRef();
 
@@ -36,34 +39,18 @@ function index() {
     setIsDialogOpen(!isDialogOpen);
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleImgPreview = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImgFile(reader.result);
-    };
+    return new Promise((resolve) => {
+      reader.onloadend = () => {
+        setImgFile(reader.result);
+        resolve();
+      };
+    });
   };
   const handleImageAdd = () => {
     imageInput.current.click();
-  };
-
-  // 폼 제출 유효성 검사
-  const handleSubmit = () => {
-    if (readOnly === true) {
-      setInputPrice('0');
-    }
-
-    if (imgFile && inputValue && inputPrice && inputLink) {
-      console.log('myPick 등록');
-      setIsError(false);
-      // 서버 전송
-      // goBackPage();
-    } else {
-      console.log('필수 입력사항을 입력해주세요.');
-      setIsError(true);
-      setIsDialogOpen(!isDialogOpen);
-    }
   };
 
   const ReplaceNumber = (price) => {
@@ -91,15 +78,77 @@ function index() {
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
-  const handleCheck = (e) => {
+  const handleCheckBox = (e) => {
     setNoPriceCheck(e.target.checked);
     if (noPriceCheck) {
+      setInputPrice('');
       setPlaceholderText('숫자만 입력 가능합니다.');
       setReadOnly(false);
     } else {
-      setInputPrice('');
+      setInputPrice('0123');
       setPlaceholderText('');
       setReadOnly(true);
+    }
+  };
+
+  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
+
+  const fetchImage = async (e) => {
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/image/uploadfile`,
+        formData
+      );
+      setItemImage(`${BASE_URL}/${response.data.filename}`);
+      setImgFile(itemImage);
+      handleImgPreview(e.target.files[0]);
+      return itemImage;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const myPickData = {
+    product: {
+      itemName: inputValue,
+      price: parseInt(inputPrice, 10),
+      link: inputLink,
+      itemImage,
+    },
+  };
+
+  const uploadMyPick = async () => {
+    const url = `${BASE_URL}/product`;
+    try {
+      const res = await axios(url, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+          'Content-type': 'application/json',
+        },
+        data: myPickData,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // 폼 제출
+  const handleSubmit = () => {
+    if (imgFile && inputValue && inputPrice && inputLink) {
+      console.log('myPick 등록');
+      uploadMyPick();
+      setIsError(false);
+      console.log(myPickData);
+      setIsDialogOpen(!isDialogOpen);
+      goBackPage();
+    } else {
+      console.log('필수 입력사항을 입력해주세요.');
+      setIsError(true);
+      setIsDialogOpen(!isDialogOpen);
     }
   };
 
@@ -130,7 +179,7 @@ function index() {
             accept="image/jpg, image/jpeg, image/png, image/gif, image/bmp, image/tif, image/heic
             "
             ref={imageInput}
-            onChange={handleFileChange}
+            onChange={fetchImage}
             style={{ display: 'none' }}
           />
           {imgFile && <S.img src={imgFile} alt="mypick 사진" />}
@@ -160,7 +209,7 @@ function index() {
           placeholder={placeholderText}
         />
         <S.Checkbox
-          onClick={handleCheck}
+          onClick={handleCheckBox}
           type="checkbox"
           name=""
           id="read-only"
