@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { useMutation, useQueryClient } from 'react-query';
 
 import { editMyPost } from '../../../api/post';
 
@@ -14,6 +15,7 @@ import {
 } from '../../../atoms/post';
 
 function PostEdit() {
+  const queryClient = useQueryClient();
   const {
     state: { postId, editTagArray, editContent, editImages },
   } = useLocation();
@@ -23,18 +25,21 @@ function PostEdit() {
   const content = useRecoilValue(contentState);
   const imageSrcList = useRecoilValue(imageSrcListState);
 
-  const editPost = async () => {
-    const contents = JSON.stringify({
-      tags: tagList,
-      content,
-    });
+  const contents = JSON.stringify({
+    tags: tagList,
+    content,
+  });
 
-    try {
-      const response = editMyPost(imageSrcList, contents, postId);
-      return response.then(navigate('/home'));
-    } catch (error) {
-      return error;
-    }
+  const editPost = useMutation({
+    mutationFn: () => editMyPost(imageSrcList, contents, postId),
+    onSuccess: () => {
+      navigate(`/post/${postId}`);
+      window.location.reload();
+    },
+  });
+
+  const onClickEdit = () => {
+    editPost.mutate();
   };
 
   const goBackPage = () => {
@@ -45,7 +50,7 @@ function PostEdit() {
     <>
       <ConfirmHeader
         leftClick={goBackPage}
-        rightClick={editPost}
+        rightClick={onClickEdit}
         rightButtonText="수정"
       />
       <Posting
