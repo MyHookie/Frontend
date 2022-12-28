@@ -19,9 +19,8 @@ const SCommentsInfo = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
 const SUserInfo = styled.div`
-  width: 100%;
+  flex: 4 4 0;
   margin: 0 1.2rem;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 `;
@@ -39,9 +38,10 @@ const SCommentTime = styled.span`
 
 const SProfileImg = styled.img`
   width: 3.6rem;
+  height: 3.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  object-fit: cover;
 `;
-
 const SVerticalButton = styled.button`
   width: 2rem;
 `;
