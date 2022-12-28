@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import { Reset } from 'styled-reset';
 import { ThemeProvider } from 'styled-components';
@@ -21,7 +20,6 @@ root.render(
           <App />
         </ThemeProvider>
       </RecoilRoot>
-      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 );

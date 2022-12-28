@@ -19,8 +19,9 @@ function UserInfo({ isMyPage, accountName }) {
   const [snackBarMessage, setSnackBarMessage] = useState('');
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useQuery('profileInfo', () =>
-    getProfileInfo(accountName)
+  const { data, isLoading, isError } = useQuery(
+    ['profileInfo', accountName],
+    () => getProfileInfo(accountName)
   );
 
   const followUser = useMutation(() => postFollow(accountName), {
