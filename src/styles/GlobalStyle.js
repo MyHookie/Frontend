@@ -84,6 +84,7 @@ const GlobalStyle = createGlobalStyle`
     -moz-box-shadow: none;
     box-shadow: none;
     resize: none; 
+    font-family: 'Arial';
   }
 
   li {
