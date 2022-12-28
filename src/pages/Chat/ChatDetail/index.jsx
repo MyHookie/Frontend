@@ -22,7 +22,7 @@ function ChatDetail() {
   const navigate = useNavigate();
 
   const goToChatList = () => {
-    navigate(`/Chat`);
+    navigate(`/chat`);
   };
 
   const handleBottomSheetOpen = (e) => {

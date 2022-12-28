@@ -19,7 +19,7 @@ const SContainer = styled.div`
 function Chat() {
   const navigate = useNavigate();
   const leftClick = () => {
-    navigate(`/home`);
+    navigate(-1);
   };
 
   const usernameClick = () => {
