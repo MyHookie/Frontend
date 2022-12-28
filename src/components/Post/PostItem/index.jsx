@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { nanoid } from 'nanoid';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import * as S from './index.styles';
 
@@ -46,6 +46,7 @@ function PostItem({
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const deletePost = useMutation(() => deleteMyPost(postId), {
     onSuccess: () => {
@@ -126,10 +127,14 @@ function PostItem({
     return setTimeout(() => setIsSnackBarOpen(false), 2000);
   };
 
-  const handleDialogAction = () => {
+  const handleDialogAction = (e) => {
     if (dialogType === '삭제하기') {
       deletePost.mutate();
-      handleToHome();
+      if (location.pathname.includes('/profile/')) {
+        goToProfilePage(e, JSON.parse(localStorage.getItem('acccountName')));
+      } else {
+        handleToHome();
+      }
     } else if (dialogType === '신고하기') {
       reportPost.mutate();
       handleSnackBar();
