@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import BottomSheet from '../../Modal/BottomSheet';
@@ -62,10 +62,10 @@ function CommentItem({ commentId, content, createdAt, author }) {
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
-
-  const location = useLocation();
-  const postId = location.pathname.slice(6);
   const [isDeleteMessage, setIsDeleteMessage] = useState(false);
+
+  const param = useParams();
+  const postId = param.id;
 
   const deleteCommentItem = async () => {
     try {
@@ -87,7 +87,7 @@ function CommentItem({ commentId, content, createdAt, author }) {
 
   const reportCommentItem = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}/report`,
         {},
         {
