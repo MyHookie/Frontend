@@ -10,7 +10,7 @@ import UserInfo from '../../components/Profile/UserInfo';
 import ProfilePost from '../../components/Profile/ProfilePost';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
-import MyPickItems from '../../components/Profile/MyPickItems';
+import MyPick from '../../components/Profile/MyPick';
 import Dialog from '../../components/Modal/Dialog';
 
 function Profile() {
@@ -87,7 +87,7 @@ function Profile() {
       />
       <S.Container>
         <UserInfo accountName={param.accountname} isMyPage={isMyPage} />
-        <MyPickItems accountName={param.accountname} />
+        <MyPick accountName={param.accountname} />
         <ProfilePost accountName={param.accountname} />
       </S.Container>
 
