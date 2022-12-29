@@ -3,14 +3,15 @@ import { createPortal } from 'react-dom';
 import * as S from './index.style';
 import closeIcon from '../../../../assets/icon/x.png';
 
-function MyPickModal({ oneLineReview, imgSrc, price, link, handleClose }) {
+function MyPickModal({ myPickId, handleClose }) {
+  console.log(myPickId);
   return (
     <>
       {createPortal(
         <S.Container>
           <S.ModalBackGround onClick={handleClose} />
           <S.ModalContainer>
-            <S.CloseModal onClick={handleClose}>
+            {/* <S.CloseModal onClick={onCloseHandler}>
               <img src={closeIcon} alt="모달창 닫기" />
             </S.CloseModal>
             <S.ImageContainer>
@@ -29,7 +30,8 @@ function MyPickModal({ oneLineReview, imgSrc, price, link, handleClose }) {
             <S.TextContainer>
               <S.Label>링크 </S.Label>
               <S.Textarea>{link}</S.Textarea>
-            </S.TextContainer>
+            </S.TextContainer> */}
+            {myPickId}
           </S.ModalContainer>
         </S.Container>,
 
