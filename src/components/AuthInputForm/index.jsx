@@ -63,6 +63,7 @@ function AuthInputForm({
   profileValid,
   isCorrect,
   inputRef,
+  edit,
 }) {
   const location = useLocation();
 
@@ -95,6 +96,7 @@ function AuthInputForm({
         isCorrect={isCorrect}
         onChange={setState}
         onKeyDown={setState}
+        disabled={edit}
       />
       {!signUpValid && !profileValid && inputValue?.length > 0 && (
         <WarningMessage>{warningMsg}</WarningMessage>

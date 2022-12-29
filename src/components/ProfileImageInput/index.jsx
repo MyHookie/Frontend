@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import { useMutation } from 'react-query';
 import axios from 'axios';
 
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
 import { profileImage } from '../../atoms/profileInfo';
+
+import getImageFilename from '../../api/image';
 
 function ProfileImageInput({ savedImage }) {
   const [profileImages, setProfileImages] = useState('');
@@ -12,7 +15,6 @@ function ProfileImageInput({ savedImage }) {
   const imageInput = useRef(null);
 
   useEffect(() => {
-    console.log(savedImage);
     if (savedImage) {
       setProfileImages(savedImage);
       setImage(savedImage);
@@ -21,35 +23,21 @@ function ProfileImageInput({ savedImage }) {
     }
   }, []);
 
-  const fetchImage = async (image) => {
-    const formData = new FormData();
-
-    formData.append('image', image);
-
-    try {
-      const res = await axios.post(
-        `https://mandarin.api.weniv.co.kr/image/uploadfile`,
-        formData
-      );
-
-      setProfileImages(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
-      setImage(`https://mandarin.api.weniv.co.kr/${res.data.filename}`);
-
-      return res.data.filename;
-    } catch (error) {
-      return error;
-    }
-  };
+  const postImageFile = useMutation((image) => getImageFilename(image), {
+    onSuccess: (data) => {
+      setImage(`https://mandarin.api.weniv.co.kr/${data}`);
+      setProfileImages(`https://mandarin.api.weniv.co.kr/${data}`);
+    },
+  });
 
   const handleImageChange = useCallback((e) => {
     const currentImage = e.target.files[0];
-    console.log(currentImage);
 
     if (currentImage) {
-      fetchImage(currentImage);
+      postImageFile.mutate(currentImage);
     } else {
       setProfileImages(basicProfileImage);
-      fetchImage(basicProfileImage);
+      setImage('');
     }
   }, []);
 
