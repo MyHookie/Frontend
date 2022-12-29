@@ -1,9 +1,9 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import * as S from './index.style';
-import closeIcon from '../../../assets/icon/x.png';
+import closeIcon from '../../../../assets/icon/x.png';
 
-function MyPickModal({ handleClose, text, price, link }) {
+function MyPickModal({ oneLineReview, imgSrc, price, link, handleClose }) {
   return (
     <>
       {createPortal(
@@ -15,11 +15,12 @@ function MyPickModal({ handleClose, text, price, link }) {
             </S.CloseModal>
             <S.ImageContainer>
               <S.ImageInput />
+              <img src={imgSrc} alt="myPick 이미지" />
               <S.Imgtxt>myPick</S.Imgtxt>
             </S.ImageContainer>
             <S.TextContainer>
               <S.Label>한줄평</S.Label>
-              <S.Textarea>{text}</S.Textarea>
+              <S.Textarea>{oneLineReview}</S.Textarea>
             </S.TextContainer>
             <S.TextContainer>
               <S.Label>가격</S.Label>

@@ -7,7 +7,7 @@ import leftIcon from '../../assets/icon/icon-arrow-left.png';
 
 import * as S from './index.style';
 
-function index() {
+function MyPicksUpload() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [noPriceCheck, setNoPriceCheck] = useState(false);
   const [readOnly, setReadOnly] = useState(false);
@@ -78,6 +78,8 @@ function index() {
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
+  const NoPrice = '123415810423';
+
   const handleCheckBox = (e) => {
     setNoPriceCheck(e.target.checked);
     if (noPriceCheck) {
@@ -85,7 +87,7 @@ function index() {
       setPlaceholderText('숫자만 입력 가능합니다.');
       setReadOnly(false);
     } else {
-      setInputPrice('0123');
+      setInputPrice(NoPrice);
       setPlaceholderText('');
       setReadOnly(true);
     }
@@ -206,6 +208,7 @@ function index() {
           id="price"
           cols="30"
           rows="1"
+          maxLength="13"
           placeholder={placeholderText}
         />
         <S.Checkbox
@@ -231,4 +234,4 @@ function index() {
     </>
   );
 }
-export default index;
+export default MyPicksUpload;
