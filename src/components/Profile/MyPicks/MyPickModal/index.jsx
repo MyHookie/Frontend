@@ -1,10 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { createPortal } from 'react-dom';
 import * as S from './index.style';
 import closeIcon from '../../../../assets/icon/x.png';
 
 function MyPickModal({ myPickId, handleClose }) {
-  console.log(myPickId);
+  const [myPickItemInfo, setMyPickItemInfo] = useState([]);
+
+  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
+
+  const getMyPickItemDetail = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/product/detail/${myPickId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+
+      console.log(response.data.product);
+      setMyPickItemInfo(response.data.product);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getMyPickItemDetail();
+  }, []);
+
   return (
     <>
       {createPortal(
