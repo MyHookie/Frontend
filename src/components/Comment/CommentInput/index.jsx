@@ -39,14 +39,15 @@ const SLabel = styled.label`
 
 const SInputForm = styled.textarea`
   width: 70%;
+  height: 1.7rem;
   margin: 0 1.8rem;
   padding: 0;
   border-style: none;
-  font-family: 'LINESeedKR-Rg';
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 
   &::placeholder {
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    vertical-align: top;
   }
 `;
 
