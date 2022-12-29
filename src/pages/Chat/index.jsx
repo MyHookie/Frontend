@@ -18,11 +18,12 @@ const SContainer = styled.div`
 
 function Chat() {
   const navigate = useNavigate();
+
   const leftClick = () => {
-    navigate(`/home`);
+    navigate(-1);
   };
 
-  const usernameClick = () => {
+  const usernameClick = (e) => {
     navigate(`/chat/:id`);
   };
 
@@ -44,7 +45,7 @@ function Chat() {
   };
 
   return (
-    <div>
+    <>
       <BaseHeader
         leftIcon={leftIcon}
         rightIcon={rightIcon}
@@ -89,7 +90,7 @@ function Chat() {
         />
       </SContainer>
       <Navigation />
-    </div>
+    </>
   );
 }
 
