@@ -82,9 +82,10 @@ export const Img = styled.img`
   left: 0;
   right: 0;
   height: 100%;
-  object-fit: cover;
+  z-index: 15;
   border-radius: ${({ theme }) => theme.borderRadius.BASE};
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  object-fit: cover;
 `;
 
 export const ImageInput = styled.div`
@@ -98,7 +99,6 @@ export const ImageInput = styled.div`
   border-radius: 1.5rem;
   background-color: #f2f2f2;
 
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   cursor: pointer;
 `;
 

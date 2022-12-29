@@ -23,7 +23,6 @@ function MyPickModal({ myPickId, handleClose }) {
         }
       );
 
-      console.log(response.data.product);
       setMyPickItemInfo(response.data.product);
       return response.data;
     } catch (error) {
@@ -35,33 +34,41 @@ function MyPickModal({ myPickId, handleClose }) {
     getMyPickItemDetail();
   }, []);
 
+  console.log(myPickItemInfo);
+
+  const noPrice = parseInt(123415810423, 10);
+  const wonPrice = new Intl.NumberFormat('ko-KR').format(myPickItemInfo.price);
+
   return (
     <>
       {createPortal(
         <S.Container>
           <S.ModalBackGround onClick={handleClose} />
           <S.ModalContainer>
-            {/* <S.CloseModal onClick={onCloseHandler}>
+            <S.CloseModal onClick={handleClose}>
               <img src={closeIcon} alt="모달창 닫기" />
             </S.CloseModal>
             <S.ImageContainer>
               <S.ImageInput />
               <S.Imgtxt>myPick</S.Imgtxt>
-              {imgSrc && <S.Img src={imgSrc} alt="myPick 이미지" />}
+              <S.Img src={myPickItemInfo.itemImage} alt="myPick 이미지" />
             </S.ImageContainer>
             <S.TextContainer>
               <S.Label>한줄평</S.Label>
-              <S.Textarea>{oneLineReview}</S.Textarea>
+              <S.Textarea>{myPickItemInfo.itemName}</S.Textarea>
             </S.TextContainer>
             <S.TextContainer>
               <S.Label>가격</S.Label>
-              <S.Textarea>{price}</S.Textarea>
+              <S.Textarea>
+                {noPrice === myPickItemInfo.price
+                  ? `가격 미정`
+                  : `${wonPrice}원`}
+              </S.Textarea>
             </S.TextContainer>
             <S.TextContainer>
-              <S.Label>링크 </S.Label>
-              <S.Textarea>{link}</S.Textarea>
-            </S.TextContainer> */}
-            {myPickId}
+              <S.Label>링크</S.Label>
+              <S.Textarea>{myPickItemInfo.link}</S.Textarea>
+            </S.TextContainer>
           </S.ModalContainer>
         </S.Container>,
 

@@ -41,9 +41,6 @@ function MyPicks({ accountName }) {
 
   console.log(myPickItemList);
 
-  // 1. myPickItem 클릭 시 모달이 열린다.
-  // 2. 해당 모달에서는 데이터를 불러와 뿌려주는 기능을 한다.
-
   return (
     <S.Container>
       <S.Title>MyPicks</S.Title>
