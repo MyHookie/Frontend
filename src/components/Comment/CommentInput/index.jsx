@@ -127,7 +127,6 @@ function CommentInput({ id }) {
         name="content"
         value={commentData}
         onChange={handleCommentData}
-        // onKeyDown={handlePressEnter}
         rows="1"
         ref={textarea}
       />
