@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
@@ -9,7 +8,7 @@ import CommentList from '../../../components/Comment/CommentList';
 import CommentInput from '../../../components/Comment/CommentInput';
 import { IR } from '../../../styles/Util';
 import { getDetailPost } from '../../../api/post';
-import getCommentList from '../../../api/comment';
+import { getCommentList } from '../../../api/comment';
 
 const SPostDetail = styled.div`
   padding-bottom: 5.8rem;
@@ -38,7 +37,7 @@ function PostDetail() {
     () => getDetailPost(postId)
   );
   const { data: commentList, isLoading: commentListLoading } = useQuery(
-    ['commentList'],
+    ['commentList', postId],
     () => getCommentList(postId)
   );
 
@@ -63,7 +62,7 @@ function PostDetail() {
           />
         )}
         <SDividingLine />
-
+        {console.log(commentList)}
         {!commentListLoading && commentList.length !== 0 && (
           <CommentList commentList={commentList} />
         )}
