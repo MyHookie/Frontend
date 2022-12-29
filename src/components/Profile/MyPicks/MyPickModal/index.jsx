@@ -15,8 +15,8 @@ function MyPickModal({ oneLineReview, imgSrc, price, link, handleClose }) {
             </S.CloseModal>
             <S.ImageContainer>
               <S.ImageInput />
-              <img src={imgSrc} alt="myPick 이미지" />
               <S.Imgtxt>myPick</S.Imgtxt>
+              {imgSrc && <S.Img src={imgSrc} alt="myPick 이미지" />}
             </S.ImageContainer>
             <S.TextContainer>
               <S.Label>한줄평</S.Label>

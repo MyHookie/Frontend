@@ -64,6 +64,7 @@ export const ImageContainer = styled.div`
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
+  z-index: 16;
 
   &::after {
     content: '';
@@ -73,6 +74,17 @@ export const ImageContainer = styled.div`
     margin-top: 2rem;
     background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
   }
+`;
+
+export const Img = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  object-fit: cover;
+  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
 `;
 
 export const ImageInput = styled.div`
@@ -85,6 +97,7 @@ export const ImageInput = styled.div`
   height: 100%;
   border-radius: 1.5rem;
   background-color: #f2f2f2;
+
   border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
   cursor: pointer;
 `;
