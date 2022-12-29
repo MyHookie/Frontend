@@ -28,7 +28,9 @@ const SProfileImg = styled.img`
   left: 1.6rem;
   bottom: 1.2rem;
   width: 3.6rem;
+  height: 3.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  object-fit: contain;
 `;
 
 const SLabel = styled.label`
