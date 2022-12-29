@@ -56,6 +56,32 @@ const SComments = styled.pre`
   word-wrap: break-word;
 `;
 
+const getCommentPostTime = (createdAt) => {
+  const currentTime = new Date();
+  const postTime = new Date(createdAt);
+
+  const timeGap = Math.floor(
+    (currentTime.getTime() - postTime.getTime()) / 1000 / 60
+  );
+
+  if (timeGap < 1) return '방금 전';
+  if (timeGap < 60) {
+    return `${timeGap}분 전`;
+  }
+
+  const timeGapHour = Math.floor(timeGap / 60);
+  if (timeGapHour < 24) {
+    return `${timeGapHour}시간 전`;
+  }
+
+  const timeGapDay = Math.floor(timeGap / 60 / 24);
+  if (timeGapDay < 365) {
+    return `${timeGapDay}일 전`;
+  }
+
+  return `${Math.floor(timeGapDay / 365)}년 전`;
+};
+
 function CommentItem({ commentId, content, createdAt, author }) {
   const queryClient = useQueryClient();
 
@@ -162,7 +188,7 @@ function CommentItem({ commentId, content, createdAt, author }) {
         />
         <SUserInfo>
           {author.username}
-          <SCommentTime>{createdAt.slice(0, 10)}</SCommentTime>
+          <SCommentTime>{getCommentPostTime(createdAt)}</SCommentTime>
         </SUserInfo>
         <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
           <img src={verticalIcon} alt="댓글 설정 버튼" />

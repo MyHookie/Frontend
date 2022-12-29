@@ -7,6 +7,7 @@ import PostItem from '../../../components/Post/PostItem';
 import CommentList from '../../../components/Comment/CommentList';
 import CommentInput from '../../../components/Comment/CommentInput';
 import { IR } from '../../../styles/Util';
+
 import { getDetailPost } from '../../../api/post';
 import { getCommentList } from '../../../api/comment';
 

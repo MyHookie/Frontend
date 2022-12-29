@@ -83,6 +83,7 @@ function ProfileInfoForm({ edit, savedData }) {
               : isSubscribedAccount.validWarningMessage
           }
           inputRef={inputRef}
+          edit={edit}
         />
         <AuthInputForm
           id="name"

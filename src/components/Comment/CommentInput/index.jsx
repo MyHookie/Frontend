@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import Snackbar from '../../Modal/SnackBar';
-import basicProfilSmallImg from '../../../assets/basic-profile_small.png';
 import { IR } from '../../../styles/Util';
 
 import { postCommentData } from '../../../api/comment';
@@ -29,7 +28,9 @@ const SProfileImg = styled.img`
   left: 1.6rem;
   bottom: 1.2rem;
   width: 3.6rem;
+  height: 3.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  object-fit: contain;
 `;
 
 const SLabel = styled.label`
@@ -82,15 +83,13 @@ function CommentInput({ id }) {
   };
 
   const handleResizeHeight = () => {
-    if (textarea) {
-      const height = textarea.current.scrollHeight;
-      if (height < 57) {
-        textarea.current.style.height = `${height}px`;
-      } else {
-        textarea.current.style.height = `57px`;
-      }
+    textarea.current.style.height = 'auto';
+    const height = textarea.current.scrollHeight;
+    if (height < 57) {
+      textarea.current.style.height = `${height}px`;
+    } else {
+      textarea.current.style.height = `57px`;
     }
-    textarea.current.focus();
   };
 
   const handleCommentData = (e) => {
@@ -103,6 +102,12 @@ function CommentInput({ id }) {
       handleSnackBar();
     } else {
       postComment.mutate();
+      setCommentData('');
+      window.scrollTo({
+        top: window.innerHeight + 1000,
+        left: 0,
+        behavior: 'smooth',
+      });
       textarea.current.style.height = 'auto';
     }
   };
@@ -110,7 +115,10 @@ function CommentInput({ id }) {
   return (
     <SContents>
       <STitle>댓글 입력</STitle>
-      <SProfileImg src={basicProfilSmallImg} alt="프로필 이미지" />
+      <SProfileImg
+        src={JSON.parse(localStorage.getItem('imageSrc'))}
+        alt="프로필 이미지"
+      />
       <SLabel htmlFor={id}>댓글 입력창</SLabel>
       <SInputForm
         type="text"
