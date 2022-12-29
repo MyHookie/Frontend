@@ -7,9 +7,11 @@ const SCommentList = styled.div`
 `;
 
 function CommentList({ commentList }) {
+  const commentListSort = commentList.slice(0).reverse();
+
   return (
     <SCommentList>
-      {commentList.map((item) => (
+      {commentListSort.map((item) => (
         <CommentItem
           key={item.id}
           commentId={item.id}
