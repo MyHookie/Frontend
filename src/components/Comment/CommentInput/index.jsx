@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import Snackbar from '../../Modal/SnackBar';
 import { IR } from '../../../styles/Util';
+
+import { postCommentData } from '../../../api/comment';
 
 const SContents = styled.section`
   position: fixed;
@@ -58,39 +60,25 @@ const SButton = styled.button`
 `;
 
 function CommentInput({ id }) {
+  const queryClient = useQueryClient();
+
+  const param = useParams();
+  const postId = param.id;
+  const textarea = useRef(null);
+
+  const [commentData, setCommentData] = useState('');
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+
+  const postComment = useMutation(() => postCommentData(postId, commentData), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['commentList', postId]);
+    },
+  });
+
   const handleSnackBar = () => {
     setIsSnackBarOpen(true);
     return setTimeout(() => setIsSnackBarOpen(false), 2000);
   };
-
-  const [commentData, setCommentData] = useState('');
-
-  const postCommentData = async (pathName) => {
-    try {
-      await axios.post(
-        `https://mandarin.api.weniv.co.kr${pathName}/comments`,
-        {
-          comment: {
-            content: commentData,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-      setCommentData('');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const textarea = useRef();
 
   const handleResizeHeight = () => {
     textarea.current.style.height = 'auto';
@@ -108,13 +96,11 @@ function CommentInput({ id }) {
     handleResizeHeight();
   };
 
-  const location = useLocation();
-
   const handleCommentSubmit = () => {
     if (commentData.length < 1) {
       handleSnackBar();
     } else {
-      postCommentData(location.pathname);
+      postComment.mutate();
       textarea.current.style.height = 'auto';
     }
   };
