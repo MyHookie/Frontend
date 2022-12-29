@@ -92,6 +92,7 @@ function SignUp() {
             email: signUpEmail,
           },
         });
+
         if (res.data.message === '이미 가입된 이메일 주소 입니다.') {
           setEmailValid(false);
           setEmailWarningMsg('* 이미 가입된 이메일입니다.');
@@ -110,7 +111,7 @@ function SignUp() {
         console.error(error);
       }
     },
-    [buttonNotAllow]
+    [signUpEmail]
   );
 
   return (
