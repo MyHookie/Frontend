@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import * as S from './index.style';
 import closeIcon from '../../../../assets/icon/x.png';
 
-function MyPickModal({ key, oneLineReview, imgSrc, price, link, handleClose }) {
+function MyPickModal({ oneLineReview, imgSrc, price, link, handleClose }) {
   return (
     <>
       {createPortal(
@@ -15,6 +15,7 @@ function MyPickModal({ key, oneLineReview, imgSrc, price, link, handleClose }) {
             </S.CloseModal>
             <S.ImageContainer>
               <S.ImageInput />
+              <img src={imgSrc} alt="myPick 이미지" />
               <S.Imgtxt>myPick</S.Imgtxt>
             </S.ImageContainer>
             <S.TextContainer>
