@@ -1,12 +1,12 @@
 import React from 'react';
 import * as S from './index.style';
 
-function MyPickItem({ key, oneLineReview, imgSrc, price }) {
+function MyPickItem({ itemId, oneLineReview, imgSrc, price }) {
   const noPrice = parseInt(123415810423, 10);
   const wonPrice = new Intl.NumberFormat('ko-KR').format(price);
 
   return (
-    <S.Item itemId={key}>
+    <S.Item key={itemId}>
       <S.ImgContainer>
         <S.Img src={imgSrc} />
       </S.ImgContainer>
