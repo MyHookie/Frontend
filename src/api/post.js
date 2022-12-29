@@ -14,6 +14,16 @@ export const getAccountPost = async (accountName) => {
   return data;
 };
 
+export const getDetailPost = async (pathName) => {
+  const { data } = await fetcher.get(`/post/${pathName}`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      'Content-type': 'application/json',
+    },
+  });
+  return data.post;
+};
+
 export const getFollowPost = async () => {
   const { data } = await fetcher.get(`/post/feed/`, {
     headers: {

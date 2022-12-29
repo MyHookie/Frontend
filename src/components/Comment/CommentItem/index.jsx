@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
+
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import Snackbar from '../../Modal/SnackBar';
-
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
+import basicProfileImage from '../../../assets/basic-profile.png';
+
+import { deleteCommentItem, reportCommentItem } from '../../../api/comment';
 
 const SContents = styled.div`
   margin: 0 0 1.6rem;
@@ -18,9 +21,8 @@ const SCommentsInfo = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-
 const SUserInfo = styled.div`
-  width: 100%;
+  flex: 4 4 0;
   margin: 0 1.2rem;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 `;
@@ -38,9 +40,10 @@ const SCommentTime = styled.span`
 
 const SProfileImg = styled.img`
   width: 3.6rem;
+  height: 3.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  object-fit: contain;
 `;
-
 const SVerticalButton = styled.button`
   width: 2rem;
 `;
@@ -54,6 +57,8 @@ const SComments = styled.pre`
 `;
 
 function CommentItem({ commentId, content, createdAt, author }) {
+  const queryClient = useQueryClient();
+
   const [accountName, setAccountName] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
@@ -61,47 +66,27 @@ function CommentItem({ commentId, content, createdAt, author }) {
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
-
-  const location = useLocation();
-  const postId = location.pathname.slice(6);
   const [isDeleteMessage, setIsDeleteMessage] = useState(false);
 
-  const deleteCommentItem = async () => {
-    try {
-      await axios.delete(
-        `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const param = useParams();
+  const postId = param.id;
 
-  const reportCommentItem = async () => {
-    try {
-      const response = await axios.post(
-        `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}/report`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error);
+  const deleteComment = useMutation(
+    () => deleteCommentItem(postId, commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
     }
-  };
+  );
+  const reportComment = useMutation(
+    () => reportCommentItem(postId, commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
+    }
+  );
 
   useEffect(() => {
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
@@ -143,10 +128,10 @@ function CommentItem({ commentId, content, createdAt, author }) {
 
   const handleDialogAction = () => {
     if (dialogType === '댓글 삭제하기') {
-      deleteCommentItem();
+      deleteComment.mutate();
       handleDeleteMessage();
     } else if (dialogType === '댓글 신고하기') {
-      reportCommentItem();
+      reportComment.mutate();
       handleSnackBar();
     }
 
@@ -163,12 +148,20 @@ function CommentItem({ commentId, content, createdAt, author }) {
     }
   }, [dialogType]);
 
+  const handleErrorImage = (e) => {
+    e.target.src = basicProfileImage;
+  };
+
   return (
     <SContents>
       <SCommentsInfo>
-        <SProfileImg src={author.image} alt="프로필 이미지" />
+        <SProfileImg
+          src={author.image}
+          alt="프로필 이미지"
+          onError={handleErrorImage}
+        />
         <SUserInfo>
-          {author.accountname}
+          {author.username}
           <SCommentTime>{createdAt.slice(0, 10)}</SCommentTime>
         </SUserInfo>
         <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
