@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'react-query';
-import axios from 'axios';
+import heic2any from 'heic2any';
 
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
@@ -34,7 +34,20 @@ function ProfileImageInput({ savedImage }) {
     const currentImage = e.target.files[0];
 
     if (currentImage) {
-      postImageFile.mutate(currentImage);
+      if (currentImage.name.split('.')[1] === 'HEIC') {
+        heic2any({ blob: currentImage, toType: 'image/jpeg' }).then(
+          (resultBlob) => {
+            const convertFile = new File(
+              [resultBlob],
+              `${currentImage.name.split('.')[0]}.jpeg`,
+              { type: 'image/jpeg' }
+            );
+            postImageFile.mutate(convertFile);
+          }
+        );
+      } else {
+        postImageFile.mutate(currentImage);
+      }
     } else {
       setProfileImages(basicProfileImage);
       setImage('');
