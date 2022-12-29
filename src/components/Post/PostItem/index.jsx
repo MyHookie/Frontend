@@ -131,7 +131,7 @@ function PostItem({
     if (dialogType === '삭제하기') {
       deletePost.mutate();
       if (location.pathname.includes('/profile/')) {
-        goToProfilePage(e, JSON.parse(localStorage.getItem('acccountName')));
+        goToProfilePage(e, JSON.parse(localStorage.getItem('accountName')));
       } else {
         handleToHome();
       }
