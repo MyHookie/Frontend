@@ -31,3 +31,25 @@ export const postCommentData = async (postId, commentData) => {
     }
   );
 };
+
+export const deleteCommentItem = async (postId, commentId) => {
+  await fetcher.delete(`/post/${postId}/comments/${commentId}`, {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      'Content-type': 'application/json',
+    },
+  });
+};
+
+export const reportCommentItem = async (postId, commentId) => {
+  await fetcher.post(
+    `/post/${postId}/comments/${commentId}/report`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
+};

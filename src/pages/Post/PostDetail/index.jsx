@@ -62,7 +62,6 @@ function PostDetail() {
           />
         )}
         <SDividingLine />
-        {console.log(commentList)}
         {!commentListLoading && commentList.length !== 0 && (
           <CommentList commentList={commentList} />
         )}

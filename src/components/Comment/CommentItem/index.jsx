@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
+
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
 import Snackbar from '../../Modal/SnackBar';
-
 import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import basicProfileImage from '../../../assets/basic-profile.png';
+
+import { deleteCommentItem, reportCommentItem } from '../../../api/comment';
 
 const SContents = styled.div`
   margin: 0 0 1.6rem;
@@ -55,6 +57,8 @@ const SComments = styled.pre`
 `;
 
 function CommentItem({ commentId, content, createdAt, author }) {
+  const queryClient = useQueryClient();
+
   const [accountName, setAccountName] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
@@ -67,42 +71,22 @@ function CommentItem({ commentId, content, createdAt, author }) {
   const param = useParams();
   const postId = param.id;
 
-  const deleteCommentItem = async () => {
-    try {
-      await axios.delete(
-        `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error);
+  const deleteComment = useMutation(
+    () => deleteCommentItem(postId, commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
     }
-  };
-
-  const reportCommentItem = async () => {
-    try {
-      await axios.post(
-        `https://mandarin.api.weniv.co.kr/post/${postId}/comments/${commentId}/report`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-    } catch (error) {
-      console.log(error);
+  );
+  const reportComment = useMutation(
+    () => reportCommentItem(postId, commentId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries();
+      },
     }
-  };
+  );
 
   useEffect(() => {
     setAccountName(JSON.parse(localStorage.getItem('accountName')));
@@ -144,10 +128,10 @@ function CommentItem({ commentId, content, createdAt, author }) {
 
   const handleDialogAction = () => {
     if (dialogType === '댓글 삭제하기') {
-      deleteCommentItem();
+      deleteComment.mutate();
       handleDeleteMessage();
     } else if (dialogType === '댓글 신고하기') {
-      reportCommentItem();
+      reportComment.mutate();
       handleSnackBar();
     }
 
