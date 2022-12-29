@@ -42,7 +42,7 @@ export const ProfileImage = styled.img`
   min-height: 11rem;
   height: 11rem;
 
-  object-fit: cover;
+  object-fit: contain;
 
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
 `;
