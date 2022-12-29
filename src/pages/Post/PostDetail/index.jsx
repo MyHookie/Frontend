@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
 import PostItem from '../../../components/Post/PostItem';
 import CommentList from '../../../components/Comment/CommentList';
 import CommentInput from '../../../components/Comment/CommentInput';
 import { IR } from '../../../styles/Util';
+import { getDetailPost } from '../../../api/post';
+import getCommentList from '../../../api/comment';
 
 const SPostDetail = styled.div`
   padding-bottom: 5.8rem;
@@ -27,63 +30,23 @@ const SDividingLine = styled.div`
 `;
 
 function PostDetail() {
-  const [postDetailData, setPostDetailData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [commentList, setCommentList] = useState([]);
-
   const param = useParams();
   const postId = param.id;
 
-  const fetchDetailPost = async (pathName) => {
-    try {
-      const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr/post/${pathName}`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-      setPostDetailData(response.data.post);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchCommentList = async (pathName) => {
-    try {
-      const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr/post/${pathName}/comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-      setCommentList(response.data.comments);
-      console.log(commentList);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDetailPost(postId);
-    fetchCommentList(postId);
-  }, []);
+  const { data: postDetailData, isLoading: postDetailLoading } = useQuery(
+    ['postDetail', postId],
+    () => getDetailPost(postId)
+  );
+  const { data: commentList, isLoading: commentListLoading } = useQuery(
+    ['commentList'],
+    () => getCommentList(postId)
+  );
 
   return (
     <SPostDetail>
-      {!isLoading && (
-        <SContents>
-          <STitle>게시물 상세 페이지</STitle>
+      <SContents>
+        <STitle>게시물 상세 페이지</STitle>
+        {!postDetailLoading && (
           <PostItem
             key={postDetailData.id}
             postId={postDetailData.id}
@@ -98,12 +61,13 @@ function PostDetail() {
             author={postDetailData.author}
             detail
           />
-          <SDividingLine />
-          {commentList.length !== 0 && (
-            <CommentList commentList={commentList} />
-          )}
-        </SContents>
-      )}
+        )}
+        <SDividingLine />
+
+        {!commentListLoading && commentList.length !== 0 && (
+          <CommentList commentList={commentList} />
+        )}
+      </SContents>
 
       <CommentInput />
     </SPostDetail>
