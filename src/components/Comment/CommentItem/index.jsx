@@ -40,7 +40,7 @@ const SProfileImg = styled.img`
   width: 3.6rem;
   height: 3.6rem;
   border-radius: ${({ theme }) => theme.borderRadius.ROUND};
-  object-fit: cover;
+  object-fit: contain;
 `;
 const SVerticalButton = styled.button`
   width: 2rem;

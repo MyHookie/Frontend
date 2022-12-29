@@ -23,8 +23,12 @@ export const UserInfoContainer = styled.div`
 
   margin-bottom: 1.5rem;
   gap: 1.4rem;
+
   img {
     width: 5rem;
+    height: 5rem;
+    border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+    object-fit: contain;
   }
 `;
 
