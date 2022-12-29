@@ -87,7 +87,6 @@ function CommentInput({ id }) {
     const height = textarea.current.scrollHeight;
     if (height < 57) {
       textarea.current.style.height = `${height}px`;
-      console.log(`${height}px`);
     } else {
       textarea.current.style.height = `57px`;
     }
@@ -103,6 +102,12 @@ function CommentInput({ id }) {
       handleSnackBar();
     } else {
       postComment.mutate();
+      setCommentData('');
+      window.scrollTo({
+        top: window.innerHeight + 1000,
+        left: 0,
+        behavior: 'smooth',
+      });
       textarea.current.style.height = 'auto';
     }
   };
