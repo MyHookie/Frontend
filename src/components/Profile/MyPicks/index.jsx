@@ -51,7 +51,7 @@ function MyPicks({ accountName }) {
             oneLineReview={item.itemName}
             imgSrc={item.itemImage}
             price={item.price}
-            onClick={() => handleMyPickOpen(item.id)}
+            handleMyPickOpen={() => handleMyPickOpen(item.id)}
           />
         ))}
       </S.Items>
