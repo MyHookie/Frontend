@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as S from './index.style';
 import MyPickItem from './MyPickItem';
 
-function MyPickItems({ accountName }) {
+function MyPicks({ accountName }) {
   console.log(accountName);
   const [myPickItemList, setMyPickItemList] = useState([]);
 
@@ -48,4 +48,4 @@ function MyPickItems({ accountName }) {
     </S.Container>
   );
 }
-export default MyPickItems;
+export default MyPicks;

@@ -7,7 +7,7 @@ import leftIcon from '../../assets/icon/icon-arrow-left.png';
 
 import * as S from './index.style';
 
-function index() {
+function MyPicksUpload() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [noPriceCheck, setNoPriceCheck] = useState(false);
   const [readOnly, setReadOnly] = useState(false);
@@ -234,4 +234,4 @@ function index() {
     </>
   );
 }
-export default index;
+export default MyPicksUpload;

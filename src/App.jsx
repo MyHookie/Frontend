@@ -17,7 +17,7 @@ import Splash from './pages/Splash';
 import Welcome from './pages/Welcome';
 import ProfileEdit from './pages/Profile/ProfileEdit';
 import ProfileSetting from './pages/Auth/ProfileSetting';
-import Mypicks from './pages/Mypicks';
+import MyPicksUpload from './pages/MyPicksUpload';
 import Search from './pages/Search';
 import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
@@ -58,7 +58,7 @@ function App() {
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>
-        <Route path="/mypicks" element={<Mypicks />} />
+        <Route path="/mypicks" element={<MyPicksUpload />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
