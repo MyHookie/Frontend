@@ -40,7 +40,7 @@ function ProfileImageInput({ savedImage }) {
             const convertFile = new File(
               [resultBlob],
               `${currentImage.name.split('.')[0]}.jpeg`,
-              { type: 'image/jpeg' }
+              { type: 'image/jpeg', lastModified: new Date().getTime() }
             );
             postImageFile.mutate(convertFile);
           }
