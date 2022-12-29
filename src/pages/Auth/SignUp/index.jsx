@@ -111,7 +111,7 @@ function SignUp() {
         console.error(error);
       }
     },
-    [signUpEmail]
+    [signUpEmail, buttonNotAllow]
   );
 
   return (
