@@ -9,6 +9,22 @@ import { profileImage } from '../../atoms/profileInfo';
 
 import getImageFilename from '../../api/image';
 
+const getImageFile = async (file) => {
+  if (file.name.split('.')[1] === 'HEIC') {
+    const resultBlob = await heic2any({ blob: file, toType: 'image/jpeg' });
+
+    const convertFile = new File(
+      [resultBlob],
+      `${file.name.split('.')[0]}.jpeg`,
+      { type: 'image/jpeg', lastModified: new Date().getTime() }
+    );
+
+    return convertFile;
+  }
+
+  return file;
+};
+
 function ProfileImageInput({ savedImage }) {
   const [profileImages, setProfileImages] = useState('');
   const setImage = useSetRecoilState(profileImage);
@@ -30,24 +46,12 @@ function ProfileImageInput({ savedImage }) {
     },
   });
 
-  const handleImageChange = useCallback((e) => {
+  const handleImageChange = useCallback(async (e) => {
     const currentImage = e.target.files[0];
 
     if (currentImage) {
-      if (currentImage.name.split('.')[1] === 'HEIC') {
-        heic2any({ blob: currentImage, toType: 'image/jpeg' }).then(
-          (resultBlob) => {
-            const convertFile = new File(
-              [resultBlob],
-              `${currentImage.name.split('.')[0]}.jpeg`,
-              { type: 'image/jpeg', lastModified: new Date().getTime() }
-            );
-            postImageFile.mutate(convertFile);
-          }
-        );
-      } else {
-        postImageFile.mutate(currentImage);
-      }
+      const imageFile = await getImageFile(currentImage);
+      postImageFile.mutate(imageFile);
     } else {
       setProfileImages(basicProfileImage);
       setImage('');
