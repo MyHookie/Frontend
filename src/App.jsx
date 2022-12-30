@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import Router from './routes/Router';
@@ -8,11 +8,15 @@ import GlobalStyle from './styles/GlobalStyle';
 
 import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
-import theme from './styles/Theme';
+import isDarkState from './atoms/darkMode';
+import { darkTheme, lightTheme } from './styles/Theme';
 
 function App() {
   const queryClient = new QueryClient();
+  const isDark = useRecoilValue(isDarkState);
   const [isLogin, setIsLogin] = useRecoilState(loginState);
+
+  const themeType = !isDark ? lightTheme : darkTheme;
 
   useEffect(() => {
     (async function () {
@@ -22,7 +26,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeType}>
         <Reset />
         <GlobalStyle />
         <Router />
