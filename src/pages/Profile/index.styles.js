@@ -8,7 +8,7 @@ export const Container = styled.main`
 
   gap: 0.6rem;
 
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  background-color: ${({ theme }) => theme.BORDER};
 `;
 
 export const PostContainer = styled.section`
@@ -17,7 +17,7 @@ export const PostContainer = styled.section`
   align-items: center;
 
   width: 100%;
-  background-color: ${({ theme }) => theme.color.WHITE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 `;
 
 export const PostTypeContainer = styled.div`
@@ -28,7 +28,7 @@ export const PostTypeContainer = styled.div`
   gap: 2rem;
   width: 100%;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
 `;
 
 export const PostTypeButton = styled.button`
@@ -41,7 +41,7 @@ export const EmptyContainer = styled.div`
   align-items: center;
   width: 100%;
 
-  background-color: ${({ theme }) => theme.color.WHITE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   padding: 3rem 0rem 10rem 0rem;
 
@@ -56,7 +56,7 @@ export const EmptyImage = styled.img`
 `;
 
 export const EmptyContent = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.4rem;
+  color: #767676;
   margin-bottom: 2rem;
 `;

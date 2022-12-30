@@ -26,7 +26,7 @@ const STitle = styled.h2`
 const SDividingLine = styled.div`
   height: 1px;
   margin: 2.2rem 1.6rem;
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  background-color: ${({ theme }) => theme.BORDER};
 `;
 
 function PostDetail() {

@@ -9,7 +9,7 @@ export const UserInfoContainer = styled.div`
   align-items: center;
 
   width: 100%;
-  background-color: ${({ theme }) => theme.color.WHITE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 `;
 
 export const FollowInfoContainer = styled.div`
@@ -26,14 +26,14 @@ export const FollowInfo = styled.div`
 `;
 
 export const FollowCount = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.LARGE};
+  font-size: 1.8rem;
   font-family: LINESeedKR-Bd;
 
   margin-bottom: 0.3rem;
 `;
 
 export const FollowType = styled.p`
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const ProfileImage = styled.img`
@@ -44,7 +44,7 @@ export const ProfileImage = styled.img`
 
   object-fit: contain;
 
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  border-radius: 50%;
 `;
 
 export const UserName = styled.p`
@@ -55,15 +55,15 @@ export const UserName = styled.p`
 `;
 
 export const AccountName = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.TEXT};
 
   padding-bottom: 1.5rem;
 `;
 
 export const Intro = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 
   padding: 0rem 5rem 2.4rem 5rem;
 `;
@@ -82,8 +82,8 @@ export const IconButton = styled.button`
   min-height: 3.4rem;
   height: 3.4rem;
 
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  border: 1px solid ${({ theme }) => theme.BORDER};
+  border-radius: 50%;
 
   img {
     width: 1.5rem;
