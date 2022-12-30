@@ -10,7 +10,7 @@ export const FormContainer = styled.form`
 export const IntroFormContainer = styled.div``;
 
 export const Label = styled.label`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 `;
 
 export const IntroContent = styled.textarea`
@@ -20,18 +20,18 @@ export const IntroContent = styled.textarea`
   padding: 1.2rem 1.5rem;
   word-wrap: break-word;
   font-family: Arial;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.DARK_GRAY};
+  border: 1px solid ${({ theme }) => theme.BORDER};
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.TEXT};
 
   &::placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.SUB_TEXT};
   }
 
   ${({ value }) =>
     value.length > 0 &&
     css`
-      border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
+      border: 1px solid ${({ theme }) => theme.ACTIVE_BORDER};
     `}
 `;

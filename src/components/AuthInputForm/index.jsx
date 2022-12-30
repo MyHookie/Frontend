@@ -5,25 +5,25 @@ import styled, { css } from 'styled-components';
 function checkValid(signUpValid, profileValid, inputValue, isCorrect) {
   if (inputValue?.length === 0) {
     return css`
-      border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+      border: 1px solid ${({ theme }) => theme.BORDER};
     `;
   }
 
   if (!signUpValid && !profileValid && inputValue?.length > 0 && !isCorrect) {
     return css`
-      border: 1px solid ${({ theme }) => theme.color.RED};
+      border: 1px solid ${({ theme }) => theme.ERROR_BORDER};
     `;
   }
 
   return css`
-    border: 1px solid ${({ theme }) => theme.color.ACTIVE_BLUE};
+    border: 1px solid ${({ theme }) => theme.ACTIVE_BORDER};
   `;
 }
 
 const SContainer = styled.div``;
 
 const Label = styled.label`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 `;
 
 const Input = styled.input`
@@ -31,13 +31,14 @@ const Input = styled.input`
   width: 100%;
   margin-top: 0.7rem;
   padding: 1.2rem 1.5rem;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.DARK_GRAY};
+  border: 1px solid ${({ theme }) => theme.BORDER};
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.TEXT};
+  background-color: ${({ theme }) => theme.AUTH_INPUT};
 
   &::placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.SUB_TEXT};
   }
 
   ${({ signUpValid, profileValid, inputValue, isCorrect }) =>
@@ -46,7 +47,7 @@ const Input = styled.input`
 
 const WarningMessage = styled.p`
   position: absolute;
-  color: ${({ theme }) => theme.color.RED};
+  color: ${({ theme }) => theme.ERROR_TEXT};
   margin-top: 0.5rem;
 `;
 
