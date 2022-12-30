@@ -23,15 +23,15 @@ const SUserInfoActive = styled.div`
     left: 1.6rem;
     width: 1.2rem;
     height: 1.2rem;
-    background-color: ${({ theme }) => theme.color.ACTIVE_BLUE};
-    border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+    background-color: #2d7cef;
+    border-radius: 50%;
   }
 `;
 
 const SImg = styled.img`
   position: relative;
   width: 4.2rem;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  border-radius: 50%;
 `;
 
 const SUserId = styled.p`
@@ -44,13 +44,13 @@ const SUserId = styled.p`
 const SText = styled.p`
   flex: 4 4 0;
   font-size: 1.2rem;
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
   ${slEllipsis}
 `;
 
 const SDate = styled.p`
   font-size: 1rem;
-  color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  color: #dddddd;
   margin-top: 2.5rem;
 `;
 

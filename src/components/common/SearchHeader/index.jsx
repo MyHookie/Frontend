@@ -11,8 +11,8 @@ const SContainer = styled.header`
   width: 100%;
   padding: 0.8rem 1.6rem;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  background-color: ${({ theme }) => theme.color.WHITE};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   z-index: 100;
 `;
@@ -28,13 +28,14 @@ const SButton = styled.button`
 const SearchInput = styled.input`
   flex-grow: 1;
   border: none;
-  background-color: #f2f2f2;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  background-color: ${({ theme }) => theme.SEARCH_INPUT};
+  border-radius: 1rem;
   margin-left: 1.5rem;
   padding: 0.775rem 1.5rem;
+  color: ${({ theme }) => theme.TEXT};
 
   &:placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.SUB_TEXT};
   }
 `;
 

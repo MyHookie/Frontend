@@ -8,7 +8,7 @@ const SContainer = styled.div`
   border-radius: 0.7rem;
   font-size: 1.1rem;
   background-color: rgba(0, 0, 0, 0.6);
-  color: ${({ theme }) => theme.color.WHITE};
+  color: ${({ theme }) => theme.TEXT};
 
   display: flex;
   align-items: center;

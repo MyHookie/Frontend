@@ -7,7 +7,7 @@ export const PostItem = styled.li`
   position: relative;
   width: 100%;
   padding: 1.8rem;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border: 1px solid ${({ theme }) => theme.BORDER};
   border-radius: 1rem;
 
   ${({ detail }) =>
@@ -27,7 +27,7 @@ export const UserInfoContainer = styled.div`
   img {
     width: 5rem;
     height: 5rem;
-    border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+    border-radius: 50%;
     object-fit: contain;
   }
 `;
@@ -39,18 +39,18 @@ export const TextBox = styled.div`
 `;
 
 export const UserName = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 `;
 
 export const AccountName = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
   margin-bottom: 0.4rem;
 `;
 
 export const Contents = styled.div`
   ${multiEllipsis}
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 
   margin-bottom: 1.4rem;
 
@@ -110,8 +110,8 @@ export const IConContainer = styled.div`
 export const Icon = styled.div`
   display: flex;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 
   img {
     width: 2.2rem;
@@ -120,8 +120,8 @@ export const Icon = styled.div`
 `;
 
 export const Date = styled.time`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const VerticalButton = styled.button`

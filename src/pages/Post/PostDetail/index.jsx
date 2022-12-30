@@ -16,7 +16,7 @@ const SPostDetail = styled.div`
 `;
 
 const SContents = styled.section`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 `;
 
 const STitle = styled.h2`

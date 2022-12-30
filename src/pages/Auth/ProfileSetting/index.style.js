@@ -11,8 +11,8 @@ export const Container = styled.div`
 
 export const SubText = styled.p`
   margin: 0.5rem 0;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.color.SUB_TEXT};
 `;
 
 export const JoinButton = styled(Button)`

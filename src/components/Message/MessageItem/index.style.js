@@ -5,7 +5,7 @@ export const MessageItem = styled.li`
   position: relative;
   display: flex;
   align-items: center;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 `;
 
 export const DialogBox = styled.div`
@@ -15,9 +15,9 @@ export const DialogBox = styled.div`
   padding: 1rem 1.2rem;
   margin-right: auto;
   margin-left: calc(4.2rem + 1.2rem);
-  background-color: ${({ theme }) => theme.color.WHITE};
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
+  border: 1px solid ${({ theme }) => theme.BORDER};
+  border-radius: 1rem;
   border-top-left-radius: 0;
 `;
 
@@ -26,7 +26,7 @@ export const Time = styled.time`
   right: -3.5rem;
   bottom: 0;
   font-size: 1rem;
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const ProfileImg = styled.img.attrs({
@@ -45,12 +45,12 @@ export const UploadedImgContainer = styled.div`
   margin-left: calc(4.2rem + 1.2rem);
   width: 24rem;
   height: 24rem;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  border-radius: 1rem;
 `;
 
 export const UploadedImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  border-radius: 1rem;
 `;

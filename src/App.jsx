@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
@@ -13,11 +13,12 @@ import { darkTheme, lightTheme } from './styles/Theme';
 
 function App() {
   const queryClient = new QueryClient();
-  const isDark = useRecoilValue(isDarkState);
+  // const isDark = useRecoilValue(isDarkState);
+  const [isDark, setIsDark] = useState(true);
   const [isLogin, setIsLogin] = useRecoilState(loginState);
 
   const themeType = !isDark ? lightTheme : darkTheme;
-
+  console.log(themeType);
   useEffect(() => {
     (async function () {
       return (await checkTokenValid()) ? setIsLogin(true) : setIsLogin(false);

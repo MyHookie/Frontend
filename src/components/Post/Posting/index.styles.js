@@ -19,11 +19,13 @@ export const TagInput = styled.input`
   width: 100%;
   padding: 1.2rem 0.8rem;
   border: none;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
+  background-color: inherit;
+  color: ${({ theme }) => theme.TEXT};
 
   border-radius: 1.5rem;
   &::placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.ACTIVE_INPUT};
   }
 `;
 
@@ -36,7 +38,7 @@ export const TagList = styled.ul`
   width: 100%;
   padding-bottom: 1rem;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
 `;
 
 export const ImageContainer = styled.div`
@@ -48,7 +50,7 @@ export const ImageContainer = styled.div`
   padding-bottom: 1rem;
   box-sizing: content-box;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
 
   gap: 1rem;
 `;
@@ -64,17 +66,20 @@ export const ImageInput = styled.div`
   justify-content: center;
 
   border-radius: 1.5rem;
-  color: ${({ theme }) => theme.color.GRAY};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
+  background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
 export const Content = styled.textarea`
   width: 100%;
   height: 30vh;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
   line-height: 1.8rem;
   resize: none;
 
   margin-top: 2rem;
   padding: 0rem 1rem;
+
+  background-color: inherit;
+  color: ${({ theme }) => theme.TEXT};
 `;

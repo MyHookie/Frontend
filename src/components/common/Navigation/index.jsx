@@ -24,8 +24,8 @@ const SContainer = styled.div`
   width: 100%;
   padding: 0rem 2.7rem;
 
-  background-color: ${({ theme }) => theme.color.WHITE};
-  border-top: 1px solid #dddddd;
+  background-color: ${({ theme }) => theme.BACKGROUND};
+  border-top: 1px solid ${({ theme }) => theme.BORDER};
 `;
 
 function Navigation() {
@@ -36,7 +36,6 @@ function Navigation() {
   useEffect(() => {
     setCurrentPath(location.pathname);
   }, []);
-
 
   const handlePathChange = (path) => {
     setCurrentPath(path);
