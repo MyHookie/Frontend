@@ -26,12 +26,12 @@ function UserInfo({ isMyPage, accountName }) {
 
   const followUser = useMutation(() => postFollow(accountName), {
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries(['profileInfo']);
     },
   });
   const unFollowUser = useMutation(() => deleteFollow(accountName), {
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries(['profileInfo']);
     },
   });
 

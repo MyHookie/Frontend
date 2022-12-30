@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as S from './index.style';
 import MyPickItem from './MyPickItem';
+import MyPickModal from './MyPickModal';
 
 function MyPicks({ accountName }) {
   console.log(accountName);
   const [myPickItemList, setMyPickItemList] = useState([]);
+  const [isMyPickOpen, setIsMyPickOpen] = useState(false);
+  const [myPickId, setMyPickId] = useState('');
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
 
@@ -29,11 +32,18 @@ function MyPicks({ accountName }) {
     getMyPickItemList();
   }, []);
 
+  const handleMyPickOpen = (id) => {
+    setIsMyPickOpen(!isMyPickOpen);
+    if (id) {
+      setMyPickId(id);
+    }
+  };
+
   console.log(myPickItemList);
 
   return (
     <S.Container>
-      <S.Title> MyPicks</S.Title>
+      <S.Title>MyPicks</S.Title>
       <S.Items>
         {myPickItemList.map((item) => (
           <MyPickItem
@@ -41,10 +51,13 @@ function MyPicks({ accountName }) {
             oneLineReview={item.itemName}
             imgSrc={item.itemImage}
             price={item.price}
-            link={item.link}
+            handleMyPickOpen={() => handleMyPickOpen(item.id)}
           />
         ))}
       </S.Items>
+      {isMyPickOpen && (
+        <MyPickModal handleClose={handleMyPickOpen} myPickId={myPickId} />
+      )}
     </S.Container>
   );
 }
