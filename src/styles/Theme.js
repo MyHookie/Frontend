@@ -19,6 +19,7 @@ export const lightTheme = {
 
   TEXT: '#000000',
   SUB_TEXT: '#767676',
+  LIGHT_TEXT: '#DDDDDD',
   ERROR_TEXT: '#FF5656',
 
   ICON: '#000000',
@@ -42,6 +43,7 @@ export const darkTheme = {
 
   TEXT: '#DDDDDD',
   SUB_TEXT: '#767676',
+  LIGHT_TEXT: '#494953',
   ERROR_TEXT: '#FF5656',
 
   ICON: '#DDDDDD',
