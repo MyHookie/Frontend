@@ -15,8 +15,8 @@ const SContents = styled.section`
   width: 100%;
   justify-content: center;
   padding: 2.3rem 1.6rem 2rem;
-  background-color: ${({ theme }) => theme.color.WHITE};
-  border-top: 0.05rem solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  background-color: ${({ theme }) => theme.BACKGROUND};
+  border-top: 0.05rem solid ${({ theme }) => theme.BORDER};
 `;
 
 const STitle = styled.h2`
@@ -29,8 +29,8 @@ const SProfileImg = styled.img`
   bottom: 1.2rem;
   width: 3.6rem;
   height: 3.6rem;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
-  object-fit: contain;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 const SLabel = styled.label`
@@ -42,11 +42,14 @@ const SInputForm = styled.textarea`
   margin: 0 1.8rem;
   padding: 0;
   border-style: none;
-  font-family: 'LINESeedKR-Rg';
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
+  background-color: inherit;
+  color: ${({ theme }) => theme.TEXT};
 
   &::placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    font-size: 1.3rem;
+    color: ${({ theme }) => theme.LIGHT_TEXT};
+    vertical-align: top;
   }
 `;
 
@@ -55,10 +58,10 @@ const SButton = styled.button`
   right: 1.6rem;
   bottom: 2.1rem;
   width: 2.5rem;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
   white-space: nowrap;
   color: ${({ theme, contentLength }) =>
-    contentLength === 0 ? theme.color.LIGHT_GRAY : theme.color.LIGHT_BLUE};
+    contentLength === 0 ? theme.LIGHT_TEXT : theme.BUTTON};
 `;
 
 function CommentInput({ id }) {

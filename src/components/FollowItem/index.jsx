@@ -24,26 +24,25 @@ const SUserInfo = styled.div`
 
 const SImg = styled.img`
   width: 5rem;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  border-radius: 50%;
 `;
 
 const SUserId = styled.p`
   flex: 4 4 0;
   margin-bottom: 0.6rem;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  ${slEllipsis}
+  font-size: 1.4rem;
 `;
 
 const SAccountName = styled.span`
   font-size: 1rem;
   margin-left: 0.5rem;
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 const SUserIntroduction = styled.p`
   flex: 4 4 0;
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
   ${slEllipsis}
 `;
 

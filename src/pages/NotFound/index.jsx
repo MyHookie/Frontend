@@ -19,9 +19,8 @@ const SButton = styled(Button)`
 `;
 
 const Stext = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 const SUploadedImg = styled.img`

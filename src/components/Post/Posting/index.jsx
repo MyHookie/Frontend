@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { nanoid } from 'nanoid';
-import * as S from './index.styles';
+import heic2any from 'heic2any';
 
+import * as S from './index.styles';
 import TagItem from '../TagItem';
 import PreviewImageItem from '../PreviewImageItem';
 import {
@@ -31,6 +32,24 @@ const getTagColors = () => {
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
   return randomColor;
+};
+
+const getPromiseFileName = async (file) => {
+  if (file.name.split('.')[1] === 'HEIC') {
+    const resultBlob = await heic2any({
+      blob: file,
+      toType: 'image/jpeg',
+    });
+
+    const convertFile = new File(
+      [resultBlob],
+      `${file.name.split('.')[0]}.jpeg`,
+      { type: 'image/jpeg', lastModified: new Date().getTime() }
+    );
+
+    return getImageFilename(convertFile);
+  }
+  return getImageFilename(file);
 };
 
 function Posting({ editTagArray, editContent, editImages, edit }) {
@@ -72,7 +91,7 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
     }
 
     for (let i = 0; i < fileArray.length; i += 1) {
-      promiseImageArray.push(getImageFilename(fileArray[i]));
+      promiseImageArray.push(getPromiseFileName(fileArray[i]));
     }
 
     const imageUrls = await Promise.all(promiseImageArray);

@@ -27,7 +27,7 @@ const SBottomSheet = styled.div`
   width: 100%;
   padding: 1.5rem 2rem 1.5rem 2rem;
   gap: 1rem;
-  background: ${({ theme }) => theme.color.WHITE};
+  background: ${({ theme }) => theme.BACKGROUND};
 
   box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.25);
   border-top-left-radius: 1.5rem;

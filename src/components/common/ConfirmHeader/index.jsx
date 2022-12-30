@@ -13,8 +13,8 @@ const SContainer = styled.header`
   width: 100%;
   padding: 0.825rem 1.6rem;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  background-color: ${({ theme }) => theme.color.WHITE};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   z-index: 100;
 `;
@@ -28,7 +28,7 @@ const SButton = styled.button`
 
   &:disabled {
     cursor: default;
-    background-color: ${({ theme }) => theme.color.DISABLED_BLUE};
+    background-color: ${({ theme }) => theme.DISABLED_BUTTON};
   }
 `;
 

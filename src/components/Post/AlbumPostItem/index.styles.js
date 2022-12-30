@@ -5,8 +5,8 @@ import imageLayerIcon from '../../../assets/icon/icon-img-layers.png';
 export const AlbumContainer = styled.li`
   position: relative;
 
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  border: 1px solid ${({ theme }) => theme.BORDER};
+  border-radius: 1rem;
 
   overflow: hidden;
 `;

@@ -1,13 +1,29 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useMutation } from 'react-query';
-import axios from 'axios';
+import heic2any from 'heic2any';
 
 import * as S from './index.style';
 import basicProfileImage from '../../assets/basic-profile.png';
 import { profileImage } from '../../atoms/profileInfo';
 
 import getImageFilename from '../../api/image';
+
+const getImageFile = async (file) => {
+  if (file.name.split('.')[1] === 'HEIC') {
+    const resultBlob = await heic2any({ blob: file, toType: 'image/jpeg' });
+
+    const convertFile = new File(
+      [resultBlob],
+      `${file.name.split('.')[0]}.jpeg`,
+      { type: 'image/jpeg', lastModified: new Date().getTime() }
+    );
+
+    return convertFile;
+  }
+
+  return file;
+};
 
 function ProfileImageInput({ savedImage }) {
   const [profileImages, setProfileImages] = useState('');
@@ -30,11 +46,12 @@ function ProfileImageInput({ savedImage }) {
     },
   });
 
-  const handleImageChange = useCallback((e) => {
+  const handleImageChange = useCallback(async (e) => {
     const currentImage = e.target.files[0];
 
     if (currentImage) {
-      postImageFile.mutate(currentImage);
+      const imageFile = await getImageFile(currentImage);
+      postImageFile.mutate(imageFile);
     } else {
       setProfileImages(basicProfileImage);
       setImage('');

@@ -1,32 +1,24 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import Login from './pages/Auth/Login';
-import SignUp from './pages/Auth/SignUp';
-import Chat from './pages/Chat';
-import ChatDetail from './pages/Chat/ChatDetail';
-import NotFound from './pages/NotFound';
-import Home from './pages/Home';
-import PostDetail from './pages/Post/PostDetail';
-import PostEdit from './pages/Post/PostEdit';
-import PostUpload from './pages/Post/PostUpload';
-import Profile from './pages/Profile';
-import Follower from './pages/Profile/Follower';
-import Following from './pages/Profile/Following';
-import Splash from './pages/Splash';
-import Welcome from './pages/Welcome';
-import ProfileEdit from './pages/Profile/ProfileEdit';
-import ProfileSetting from './pages/Auth/ProfileSetting';
-import MyPicksUpload from './pages/MyPicks/MyPicksUpload';
-import Search from './pages/Search';
+import React, { useEffect, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { ThemeProvider } from 'styled-components';
+import { Reset } from 'styled-reset';
+import Router from './routes/Router';
+import GlobalStyle from './styles/GlobalStyle';
+
 import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
-import ScrollToTop from './components/common/ScrollToTop';
-import MyPicksEdit from './pages/MyPicks/MyPicksEdit';
+import isDarkState from './atoms/darkMode';
+import { darkTheme, lightTheme } from './styles/Theme';
 
 function App() {
+  const queryClient = new QueryClient();
+  // const isDark = useRecoilValue(isDarkState);
+  const [isDark, setIsDark] = useState(true);
   const [isLogin, setIsLogin] = useRecoilState(loginState);
 
+  const themeType = !isDark ? lightTheme : darkTheme;
+  console.log(themeType);
   useEffect(() => {
     (async function () {
       return (await checkTokenValid()) ? setIsLogin(true) : setIsLogin(false);
@@ -34,37 +26,13 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Splash />} />
-        <Route path="/welcome" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup">
-          <Route index element={<SignUp />} />
-          <Route path="profile" element={<ProfileSetting />} />
-        </Route>
-        <Route path="/home" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/chat/:id" element={<ChatDetail />} />
-        <Route path="/post">
-          <Route path=":id" element={<PostDetail />} />
-          <Route path="upload" element={<PostUpload />} />
-          <Route path="edit/:id" element={<PostEdit />} />
-        </Route>
-        <Route path="/profile/edit" element={<ProfileEdit />} />
-        <Route path="/profile/:accountname">
-          <Route index element={<Profile />} />
-          <Route path="follower" element={<Follower />} />
-          <Route path="following" element={<Following />} />
-        </Route>
-        <Route path="/mypicks" element={<MyPicksUpload />} />
-        <Route path="/mypicks/edit" element={<MyPicksEdit />} />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={themeType}>
+        <Reset />
+        <GlobalStyle />
+        <Router />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
