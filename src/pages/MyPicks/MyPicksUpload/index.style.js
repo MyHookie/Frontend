@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import uploadIconGrey from '../../assets/upload-file_grey.png';
-import uploadIcon from '../../assets/upload-file.png';
-import { IR } from '../../styles/Util';
+import uploadIconGrey from '../../../assets/upload-file_grey.png';
+import uploadIcon from '../../../assets/upload-file.png';
+import { IR } from '../../../styles/Util';
 
 export const Container = styled.form`
   display: flex;

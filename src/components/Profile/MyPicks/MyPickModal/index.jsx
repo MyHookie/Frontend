@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
+import axios from 'axios';
 import * as S from './index.style';
 
 function MyPickModal({ myPickId, handleClose }) {
+  const navigate = useNavigate();
   const [myPickItemInfo, setMyPickItemInfo] = useState([]);
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
@@ -38,6 +40,15 @@ function MyPickModal({ myPickId, handleClose }) {
   const noPrice = parseInt(123415810423, 10);
   const wonPrice = new Intl.NumberFormat('ko-KR').format(myPickItemInfo.price);
 
+  const handleMyPickEdit = () => {
+    console.log('수정합니다');
+    navigate('/mypicks/edit');
+  };
+
+  const handleMyPickDelete = () => {
+    console.log('삭제합니다');
+  };
+
   return (
     <>
       {createPortal(
@@ -46,8 +57,8 @@ function MyPickModal({ myPickId, handleClose }) {
           <S.ModalContainer>
             <S.ModalTitle>myPick</S.ModalTitle>
             <S.OptionContainer>
-              <S.EditBtn>수정</S.EditBtn>
-              <S.DeleteBtn>삭제</S.DeleteBtn>
+              <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
+              <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
               <S.CloseModalBtn onClick={handleClose} />
             </S.OptionContainer>
             <S.ImageContainer>

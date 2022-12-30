@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import ConfirmHeader from '../../components/common/ConfirmHeader';
-import Dialog from '../../components/Modal/Dialog';
-import leftIcon from '../../assets/icon/icon-arrow-left.png';
+import ConfirmHeader from '../../../components/common/ConfirmHeader';
+import Dialog from '../../../components/Modal/Dialog';
+import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 
 import * as S from './index.style';
 
