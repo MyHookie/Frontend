@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import closeIcon from '../../../../assets/icon/x.png';
 
 export const Container = styled.div`
   display: flex;
@@ -80,11 +81,17 @@ export const DeleteBtn = styled.button`
 `;
 
 export const CloseModalBtn = styled.button`
-  width: 1.8rem;
   border: none;
-  vertical-align: bottom;
-  img {
+
+  &::after {
+    content: '';
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
     filter: brightness(0.4);
+    background: url(${closeIcon});
+    background-size: contain;
+    background-position: 0 -1.7rem;
   }
 `;
 

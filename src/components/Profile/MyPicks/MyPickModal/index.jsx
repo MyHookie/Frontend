@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { createPortal } from 'react-dom';
 import * as S from './index.style';
-import closeIcon from '../../../../assets/icon/x.png';
 
 function MyPickModal({ myPickId, handleClose }) {
   const [myPickItemInfo, setMyPickItemInfo] = useState([]);
@@ -49,9 +48,7 @@ function MyPickModal({ myPickId, handleClose }) {
             <S.OptionContainer>
               <S.EditBtn>수정</S.EditBtn>
               <S.DeleteBtn>삭제</S.DeleteBtn>
-              <S.CloseModalBtn onClick={handleClose}>
-                <img src={closeIcon} alt="모달창 닫기" />
-              </S.CloseModalBtn>
+              <S.CloseModalBtn onClick={handleClose} />
             </S.OptionContainer>
             <S.ImageContainer>
               <S.MyPickItemImg
