@@ -1,18 +1,19 @@
-const fontSize = {
-  EXTRA_LARGE: '2.4rem',
-  LARGE: '1.8rem',
-  MEDIUM: '1.4rem',
-  SMALL: '1.2rem',
-};
+// const fontSize = {
+//   EXTRA_LARGE: '2.4rem',
+//   LARGE: '1.8rem',
+//   MEDIUM: '1.4rem',
+//   SMALL: '1.2rem',
+// };
 
-const borderRadius = {
-  BASE: '1rem',
-  ROUND: '50%',
-};
+// const borderRadius = {
+//   BASE: '1rem',
+//   ROUND: '50%',
+// };
 
 export const lightTheme = {
   AUTH_INPUT: '#FFFFFF',
   SEARCH_INPUT: '#DDDDDD',
+  ACTIVE_INPUT: '#DDDDDD',
 
   BACKGROUND: '#ffffff',
 
@@ -35,6 +36,7 @@ export const lightTheme = {
 export const darkTheme = {
   AUTH_INPUT: '#494953',
   SEARCH_INPUT: '#494953',
+  ACTIVE_INPUT: '#767676',
 
   BACKGROUND: '#202632',
 
@@ -49,7 +51,7 @@ export const darkTheme = {
   DISABLED_BUTTON: 'rgba(80, 149, 250, 0.4)',
   DARK_BUTTON: '#494953',
 
-  BORDER: '#DDDDDD',
+  BORDER: '#767676',
   ACTIVE_BORDER: '#2D7CEF',
   ERROR_BORDER: '#FF5656',
 };
