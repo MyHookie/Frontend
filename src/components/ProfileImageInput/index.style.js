@@ -23,7 +23,7 @@ export const ImageInput = styled.img`
   width: 12rem;
   height: 12rem;
   margin: 0 auto;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
-  object-fit: contain;
+  border-radius: 50%;
+  object-fit: cover;
   cursor: pointer;
 `;

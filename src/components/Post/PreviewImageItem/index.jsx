@@ -8,7 +8,7 @@ const SPreviewImageContainer = styled.div`
   width: 10.4rem;
   min-width: 10.4rem;
   border-radius: 1.5rem;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border: 1px solid ${({ theme }) => theme.BORDER};
 
   overflow: hidden;
 

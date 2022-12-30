@@ -8,9 +8,9 @@ export const ChattingBar = styled.form`
   align-items: center;
   height: 6rem;
   width: 100%;
-  background-color: ${({ theme }) => theme.color.WHITE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
   padding: 0 2rem;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid ${({ theme }) => theme.BORDER};
 `;
 
 export const UploadFileIcon = styled.img.attrs({
@@ -26,11 +26,12 @@ export const MessageInput = styled.input`
   margin-left: 1.8rem;
   padding: 1.2rem 0;
   border-style: none;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.DARK_GRAY};
+  font-size: 1.4rem;
+  background-color: inherit;
+  color: ${({ theme }) => theme.TEXT};
 
   &::placeholder {
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.SUB_TEXT};
   }
 `;
 
@@ -39,10 +40,9 @@ export const MessageSend = styled.button`
   margin-left: 1rem;
   padding: 1.2rem 0;
 
-  color: ${({ inputText, theme }) =>
-    inputText ? theme.color.ACTIVE_BLUE : theme.color.LIGHT_GRAY};
+  color: ${({ inputText, theme }) => (inputText ? '#2D7CEF' : '#DDDDDD')};
 
   &:active {
-    color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+    color: #2d7cef;
   }
 `;

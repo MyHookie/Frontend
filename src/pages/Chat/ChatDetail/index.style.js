@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #f2f2f2;
+  background-color: inherit;
 `;
 
 export const MessageList = styled.ul`

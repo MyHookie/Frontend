@@ -18,8 +18,8 @@ const SkeletonImage = styled.div`
   min-height: 5rem;
   height: 5rem;
 
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
 const SkeletonInfo = styled.div`
@@ -34,8 +34,8 @@ const SkeletonUserName = styled.div`
   width: 4.2rem;
   height: 1.8rem;
 
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
 const SkeletonAccountName = styled.div`
@@ -46,8 +46,8 @@ const SkeletonAccountName = styled.div`
   height: 1.3rem;
 
   margin-left: 0.5rem;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
 const SkeletonIntro = styled.div`
@@ -57,8 +57,8 @@ const SkeletonIntro = styled.div`
   height: 1.8rem;
 
   padding-right: 7rem;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
 function SearchSkeleton() {

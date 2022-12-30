@@ -16,7 +16,7 @@ const SContainer = styled.div`
   padding: 3rem;
 
   & Button:last-child {
-    background-color: ${({ theme }) => theme.color.DARK_GRAY};
+    background-color: ${({ theme }) => theme.DARK_BUTTON};
   }
   & Button:last-child:hover {
     background-color: #444444;

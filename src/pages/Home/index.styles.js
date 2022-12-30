@@ -24,8 +24,8 @@ export const EmptyImage = styled.img`
 `;
 
 export const EmptyContent = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
   margin-bottom: 2rem;
 `;
 
