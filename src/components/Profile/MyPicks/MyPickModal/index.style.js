@@ -79,7 +79,7 @@ export const DeleteBtn = styled.button`
   color: ${({ theme }) => theme.color.GRAY};
 `;
 
-export const CloseModal = styled.button`
+export const CloseModalBtn = styled.button`
   width: 1.8rem;
   border: none;
   vertical-align: bottom;
@@ -106,7 +106,7 @@ export const ImageContainer = styled.div`
   }
 `;
 
-export const Img = styled.img`
+export const MyPickItemImg = styled.img`
   position: absolute;
   top: 0;
   left: 0;
@@ -118,33 +118,19 @@ export const Img = styled.img`
   object-fit: cover;
 `;
 
-export const ImageInput = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex: 0 0 auto;
-  width: 100%;
-  height: 100%;
-  border-radius: 1.5rem;
-  background-color: #f2f2f2;
-
-  cursor: pointer;
-`;
-
-export const Imgtxt = styled.p`
+export const ModalTitle = styled.h2`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
   cursor: default;
   pointer-events: none;
 `;
 
-export const Label = styled.p`
+export const ContentTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
 `;
 
-export const Textarea = styled.p`
+export const Contents = styled.p`
   margin: 0.3rem 0 0.2rem;
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};

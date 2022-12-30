@@ -45,33 +45,35 @@ function MyPickModal({ myPickId, handleClose }) {
         <S.Container>
           <S.ModalBackGround onClick={handleClose} />
           <S.ModalContainer>
-            <S.Imgtxt>myPick</S.Imgtxt>
+            <S.ModalTitle>myPick</S.ModalTitle>
             <S.OptionContainer>
               <S.EditBtn>수정</S.EditBtn>
               <S.DeleteBtn>삭제</S.DeleteBtn>
-              <S.CloseModal onClick={handleClose}>
+              <S.CloseModalBtn onClick={handleClose}>
                 <img src={closeIcon} alt="모달창 닫기" />
-              </S.CloseModal>
+              </S.CloseModalBtn>
             </S.OptionContainer>
             <S.ImageContainer>
-              <S.ImageInput />
-              <S.Img src={myPickItemInfo.itemImage} alt="myPick 이미지" />
+              <S.MyPickItemImg
+                src={myPickItemInfo.itemImage}
+                alt="myPick 이미지"
+              />
             </S.ImageContainer>
             <S.TextContainer>
-              <S.Label>한줄평</S.Label>
-              <S.Textarea>{myPickItemInfo.itemName}</S.Textarea>
+              <S.ContentTitle>한줄평</S.ContentTitle>
+              <S.Contents>{myPickItemInfo.itemName}</S.Contents>
             </S.TextContainer>
             <S.TextContainer>
-              <S.Label>가격</S.Label>
-              <S.Textarea>
+              <S.ContentTitle>가격</S.ContentTitle>
+              <S.Contents>
                 {noPrice === myPickItemInfo.price
                   ? `가격 미정`
                   : `${wonPrice}원`}
-              </S.Textarea>
+              </S.Contents>
             </S.TextContainer>
             <S.TextContainer>
-              <S.Label>링크</S.Label>
-              <S.Textarea>{myPickItemInfo.link}</S.Textarea>
+              <S.ContentTitle>링크</S.ContentTitle>
+              <S.Contents>{myPickItemInfo.link}</S.Contents>
             </S.TextContainer>
           </S.ModalContainer>
         </S.Container>,
