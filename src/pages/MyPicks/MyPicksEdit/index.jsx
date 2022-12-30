@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 
@@ -24,6 +24,10 @@ function MyPicksEdit() {
 
   const textRef = useRef();
   const imageInput = useRef();
+
+  const location = useLocation();
+  const { myPickId } = location.state;
+  console.log(myPickId);
 
   const navigate = useNavigate();
   const goBackPage = () => {
@@ -93,8 +97,6 @@ function MyPicksEdit() {
       setReadOnly(true);
     }
   };
-
-  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
 
   const fetchImage = async (e) => {
     const formData = new FormData();

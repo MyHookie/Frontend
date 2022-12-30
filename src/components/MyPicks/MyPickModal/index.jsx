@@ -42,7 +42,11 @@ function MyPickModal({ myPickId, handleClose }) {
 
   const handleMyPickEdit = () => {
     console.log('수정합니다');
-    navigate('/mypicks/edit');
+    navigate('/mypicks/edit', {
+      state: {
+        myPickId,
+      },
+    });
   };
 
   const handleMyPickDelete = () => {
