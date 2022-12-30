@@ -16,8 +16,9 @@ import PostList from '../../Post/PostList';
 function ProfilePost({ accountName }) {
   const [isListPost, setIsListPost] = useState(true);
 
-  const { data, isLoading, isError } = useQuery('myPostList', () =>
-    getAccountPost(accountName)
+  const { data, isLoading, isError } = useQuery(
+    ['profilePostList', accountName],
+    () => getAccountPost(accountName)
   );
 
   const handleListPost = () => {
