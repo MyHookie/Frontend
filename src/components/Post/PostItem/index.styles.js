@@ -28,7 +28,7 @@ export const UserInfoContainer = styled.div`
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 

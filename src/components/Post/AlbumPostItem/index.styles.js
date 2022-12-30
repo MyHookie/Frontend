@@ -6,7 +6,7 @@ export const AlbumContainer = styled.li`
   position: relative;
 
   border: 1px solid ${({ theme }) => theme.BORDER};
-  border-radius: 50%;
+  border-radius: 1rem;
 
   overflow: hidden;
 `;

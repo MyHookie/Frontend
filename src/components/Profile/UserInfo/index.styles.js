@@ -42,7 +42,7 @@ export const ProfileImage = styled.img`
   min-height: 11rem;
   height: 11rem;
 
-  object-fit: contain;
+  object-fit: cover;
 
   border-radius: 50%;
 `;
@@ -56,7 +56,7 @@ export const UserName = styled.p`
 
 export const AccountName = styled.p`
   font-size: 1.2rem;
-  color: ${({ theme }) => theme.TEXT};
+  color: ${({ theme }) => theme.SUB_TEXT};
 
   padding-bottom: 1.5rem;
 `;

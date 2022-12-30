@@ -28,6 +28,7 @@ export const lightTheme = {
   ACTIVE_BUTTON: '#2D7CEF',
   DISABLED_BUTTON: 'rgba(80, 149, 250, 0.4)',
   DARK_BUTTON: '#494953',
+  CANCEL_BUTTON: '#000000',
 
   BORDER: '#DDDDDD',
   ACTIVE_BORDER: '#2D7CEF',
@@ -52,6 +53,7 @@ export const darkTheme = {
   ACTIVE_BUTTON: '#2D7CEF',
   DISABLED_BUTTON: 'rgba(80, 149, 250, 0.4)',
   DARK_BUTTON: '#494953',
+  CANCEL_BUTTON: '#494953',
 
   BORDER: '#767676',
   ACTIVE_BORDER: '#2D7CEF',

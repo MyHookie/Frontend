@@ -23,6 +23,7 @@ export const IntroContent = styled.textarea`
   border: 1px solid ${({ theme }) => theme.BORDER};
   border-radius: 1rem;
   font-size: 1.4rem;
+  background-color: ${({ theme }) => theme.AUTH_INPUT};
   color: ${({ theme }) => theme.TEXT};
 
   &::placeholder {

@@ -30,7 +30,7 @@ const SProfileImg = styled.img`
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const SLabel = styled.label`

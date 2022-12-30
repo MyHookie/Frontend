@@ -47,7 +47,7 @@ function Router() {
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>
-        <Route path="/mypicks" element={<MyPicksUpload />} />
+        {/* <Route path="/mypicks" element={<MyPicksUpload />} /> */}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

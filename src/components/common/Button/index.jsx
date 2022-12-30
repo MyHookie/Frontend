@@ -24,13 +24,13 @@ const SButton = styled.button`
     type.cancel &&
     css`
       color: ${({ theme }) => theme.SUB_TEXT};
-      background-color: '#ffffff';
+      background-color: ${({ theme }) => theme.BACKGROUND};
       border: 1px solid ${({ theme }) => theme.BORDER};
 
       &:active,
       &:hover {
-        background-color: ${({ theme }) => theme.ACTIVE_BUTTON};
-        color: ${({ theme }) => theme.TEXT};
+        background-color: ${({ theme }) => theme.BUTTON};
+        color: #ffffff;
       }
     `}
 `;
