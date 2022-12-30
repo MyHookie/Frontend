@@ -28,3 +28,12 @@ export const EmptyContent = styled.p`
   color: ${({ theme }) => theme.color.GRAY};
   margin-bottom: 2rem;
 `;
+
+export const PostSkeletonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  padding: 1rem;
+  gap: 1rem;
+`;
