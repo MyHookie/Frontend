@@ -5,9 +5,13 @@ import axios from 'axios';
 import * as S from './index.style';
 
 function MyPickModal({ myPickId, handleClose }) {
+  const [myPickItemInfo, setMyPickItemInfo] = useState('');
+  const [isNoPrice, setIsNoPrice] = useState(false);
+
   const navigate = useNavigate();
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
+  const noPrice = parseInt(123415810423, 10);
 
   const getMyPickItemDetail = async () => {
     try {
@@ -24,26 +28,30 @@ function MyPickModal({ myPickId, handleClose }) {
       );
 
       setMyPickItemInfo(response.data.product);
+      if (noPrice === response.data.product.price) {
+        setIsNoPrice(true);
+      }
       return response.data;
     } catch (error) {
       return error;
     }
   };
 
+  console.log(myPickItemInfo);
+
   useEffect(() => {
     getMyPickItemDetail();
   }, []);
 
-  console.log(myPickItemInfo);
-
-  const noPrice = parseInt(123415810423, 10);
   const wonPrice = new Intl.NumberFormat('ko-KR').format(myPickItemInfo.price);
+  console.log(myPickItemInfo);
 
   const handleMyPickEdit = () => {
     console.log('수정합니다');
     navigate('/mypicks/edit', {
       state: {
         myPickId,
+        isNoPrice,
       },
     });
   };

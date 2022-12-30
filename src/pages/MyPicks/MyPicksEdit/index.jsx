@@ -29,6 +29,8 @@ function MyPicksEdit() {
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
   const NoPrice = '123415810423';
+  const location = useLocation();
+  const { myPickId, isNoPrice } = location.state;
 
   const getMyPickItemDetail = async () => {
     try {
@@ -49,7 +51,13 @@ function MyPicksEdit() {
 
       setImgFile(myPickItemInfo.itemImage);
       setInputValue(myPickItemInfo.itemName);
+      setInputPrice(myPickItemInfo.price);
       setInputLink(myPickItemInfo.link);
+
+      if (isNoPrice) {
+        setReadOnly(true);
+      }
+
       return response.data;
     } catch (error) {
       return error;
@@ -90,7 +98,8 @@ function MyPicksEdit() {
   };
 
   const ReplaceNumber = (price) => {
-    const onlyNumber = price.replace(/[^0-9]/g, '');
+    const stringPrice = price.toString();
+    const onlyNumber = stringPrice.replace(/[^0-9]/g, '');
     setInputPrice(onlyNumber);
   };
 
