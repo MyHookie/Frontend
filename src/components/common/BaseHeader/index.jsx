@@ -11,8 +11,8 @@ const SContainer = styled.header`
   width: 100%;
   padding: 0.75rem 1.6rem;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  background-color: ${({ theme }) => theme.color.WHITE};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   z-index: 100;
 `;

@@ -15,7 +15,7 @@ export const UserImage = styled.img`
   min-height: 5rem;
   height: 5rem;
   object-fit: cover;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
+  border-radius: 50%;
 `;
 
 export const UserInfo = styled.div`
@@ -28,19 +28,19 @@ export const UserName = styled.p`
   font-size: 1.4rem;
 
   strong {
-    color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+    color: #2d7cef;
   }
 `;
 
 export const UserAccountName = styled.span`
   font-size: 1rem;
   margin-left: 0.5rem;
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const UserIntro = styled.p`
   ${slEllipsis};
   font-size: 1.2rem;
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
   padding-right: 7rem;
 `;

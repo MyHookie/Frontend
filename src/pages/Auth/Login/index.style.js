@@ -21,7 +21,7 @@ export const LoginButton = styled(Button)`
 export const SignUpLink = styled(Link)`
   display: block;
   text-align: center;
-  color: ${({ theme }) => theme.color.GRAY};
+  color: ${({ theme }) => theme.SUB_TEXT};
   margin-top: 2rem;
 
   &:hover {

@@ -25,9 +25,9 @@ const SDialog = styled.div`
 
   width: 26rem;
   height: 13rem;
-  background: #ffffff;
+  background: ${({ theme }) => theme.BACKGROUND};
   box-shadow: 0rem 0.1rem 0.7rem rgba(0, 0, 0, 0.25);
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  border-radius: 1rem;
   transform: translate(-50%, -50%);
 
   z-index: 140;
@@ -41,8 +41,8 @@ const SDialogInfo = styled.p`
   height: 100%;
   padding: 0rem 3rem;
 
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  color: ${({ theme }) => theme.color.DARK_GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.TEXT};
 `;
 
 const SButtonContainer = styled.div`
@@ -54,15 +54,19 @@ const SButtonContainer = styled.div`
 const SButton = styled.button`
   flex-grow: 1;
   padding: 1.5rem 0rem;
-  background-color: ${({ theme }) => theme.color.WHITE};
-  border-top: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   background-color: inherit;
-  color: ${({ theme }) => theme.color.DARK_GRAY};
+  color: ${({ theme }) => theme.TEXT};
 
   &:first-child {
-    border-right: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-    color: ${({ theme }) => theme.color.RED};
+    color: ${({ theme }) => theme.ERROR_TEXT};
+    border-right: 1px solid ${({ theme }) => theme.BORDER};
+    border-top: 1px solid ${({ theme }) => theme.BORDER};
+  }
+
+  &:last-child {
+    border-top: 1px solid ${({ theme }) => theme.BORDER};
   }
 `;
 
