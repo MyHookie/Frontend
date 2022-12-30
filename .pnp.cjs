@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:6.6.1"],\
             ["eslint-plugin-react", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:7.31.11"],\
             ["eslint-plugin-react-hooks", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.6.0"],\
+            ["heic2any", "npm:0.0.3"],\
             ["nanoid", "npm:4.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:18.2.0"],\
@@ -9790,6 +9791,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["heic2any", [\
+        ["npm:0.0.3", {\
+          "packageLocation": "./.yarn/cache/heic2any-npm-0.0.3-d4a7f6c1f3-83624b7c16.zip/node_modules/heic2any/",\
+          "packageDependencies": [\
+            ["heic2any", "npm:0.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["hoist-non-react-statics", [\
         ["npm:3.3.2", {\
           "packageLocation": "./.yarn/cache/hoist-non-react-statics-npm-3.3.2-e7b709e6c1-b153827042.zip/node_modules/hoist-non-react-statics/",\
@@ -9819,6 +9829,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsx-a11y", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:6.6.1"],\
             ["eslint-plugin-react", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:7.31.11"],\
             ["eslint-plugin-react-hooks", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:4.6.0"],\
+            ["heic2any", "npm:0.0.3"],\
             ["nanoid", "npm:4.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:18.2.0"],\
