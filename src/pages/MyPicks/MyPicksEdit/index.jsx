@@ -56,6 +56,7 @@ function MyPicksEdit() {
 
       if (isNoPrice) {
         setReadOnly(true);
+        setNoPriceCheck(true);
       }
 
       return response.data;
@@ -124,7 +125,7 @@ function MyPicksEdit() {
     useState('숫자만 입력 가능합니다.');
 
   const handleCheckBox = (e) => {
-    setNoPriceCheck(e.target.checked);
+    setNoPriceCheck(!noPriceCheck);
     if (noPriceCheck) {
       setInputPrice('');
       setPlaceholderText('숫자만 입력 가능합니다.');
@@ -254,6 +255,7 @@ function MyPicksEdit() {
         />
         <S.Checkbox
           onClick={handleCheckBox}
+          checked={noPriceCheck}
           type="checkbox"
           name=""
           id="read-only"
