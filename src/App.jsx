@@ -22,6 +22,7 @@ import Search from './pages/Search';
 import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
 import ScrollToTop from './components/common/ScrollToTop';
+import MyPicksEdit from './pages/MyPicks/MyPicksEdit';
 
 function App() {
   const [isLogin, setIsLogin] = useRecoilState(loginState);
@@ -59,7 +60,7 @@ function App() {
           <Route path="following" element={<Following />} />
         </Route>
         <Route path="/mypicks" element={<MyPicksUpload />} />
-        <Route path="/mypicks/edit" element={<MyPicksUpload />} />
+        <Route path="/mypicks/edit" element={<MyPicksEdit />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

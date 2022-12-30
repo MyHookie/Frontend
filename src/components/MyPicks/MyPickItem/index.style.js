@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { slEllipsis } from '../../../../styles/Util';
+import { slEllipsis } from '../../../styles/Util';
 
 export const Item = styled.li`
   flex-shrink: 0;

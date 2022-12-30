@@ -10,7 +10,7 @@ import UserInfo from '../../components/Profile/UserInfo';
 import ProfilePost from '../../components/Profile/ProfilePost';
 import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
-import MyPicks from '../../components/Profile/MyPicks';
+import MyPicks from '../../components/MyPicks';
 import Dialog from '../../components/Modal/Dialog';
 
 function Profile() {
