@@ -12,7 +12,7 @@ import { getDetailPost } from '../../../api/post';
 import { getCommentList } from '../../../api/comment';
 
 const SPostDetail = styled.div`
-  padding-bottom: 5.8rem;
+  padding-bottom: 12rem;
 `;
 
 const SContents = styled.section`

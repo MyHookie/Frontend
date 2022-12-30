@@ -42,11 +42,12 @@ const SInputForm = styled.textarea`
   margin: 0 1.8rem;
   padding: 0;
   border-style: none;
-  font-family: 'LINESeedKR-Rg';
   font-size: ${({ theme }) => theme.fontSize.MEDIUM};
 
   &::placeholder {
+    font-size: 1.3rem;
     color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    vertical-align: top;
   }
 `;
 
