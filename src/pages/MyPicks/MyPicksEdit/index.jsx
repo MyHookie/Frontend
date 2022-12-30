@@ -18,6 +18,8 @@ function MyPicksEdit() {
   const [inputPrice, setInputPrice] = useState('');
   const [inputLink, setInputLink] = useState('');
 
+  const [newImgFile, setNewImgFile] = useState(null);
+
   const [isError, setIsError] = useState(false);
 
   const [itemImage, setItemImage] = useState('');
@@ -25,9 +27,42 @@ function MyPicksEdit() {
   const textRef = useRef();
   const imageInput = useRef();
 
+  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
+
   const location = useLocation();
   const { myPickId } = location.state;
   console.log(myPickId);
+
+  const getMyPickItemDetail = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/product/detail/${myPickId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem('token')
+            )}`,
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      const myPickItemInfo = response.data.product;
+
+      console.log(myPickItemInfo);
+
+      setImgFile(myPickItemInfo.itemImage);
+      setInputValue(myPickItemInfo.itemName);
+      setInputPrice(myPickItemInfo.price);
+      setInputLink(myPickItemInfo.link);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  useEffect(() => {
+    getMyPickItemDetail();
+  }, []);
 
   const navigate = useNavigate();
   const goBackPage = () => {
@@ -49,7 +84,7 @@ function MyPicksEdit() {
     reader.readAsDataURL(file);
     return new Promise((resolve) => {
       reader.onloadend = () => {
-        setImgFile(reader.result);
+        setNewImgFile(reader.result);
         resolve();
       };
     });
