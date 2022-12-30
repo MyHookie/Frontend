@@ -8,6 +8,7 @@ import * as S from './index.styles';
 import useDebounceValue from '../../hooks/useDebounceValue';
 
 import searchUser from '../../api/search';
+import SearchSkeleton from '../Skeleton/Search';
 
 function UserSearch() {
   const [keyword, setKeyword] = useState('');
@@ -49,9 +50,15 @@ function UserSearch() {
         value={keyword}
         onChange={handleSearchKeyword}
       />
-      {isLoading && <div>로딩 중 입니다.</div>}
-      {isError && <div>에러 발생!!</div>}
       <S.Container>
+        {isLoading && (
+          <div>
+            <SearchSkeleton />
+            <SearchSkeleton />
+            <SearchSkeleton />
+            <SearchSkeleton />
+          </div>
+        )}
         {data?.map((user) => (
           <SearchedUser
             key={user._id}
@@ -63,7 +70,7 @@ function UserSearch() {
             goToProfile={() => goToProfile(user.accountname)}
           />
         ))}
-        {data?.length > 0 && (
+        {data?.length > 0 && data?.length >= viewCount * 5 && (
           <S.MoreView onClick={handleMoreView}>더 보기</S.MoreView>
         )}
         {keyword && data?.length === 0 && (
