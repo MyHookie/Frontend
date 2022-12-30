@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.section`
   width: 100%;
   padding-top: 2rem;
-  background-color: ${({ theme }) => theme.color.WHITE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 `;
 
 export const Title = styled.p`

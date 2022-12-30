@@ -6,7 +6,6 @@ import * as S from './index.style';
 
 function MyPickModal({ myPickId, handleClose }) {
   const navigate = useNavigate();
-  const [myPickItemInfo, setMyPickItemInfo] = useState([]);
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
 

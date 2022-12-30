@@ -32,10 +32,10 @@ export const ModalContainer = styled.div`
   width: 30rem;
   height: 50rem;
   padding: 2rem 1.6rem 2rem;
-  background-color: ${({ theme }) => theme.color.WHITE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   border-radius: 1.5rem;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
   box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.25);
 
   animation: fadeIn 0.5s;
@@ -71,13 +71,13 @@ export const OptionContainer = styled.div`
 
 export const EditBtn = styled.button`
   font-family: 'LINESeedKR-Rg';
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 export const DeleteBtn = styled.button`
   font-family: 'LINESeedKR-Rg';
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const CloseModalBtn = styled.button`
@@ -109,7 +109,7 @@ export const ImageContainer = styled.div`
     height: 1px;
     width: 100%;
     margin-top: 2rem;
-    background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    background-color: ${({ theme }) => theme.LIGHT_TEXT};
   }
 `;
 
@@ -120,27 +120,27 @@ export const MyPickItemImg = styled.img`
   right: 0;
   height: 100%;
   z-index: 15;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
   object-fit: cover;
 `;
 
 export const ModalTitle = styled.h2`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
   cursor: default;
   pointer-events: none;
 `;
 
 export const ContentTitle = styled.h3`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const Contents = styled.p`
   margin: 0.3rem 0 0.2rem;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 
   &::-webkit-scrollbar {
     display: none;
@@ -148,5 +148,5 @@ export const Contents = styled.p`
 `;
 
 export const TextContainer = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-bottom: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
 `;

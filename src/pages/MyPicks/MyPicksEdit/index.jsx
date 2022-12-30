@@ -28,10 +28,7 @@ function MyPicksEdit() {
   const imageInput = useRef();
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
-
-  const location = useLocation();
-  const { myPickId } = location.state;
-  console.log(myPickId);
+  const NoPrice = '123415810423';
 
   const getMyPickItemDetail = async () => {
     try {
@@ -52,7 +49,6 @@ function MyPicksEdit() {
 
       setImgFile(myPickItemInfo.itemImage);
       setInputValue(myPickItemInfo.itemName);
-      setInputPrice(myPickItemInfo.price);
       setInputLink(myPickItemInfo.link);
       return response.data;
     } catch (error) {
@@ -117,8 +113,6 @@ function MyPicksEdit() {
 
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
-
-  const NoPrice = '123415810423';
 
   const handleCheckBox = (e) => {
     setNoPriceCheck(e.target.checked);

@@ -3,7 +3,7 @@ import { slEllipsis } from '../../../styles/Util';
 
 export const Item = styled.li`
   flex-shrink: 0;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
   width: 14rem;
   white-space: nowrap;
   overflow: hidden;
@@ -13,9 +13,9 @@ export const ImgContainer = styled.div`
   position: relative;
   padding-top: 64.29%;
   height: 0;
-  background-color: ${({ theme }) => theme.color.WHITE};
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  background-color: ${({ theme }) => theme.BACKGROUND};
+  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
+  border-radius: 1rem;
 `;
 
 export const Img = styled.img`
@@ -25,7 +25,7 @@ export const Img = styled.img`
   right: 0;
   height: 100%;
   object-fit: cover;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
+  border-radius: 1rem;
 `;
 
 export const ItemTitle = styled.p`
@@ -37,6 +37,6 @@ export const ItemTitle = styled.p`
 export const ItemPrice = styled.p`
   margin-top: 0.5rem;
   font-family: 'LINESeedKR-Bd';
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.ACTIVE_BUTTON};
 `;

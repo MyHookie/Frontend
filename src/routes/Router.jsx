@@ -7,7 +7,8 @@ import SignUp from '../pages/Auth/SignUp';
 import Chat from '../pages/Chat';
 import ChatDetail from '../pages/Chat/ChatDetail';
 import Home from '../pages/Home';
-import MyPicksUpload from '../pages/MyPicksUpload';
+import MyPicksEdit from '../pages/MyPicks/MyPicksEdit';
+import MyPicksUpload from '../pages/MyPicks/MyPicksUpload';
 import NotFound from '../pages/NotFound';
 import PostDetail from '../pages/Post/PostDetail';
 import PostEdit from '../pages/Post/PostEdit';
@@ -47,7 +48,8 @@ function Router() {
           <Route path="follower" element={<Follower />} />
           <Route path="following" element={<Following />} />
         </Route>
-        {/* <Route path="/mypicks" element={<MyPicksUpload />} /> */}
+        <Route path="/mypicks" element={<MyPicksUpload />} />
+        <Route path="/mypicks/edit" element={<MyPicksEdit />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
