@@ -7,7 +7,7 @@ const SkeletonContainer = styled.div`
 
   padding: 1.8rem;
 
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border: 1px solid ${({ theme }) => theme.ACTIVE_INPUT};
   border-radius: 1rem;
 `;
 
@@ -23,8 +23,8 @@ const UserImage = styled.div`
   ${loadingAnimation};
   width: 5rem;
   height: 5rem;
-  border-radius: ${({ theme }) => theme.borderRadius.ROUND};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.ACTIVE_INPUT};
 `;
 
 const UserName = styled.div`
@@ -32,16 +32,16 @@ const UserName = styled.div`
   width: 7rem;
   height: 1.8rem;
   margin-bottom: 1rem;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.ACTIVE_INPUT};
 `;
 const AccountName = styled.div`
   ${loadingAnimation};
   width: 8rem;
   height: 1.3rem;
 
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.ACTIVE_INPUT};
 `;
 
 const Content = styled.div`
@@ -49,16 +49,16 @@ const Content = styled.div`
   height: 10rem;
 
   margin-bottom: 0.5rem;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.ACTIVE_INPUT};
 `;
 
 const Images = styled.div`
   ${loadingAnimation};
   height: 20rem;
 
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.ACTIVE_INPUT};
 `;
 
 function PostSkeleton() {
