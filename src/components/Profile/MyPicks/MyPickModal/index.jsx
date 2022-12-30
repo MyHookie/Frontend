@@ -45,12 +45,16 @@ function MyPickModal({ myPickId, handleClose }) {
         <S.Container>
           <S.ModalBackGround onClick={handleClose} />
           <S.ModalContainer>
-            <S.CloseModal onClick={handleClose}>
-              <img src={closeIcon} alt="모달창 닫기" />
-            </S.CloseModal>
+            <S.Imgtxt>myPick</S.Imgtxt>
+            <S.OptionContainer>
+              <S.EditBtn>수정</S.EditBtn>
+              <S.DeleteBtn>삭제</S.DeleteBtn>
+              <S.CloseModal onClick={handleClose}>
+                <img src={closeIcon} alt="모달창 닫기" />
+              </S.CloseModal>
+            </S.OptionContainer>
             <S.ImageContainer>
               <S.ImageInput />
-              <S.Imgtxt>myPick</S.Imgtxt>
               <S.Img src={myPickItemInfo.itemImage} alt="myPick 이미지" />
             </S.ImageContainer>
             <S.TextContainer>

@@ -30,7 +30,7 @@ export const ModalContainer = styled.div`
   gap: 1rem;
   width: 30rem;
   height: 50rem;
-  padding: 4.5rem 1.6rem 3rem;
+  padding: 2rem 1.6rem 2rem;
   background-color: ${({ theme }) => theme.color.WHITE};
 
   border-radius: 1.5rem;
@@ -55,6 +55,36 @@ export const ModalContainer = styled.div`
     to {
       opacity: 1;
     }
+  }
+`;
+
+export const OptionContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 2rem;
+  right: 1.6rem;
+  gap: 1rem;
+`;
+
+// 스타일링을 위해 button에 font-family 임시 적용중
+
+export const EditBtn = styled.button`
+  font-family: 'LINESeedKR-Rg';
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
+  color: ${({ theme }) => theme.color.GRAY};
+`;
+export const DeleteBtn = styled.button`
+  font-family: 'LINESeedKR-Rg';
+  font-size: ${({ theme }) => theme.fontSize.SMALL};
+  color: ${({ theme }) => theme.color.GRAY};
+`;
+
+export const CloseModal = styled.button`
+  width: 1.8rem;
+  border: none;
+  vertical-align: bottom;
+  img {
+    filter: brightness(0.4);
   }
 `;
 
@@ -103,8 +133,6 @@ export const ImageInput = styled.div`
 `;
 
 export const Imgtxt = styled.p`
-  position: absolute;
-  top: -3rem;
   font-size: ${({ theme }) => theme.fontSize.SMALL};
   color: ${({ theme }) => theme.color.GRAY};
   cursor: default;
@@ -128,17 +156,4 @@ export const Textarea = styled.p`
 
 export const TextContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-`;
-
-export const CloseModal = styled.button`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.6rem;
-  width: 1.8rem;
-
-  border: none;
-
-  img {
-    filter: brightness(0.4);
-  }
 `;
