@@ -13,6 +13,7 @@ import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetCo
 import MyPicks from '../../components/Profile/MyPicks';
 import Dialog from '../../components/Modal/Dialog';
 import isDarkState from '../../atoms/darkMode';
+import useTheme from '../../hooks/useTheme';
 
 function Profile() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -20,7 +21,7 @@ function Profile() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
-  const [isDark, setIsDark] = useRecoilState(isDarkState);
+  // const [isDark, setIsDark] = useRecoilState(isDarkState);
 
   const navigate = useNavigate();
   const param = useParams();
@@ -72,20 +73,22 @@ function Profile() {
     setIsDialogOpen(!isDialogOpen);
   };
 
-  const handleThemeChange = useCallback(
-    (e) => {
-      setIsDark((prev) => !prev);
+  // const handleThemeChange = useCallback(
+  //   (e) => {
+  //     setIsDark((prev) => !prev);
 
-      if (!isDark) {
-        e.target.textContent = '라이트 모드';
-        window.localStorage.setItem('theme', JSON.stringify('dark'));
-      } else {
-        e.target.textContent = '다크 모드';
-        window.localStorage.setItem('theme', JSON.stringify('light'));
-      }
-    },
-    [isDark]
-  );
+  //     if (!isDark) {
+  //       e.target.textContent = '라이트 모드';
+  //       window.localStorage.setItem('theme', JSON.stringify('dark'));
+  //     } else {
+  //       e.target.textContent = '다크 모드';
+  //       window.localStorage.setItem('theme', JSON.stringify('light'));
+  //     }
+  //   },
+  //   [isDark]
+  // );
+
+  const handleThemeChange = useTheme();
 
   useEffect(() => {
     if (dialogType === '로그아웃') {

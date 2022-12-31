@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import isDarkState from '../atoms/darkMode';
+import themeState from '../atoms/darkMode';
 
 function useTheme() {
-  const [isDark, setIsDark] = useRecoilState(isDarkState);
+  const [themeMode, setThemeMode] = useRecoilState(themeState);
 
   const getInitialTheme = useCallback(() => {
     let theme = localStorage.getItem('theme');
@@ -11,30 +11,32 @@ function useTheme() {
 
     if (!theme || invalidTheme) {
       const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
-      theme = !!matches;
+      theme = matches ? 'dark' : 'light';
     }
-    console.log('theme', theme);
 
-    setIsDark(getInitialTheme);
     return theme;
   }, []);
 
-  console.log(isDark);
+  useEffect(() => {
+    setThemeMode(getInitialTheme);
+  }, []);
 
   const themeChange = useCallback(
     (e) => {
-      setIsDark((prev) => !prev);
+      setThemeMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
 
-      if (!isDark) {
+      if (themeMode === 'light') {
         e.target.textContent = '라이트 모드';
-        localStorage.setItem('theme', JSON.stringify('dark'));
       } else {
         e.target.textContent = '다크 모드';
-        localStorage.setItem('theme', JSON.stringify('light'));
       }
     },
-    [isDark]
+    [themeMode]
   );
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(themeMode));
+  }, [themeMode]);
 
   return themeChange;
 }
