@@ -10,13 +10,16 @@ import Dialog from '../../../components/Modal/Dialog';
 
 function MyPicksEdit() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [noPriceCheck, setNoPriceCheck] = useState(false);
-  const [readOnly, setReadOnly] = useState(false);
 
   const [imgFile, setImgFile] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [inputPrice, setInputPrice] = useState('');
   const [inputLink, setInputLink] = useState('');
+
+  const [noPriceCheck, setNoPriceCheck] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
+  const [placeholderText, setPlaceholderText] =
+    useState('숫자만 입력 가능합니다.');
 
   const [newImgFile, setNewImgFile] = useState(null);
 
@@ -31,6 +34,11 @@ function MyPicksEdit() {
   const NoPrice = '123415810423';
   const location = useLocation();
   const { myPickId, isNoPrice } = location.state;
+
+  const navigate = useNavigate();
+  const goBackPage = () => {
+    navigate(-1);
+  };
 
   const getMyPickItemDetail = async () => {
     try {
@@ -68,11 +76,6 @@ function MyPicksEdit() {
   useEffect(() => {
     getMyPickItemDetail();
   }, []);
-
-  const navigate = useNavigate();
-  const goBackPage = () => {
-    navigate(-1);
-  };
 
   const handleResizeHeight = useCallback((e) => {
     e.target.style.height = 'inherit';
@@ -120,9 +123,6 @@ function MyPicksEdit() {
   const handleLinkChange = (e) => {
     setInputLink(e.target.value);
   };
-
-  const [placeholderText, setPlaceholderText] =
-    useState('숫자만 입력 가능합니다.');
 
   const handleCheckBox = (e) => {
     setNoPriceCheck(!noPriceCheck);
