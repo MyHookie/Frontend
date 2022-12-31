@@ -1,56 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styled from 'styled-components';
 
-import Button from '../common/Button';
-import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
-
-import { slEllipsis } from '../../styles/Util';
+import * as S from './index.styles';
 import basicProfileImage from '../../assets/basic-profile.png';
+import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
 import Snackbar from '../Modal/SnackBar';
-
-const SContent = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.6rem;
-`;
-
-const SUserInfo = styled.div`
-  width: 65%;
-  margin: 0 1.2rem;
-`;
-
-const SImg = styled.img`
-  width: 5rem;
-  border-radius: 50%;
-`;
-
-const SUserId = styled.p`
-  flex: 4 4 0;
-  margin-bottom: 0.6rem;
-  font-size: 1.4rem;
-`;
-
-const SAccountName = styled.span`
-  font-size: 1rem;
-  margin-left: 0.5rem;
-  color: ${({ theme }) => theme.SUB_TEXT};
-`;
-
-const SUserIntroduction = styled.p`
-  flex: 4 4 0;
-  font-size: 1.2rem;
-  color: ${({ theme }) => theme.SUB_TEXT};
-  ${slEllipsis}
-`;
-
-const SButton = styled(Button)`
-  flex: 1 1 0;
-  line-height: 1.4rem;
-  white-space: nowrap;
-`;
 
 function FollowItem({ data }) {
   const [followState, setFollowState] = useState(data.isfollow);
@@ -123,29 +78,29 @@ function FollowItem({ data }) {
   };
 
   return (
-    <SContent key={data.username}>
-      <SImg
+    <S.Content key={data.username}>
+      <S.Img
         src={data.image}
         alt="프로필 이미지"
         onError={handleErrorImage}
         onClick={handleToUserProfile}
       />
-      <SUserInfo onClick={handleToUserProfile}>
-        <SUserId>
+      <S.UserInfo onClick={handleToUserProfile}>
+        <S.UserId>
           {data.username}
-          <SAccountName>@{data.accountname}</SAccountName>
-        </SUserId>
-        <SUserIntroduction>{data.intro}</SUserIntroduction>
-      </SUserInfo>
+          <S.AccountName>@{data.accountname}</S.AccountName>
+        </S.UserId>
+        <S.UserIntroduction>{data.intro}</S.UserIntroduction>
+      </S.UserInfo>
       {followState ? (
-        <SButton
+        <S.CommonButton
           text="취소"
           buttonStyle={FOLLOW_BUTTON}
           onClick={handleIsFollow}
           cancel
         />
       ) : (
-        <SButton
+        <S.CommonButton
           text="팔로우"
           buttonStyle={FOLLOW_BUTTON}
           onClick={handleIsFollow}
@@ -154,7 +109,7 @@ function FollowItem({ data }) {
       {isSnackBarOpen && (
         <Snackbar content="자기 자신을 팔로우 할 수 없습니다." />
       )}
-    </SContent>
+    </S.Content>
   );
 }
 
