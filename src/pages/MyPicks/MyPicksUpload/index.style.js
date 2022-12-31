@@ -126,8 +126,8 @@ export const Textarea = styled.textarea`
     color: ${({ theme }) => theme.LIGHT_TEXT};
   }
   &:read-only {
-    background: ${({ theme }) => theme.READ_ONLY};
-    color: ${({ theme }) => theme.READ_ONLY};
+    background: #171c25;
+    color: #171c25;
   }
 `;
 
