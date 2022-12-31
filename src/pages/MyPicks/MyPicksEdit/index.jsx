@@ -226,7 +226,12 @@ function MyPicksEdit() {
             onChange={fetchImage}
             style={{ display: 'none' }}
           />
-          {imgFile && <S.img src={newImgFile} alt="mypick 사진" />}
+          {imgFile && !newImgFile ? (
+            <S.img src={imgFile} alt="mypick 사진" />
+          ) : null}
+          {newImgFile && (
+            <S.img src={newImgFile} alt="mypick 새로 등록하는 사진" />
+          )}
         </S.ImageContainer>
         <S.Label htmlFor="review">한줄평</S.Label>
         <S.Textarea
@@ -271,7 +276,7 @@ function MyPicksEdit() {
           id="link"
           cols="30"
           rows="1"
-          placeholder="http://naver.com"
+          placeholder="여기 후키 배포링크 예시로 넣어야지"
         />
       </S.Container>
     </>
