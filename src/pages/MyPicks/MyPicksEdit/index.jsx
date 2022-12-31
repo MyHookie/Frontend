@@ -58,6 +58,7 @@ function MyPicksEdit() {
       console.log(myPickItemInfo);
 
       setImgFile(myPickItemInfo.itemImage);
+      setItemImage(`${response.data.product.itemImage}`);
       setInputValue(myPickItemInfo.itemName);
       setInputPrice(myPickItemInfo.price);
       setInputLink(myPickItemInfo.link);
@@ -67,7 +68,7 @@ function MyPicksEdit() {
         setNoPriceCheck(true);
       }
 
-      return response.data;
+      return response.data.product;
     } catch (error) {
       return error;
     }
@@ -165,7 +166,7 @@ function MyPicksEdit() {
   };
 
   const uploadMyPick = async () => {
-    const url = `${BASE_URL}/product`;
+    const url = `${BASE_URL}/product/${myPickId}`;
     try {
       const res = await axios(url, {
         method: 'PUT',
