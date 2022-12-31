@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import { useRecoilState } from 'recoil';
 import * as S from './index.styles';
 import BaseHeader from '../../components/common/BaseHeader';
 import Navigation from '../../components/common/Navigation';
@@ -12,6 +12,7 @@ import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 import MyPicks from '../../components/Profile/MyPicks';
 import Dialog from '../../components/Modal/Dialog';
+import isDarkState from '../../atoms/darkMode';
 
 function Profile() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -19,6 +20,7 @@ function Profile() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
+  const [isDark, setIsDark] = useRecoilState(isDarkState);
 
   const navigate = useNavigate();
   const param = useParams();
@@ -70,6 +72,10 @@ function Profile() {
     setIsDialogOpen(!isDialogOpen);
   };
 
+  const handleThemeChange = useCallback(() => {
+    setIsDark((prev) => !prev);
+  }, [isDark]);
+
   useEffect(() => {
     if (dialogType === '로그아웃') {
       setDialogMessage('정말 로그아웃 하시겠습니까?');
@@ -97,7 +103,7 @@ function Profile() {
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent text="다크모드" />
+          <BottomSheetContent text="다크모드" onClick={handleThemeChange} />
           <BottomSheetContent text="로그아웃" onClick={handleDialogOpen} />
         </BottomSheet>
       )}

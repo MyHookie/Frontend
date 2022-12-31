@@ -13,12 +13,13 @@ import { darkTheme, lightTheme } from './styles/Theme';
 
 function App() {
   const queryClient = new QueryClient();
-  // const isDark = useRecoilValue(isDarkState);
-  const [isDark, setIsDark] = useState(true);
+
+  const isDark = useRecoilValue(isDarkState);
   const [isLogin, setIsLogin] = useRecoilState(loginState);
 
   const themeType = !isDark ? lightTheme : darkTheme;
   console.log(themeType);
+
   useEffect(() => {
     (async function () {
       return (await checkTokenValid()) ? setIsLogin(true) : setIsLogin(false);
