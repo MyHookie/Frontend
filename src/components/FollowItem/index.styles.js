@@ -18,7 +18,9 @@ export const UserInfo = styled.div`
 
 export const Img = styled.img`
   width: 5rem;
+  height: 5rem;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const UserId = styled.p`
