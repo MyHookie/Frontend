@@ -44,10 +44,8 @@ function MyPickModal({ myPickId, handleClose }) {
   }, []);
 
   const wonPrice = new Intl.NumberFormat('ko-KR').format(myPickItemInfo.price);
-  console.log(myPickItemInfo);
 
   const handleMyPickEdit = () => {
-    console.log('수정합니다');
     navigate('/mypicks/edit', {
       state: {
         myPickId,
@@ -56,8 +54,21 @@ function MyPickModal({ myPickId, handleClose }) {
     });
   };
 
-  const handleMyPickDelete = () => {
+  const handleMyPickDelete = async () => {
     console.log('삭제합니다');
+    handleClose();
+    try {
+      const response = await axios.delete(`${BASE_URL}/product/${myPickId}`, {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+          'Content-type': 'application/json',
+        },
+      });
+      console.log('요청 성공');
+      return response;
+    } catch (error) {
+      return error;
+    }
   };
 
   return (
