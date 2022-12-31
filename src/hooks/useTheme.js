@@ -5,21 +5,21 @@ import themeState from '../atoms/darkMode';
 function useTheme() {
   const [themeMode, setThemeMode] = useRecoilState(themeState);
 
-  const getInitialTheme = useCallback(() => {
-    let theme = localStorage.getItem('theme');
-    const invalidTheme = theme !== 'light' && theme !== 'dark';
+  // const getInitialTheme = useCallback(() => {
+  //   let theme = localStorage.getItem('theme');
+  //   const invalidTheme = theme !== 'light' && theme !== 'dark';
 
-    if (!theme || invalidTheme) {
-      const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
-      theme = matches ? 'dark' : 'light';
-    }
+  //   if (!theme || invalidTheme) {
+  //     const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
+  //     theme = matches ? 'dark' : 'light';
+  //   }
 
-    return theme;
-  }, []);
+  //   return theme;
+  // }, []);
 
-  useEffect(() => {
-    setThemeMode(getInitialTheme);
-  }, []);
+  // useEffect(() => {
+  //   setThemeMode(getInitialTheme);
+  // }, []);
 
   const themeChange = useCallback(
     (e) => {
