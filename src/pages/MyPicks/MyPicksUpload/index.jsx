@@ -212,7 +212,7 @@ function MyPicksUpload() {
           placeholder={placeholderText}
         />
         <S.Checkbox
-          onClick={handleCheckBox}
+          onChange={handleCheckBox}
           checked={noPriceCheck}
           type="checkbox"
           name=""

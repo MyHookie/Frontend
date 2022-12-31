@@ -168,7 +168,7 @@ function MyPicksEdit() {
     const url = `${BASE_URL}/product`;
     try {
       const res = await axios(url, {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
           'Content-type': 'application/json',
@@ -183,7 +183,7 @@ function MyPicksEdit() {
   // 폼 제출
   const handleSubmit = () => {
     if (imgFile && inputValue && inputPrice && inputLink) {
-      console.log('myPick 등록');
+      console.log('수정한 myPick 업로드');
       uploadMyPick();
       setIsError(false);
       console.log(myPickData);
@@ -259,7 +259,7 @@ function MyPicksEdit() {
           placeholder={placeholderText}
         />
         <S.Checkbox
-          onClick={handleCheckBox}
+          onChange={handleCheckBox}
           checked={noPriceCheck}
           type="checkbox"
           name=""
