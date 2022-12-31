@@ -1,16 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
-import CommentItem from '../CommentItem';
 
-const SCommentList = styled.div`
-  margin: 0 1.6rem;
-`;
+import * as S from './index.styles';
+import CommentItem from '../CommentItem';
 
 function CommentList({ commentList }) {
   const commentListSort = commentList.slice(0).reverse();
 
   return (
-    <SCommentList>
+    <S.CommentList>
       {commentListSort.map((item) => (
         <CommentItem
           key={item.id}
@@ -20,7 +17,7 @@ function CommentList({ commentList }) {
           author={item.author}
         />
       ))}
-    </SCommentList>
+    </S.CommentList>
   );
 }
 
