@@ -16,6 +16,6 @@ export const Contents = styled.section`
 
 export const DividingLine = styled.div`
   height: 1px;
-  margin: 2.2rem 1.6rem;
+  margin: 0 1.6rem 1.8rem;
   background-color: ${({ theme }) => theme.BORDER};
 `;
