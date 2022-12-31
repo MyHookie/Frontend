@@ -87,7 +87,7 @@ function Profile() {
       />
       <S.Container>
         <UserInfo accountName={param.accountname} isMyPage={isMyPage} />
-        <MyPicks accountName={param.accountname} />
+        <MyPicks accountName={param.accountname} isMyPage={isMyPage} />
         <ProfilePost accountName={param.accountname} />
       </S.Container>
 

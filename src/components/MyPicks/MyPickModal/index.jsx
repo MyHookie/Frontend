@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import axios from 'axios';
 import * as S from './index.style';
 
-function MyPickModal({ myPickId, handleClose }) {
+function MyPickModal({ myPickId, handleClose, accessOption }) {
   const [myPickItemInfo, setMyPickItemInfo] = useState('');
   const [isNoPrice, setIsNoPrice] = useState(false);
 
@@ -79,8 +79,12 @@ function MyPickModal({ myPickId, handleClose }) {
           <S.ModalContainer>
             <S.ModalTitle>myPick</S.ModalTitle>
             <S.OptionContainer>
-              <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
-              <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
+              {accessOption && (
+                <>
+                  <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
+                  <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
+                </>
+              )}
               <S.CloseModalBtn onClick={handleClose} />
             </S.OptionContainer>
             <S.ImageContainer>
