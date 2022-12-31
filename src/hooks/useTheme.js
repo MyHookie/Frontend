@@ -20,6 +20,23 @@ function useTheme() {
   }, []);
 
   console.log(isDark);
+
+  const themeChange = useCallback(
+    (e) => {
+      setIsDark((prev) => !prev);
+
+      if (!isDark) {
+        e.target.textContent = '라이트 모드';
+        localStorage.setItem('theme', JSON.stringify('dark'));
+      } else {
+        e.target.textContent = '다크 모드';
+        localStorage.setItem('theme', JSON.stringify('light'));
+      }
+    },
+    [isDark]
+  );
+
+  return themeChange;
 }
 
 export default useTheme;
