@@ -17,7 +17,7 @@ export const ImageContainer = styled.div`
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  background-color: #f2f2f2;
+  background-color: transparent;
   border-radius: 1.5rem;
 
   &::after {
@@ -38,7 +38,7 @@ export const ImageInput = styled.div`
   left: 0;
   z-index: 99;
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
+  border: 1px solid ${({ theme }) => theme.BORDER};
   border-radius: 1.5rem;
   cursor: pointer;
 
@@ -114,7 +114,7 @@ export const Textarea = styled.textarea`
   height: 25px;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.TEXT};
-  border-bottom: 1px solid ${({ theme }) => theme.SUB_TEXT};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
 
   background-color: transparent;
 
@@ -126,8 +126,8 @@ export const Textarea = styled.textarea`
     color: ${({ theme }) => theme.LIGHT_TEXT};
   }
   &:read-only {
-    background: #171c25;
-    color: #171c25;
+    background: ${({ theme }) => theme.READ_ONLY};
+    color: ${({ theme }) => theme.READ_ONLY};
   }
 `;
 

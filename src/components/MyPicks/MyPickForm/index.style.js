@@ -112,14 +112,14 @@ export const Textarea = styled.textarea`
   margin-top: 0.3rem;
   width: 100%;
   height: 25px;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  font-size: 1.4rem;
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
   &::-webkit-scrollbar {
     display: none;
   }
   &::placeholder {
     font-family: 'LINESeedKR-Rg';
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.LIGHT_TEXT};
   }
   &:read-only {
     background: #efefef4d;

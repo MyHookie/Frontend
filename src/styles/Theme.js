@@ -33,6 +33,8 @@ export const lightTheme = {
   BORDER: '#DDDDDD',
   ACTIVE_BORDER: '#2D7CEF',
   ERROR_BORDER: '#FF5656',
+
+  READ_ONLY: '#efefef4d',
 };
 
 export const darkTheme = {
@@ -58,6 +60,8 @@ export const darkTheme = {
   BORDER: '#767676',
   ACTIVE_BORDER: '#2D7CEF',
   ERROR_BORDER: '#FF5656',
+
+  READ_ONLY: '#171c25',
 };
 
 export const theme = {
