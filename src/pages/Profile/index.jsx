@@ -72,9 +72,18 @@ function Profile() {
     setIsDialogOpen(!isDialogOpen);
   };
 
-  const handleThemeChange = useCallback(() => {
-    setIsDark((prev) => !prev);
-  }, [isDark]);
+  const handleThemeChange = useCallback(
+    (e) => {
+      setIsDark((prev) => !prev);
+
+      if (!isDark) {
+        e.target.textContent = '라이트 모드';
+      } else {
+        e.target.textContent = '다크 모드';
+      }
+    },
+    [isDark]
+  );
 
   useEffect(() => {
     if (dialogType === '로그아웃') {
