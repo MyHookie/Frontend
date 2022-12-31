@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import Router from './routes/Router';
@@ -10,7 +10,6 @@ import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
 import themeState from './atoms/darkMode';
 import { darkTheme, lightTheme } from './styles/Theme';
-import useTheme from './hooks/useTheme';
 
 function App() {
   const queryClient = new QueryClient();
@@ -27,7 +26,6 @@ function App() {
       const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
       theme = matches ? 'dark' : 'light';
     }
-    console.log('theme', theme);
 
     return theme;
   }, []);
@@ -36,22 +34,7 @@ function App() {
     setThemeMode(getInitialTheme);
   }, []);
 
-  // console.log(themeMode);
-
   const themeType = themeMode === 'light' ? lightTheme : darkTheme;
-  // console.log(themeType);
-
-  // const getInitialTheme = useCallback(() => {
-  //   let theme = localStorage.getItem('theme');
-  //   const invalidTheme = theme !== 'light' && theme !== 'dark';
-
-  //   if (!theme || invalidTheme) {
-  //     const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
-  //     theme = matches ? 'dark' : 'light';
-  //   }
-
-  //   return theme
-  // }, []);
 
   useEffect(() => {
     (async function () {

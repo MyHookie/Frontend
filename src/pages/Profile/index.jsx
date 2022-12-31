@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import * as S from './index.styles';
 import BaseHeader from '../../components/common/BaseHeader';
 import Navigation from '../../components/common/Navigation';
@@ -12,7 +11,6 @@ import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 import MyPicks from '../../components/Profile/MyPicks';
 import Dialog from '../../components/Modal/Dialog';
-import isDarkState from '../../atoms/darkMode';
 import useTheme from '../../hooks/useTheme';
 
 function Profile() {
@@ -21,12 +19,12 @@ function Profile() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
-  // const [isDark, setIsDark] = useRecoilState(isDarkState);
 
   const navigate = useNavigate();
   const param = useParams();
   const isMyPage =
     param.accountname === JSON.parse(localStorage.getItem('accountName'));
+  const handleThemeChange = useTheme();
 
   const goBackPage = () => {
     navigate(-1);
@@ -72,23 +70,6 @@ function Profile() {
     setIsBottomSheetOpen(!isBottomSheetOpen);
     setIsDialogOpen(!isDialogOpen);
   };
-
-  // const handleThemeChange = useCallback(
-  //   (e) => {
-  //     setIsDark((prev) => !prev);
-
-  //     if (!isDark) {
-  //       e.target.textContent = '라이트 모드';
-  //       window.localStorage.setItem('theme', JSON.stringify('dark'));
-  //     } else {
-  //       e.target.textContent = '다크 모드';
-  //       window.localStorage.setItem('theme', JSON.stringify('light'));
-  //     }
-  //   },
-  //   [isDark]
-  // );
-
-  const handleThemeChange = useTheme();
 
   useEffect(() => {
     if (dialogType === '로그아웃') {

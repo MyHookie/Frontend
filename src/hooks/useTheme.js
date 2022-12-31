@@ -1,25 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import themeState from '../atoms/darkMode';
 
 function useTheme() {
   const [themeMode, setThemeMode] = useRecoilState(themeState);
-
-  // const getInitialTheme = useCallback(() => {
-  //   let theme = localStorage.getItem('theme');
-  //   const invalidTheme = theme !== 'light' && theme !== 'dark';
-
-  //   if (!theme || invalidTheme) {
-  //     const { matches } = window.matchMedia('(prefers-color-scheme: dark)');
-  //     theme = matches ? 'dark' : 'light';
-  //   }
-
-  //   return theme;
-  // }, []);
-
-  // useEffect(() => {
-  //   setThemeMode(getInitialTheme);
-  // }, []);
 
   const themeChange = useCallback(
     (e) => {
