@@ -21,7 +21,7 @@ function MyPicksEdit() {
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
-  const [newImgFile, setNewImgFile] = useState(null);
+  const [newImgFile, setNewImgFile] = useState('');
 
   const [isError, setIsError] = useState(false);
 
@@ -147,7 +147,7 @@ function MyPicksEdit() {
         formData
       );
       setItemImage(`${BASE_URL}/${response.data.filename}`);
-      setImgFile(itemImage);
+      setNewImgFile(itemImage);
       handleImgPreview(e.target.files[0]);
       return itemImage;
     } catch (error) {
@@ -226,7 +226,7 @@ function MyPicksEdit() {
             onChange={fetchImage}
             style={{ display: 'none' }}
           />
-          {imgFile && <S.img src={imgFile} alt="mypick 사진" />}
+          {imgFile && <S.img src={newImgFile} alt="mypick 사진" />}
         </S.ImageContainer>
         <S.Label htmlFor="review">한줄평</S.Label>
         <S.Textarea
