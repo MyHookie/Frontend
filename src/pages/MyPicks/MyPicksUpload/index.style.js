@@ -114,7 +114,7 @@ export const Textarea = styled.textarea`
   height: 25px;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.TEXT};
-  border-bottom: 1px solid ${({ theme }) => theme.SUB_TEXT};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
 
   background-color: transparent;
 
@@ -126,8 +126,8 @@ export const Textarea = styled.textarea`
     color: ${({ theme }) => theme.LIGHT_TEXT};
   }
   &:read-only {
-    background: #171c25;
-    color: #171c25;
+    background: ${({ theme }) => theme.READ_ONLY};
+    color: ${({ theme }) => theme.READ_ONLY};
   }
 `;
 

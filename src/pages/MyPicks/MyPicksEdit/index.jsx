@@ -123,6 +123,7 @@ function MyPicksEdit() {
 
   const handleLinkChange = (e) => {
     setInputLink(e.target.value);
+    handleResizeHeight(e);
   };
 
   const handleCheckBox = (e) => {

@@ -80,6 +80,7 @@ function MyPicksUpload() {
 
   const handleLinkChange = (e) => {
     setInputLink(e.target.value);
+    handleResizeHeight(e);
   };
 
   const handleCheckBox = (e) => {
