@@ -19,12 +19,14 @@ export const ModalBackGround = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 130;
+  z-index: 128;
 `;
 
 export const ModalContainer = styled.div`
   position: fixed;
-  top: 4rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-contents: center;
@@ -39,7 +41,7 @@ export const ModalContainer = styled.div`
   box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.25);
 
   animation: fadeIn 0.5s;
-  z-index: 140;
+  z-index: 129;
 
   overflow-y: auto;
   -ms-overflow-style: none;
