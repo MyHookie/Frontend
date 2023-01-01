@@ -38,7 +38,7 @@ function MyPicks({ accountName, isMyPage }) {
 
   useEffect(() => {
     getMyPickItemList();
-  }, []);
+  }, [accountName]);
 
   const handleMyPickOpen = (id) => {
     setIsMyPickOpen(!isMyPickOpen);
