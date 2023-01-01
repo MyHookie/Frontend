@@ -107,7 +107,16 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
             </S.TextContainer>
             <S.TextContainer>
               <S.ContentTitle>링크</S.ContentTitle>
-              <S.Contents>{myPickItemInfo.link}</S.Contents>
+              <S.Contents>
+                🔗&nbsp;
+                <a
+                  href={myPickItemInfo.link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {myPickItemInfo.link}
+                </a>
+              </S.Contents>
             </S.TextContainer>
           </S.ModalContainer>
         </S.Container>,

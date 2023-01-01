@@ -77,6 +77,7 @@ export const EditBtn = styled.button`
   font-family: 'LINESeedKR-Rg';
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
+
   &::after {
     content: '';
     display: block;
@@ -92,6 +93,7 @@ export const DeleteBtn = styled.button`
   font-family: 'LINESeedKR-Rg';
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
+
   &::after {
     content: '';
     display: block;
@@ -165,9 +167,17 @@ export const Contents = styled.p`
   margin: 0.3rem 0 0.2rem;
   width: 100%;
   font-size: 1.4rem;
+  word-break: break-all;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  a {
+    color: ${({ theme }) => theme.BUTTON};
+    &:active {
+      color: ${({ theme }) => theme.ACTIVE_BUTTON};
+    }
   }
 `;
 
