@@ -75,22 +75,11 @@ export const Imgtxt = styled.p`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
   cursor: default;
-  &::after {
-    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
-    color: #ff5656;
-    margin-left: 0.6rem;
-  }
 `;
 
 export const Label = styled.label`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
-
-  &::after {
-    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
-    color: #ff5656;
-    margin-left: 0.6rem;
-  }
 `;
 
 export const img = styled.img`

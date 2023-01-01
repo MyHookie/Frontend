@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -15,6 +16,7 @@ function MyPicksEdit() {
   const [inputValue, setInputValue] = useState('');
   const [inputPrice, setInputPrice] = useState('');
   const [inputLink, setInputLink] = useState('');
+  const [isValidUrl, setIsValidUrl] = useState(null);
 
   const [noPriceCheck, setNoPriceCheck] = useState(false);
   const [readOnly, setReadOnly] = useState(false);
@@ -24,6 +26,7 @@ function MyPicksEdit() {
   const [newImgFile, setNewImgFile] = useState('');
 
   const [isError, setIsError] = useState(false);
+  const [warningMsg, setWarningMsg] = useState('');
 
   const [itemImage, setItemImage] = useState('');
 
@@ -112,6 +115,23 @@ function MyPicksEdit() {
     ReplaceNumber(inputPrice);
   }, [inputPrice]);
 
+  const checkValidUrl = () => {
+    const regex =
+      /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    if (regex.test(inputLink)) {
+      setIsValidUrl(true);
+    } else {
+      setIsValidUrl(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isValidUrl === false) {
+      setIsError(true);
+      setWarningMsg('* 유효하지 않은 링크입니다.');
+    }
+  }, [isValidUrl]);
+
   const handleValueChange = (e) => {
     setInputValue(e.target.value);
     handleResizeHeight(e);
@@ -184,18 +204,18 @@ function MyPicksEdit() {
 
   // 폼 제출
   const handleSubmit = () => {
-    if (imgFile && inputValue && inputPrice && inputLink) {
-      console.log('수정한 myPick 업로드');
+    if (imgFile && inputValue && inputPrice && isValidUrl) {
       uploadMyPick();
       setIsError(false);
-      console.log(myPickData);
-      setIsDialogOpen(!isDialogOpen);
       goBackPage();
-    } else {
-      console.log('필수 입력사항을 입력해주세요.');
+    } else if (imgFile && inputValue && inputPrice && !isValidUrl) {
       setIsError(true);
-      setIsDialogOpen(!isDialogOpen);
+      setWarningMsg('* 유효하지 않은 링크입니다.');
+    } else {
+      setIsError(true);
+      setWarningMsg('* 필수 입력사항을 입력해주세요.');
     }
+    setIsDialogOpen(!isDialogOpen);
   };
 
   return (
@@ -214,9 +234,7 @@ function MyPicksEdit() {
       )}
 
       <S.Container>
-        {isError && (
-          <S.WarningMsg>* 필수 입력사항을 입력해주세요.</S.WarningMsg>
-        )}
+        {isError && <S.WarningMsg>{warningMsg}</S.WarningMsg>}
         <S.ImageContainer>
           <S.Imgtxt>myPick 이미지 등록</S.Imgtxt>
           <S.ImageInput onClick={handleImageAdd} />
@@ -274,6 +292,7 @@ function MyPicksEdit() {
         <S.Textarea
           value={inputLink}
           onChange={handleLinkChange}
+          onBlur={checkValidUrl}
           name=""
           id="link"
           cols="30"
