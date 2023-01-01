@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import closeIcon from '../../../assets/icon/x.png';
 
 export const Container = styled.div`
   display: flex;
@@ -30,11 +31,11 @@ export const ModalContainer = styled.div`
   gap: 1rem;
   width: 30rem;
   height: 50rem;
-  padding: 4.5rem 1.6rem 3rem;
-  background-color: ${({ theme }) => theme.color.WHITE};
+  padding: 2rem 1.6rem 2rem;
+  background-color: ${({ theme }) => theme.BACKGROUND};
 
   border-radius: 1.5rem;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
   box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.25);
 
   animation: fadeIn 0.5s;
@@ -58,6 +59,42 @@ export const ModalContainer = styled.div`
   }
 `;
 
+export const OptionContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 2rem;
+  right: 1.6rem;
+  gap: 1rem;
+`;
+
+// 스타일링을 위해 button에 font-family 임시 적용중
+
+export const EditBtn = styled.button`
+  font-family: 'LINESeedKR-Rg';
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
+`;
+export const DeleteBtn = styled.button`
+  font-family: 'LINESeedKR-Rg';
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
+`;
+
+export const CloseModalBtn = styled.button`
+  border: none;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    filter: brightness(0.4);
+    background: url(${closeIcon});
+    background-size: contain;
+    background-position: 0 -1.7rem;
+  }
+`;
+
 export const ImageContainer = styled.div`
   position: relative;
   padding-top: 56.25%;
@@ -72,54 +109,38 @@ export const ImageContainer = styled.div`
     height: 1px;
     width: 100%;
     margin-top: 2rem;
-    background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    background-color: ${({ theme }) => theme.LIGHT_TEXT};
   }
 `;
 
-export const Img = styled.img`
+export const MyPickItemImg = styled.img`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 100%;
   z-index: 15;
-  border-radius: ${({ theme }) => theme.borderRadius.BASE};
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border-radius: 1rem;
+  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
   object-fit: cover;
 `;
 
-export const ImageInput = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex: 0 0 auto;
-  width: 100%;
-  height: 100%;
-  border-radius: 1.5rem;
-  background-color: #f2f2f2;
-
-  cursor: pointer;
-`;
-
-export const Imgtxt = styled.p`
-  position: absolute;
-  top: -3rem;
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+export const ModalTitle = styled.h2`
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
   cursor: default;
   pointer-events: none;
 `;
 
-export const Label = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+export const ContentTitle = styled.h3`
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
-export const Textarea = styled.p`
+export const Contents = styled.p`
   margin: 0.3rem 0 0.2rem;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
+  font-size: 1.4rem;
 
   &::-webkit-scrollbar {
     display: none;
@@ -127,18 +148,5 @@ export const Textarea = styled.p`
 `;
 
 export const TextContainer = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
-`;
-
-export const CloseModal = styled.button`
-  position: absolute;
-  top: 1.2rem;
-  right: 1.6rem;
-  width: 1.8rem;
-
-  border: none;
-
-  img {
-    filter: brightness(0.4);
-  }
+  border-bottom: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
 `;

@@ -4,11 +4,19 @@ import * as S from './index.style';
 import MyPickItem from './MyPickItem';
 import MyPickModal from './MyPickModal';
 
-function MyPicks({ accountName }) {
+function MyPicks({ accountName, isMyPage }) {
   console.log(accountName);
+  console.log(isMyPage);
+
   const [myPickItemList, setMyPickItemList] = useState([]);
   const [isMyPickOpen, setIsMyPickOpen] = useState(false);
   const [myPickId, setMyPickId] = useState('');
+  const [canOptionAccess, setCanOptionAccess] = useState(false);
+
+  useEffect(
+    () => (isMyPage ? setCanOptionAccess(true) : setCanOptionAccess(false)),
+    []
+  );
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
 
@@ -30,7 +38,7 @@ function MyPicks({ accountName }) {
 
   useEffect(() => {
     getMyPickItemList();
-  }, []);
+  }, [accountName]);
 
   const handleMyPickOpen = (id) => {
     setIsMyPickOpen(!isMyPickOpen);
@@ -56,7 +64,11 @@ function MyPicks({ accountName }) {
         ))}
       </S.Items>
       {isMyPickOpen && (
-        <MyPickModal handleClose={handleMyPickOpen} myPickId={myPickId} />
+        <MyPickModal
+          handleClose={handleMyPickOpen}
+          myPickId={myPickId}
+          canOptionAccess={canOptionAccess}
+        />
       )}
     </S.Container>
   );
