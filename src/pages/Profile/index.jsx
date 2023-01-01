@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
 import * as S from './index.styles';
 import BaseHeader from '../../components/common/BaseHeader';
 import Navigation from '../../components/common/Navigation';
@@ -12,6 +11,7 @@ import BottomSheet from '../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../components/Modal/BottomSheet/BottomSheetContent';
 import MyPicks from '../../components/MyPicks';
 import Dialog from '../../components/Modal/Dialog';
+import useTheme from '../../hooks/useTheme';
 
 function Profile() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -24,6 +24,7 @@ function Profile() {
   const param = useParams();
   const isMyPage =
     param.accountname === JSON.parse(localStorage.getItem('accountName'));
+  const handleThemeChange = useTheme();
 
   const goBackPage = () => {
     navigate(-1);
@@ -97,7 +98,7 @@ function Profile() {
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent text="다크모드" />
+          <BottomSheetContent text="다크모드" onClick={handleThemeChange} />
           <BottomSheetContent text="로그아웃" onClick={handleDialogOpen} />
         </BottomSheet>
       )}
