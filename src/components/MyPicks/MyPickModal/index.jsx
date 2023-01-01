@@ -81,8 +81,8 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
             <S.OptionContainer>
               {canOptionAccess && (
                 <>
-                  <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
-                  <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
+                  <S.EditBtn onClick={handleMyPickEdit} />
+                  <S.DeleteBtn onClick={handleMyPickDelete} />
                 </>
               )}
               <S.CloseModalBtn onClick={handleClose} />

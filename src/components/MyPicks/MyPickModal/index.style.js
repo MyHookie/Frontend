@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import closeIcon from '../../../assets/icon/x.png';
+import editIcon from '../../../assets/icon/icon-pen.png';
+import deleteIcon from '../../../assets/icon/icon-delete.png';
 
 export const Container = styled.div`
   display: flex;
@@ -75,11 +77,31 @@ export const EditBtn = styled.button`
   font-family: 'LINESeedKR-Rg';
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
+  &::after {
+    content: '';
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    filter: brightness(0.4);
+    background: url(${editIcon});
+    background-size: contain;
+    background-position: 0 -1.7rem;
+  }
 `;
 export const DeleteBtn = styled.button`
   font-family: 'LINESeedKR-Rg';
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
+  &::after {
+    content: '';
+    display: block;
+    width: 1.8rem;
+    height: 1.8rem;
+    filter: brightness(0.4);
+    background: url(${deleteIcon});
+    background-size: contain;
+    background-position: 0 -1.7rem;
+  }
 `;
 
 export const CloseModalBtn = styled.button`
@@ -88,8 +110,8 @@ export const CloseModalBtn = styled.button`
   &::after {
     content: '';
     display: block;
-    width: 1.8rem;
-    height: 1.8rem;
+    width: 2rem;
+    height: 2rem;
     filter: brightness(0.4);
     background: url(${closeIcon});
     background-size: contain;
