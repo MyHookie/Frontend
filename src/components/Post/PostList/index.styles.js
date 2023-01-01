@@ -9,8 +9,11 @@ export const PostList = styled.ul`
   width: 100%;
   gap: 1rem;
 
-  padding: 1rem;
-  padding-bottom: 7rem;
+  padding: 0rem 1rem;
+
+  &:last-child {
+    padding-bottom: 7rem;
+  }
 `;
 
 export const PostAlbum = styled.ul`
