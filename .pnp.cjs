@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["nanoid", "npm:4.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:18.2.0"],\
+            ["react-intersection-observer", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:9.4.1"],\
             ["react-is", "npm:18.2.0"],\
             ["react-query", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:3.39.2"],\
             ["react-router-dom", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:6.4.5"],\
@@ -9833,6 +9834,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["nanoid", "npm:4.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:18.2.0"],\
+            ["react-intersection-observer", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:9.4.1"],\
             ["react-is", "npm:18.2.0"],\
             ["react-query", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:3.39.2"],\
             ["react-router-dom", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:6.4.5"],\
@@ -15043,6 +15045,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.11-021cdeaa92-ce7b44c38f.zip/node_modules/react-error-overlay/",\
           "packageDependencies": [\
             ["react-error-overlay", "npm:6.0.11"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-intersection-observer", [\
+        ["npm:9.4.1", {\
+          "packageLocation": "./.yarn/cache/react-intersection-observer-npm-9.4.1-d6fc91f3de-13d1c36658.zip/node_modules/react-intersection-observer/",\
+          "packageDependencies": [\
+            ["react-intersection-observer", "npm:9.4.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:9.4.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-intersection-observer-virtual-d5552454b6/0/cache/react-intersection-observer-npm-9.4.1-d6fc91f3de-13d1c36658.zip/node_modules/react-intersection-observer/",\
+          "packageDependencies": [\
+            ["react-intersection-observer", "virtual:6f99a7fb4ea5d613ebd48dad6b370df2aed0ec0a934da2a5b2542eafc8b42e1438bb528ad5e052e403f98eeb0df206b8b6575079dbb5ac33c5bfd3fc7e44b19b#npm:9.4.1"],\
+            ["@types/react", null],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
