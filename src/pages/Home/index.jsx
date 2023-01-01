@@ -13,23 +13,22 @@ import hookieImage from '../../assets/Hookie.png';
 import * as S from './index.styles';
 
 import { getAccountPost, getFollowPost } from '../../api/post';
+import PostSkeleton from '../../components/Skeleton/PostSkeleton';
 
 function Home() {
   const [allPost, setAllPost] = useState([]);
   const navigate = useNavigate();
   const myAccountName = JSON.parse(localStorage.getItem('accountName'));
 
-  const {
-    data: myPost,
-    isLoading: isMyPostLoading,
-    isError: isMyPostError,
-  } = useQuery('myPostList', () => getAccountPost(myAccountName));
+  const { data: myPost, isLoading: isMyPostLoading } = useQuery(
+    'myPostList',
+    () => getAccountPost(myAccountName)
+  );
 
-  const {
-    data: followPost,
-    isLoading: isFollowPostLoading,
-    isError: isFollowPostError,
-  } = useQuery('followPostList', getFollowPost);
+  const { data: followPost, isLoading: isFollowPostLoading } = useQuery(
+    'followPostList',
+    getFollowPost
+  );
 
   const goToSearch = () => {
     navigate('/search');
@@ -51,13 +50,6 @@ function Home() {
     }
   }, [myPost, followPost]);
 
-  if (isMyPostLoading && isFollowPostLoading) {
-    return <div>loading....</div>;
-  }
-  if (isMyPostError && isFollowPostError) {
-    return <div>Error!!</div>;
-  }
-
   return (
     <>
       <BaseHeader
@@ -68,9 +60,8 @@ function Home() {
       />
 
       <S.Container>
-        {allPost.length > 0 ? (
-          <PostList postData={allPost} />
-        ) : (
+        {allPost.length > 0 && <PostList postData={allPost} />}
+        {!isMyPostLoading && !isFollowPostLoading && allPost.length === 0 && (
           <S.EmptyContainer>
             <S.EmptyImage src={logoGrey} alt="로고 이미지" />
             <S.EmptyContent>유저를 검색해 팔로우 해보세요!</S.EmptyContent>
@@ -80,6 +71,12 @@ function Home() {
               onClick={goToSearch}
             />
           </S.EmptyContainer>
+        )}
+        {isMyPostLoading && isFollowPostLoading && (
+          <S.PostSkeletonContainer>
+            <PostSkeleton />
+            <PostSkeleton />
+          </S.PostSkeletonContainer>
         )}
       </S.Container>
 

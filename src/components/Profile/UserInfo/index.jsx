@@ -91,9 +91,9 @@ function UserInfo({ isMyPage, accountName }) {
   };
 
   return (
-    <>
+    <S.UserInfoContainer>
       {!isLoading && (
-        <S.UserInfoContainer>
+        <>
           <S.FollowInfoContainer>
             <S.FollowInfo onClick={() => goToFollowerPage(accountName)}>
               <S.FollowCount>{data.profile.followerCount}</S.FollowCount>
@@ -145,10 +145,11 @@ function UserInfo({ isMyPage, accountName }) {
               </>
             )}
           </S.ButtonContainer>
-          {isSnackBarOpen && <Snackbar content={snackBarMessage} />}
-        </S.UserInfoContainer>
+        </>
       )}
-    </>
+
+      {isSnackBarOpen && <Snackbar content={snackBarMessage} />}
+    </S.UserInfoContainer>
   );
 }
 
