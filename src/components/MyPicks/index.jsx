@@ -11,14 +11,12 @@ function MyPicks({ accountName, isMyPage }) {
   const [myPickItemList, setMyPickItemList] = useState([]);
   const [isMyPickOpen, setIsMyPickOpen] = useState(false);
   const [myPickId, setMyPickId] = useState('');
-  const [accessOption, setAccessOption] = useState(false);
+  const [canOptionAccess, setCanOptionAccess] = useState(false);
 
   useEffect(
-    () => (isMyPage ? setAccessOption(true) : setAccessOption(false)),
+    () => (isMyPage ? setCanOptionAccess(true) : setCanOptionAccess(false)),
     []
   );
-
-  console.log(`accessOption : ${accessOption}`);
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
 
@@ -69,7 +67,7 @@ function MyPicks({ accountName, isMyPage }) {
         <MyPickModal
           handleClose={handleMyPickOpen}
           myPickId={myPickId}
-          accessOption={accessOption}
+          canOptionAccess={canOptionAccess}
         />
       )}
     </S.Container>

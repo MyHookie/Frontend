@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import axios from 'axios';
 import * as S from './index.style';
 
-function MyPickModal({ myPickId, handleClose, accessOption }) {
+function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
   const [myPickItemInfo, setMyPickItemInfo] = useState('');
   const [isNoPrice, setIsNoPrice] = useState(false);
 
@@ -65,7 +65,7 @@ function MyPickModal({ myPickId, handleClose, accessOption }) {
         },
       });
       console.log('요청 성공');
-      return response;
+      return response.data;
     } catch (error) {
       return error;
     }
@@ -79,7 +79,7 @@ function MyPickModal({ myPickId, handleClose, accessOption }) {
           <S.ModalContainer>
             <S.ModalTitle>myPick</S.ModalTitle>
             <S.OptionContainer>
-              {accessOption && (
+              {canOptionAccess && (
                 <>
                   <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
                   <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
