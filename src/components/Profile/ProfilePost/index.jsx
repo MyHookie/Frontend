@@ -30,39 +30,37 @@ function ProfilePost({ accountName }) {
   };
 
   return (
-    <>
-      <S.PostContainer>
-        <S.PostTypeContainer>
-          <S.PostTypeButton onClick={handleListPost}>
-            <img
-              src={isListPost ? postListOnIcon : postListOffIcon}
-              alt="리스트형 포스트"
-            />
-          </S.PostTypeButton>
-          <S.PostTypeButton onClick={handleAlbumPost}>
-            <img
-              src={isListPost ? postAlbumOffIcon : postAlbumOnIcon}
-              alt="앨범형 포스트"
-            />
-          </S.PostTypeButton>
-        </S.PostTypeContainer>
-        {isLoading && (
-          <S.PostSkeletonContainer>
-            <PostSkeleton />
-            <PostSkeleton />
-          </S.PostSkeletonContainer>
-        )}
-        {data?.post.length > 0 && !isLoading ? (
-          <PostList postData={data.post} isAlbum={!isListPost} />
-        ) : (
-          <S.EmptyContainer>
-            <S.EmptyImage src={logoGrey} alt="로고 이미지" />
-            <S.EmptyContent>게시글이 없습니다 !</S.EmptyContent>
-            <Button text="게시물 작성하기" buttonStyle={LARGE_BUTTON} />
-          </S.EmptyContainer>
-        )}
-      </S.PostContainer>
-    </>
+    <S.PostContainer>
+      <S.PostTypeContainer>
+        <S.PostTypeButton onClick={handleListPost}>
+          <img
+            src={isListPost ? postListOnIcon : postListOffIcon}
+            alt="리스트형 포스트"
+          />
+        </S.PostTypeButton>
+        <S.PostTypeButton onClick={handleAlbumPost}>
+          <img
+            src={isListPost ? postAlbumOffIcon : postAlbumOnIcon}
+            alt="앨범형 포스트"
+          />
+        </S.PostTypeButton>
+      </S.PostTypeContainer>
+      {isLoading && (
+        <S.PostSkeletonContainer>
+          <PostSkeleton />
+          <PostSkeleton />
+        </S.PostSkeletonContainer>
+      )}
+      {data?.post.length > 0 && !isLoading ? (
+        <PostList postData={data.post} isAlbum={!isListPost} />
+      ) : (
+        <S.EmptyContainer>
+          <S.EmptyImage src={logoGrey} alt="로고 이미지" />
+          <S.EmptyContent>게시글이 없습니다 !</S.EmptyContent>
+          <Button text="게시물 작성하기" buttonStyle={LARGE_BUTTON} />
+        </S.EmptyContainer>
+      )}
+    </S.PostContainer>
   );
 }
 
