@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import ConfirmHeader from '../../components/common/ConfirmHeader';
-import Dialog from '../../components/Modal/Dialog';
-import leftIcon from '../../assets/icon/icon-arrow-left.png';
+
+import leftIcon from '../../../assets/icon/icon-arrow-left.png';
 
 import * as S from './index.style';
+import ConfirmHeader from '../../../components/common/ConfirmHeader';
+import Dialog from '../../../components/Modal/Dialog';
 
 function MyPicksUpload() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [noPriceCheck, setNoPriceCheck] = useState(false);
-  const [readOnly, setReadOnly] = useState(false);
 
   const [imgFile, setImgFile] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [inputPrice, setInputPrice] = useState('');
   const [inputLink, setInputLink] = useState('');
+
+  const [noPriceCheck, setNoPriceCheck] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
+  const [placeholderText, setPlaceholderText] =
+    useState('숫자만 입력 가능합니다.');
 
   const [isError, setIsError] = useState(false);
 
@@ -23,6 +27,9 @@ function MyPicksUpload() {
 
   const textRef = useRef();
   const imageInput = useRef();
+
+  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
+  const NoPrice = '123415810423';
 
   const navigate = useNavigate();
   const goBackPage = () => {
@@ -75,13 +82,8 @@ function MyPicksUpload() {
     setInputLink(e.target.value);
   };
 
-  const [placeholderText, setPlaceholderText] =
-    useState('숫자만 입력 가능합니다.');
-
-  const NoPrice = '123415810423';
-
   const handleCheckBox = (e) => {
-    setNoPriceCheck(e.target.checked);
+    setNoPriceCheck(!noPriceCheck);
     if (noPriceCheck) {
       setInputPrice('');
       setPlaceholderText('숫자만 입력 가능합니다.');
@@ -92,8 +94,6 @@ function MyPicksUpload() {
       setReadOnly(true);
     }
   };
-
-  const BASE_URL = `https://mandarin.api.weniv.co.kr`;
 
   const fetchImage = async (e) => {
     const formData = new FormData();
@@ -212,7 +212,8 @@ function MyPicksUpload() {
           placeholder={placeholderText}
         />
         <S.Checkbox
-          onClick={handleCheckBox}
+          onChange={handleCheckBox}
+          checked={noPriceCheck}
           type="checkbox"
           name=""
           id="read-only"

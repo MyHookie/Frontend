@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import uploadIconGrey from '../../assets/upload-file_grey.png';
-import uploadIcon from '../../assets/upload-file.png';
-import { IR } from '../../styles/Util';
+import uploadIconGrey from '../../../assets/upload-file_grey.png';
+import uploadIcon from '../../../assets/upload-file.png';
+import { IR } from '../../../styles/Util';
 
 export const Container = styled.form`
   display: flex;
@@ -26,7 +26,7 @@ export const ImageContainer = styled.div`
     height: 1px;
     width: 100%;
     margin-top: 2rem;
-    background-color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    background-color: ${({ theme }) => theme.LIGHT_TEXT};
   }
 `;
 export const ImageInput = styled.div`
@@ -38,7 +38,7 @@ export const ImageInput = styled.div`
   left: 0;
   z-index: 99;
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  border: 1px solid ${({ theme }) => theme.LIGHT_TEXT};
   border-radius: 1.5rem;
   cursor: pointer;
 
@@ -72,8 +72,8 @@ export const ImageInput = styled.div`
 export const Imgtxt = styled.p`
   position: absolute;
   top: -3rem;
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
   cursor: default;
   &::after {
     content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
@@ -83,8 +83,8 @@ export const Imgtxt = styled.p`
 `;
 
 export const Label = styled.label`
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 
   &::after {
     content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
@@ -112,18 +112,22 @@ export const Textarea = styled.textarea`
   margin-top: 0.3rem;
   width: 100%;
   height: 25px;
-  font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-  border-bottom: 1px solid ${({ theme }) => theme.color.LIGHT_GRAY};
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.TEXT};
+  border-bottom: 1px solid ${({ theme }) => theme.SUB_TEXT};
+
+  background-color: transparent;
+
   &::-webkit-scrollbar {
     display: none;
   }
   &::placeholder {
     font-family: 'LINESeedKR-Rg';
-    color: ${({ theme }) => theme.color.LIGHT_GRAY};
+    color: ${({ theme }) => theme.LIGHT_TEXT};
   }
   &:read-only {
-    background: #efefef4d;
-    color: #efefef4d;
+    background: #171c25;
+    color: #171c25;
   }
 `;
 
@@ -162,7 +166,7 @@ export const LabelCheckBox = styled.label`
     background-size: 100% 100%;
     background-position: 50%;
     background-repeat: no-repeat;
-    background-color: ${({ theme }) => theme.color.ACTIVE_BLUE};
+    background-color: ${({ theme }) => theme.ACTIVE_BUTTON};
   }
 `;
 
@@ -177,15 +181,15 @@ export const Checkbox = styled.input`
 
 export const StyledP = styled.p`
   margin-left: 0.5rem;
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
-  color: ${({ theme }) => theme.color.GRAY};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const WarningMsg = styled.p`
   position: absolute;
   top: 8rem;
   right: 3.4rem;
-  color: ${({ theme }) => theme.color.RED};
+  color: ${({ theme }) => theme.ERROR_BORDER};
   margin-right: 0.5rem;
-  font-size: ${({ theme }) => theme.fontSize.SMALL};
+  font-size: 1.2rem;
 `;
