@@ -2,11 +2,9 @@ import styled from 'styled-components';
 
 import { IR } from '../../../styles/Util';
 
-export const PostDetail = styled.div`
-  padding-bottom: 12rem;
-`;
-
 export const Contents = styled.section`
+  margin-bottom: 7rem;
+  padding-bottom: 7rem;
   font-size: 1.4rem;
 
   h2 {

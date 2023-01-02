@@ -24,7 +24,7 @@ function PostDetail() {
   );
 
   return (
-    <S.PostDetail>
+    <div>
       <S.Contents>
         <h2>게시물 상세 페이지</h2>
         {!postDetailLoading && (
@@ -47,10 +47,9 @@ function PostDetail() {
         {!commentListLoading && commentList.length !== 0 && (
           <CommentList commentList={commentList} />
         )}
+        <CommentInput />
       </S.Contents>
-
-      <CommentInput />
-    </S.PostDetail>
+    </div>
   );
 }
 
