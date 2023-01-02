@@ -8,7 +8,7 @@ import GlobalStyle from './styles/GlobalStyle';
 
 import checkTokenValid from './api/tokenValid';
 import loginState from './atoms/login';
-import themeState from './atoms/darkMode';
+import themeState from './atoms/theme';
 import { darkTheme, lightTheme } from './styles/Theme';
 
 function App() {
