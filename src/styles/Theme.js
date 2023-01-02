@@ -35,6 +35,8 @@ export const lightTheme = {
   ERROR_BORDER: '#FF5656',
 
   READ_ONLY: '#efefef4d',
+
+  LIGHT_IMAGE_CONTAINER: '#f2f2f2',
 };
 
 export const darkTheme = {
@@ -62,6 +64,8 @@ export const darkTheme = {
   ERROR_BORDER: '#FF5656',
 
   READ_ONLY: '#171c25',
+
+  LIGHT_IMAGE_CONTAINER: '#9b9b9b',
 };
 
 export const theme = {

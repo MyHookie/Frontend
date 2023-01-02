@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
 import * as S from './index.style';
+import Dialog from '../../Modal/Dialog';
 
 function MyPickModal({
   myPickId,
@@ -12,11 +13,17 @@ function MyPickModal({
 }) {
   const [myPickItemInfo, setMyPickItemInfo] = useState('');
   const [isNoPrice, setIsNoPrice] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const navigate = useNavigate();
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
   const noPrice = parseInt(123415810423, 10);
+
+  const handleDialogOpen = (e) => {
+    e.stopPropagation();
+    setIsDialogOpen(!isDialogOpen);
+  };
 
   const getMyPickItemDetail = async () => {
     try {
@@ -73,6 +80,13 @@ function MyPickModal({
     }
   };
 
+  const handleSubmit = () => {
+    console.log('myPick 삭제');
+    handleMyPickDelete();
+    setIsDialogOpen(!isDialogOpen);
+    handleClose();
+  };
+
   return (
     <>
       {createPortal(
@@ -83,8 +97,15 @@ function MyPickModal({
             <S.OptionContainer>
               {canOptionAccess && (
                 <>
-                  <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
-                  <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
+                  <S.EditBtn onClick={handleMyPickEdit} />
+                  <S.DeleteBtn onClick={handleDialogOpen} />
+                  {isDialogOpen && (
+                    <Dialog
+                      handleClose={handleDialogOpen}
+                      handleSubmit={handleSubmit}
+                      dialogText="정말 삭제하시겠습니까?"
+                    />
+                  )}
                 </>
               )}
               <S.CloseModalBtn onClick={handleClose} />
@@ -109,7 +130,16 @@ function MyPickModal({
             </S.TextContainer>
             <S.TextContainer>
               <S.ContentTitle>링크</S.ContentTitle>
-              <S.Contents>{myPickItemInfo.link}</S.Contents>
+              <S.Contents>
+                🔗&nbsp;
+                <a
+                  href={myPickItemInfo.link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {myPickItemInfo.link}
+                </a>
+              </S.Contents>
             </S.TextContainer>
           </S.ModalContainer>
         </S.Container>,

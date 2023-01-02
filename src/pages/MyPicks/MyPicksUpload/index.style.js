@@ -17,7 +17,7 @@ export const ImageContainer = styled.div`
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  background-color: #f2f2f2;
+  background-color: ${({ theme }) => theme.LIGHT_IMAGE_CONTAINER};
   border-radius: 1.5rem;
 
   &::after {
@@ -29,6 +29,7 @@ export const ImageContainer = styled.div`
     background-color: ${({ theme }) => theme.LIGHT_TEXT};
   }
 `;
+
 export const ImageInput = styled.div`
   display: flex;
   flex: 0 0 auto;
@@ -75,22 +76,11 @@ export const Imgtxt = styled.p`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
   cursor: default;
-  &::after {
-    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
-    color: #ff5656;
-    margin-left: 0.6rem;
-  }
 `;
 
 export const Label = styled.label`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.SUB_TEXT};
-
-  &::after {
-    content: ${(props) => (props.isCorrect ? '' : '*필수 입력사항입니다')};
-    color: #ff5656;
-    margin-left: 0.6rem;
-  }
 `;
 
 export const img = styled.img`
@@ -114,7 +104,7 @@ export const Textarea = styled.textarea`
   height: 25px;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.TEXT};
-  border-bottom: 1px solid ${({ theme }) => theme.SUB_TEXT};
+  border-bottom: 1px solid ${({ theme }) => theme.BORDER};
 
   background-color: transparent;
 
@@ -126,8 +116,8 @@ export const Textarea = styled.textarea`
     color: ${({ theme }) => theme.LIGHT_TEXT};
   }
   &:read-only {
-    background: #171c25;
-    color: #171c25;
+    background: ${({ theme }) => theme.READ_ONLY};
+    color: ${({ theme }) => theme.READ_ONLY};
   }
 `;
 
