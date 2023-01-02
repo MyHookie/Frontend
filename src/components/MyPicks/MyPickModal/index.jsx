@@ -3,15 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
 import * as S from './index.style';
+import Dialog from '../../Modal/Dialog';
 
 function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
   const [myPickItemInfo, setMyPickItemInfo] = useState('');
   const [isNoPrice, setIsNoPrice] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const navigate = useNavigate();
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
   const noPrice = parseInt(123415810423, 10);
+
+  const handleDialogOpen = (e) => {
+    e.stopPropagation();
+    setIsDialogOpen(!isDialogOpen);
+  };
 
   const getMyPickItemDetail = async () => {
     try {
@@ -71,6 +78,13 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
     }
   };
 
+  const handleSubmit = () => {
+    console.log('myPick 삭제');
+    handleMyPickDelete();
+    setIsDialogOpen(!isDialogOpen);
+    handleClose();
+  };
+
   return (
     <>
       {createPortal(
@@ -82,7 +96,14 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
               {canOptionAccess && (
                 <>
                   <S.EditBtn onClick={handleMyPickEdit} />
-                  <S.DeleteBtn onClick={handleMyPickDelete} />
+                  <S.DeleteBtn onClick={handleDialogOpen} />
+                  {isDialogOpen && (
+                    <Dialog
+                      handleClose={handleDialogOpen}
+                      handleSubmit={handleSubmit}
+                      dialogText="정말 삭제하시겠습니까?"
+                    />
+                  )}
                 </>
               )}
               <S.CloseModalBtn onClick={handleClose} />
