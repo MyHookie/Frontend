@@ -155,7 +155,7 @@ function PostItem({
 
   useEffect(() => {
     const jsonContents = JSON.parse(content);
-
+    console.log(content, jsonContents.content);
     setTagArray(jsonContents.tags);
     setContents(jsonContents.content);
     setImages(image.split(', '));
@@ -206,7 +206,7 @@ function PostItem({
               <TagItem key={nanoid()} tagText={tag.text} tagColor={tag.color} />
             ))}
           </S.TagList>
-          {contents}
+          <pre>{contents}</pre>
         </S.Contents>
         {image && (
           <S.StyledSlider {...settings}>
