@@ -68,6 +68,8 @@ function MyPicks({ accountName, isMyPage }) {
           handleClose={handleMyPickOpen}
           myPickId={myPickId}
           canOptionAccess={canOptionAccess}
+          myPickItemList={myPickItemList}
+          getMyPickItemList={getMyPickItemList}
         />
       )}
     </S.Container>

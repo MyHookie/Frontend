@@ -4,7 +4,12 @@ import { createPortal } from 'react-dom';
 import axios from 'axios';
 import * as S from './index.style';
 
-function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
+function MyPickModal({
+  myPickId,
+  handleClose,
+  canOptionAccess,
+  getMyPickItemList,
+}) {
   const [myPickItemInfo, setMyPickItemInfo] = useState('');
   const [isNoPrice, setIsNoPrice] = useState(false);
 
@@ -55,7 +60,6 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
   };
 
   const handleMyPickDelete = async () => {
-    console.log('삭제합니다');
     handleClose();
     try {
       const response = await axios.delete(`${BASE_URL}/product/${myPickId}`, {
@@ -64,7 +68,7 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
           'Content-type': 'application/json',
         },
       });
-      console.log('요청 성공');
+      getMyPickItemList();
       return response.data;
     } catch (error) {
       return error;
