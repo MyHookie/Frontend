@@ -161,7 +161,6 @@ function MyPicksUpload() {
     }
   };
 
-  // 폼 제출
   const handleSubmit = () => {
     if (imgFile && inputValue && inputPrice && isValidUrl) {
       uploadMyPick();

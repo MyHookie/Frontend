@@ -203,7 +203,6 @@ function MyPicksEdit() {
     }
   };
 
-  // 폼 제출
   const handleSubmit = () => {
     checkValidUrl();
     console.log(myPickData);
