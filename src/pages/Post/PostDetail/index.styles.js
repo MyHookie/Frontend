@@ -4,7 +4,7 @@ import { IR } from '../../../styles/Util';
 
 export const Contents = styled.section`
   margin-bottom: 7rem;
-  padding-bottom: 7rem;
+  padding-bottom: 8.6rem;
   font-size: 1.4rem;
 
   h2 {
