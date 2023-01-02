@@ -12,6 +12,7 @@ import {
   imageSrcListState,
 } from '../../../atoms/post';
 import getImageFilename from '../../../api/image';
+import Snackbar from '../../Modal/SnackBar';
 
 const getTagColors = () => {
   const colors = [
@@ -54,6 +55,7 @@ const getPromiseFileName = async (file) => {
 
 function Posting({ editTagArray, editContent, editImages, edit }) {
   const [tag, setTags] = useState('');
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
 
   const [tagList, setTagList] = useRecoilState(tagListState);
   const [content, setContent] = useRecoilState(contentState);
@@ -77,6 +79,11 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
     }
   }, []);
 
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
   const handleImageAdd = () => {
     imageInput.current.click();
   };
@@ -86,7 +93,7 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
     const promiseImageArray = [];
 
     if (fileArray.length > 3) {
-      alert('이미지는 한번에 3개까지만 추가할 수 있습니다.');
+      handleSnackBar();
       return;
     }
 
@@ -180,6 +187,9 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
           onChange={handleContentChange}
         />
       </form>
+      {isSnackBarOpen && (
+        <Snackbar content="이미지는 한번에 3개까지 추가할 수 있습니다." />
+      )}
     </S.Container>
   );
 }
