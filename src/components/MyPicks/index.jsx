@@ -29,7 +29,6 @@ function MyPicks({ accountName, isMyPage }) {
         },
       });
       setMyPickItemList(response.data.product);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return error;
@@ -46,8 +45,6 @@ function MyPicks({ accountName, isMyPage }) {
       setMyPickId(id);
     }
   };
-
-  console.log(myPickItemList);
 
   return (
     <S.Container>
