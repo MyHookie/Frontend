@@ -181,7 +181,6 @@ function MyPicksEdit() {
     }
   };
 
-  // 폼 제출
   const handleSubmit = () => {
     if (imgFile && inputValue && inputPrice && inputLink) {
       console.log('수정한 myPick 업로드');

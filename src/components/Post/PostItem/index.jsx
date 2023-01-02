@@ -39,14 +39,16 @@ function PostItem({
   const [bottomSheetTrigger, setBottomSheetTrigger] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
-  const [tagArray, setTagArray] = useState([]);
-  const [contents, setContents] = useState('');
-  const [images, setImages] = useState([]);
-  const [accountName, setAccountName] = useState('');
   const [dialogType, setDialogType] = useState('');
   const [dialogMessage, setDialogMessage] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+
+  const jsonContents = JSON.parse(content);
+  const tagArray = jsonContents.tags;
+  const contents = jsonContents.content;
+  const images = image.split(', ');
+  const accountName = JSON.parse(localStorage.getItem('accountName'));
 
   const deletePost = useMutation(() => deleteMyPost(postId), {
     onSuccess: () => {
@@ -153,15 +155,6 @@ function PostItem({
     }
   }, [dialogType]);
 
-  useEffect(() => {
-    const jsonContents = JSON.parse(content);
-
-    setTagArray(jsonContents.tags);
-    setContents(jsonContents.content);
-    setImages(image.split(', '));
-    setAccountName(JSON.parse(localStorage.getItem('accountName')));
-  }, [content]);
-
   const handleErrorImage = (e) => {
     e.target.src = basicProfileImage;
   };
@@ -206,7 +199,7 @@ function PostItem({
               <TagItem key={nanoid()} tagText={tag.text} tagColor={tag.color} />
             ))}
           </S.TagList>
-          {contents}
+          <pre>{contents}</pre>
         </S.Contents>
         {image && (
           <S.StyledSlider {...settings}>

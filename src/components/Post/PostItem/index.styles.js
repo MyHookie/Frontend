@@ -54,12 +54,17 @@ export const Contents = styled.div`
 
   margin-bottom: 1.4rem;
 
+  pre {
+    white-space: pre-line;
+    word-break: keep-all;
+  }
+
   ${({ detail }) =>
     detail &&
     css`
       overflow: auto;
       display: block;
-    `}
+    `};
 `;
 
 export const TagList = styled.ul`
