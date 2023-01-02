@@ -4,14 +4,23 @@ const fetcher = axios.create({
   baseURL: 'https://mandarin.api.weniv.co.kr',
 });
 
-export const getAccountPost = async (accountName) => {
-  const { data } = await fetcher.get(`/post/${accountName}/userpost/`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
-  return data;
+export const getAccountPost = async (accountName, skip = 0) => {
+  console.log('skip :', skip);
+  const { data } = await fetcher.get(
+    `/post/${accountName}/userpost/?limit=3&skip=${skip * 3}`,
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
+  console.log('myPost, ', data.post);
+  return {
+    data: data.post,
+    skip,
+    isLast: data.post.length !== 3,
+  };
 };
 
 export const getDetailPost = async (pathName) => {
@@ -24,14 +33,19 @@ export const getDetailPost = async (pathName) => {
   return data.post;
 };
 
-export const getFollowPost = async () => {
-  const { data } = await fetcher.get(`/post/feed/`, {
+export const getFollowPost = async (skip = 0) => {
+  const { data } = await fetcher.get(`/post/feed/?limit=3&skip=${skip * 3}`, {
     headers: {
       Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
       'Content-type': 'application/json',
     },
   });
-  return data;
+  console.log('followPost,', data.posts);
+  return {
+    data: data.posts,
+    skip,
+    isLast: data.posts.length !== 3,
+  };
 };
 
 export const createMyPost = async (imageUrls, contents) => {
