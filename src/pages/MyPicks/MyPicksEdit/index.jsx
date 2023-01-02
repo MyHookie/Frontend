@@ -16,7 +16,7 @@ function MyPicksEdit() {
   const [inputValue, setInputValue] = useState('');
   const [inputPrice, setInputPrice] = useState('');
   const [inputLink, setInputLink] = useState('');
-  const [isValidUrl, setIsValidUrl] = useState(null);
+  const [isValidUrl, setIsValidUrl] = useState(true);
 
   const [noPriceCheck, setNoPriceCheck] = useState(false);
   const [readOnly, setReadOnly] = useState(false);
@@ -35,6 +35,7 @@ function MyPicksEdit() {
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
   const NoPrice = '123415810423';
+
   const location = useLocation();
   const { myPickId, isNoPrice } = location.state;
 
@@ -204,6 +205,9 @@ function MyPicksEdit() {
 
   // 폼 제출
   const handleSubmit = () => {
+    checkValidUrl();
+    console.log(myPickData);
+    console.log(isValidUrl);
     if (imgFile && inputValue && inputPrice && isValidUrl) {
       uploadMyPick();
       setIsError(false);
