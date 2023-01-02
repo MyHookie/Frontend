@@ -57,6 +57,8 @@ const getPromiseFileName = async (file) => {
 function Posting({ editTagArray, editContent, editImages, edit }) {
   const [tag, setTags] = useState('');
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [loadingImageLength, setLoadingImageLength] = useState(0);
 
   const [tagList, setTagList] = useRecoilState(tagListState);
   const [content, setContent] = useRecoilState(contentState);
@@ -100,9 +102,13 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
 
     for (let i = 0; i < fileArray.length; i += 1) {
       promiseImageArray.push(getPromiseFileName(fileArray[i]));
+      setLoadingImageLength(i);
     }
 
+    setIsImageLoading(true);
     const imageUrls = await Promise.all(promiseImageArray);
+    setIsImageLoading(false);
+    setLoadingImageLength(0);
     setImageSrcList([...imageSrcList, ...imageUrls]);
   };
 
@@ -139,6 +145,14 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+  };
+
+  const loadingIndicator = () => {
+    const result = [];
+    for (let i = 0; i <= loadingImageLength; i += 1) {
+      result.push(<ImageSkeleton key={i} />);
+    }
+    return result;
   };
 
   return (
@@ -180,6 +194,7 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
               handleImageDelete={() => handleImageDelete(index)}
             />
           ))}
+          {isImageLoading && <>{loadingIndicator()}</>}
         </S.ImageContainer>
         <S.Content
           type="text"
