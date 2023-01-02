@@ -13,6 +13,7 @@ import {
 } from '../../../atoms/post';
 import getImageFilename from '../../../api/image';
 import Snackbar from '../../Modal/SnackBar';
+import ImageSkeleton from '../../Skeleton/ImageSkeleton';
 
 const getTagColors = () => {
   const colors = [
