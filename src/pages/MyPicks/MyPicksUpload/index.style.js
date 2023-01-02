@@ -17,7 +17,7 @@ export const ImageContainer = styled.div`
   height: 0;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
-  background-color: #f2f2f2;
+  background-color: ${({ theme }) => theme.LIGHT_IMAGE_CONTAINER};
   border-radius: 1.5rem;
 
   &::after {
@@ -29,6 +29,7 @@ export const ImageContainer = styled.div`
     background-color: ${({ theme }) => theme.LIGHT_TEXT};
   }
 `;
+
 export const ImageInput = styled.div`
   display: flex;
   flex: 0 0 auto;
