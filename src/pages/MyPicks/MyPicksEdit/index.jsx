@@ -130,8 +130,10 @@ function MyPicksEdit() {
     if (isValidUrl === false) {
       setIsError(true);
       setWarningMsg('* 유효하지 않은 링크입니다.');
+    } else {
+      setWarningMsg('');
     }
-  }, [isValidUrl]);
+  }, [inputLink]);
 
   const handleValueChange = (e) => {
     setInputValue(e.target.value);
@@ -145,6 +147,7 @@ function MyPicksEdit() {
   const handleLinkChange = (e) => {
     setInputLink(e.target.value);
     handleResizeHeight(e);
+    checkValidUrl();
   };
 
   const handleCheckBox = (e) => {
@@ -295,7 +298,6 @@ function MyPicksEdit() {
         <S.Textarea
           value={inputLink}
           onChange={handleLinkChange}
-          onBlur={checkValidUrl}
           name=""
           id="link"
           cols="30"
