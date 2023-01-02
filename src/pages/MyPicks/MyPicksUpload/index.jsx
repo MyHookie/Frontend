@@ -138,17 +138,13 @@ function MyPicksUpload() {
     }
   };
 
-  // 폼 제출
   const handleSubmit = () => {
     if (imgFile && inputValue && inputPrice && inputLink) {
-      console.log('myPick 등록');
       uploadMyPick();
       setIsError(false);
-      console.log(myPickData);
       setIsDialogOpen(!isDialogOpen);
       goBackPage();
     } else {
-      console.log('필수 입력사항을 입력해주세요.');
       setIsError(true);
       setIsDialogOpen(!isDialogOpen);
     }
