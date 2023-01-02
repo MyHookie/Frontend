@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import themeState from '../atoms/darkMode';
+import themeState from '../atoms/theme';
 
 function useTheme() {
   const [themeMode, setThemeMode] = useRecoilState(themeState);
