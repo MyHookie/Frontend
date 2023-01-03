@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './index.style';
 import BaseHeader from '../../../components/common/BaseHeader';
 import MessageItem from '../../../components/Message/MessageItem';
@@ -11,7 +11,7 @@ import BottomSheet from '../../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 import chatData from './chatData.json';
 
-const id = '사용자 닉네임';
+const id = '킹짱철';
 
 function ChatDetail() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -20,9 +20,7 @@ function ChatDetail() {
   const [inputText, setInputText] = useState('');
   const nextChatId = useRef(chatData.chats.length + 1);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  console.log(location.state);
   const goToChatList = () => {
     navigate(-1);
   };
@@ -86,7 +84,10 @@ function ChatDetail() {
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent text="유저 신고하기" />
+          <BottomSheetContent
+            text="유저 신고하기"
+            onClick={handleBottomSheetOpen}
+          />
         </BottomSheet>
       )}
 

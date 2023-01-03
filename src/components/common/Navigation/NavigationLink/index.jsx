@@ -20,7 +20,7 @@ const SLink = styled(Link)`
 `;
 
 const SLinkText = styled.p`
-  color: ${({ isSame, theme }) => (isSame ? '#5095FA' : '#767676')};
+  color: ${({ isSame }) => (isSame ? '#5095FA' : '#767676')};
 `;
 
 function NavigationLink({ path, icon, linkName, onClick }) {

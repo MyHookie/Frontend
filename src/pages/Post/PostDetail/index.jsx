@@ -37,7 +37,7 @@ function PostDetail() {
             updatedAt={postDetailData.updatedAt}
             hearted={postDetailData.hearted}
             heartCount={postDetailData.heartCount}
-            commentCount={commentList.length}
+            commentCount={commentList?.length}
             author={postDetailData.author}
             detail
           />

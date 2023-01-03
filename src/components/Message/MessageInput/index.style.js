@@ -40,7 +40,7 @@ export const MessageSend = styled.button`
   margin-left: 1rem;
   padding: 1.2rem 0;
 
-  color: ${({ inputText, theme }) => (inputText ? '#2D7CEF' : '#DDDDDD')};
+  color: ${({ inputText }) => (inputText ? '#2D7CEF' : '#DDDDDD')};
 
   &:active {
     color: #2d7cef;

@@ -5,9 +5,6 @@ import MyPickItem from './MyPickItem';
 import MyPickModal from './MyPickModal';
 
 function MyPicks({ accountName, isMyPage }) {
-  console.log(accountName);
-  console.log(isMyPage);
-
   const [myPickItemList, setMyPickItemList] = useState([]);
   const [isMyPickOpen, setIsMyPickOpen] = useState(false);
   const [myPickId, setMyPickId] = useState('');
@@ -45,8 +42,6 @@ function MyPicks({ accountName, isMyPage }) {
       setMyPickId(id);
     }
   };
-
-  console.log(myPickItemList.length);
 
   return (
     <>

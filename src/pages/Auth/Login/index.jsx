@@ -52,7 +52,6 @@ function Login() {
 
         if (!res.data.message) {
           const userData = res.data.user;
-          console.log(userData);
           const { token, accountname, image } = userData;
 
           localStorage.setItem('token', JSON.stringify(token));
@@ -70,7 +69,7 @@ function Login() {
           setIsCorrect(true);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [loginEmail, loginPassword]
