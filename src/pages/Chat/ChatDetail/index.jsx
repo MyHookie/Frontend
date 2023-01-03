@@ -11,7 +11,7 @@ import BottomSheet from '../../../components/Modal/BottomSheet';
 import BottomSheetContent from '../../../components/Modal/BottomSheet/BottomSheetContent';
 import chatData from './chatData.json';
 
-const id = '사용자 닉네임';
+const id = '킹짱철';
 
 function ChatDetail() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -84,7 +84,10 @@ function ChatDetail() {
           handleClose={handleBottomSheetOpen}
           bottomSheetTrigger={bottomSheetTrigger}
         >
-          <BottomSheetContent text="유저 신고하기" />
+          <BottomSheetContent
+            text="유저 신고하기"
+            onClick={handleBottomSheetOpen}
+          />
         </BottomSheet>
       )}
 
