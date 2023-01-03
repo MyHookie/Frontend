@@ -6,8 +6,8 @@ const fetcher = axios.create({
 
 export const postFollow = async (accountName) => {
   try {
-    await axios.post(
-      `https://mandarin.api.weniv.co.kr/profile/${accountName}/follow`,
+    await fetcher.post(
+      `/profile/${accountName}/follow`,
       {},
       {
         headers: {
@@ -23,15 +23,12 @@ export const postFollow = async (accountName) => {
 
 export const deleteFollow = async (accountName) => {
   try {
-    await axios.delete(
-      `https://mandarin.api.weniv.co.kr/profile/${accountName}/unfollow`,
-      {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-          'Content-type': 'application/json',
-        },
-      }
-    );
+    await fetcher.delete(`/profile/${accountName}/unfollow`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    });
   } catch (error) {
     console.log(error);
   }
