@@ -5,12 +5,15 @@ const fetcher = axios.create({
 });
 
 export const getCommentList = async (postId) => {
-  const { data } = await fetcher.get(`/post/${postId}/comments`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
+  const { data } = await fetcher.get(
+    `/post/${postId}/comments/?limit=0&skip=0`,
+    {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-type': 'application/json',
+      },
+    }
+  );
 
   return data.comments;
 };
