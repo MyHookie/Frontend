@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 import * as S from './index.styles';
+import Snackbar from '../Modal/SnackBar';
 import basicProfileImage from '../../assets/basic-profile.png';
 import { FOLLOW_BUTTON } from '../../constants/buttonStyle';
-import Snackbar from '../Modal/SnackBar';
+
+import { deleteFollow, postFollow } from '../../api/follow';
 
 function FollowItem({ data }) {
+  const queryClient = useQueryClient();
+
   const [followState, setFollowState] = useState(data.isfollow);
   const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
 
@@ -17,42 +22,17 @@ function FollowItem({ data }) {
     navigate(`../../profile/${data.accountname}`);
   };
 
-  const deleteFollowItem = async () => {
-    try {
-      await axios.delete(
-        `https://mandarin.api.weniv.co.kr/profile/${data.accountname}/unfollow`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const postFollowItem = useMutation(() => postFollow(data.accountname), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
 
-  const postFollowItem = async () => {
-    try {
-      await axios.post(
-        `https://mandarin.api.weniv.co.kr/profile/${data.accountname}/follow`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const deleteFollowItem = useMutation(() => deleteFollow(data.accountname), {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    },
+  });
 
   const handleSnackBar = () => {
     setIsSnackBarOpen(true);
@@ -65,10 +45,10 @@ function FollowItem({ data }) {
       return;
     }
     if (followState) {
-      deleteFollowItem();
+      deleteFollowItem.mutate();
       setFollowState(false);
     } else {
-      postFollowItem();
+      postFollowItem.mutate();
       setFollowState(true);
     }
   };

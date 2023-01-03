@@ -1,45 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useQuery } from 'react-query';
 
 import * as S from './index.styles';
 import BaseHeader from '../../../components/common/BaseHeader';
 import FollowItem from '../../../components/FollowItem';
 
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
+import { getFollowingList } from '../../../api/follow';
 
 function Following() {
+  const param = useParams();
   const navigate = useNavigate();
 
   const handleToProfile = () => {
     navigate(-1);
   };
 
-  const [followingData, setFollowingData] = useState([]);
-  const param = useParams();
-
-  const fetchFollowingList = async () => {
-    try {
-      const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr/profile/${param.accountname}/following`,
-        {
-          headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('token')
-            )}`,
-            'Content-type': 'application/json',
-          },
-        }
-      );
-      setFollowingData(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchFollowingList();
-  }, []);
+  const { data: followingList, isLoading: followingListLoading } = useQuery(
+    ['followingList', param.accountname],
+    () => getFollowingList(param.accountname)
+  );
 
   return (
     <>
@@ -50,9 +31,10 @@ function Following() {
       />
       <S.FollowerList>
         <h2>팔로잉 페이지</h2>
-        {followingData.length > 0 &&
-          followingData.map((data) => (
-            <FollowItem key={data.accountname} data={data} />
+        {!followingListLoading &&
+          followingList.length > 0 &&
+          followingList.map((item) => (
+            <FollowItem key={item.accountname} data={item} />
           ))}
       </S.FollowerList>
     </>
