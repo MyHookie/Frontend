@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import Router from './routes/Router';
@@ -14,7 +14,7 @@ import { darkTheme, lightTheme } from './styles/Theme';
 function App() {
   const queryClient = new QueryClient();
 
-  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const setIsLogin = useSetRecoilState(loginState);
   const [themeMode, setThemeMode] = useRecoilState(themeState);
 
   // 사용자 OS 설정에 따라 테마 설정
@@ -37,7 +37,7 @@ function App() {
   const themeType = themeMode === 'light' ? lightTheme : darkTheme;
 
   useEffect(() => {
-    (async function () {
+    (async function fn() {
       return (await checkTokenValid()) ? setIsLogin(true) : setIsLogin(false);
     })();
   }, []);
