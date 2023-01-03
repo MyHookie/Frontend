@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { useEffect, useRef, useState } from 'react';
+import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInView } from 'react-intersection-observer';
 
 import * as S from './index.styles';
 import logoGrey from '../../../assets/logo_grey.png';
@@ -9,18 +10,34 @@ import postAlbumOnIcon from '../../../assets/icon/icon-post-album-on.png';
 import postAlbumOffIcon from '../../../assets/icon/icon-post-album-off.png';
 import { LARGE_BUTTON } from '../../../constants/buttonStyle';
 import Button from '../../common/Button';
-
-import { getAccountPost } from '../../../api/post';
 import PostList from '../../Post/PostList';
 import PostSkeleton from '../../Skeleton/PostSkeleton';
 
+import { getAccountPost } from '../../../api/post';
+
 function ProfilePost({ accountName }) {
   const [isListPost, setIsListPost] = useState(true);
+  const count = useRef(0);
+  const [ref, inView] = useInView();
 
-  const { data, isLoading, isError } = useQuery(
+  const {
+    data: profilePost,
+    isLoading,
+    fetchNextPage,
+  } = useInfiniteQuery(
     ['profilePostList', accountName],
-    () => getAccountPost(accountName)
+    ({ pageParam = count.current }) => getAccountPost(accountName, pageParam),
+    {
+      getNextPageParam: (nextPage) => nextPage.skip + 1,
+    }
   );
+
+  useEffect(() => {
+    if (inView && !profilePost.pages[count.current].isLast) {
+      count.current += 1;
+      fetchNextPage();
+    }
+  }, [inView]);
 
   const handleListPost = () => {
     setIsListPost(true);
@@ -51,15 +68,23 @@ function ProfilePost({ accountName }) {
           <PostSkeleton />
         </S.PostSkeletonContainer>
       )}
-      {data?.post.length > 0 && !isLoading ? (
-        <PostList postData={data.post} isAlbum={!isListPost} />
-      ) : (
+      {!isLoading && profilePost?.pages[0].data.length === 0 && (
         <S.EmptyContainer>
           <S.EmptyImage src={logoGrey} alt="로고 이미지" />
           <S.EmptyContent>게시글이 없습니다 !</S.EmptyContent>
           <Button text="게시물 작성하기" buttonStyle={LARGE_BUTTON} />
         </S.EmptyContainer>
       )}
+      {!isLoading &&
+        profilePost?.pages[0].data.length > 0 &&
+        profilePost?.pages.map((post) => (
+          <PostList
+            key={post.skip}
+            postData={post.data}
+            isAlbum={!isListPost}
+            observer={ref}
+          />
+        ))}
     </S.PostContainer>
   );
 }

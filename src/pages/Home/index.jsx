@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useQueries, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import BaseHeader from '../../components/common/BaseHeader';
@@ -12,17 +12,26 @@ import PostList from '../../components/Post/PostList';
 import hookieImage from '../../assets/Hookie.png';
 import * as S from './index.styles';
 
-import { getAccountPost, getFollowPost } from '../../api/post';
+import { getFollowPost, getMyPost } from '../../api/post';
 import PostSkeleton from '../../components/Skeleton/PostSkeleton';
+
+function postSort(a, b) {
+  if (a.createdAt < b.createdAt) {
+    return 1;
+  }
+  if (a.createdAt > b.createdAt) {
+    return -1;
+  }
+  return 0;
+}
 
 function Home() {
   const [allPost, setAllPost] = useState([]);
   const navigate = useNavigate();
-  const myAccountName = JSON.parse(localStorage.getItem('accountName'));
 
   const { data: myPost, isLoading: isMyPostLoading } = useQuery(
     'myPostList',
-    () => getAccountPost(myAccountName)
+    getMyPost
   );
 
   const { data: followPost, isLoading: isFollowPostLoading } = useQuery(
@@ -35,18 +44,8 @@ function Home() {
   };
 
   useEffect(() => {
-    function postSort(a, b) {
-      if (a.createdAt < b.createdAt) {
-        return 1;
-      }
-      if (a.createdAt > b.createdAt) {
-        return -1;
-      }
-      return 0;
-    }
-
-    if (myPost && followPost) {
-      setAllPost([...myPost.post, ...followPost.posts].sort(postSort));
+    if (!isFollowPostLoading && !isMyPostLoading) {
+      setAllPost([...myPost, ...followPost].sort(postSort));
     }
   }, [myPost, followPost]);
 

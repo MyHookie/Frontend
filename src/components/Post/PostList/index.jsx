@@ -5,7 +5,7 @@ import * as S from './index.styles';
 import AlbumPostItem from '../AlbumPostItem';
 import PostItem from '../PostItem';
 
-function PostList({ postData, isAlbum }) {
+function PostList({ postData, isAlbum, observer }) {
   const navigate = useNavigate();
 
   const goPostDetailPage = (id) => {
@@ -32,6 +32,7 @@ function PostList({ postData, isAlbum }) {
               goPostDetailPage={goPostDetailPage}
             />
           ))}
+          <div ref={observer} />
         </S.PostList>
       )}
       {isAlbum && (
