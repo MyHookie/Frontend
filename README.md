@@ -91,8 +91,10 @@
 
 |홈 페이지|검색 페이지|
 |:----:|:----:|
-|<img src='https://i.imgur.com/wNaJtA7.gif' width="300"/>|<img src='https://i.imgur.com/atXjz5c.gif' width="300"/>|
+|<img src='https://i.imgur.com/wNaJtA7.gif' width="300"/>|<img src='https://user-images.githubusercontent.com/71367408/210378836-bb7d3d85-b9a5-40ba-9dbb-db4035d11f48.gif' width="300"/>|
 |<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 게시글 수정, 삭제, 신고, 좋아요 기능 구현<br>✨ Loading Indicator 구현</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 사용자를 검색하고 프로필로 이동하는 기능 구현<br>✨ debounce 기능 적용<br>✨ Loading Indicator 구현</pre>|
+
+
 
 |업로드 페이지|게시글 상세 페이지|
 |:----:|:----:|
@@ -106,7 +108,7 @@
 
 |팔로우 페이지|채팅 페이지|
 |:----:|:----:|
-|<img src='https://i.imgur.com/drRX0XL.gif' width="300"/>|<img src='https://i.imgur.com/r8AybVb.gif' width="300"/>|
+|<img src='https://user-images.githubusercontent.com/71367408/210379078-66653436-a7a4-493d-85d7-e4e64bcc4bd2.gif' width="300"/>|<img src='https://i.imgur.com/r8AybVb.gif' width="300"/>|
 |<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 유저 팔로우, 팔로잉 기능 구현<br>✨ 타 유저 프로필 페이지 이동 </pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 채팅 페이지 구현 <br> ✨ 나의 메세지, 상대방 메세지 컴포넌트 구분</pre>|
 
 
