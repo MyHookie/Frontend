@@ -18,6 +18,7 @@ export const PostTypeContainer = styled.div`
   width: 100%;
 
   border-bottom: 1px solid ${({ theme }) => theme.BORDER};
+  margin-bottom: 1rem;
 `;
 
 export const PostTypeButton = styled.button`

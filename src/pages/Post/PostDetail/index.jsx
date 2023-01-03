@@ -1,33 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import styled from 'styled-components';
 
+import * as S from './index.styles';
 import PostItem from '../../../components/Post/PostItem';
 import CommentList from '../../../components/Comment/CommentList';
 import CommentInput from '../../../components/Comment/CommentInput';
-import { IR } from '../../../styles/Util';
 
 import { getDetailPost } from '../../../api/post';
 import { getCommentList } from '../../../api/comment';
-
-const SPostDetail = styled.div`
-  padding-bottom: 12rem;
-`;
-
-const SContents = styled.section`
-  font-size: 1.4rem;
-`;
-
-const STitle = styled.h2`
-  ${IR}
-`;
-
-const SDividingLine = styled.div`
-  height: 1px;
-  margin: 2.2rem 1.6rem;
-  background-color: ${({ theme }) => theme.BORDER};
-`;
 
 function PostDetail() {
   const param = useParams();
@@ -43,9 +24,9 @@ function PostDetail() {
   );
 
   return (
-    <SPostDetail>
-      <SContents>
-        <STitle>게시물 상세 페이지</STitle>
+    <div>
+      <S.Contents>
+        <h2>게시물 상세 페이지</h2>
         {!postDetailLoading && (
           <PostItem
             key={postDetailData.id}
@@ -56,20 +37,18 @@ function PostDetail() {
             updatedAt={postDetailData.updatedAt}
             hearted={postDetailData.hearted}
             heartCount={postDetailData.heartCount}
-            comment={postDetailData.comment}
-            commentCount={postDetailData.commentCount}
+            commentCount={commentList.length}
             author={postDetailData.author}
             detail
           />
         )}
-        <SDividingLine />
+        <S.DividingLine />
         {!commentListLoading && commentList.length !== 0 && (
           <CommentList commentList={commentList} />
         )}
-      </SContents>
-
-      <CommentInput />
-    </SPostDetail>
+        <CommentInput />
+      </S.Contents>
+    </div>
   );
 }
 
