@@ -1,8 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 import { loadingAnimation } from '../../../styles/Util';
 
-const SkeletonContainer = styled.li`
+export const SkeletonContainer = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +9,7 @@ const SkeletonContainer = styled.li`
   padding: 0rem 1rem;
 `;
 
-const SkeletonImage = styled.div`
+export const SkeletonImage = styled.div`
   ${loadingAnimation};
 
   min-width: 5rem;
@@ -22,12 +21,12 @@ const SkeletonImage = styled.div`
   background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
-const SkeletonInfo = styled.div`
+export const SkeletonInfo = styled.div`
   width: 100%;
   margin: 0 1.2rem;
 `;
 
-const SkeletonUserName = styled.div`
+export const SkeletonUserName = styled.div`
   ${loadingAnimation};
 
   display: inline-block;
@@ -38,7 +37,7 @@ const SkeletonUserName = styled.div`
   background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
-const SkeletonAccountName = styled.div`
+export const SkeletonAccountName = styled.div`
   ${loadingAnimation};
 
   display: inline-block;
@@ -50,7 +49,7 @@ const SkeletonAccountName = styled.div`
   background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
 
-const SkeletonIntro = styled.div`
+export const SkeletonIntro = styled.div`
   ${loadingAnimation};
 
   width: 100%;
@@ -60,18 +59,3 @@ const SkeletonIntro = styled.div`
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.SEARCH_INPUT};
 `;
-
-function SearchSkeleton() {
-  return (
-    <SkeletonContainer>
-      <SkeletonImage />
-      <SkeletonInfo>
-        <SkeletonUserName />
-        <SkeletonAccountName />
-        <SkeletonIntro />
-      </SkeletonInfo>
-    </SkeletonContainer>
-  );
-}
-
-export default SearchSkeleton;
