@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './index.style';
 import BaseHeader from '../../../components/common/BaseHeader';
 import MessageItem from '../../../components/Message/MessageItem';
@@ -20,9 +20,7 @@ function ChatDetail() {
   const [inputText, setInputText] = useState('');
   const nextChatId = useRef(chatData.chats.length + 1);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  console.log(location.state);
   const goToChatList = () => {
     navigate(-1);
   };

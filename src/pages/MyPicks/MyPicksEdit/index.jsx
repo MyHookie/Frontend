@@ -59,8 +59,6 @@ function MyPicksEdit() {
       );
       const myPickItemInfo = response.data.product;
 
-      console.log(myPickItemInfo);
-
       setImgFile(myPickItemInfo.itemImage);
       setItemImage(`${response.data.product.itemImage}`);
       setInputValue(myPickItemInfo.itemName);
@@ -202,14 +200,12 @@ function MyPicksEdit() {
         data: myPickData,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const handleSubmit = () => {
     checkValidUrl();
-    console.log(myPickData);
-    console.log(isValidUrl);
     if (imgFile && inputValue && inputPrice && isValidUrl) {
       uploadMyPick();
       setIsError(false);

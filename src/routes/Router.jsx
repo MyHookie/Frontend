@@ -50,7 +50,6 @@ function Router() {
         </Route>
         <Route path="/mypicks" element={<MyPicksUpload />} />
         <Route path="/mypicks/edit" element={<MyPicksEdit />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -17,7 +17,7 @@ function UserSearch() {
 
   const debouncedSearchKeyword = useDebounceValue(keyword, 750);
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     ['searchUser', debouncedSearchKeyword],
     () => searchUser(debouncedSearchKeyword),
     {

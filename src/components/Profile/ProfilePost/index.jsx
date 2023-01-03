@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 
 import * as S from './index.styles';

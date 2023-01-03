@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 
 import { editMyPost } from '../../../api/post';
 
@@ -15,7 +15,6 @@ import {
 } from '../../../atoms/post';
 
 function PostEdit() {
-  const queryClient = useQueryClient();
   const {
     state: { postId, editTagArray, editContent, editImages },
   } = useLocation();

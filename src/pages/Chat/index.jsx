@@ -23,7 +23,7 @@ function Chat() {
     navigate(-1);
   };
 
-  const usernameClick = (e) => {
+  const usernameClick = () => {
     navigate(`/chat/:id`);
   };
 

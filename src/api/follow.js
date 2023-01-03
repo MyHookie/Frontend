@@ -17,7 +17,7 @@ export const postFollow = async (accountName) => {
       }
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -30,7 +30,7 @@ export const deleteFollow = async (accountName) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
