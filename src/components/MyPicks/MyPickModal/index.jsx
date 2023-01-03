@@ -81,7 +81,6 @@ function MyPickModal({
   };
 
   const handleSubmit = () => {
-    console.log('myPick 삭제');
     handleMyPickDelete();
     setIsDialogOpen(!isDialogOpen);
     handleClose();

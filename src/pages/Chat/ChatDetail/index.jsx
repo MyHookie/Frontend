@@ -22,7 +22,6 @@ function ChatDetail() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.state);
   const goToChatList = () => {
     navigate(-1);
   };
