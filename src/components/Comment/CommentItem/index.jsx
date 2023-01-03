@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
-import styled from 'styled-components';
 
+import * as S from './index.styles';
 import BottomSheet from '../../Modal/BottomSheet';
 import BottomSheetContent from '../../Modal/BottomSheet/BottomSheetContent';
 import Dialog from '../../Modal/Dialog';
@@ -11,50 +11,6 @@ import verticalIcon from '../../../assets/icon/s-icon-more-vertical.png';
 import basicProfileImage from '../../../assets/basic-profile.png';
 
 import { deleteCommentItem, reportCommentItem } from '../../../api/comment';
-
-const SContents = styled.div`
-  margin: 0 0 1.6rem;
-`;
-
-const SCommentsInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const SUserInfo = styled.div`
-  flex: 4 4 0;
-  margin: 0 1.2rem;
-  font-size: 1.4rem;
-`;
-
-const SCommentTime = styled.span`
-  font-size: 1.2rem;
-  vertical-align: top;
-  color: ${({ theme }) => theme.LIGHT_TEXT};
-
-  &::before {
-    content: 'ㆍ';
-    padding-left: 0.6rem;
-  }
-`;
-
-const SProfileImg = styled.img`
-  width: 3.6rem;
-  height: 3.6rem;
-  border-radius: 50%;
-  object-fit: cover;
-`;
-const SVerticalButton = styled.button`
-  width: 2rem;
-`;
-
-const SComments = styled.pre`
-  margin: 0.4rem 4.8rem 0;
-  font-size: 1.4rem;
-  word-break: break-all;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-`;
 
 const getCommentPostTime = (createdAt) => {
   const currentTime = new Date();
@@ -179,20 +135,20 @@ function CommentItem({ commentId, content, createdAt, author }) {
   };
 
   return (
-    <SContents>
-      <SCommentsInfo>
-        <SProfileImg
+    <S.Contents>
+      <S.CommentsInfo>
+        <S.ProfileImg
           src={author.image}
           alt="프로필 이미지"
           onError={handleErrorImage}
         />
-        <SUserInfo>
+        <S.UserInfo>
           {author.username}
-          <SCommentTime>{getCommentPostTime(createdAt)}</SCommentTime>
-        </SUserInfo>
-        <SVerticalButton type="button" onClick={handleBottomSheetOpen}>
+          <S.CommentTime>{getCommentPostTime(createdAt)}</S.CommentTime>
+        </S.UserInfo>
+        <S.VerticalButton type="button" onClick={handleBottomSheetOpen}>
           <img src={verticalIcon} alt="댓글 설정 버튼" />
-        </SVerticalButton>
+        </S.VerticalButton>
         {isBottomSheetOpen && author.accountname === accountName && (
           <BottomSheet
             handleClose={handleBottomSheetOpen}
@@ -224,9 +180,9 @@ function CommentItem({ commentId, content, createdAt, author }) {
         )}
         {isSnackBarOpen && <Snackbar content="신고가 접수되었습니다." />}
         {isDeleteMessage && <Snackbar content="댓글이 삭제되었습니다." />}
-      </SCommentsInfo>
-      <SComments>{content}</SComments>
-    </SContents>
+      </S.CommentsInfo>
+      <S.Comments>{content}</S.Comments>
+    </S.Contents>
   );
 }
 
