@@ -21,7 +21,7 @@ function Following() {
   const fetchFollowingList = async () => {
     try {
       const response = await axios.get(
-        `https://mandarin.api.weniv.co.kr/profile/${param.accountname}/following`,
+        `https://mandarin.api.weniv.co.kr/profile/${param.accountname}/following?limit=0&skip=0`,
         {
           headers: {
             Authorization: `Bearer ${JSON.parse(
