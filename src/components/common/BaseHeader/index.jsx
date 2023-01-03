@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
+import darkModeArrowIcon from '../../../assets/icon/icon-arrow-left-grey.png';
 
 const SContainer = styled.header`
   display: flex;
@@ -44,11 +46,16 @@ function BaseHeader({
   title,
   image,
 }) {
+  const theme = JSON.parse(localStorage.getItem('theme'));
+
   return (
     <SContainer>
       {leftIcon && (
         <SButton onClick={leftClick}>
-          <img src={leftIcon} alt="뒤로가기" />
+          <img
+            src={theme === 'dark' ? darkModeArrowIcon : arrowIcon}
+            alt="뒤로가기"
+          />
         </SButton>
       )}
       {title && <STitle>{title}</STitle>}

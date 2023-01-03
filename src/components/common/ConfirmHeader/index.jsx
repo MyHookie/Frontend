@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../Button';
 import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
+import darkModeArrowIcon from '../../../assets/icon/icon-arrow-left-grey.png';
 import { SMALL_BUTTON } from '../../../constants/buttonStyle';
 
 const SContainer = styled.header`
@@ -38,10 +39,15 @@ function ConfirmHeader({
   rightButtonText = '저장',
   buttonNotAllow,
 }) {
+  const theme = JSON.parse(localStorage.getItem('theme'));
+
   return (
     <SContainer>
       <SButton onClick={leftClick}>
-        <img src={arrowIcon} alt="뒤로가기" />
+        <img
+          src={theme === 'dark' ? darkModeArrowIcon : arrowIcon}
+          alt="뒤로가기"
+        />
       </SButton>
       <Button
         onClick={rightClick}
