@@ -3,15 +3,27 @@ import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import axios from 'axios';
 import * as S from './index.style';
+import Dialog from '../../Modal/Dialog';
 
-function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
+function MyPickModal({
+  myPickId,
+  handleClose,
+  canOptionAccess,
+  getMyPickItemList,
+}) {
   const [myPickItemInfo, setMyPickItemInfo] = useState('');
   const [isNoPrice, setIsNoPrice] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const navigate = useNavigate();
 
   const BASE_URL = `https://mandarin.api.weniv.co.kr`;
   const noPrice = parseInt(123415810423, 10);
+
+  const handleDialogOpen = (e) => {
+    e.stopPropagation();
+    setIsDialogOpen(!isDialogOpen);
+  };
 
   const getMyPickItemDetail = async () => {
     try {
@@ -37,8 +49,6 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
     }
   };
 
-  console.log(myPickItemInfo);
-
   useEffect(() => {
     getMyPickItemDetail();
   }, []);
@@ -55,7 +65,6 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
   };
 
   const handleMyPickDelete = async () => {
-    console.log('삭제합니다');
     handleClose();
     try {
       const response = await axios.delete(`${BASE_URL}/product/${myPickId}`, {
@@ -64,11 +73,18 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
           'Content-type': 'application/json',
         },
       });
-      console.log('요청 성공');
+      getMyPickItemList();
       return response.data;
     } catch (error) {
       return error;
     }
+  };
+
+  const handleSubmit = () => {
+    console.log('myPick 삭제');
+    handleMyPickDelete();
+    setIsDialogOpen(!isDialogOpen);
+    handleClose();
   };
 
   return (
@@ -81,8 +97,15 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
             <S.OptionContainer>
               {canOptionAccess && (
                 <>
-                  <S.EditBtn onClick={handleMyPickEdit}>수정</S.EditBtn>
-                  <S.DeleteBtn onClick={handleMyPickDelete}>삭제</S.DeleteBtn>
+                  <S.EditBtn onClick={handleMyPickEdit} />
+                  <S.DeleteBtn onClick={handleDialogOpen} />
+                  {isDialogOpen && (
+                    <Dialog
+                      handleClose={handleDialogOpen}
+                      handleSubmit={handleSubmit}
+                      dialogText="정말 삭제하시겠습니까?"
+                    />
+                  )}
                 </>
               )}
               <S.CloseModalBtn onClick={handleClose} />
@@ -107,7 +130,16 @@ function MyPickModal({ myPickId, handleClose, canOptionAccess }) {
             </S.TextContainer>
             <S.TextContainer>
               <S.ContentTitle>링크</S.ContentTitle>
-              <S.Contents>{myPickItemInfo.link}</S.Contents>
+              <S.Contents>
+                🔗&nbsp;
+                <a
+                  href={myPickItemInfo.link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {myPickItemInfo.link}
+                </a>
+              </S.Contents>
             </S.TextContainer>
           </S.ModalContainer>
         </S.Container>,

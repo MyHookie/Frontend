@@ -29,7 +29,6 @@ function MyPicks({ accountName, isMyPage }) {
         },
       });
       setMyPickItemList(response.data.product);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return error;
@@ -47,30 +46,35 @@ function MyPicks({ accountName, isMyPage }) {
     }
   };
 
-  console.log(myPickItemList);
+  console.log(myPickItemList.length);
 
   return (
-    <S.Container>
-      <S.Title>MyPicks</S.Title>
-      <S.Items>
-        {myPickItemList.map((item) => (
-          <MyPickItem
-            key={item.id}
-            oneLineReview={item.itemName}
-            imgSrc={item.itemImage}
-            price={item.price}
-            handleMyPickOpen={() => handleMyPickOpen(item.id)}
-          />
-        ))}
-      </S.Items>
-      {isMyPickOpen && (
-        <MyPickModal
-          handleClose={handleMyPickOpen}
-          myPickId={myPickId}
-          canOptionAccess={canOptionAccess}
-        />
-      )}
-    </S.Container>
+    <>
+      {myPickItemList && myPickItemList.length > 0 ? (
+        <S.Container>
+          <S.Title>MyPicks</S.Title>
+          <S.Items>
+            {myPickItemList.map((item) => (
+              <MyPickItem
+                key={item.id}
+                oneLineReview={item.itemName}
+                imgSrc={item.itemImage}
+                price={item.price}
+                handleMyPickOpen={() => handleMyPickOpen(item.id)}
+              />
+            ))}
+          </S.Items>
+          {isMyPickOpen && (
+            <MyPickModal
+              handleClose={handleMyPickOpen}
+              myPickId={myPickId}
+              canOptionAccess={canOptionAccess}
+              getMyPickItemList={getMyPickItemList}
+            />
+          )}
+        </S.Container>
+      ) : null}
+    </>
   );
 }
 export default MyPicks;

@@ -12,6 +12,8 @@ import {
   imageSrcListState,
 } from '../../../atoms/post';
 import getImageFilename from '../../../api/image';
+import Snackbar from '../../Modal/SnackBar';
+import ImageSkeleton from '../../Skeleton/ImageSkeleton';
 
 const getTagColors = () => {
   const colors = [
@@ -54,6 +56,9 @@ const getPromiseFileName = async (file) => {
 
 function Posting({ editTagArray, editContent, editImages, edit }) {
   const [tag, setTags] = useState('');
+  const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [loadingImageLength, setLoadingImageLength] = useState(0);
 
   const [tagList, setTagList] = useRecoilState(tagListState);
   const [content, setContent] = useRecoilState(contentState);
@@ -77,6 +82,11 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
     }
   }, []);
 
+  const handleSnackBar = () => {
+    setIsSnackBarOpen(true);
+    return setTimeout(() => setIsSnackBarOpen(false), 2000);
+  };
+
   const handleImageAdd = () => {
     imageInput.current.click();
   };
@@ -86,15 +96,19 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
     const promiseImageArray = [];
 
     if (fileArray.length > 3) {
-      alert('이미지는 한번에 3개까지만 추가할 수 있습니다.');
+      handleSnackBar();
       return;
     }
 
     for (let i = 0; i < fileArray.length; i += 1) {
       promiseImageArray.push(getPromiseFileName(fileArray[i]));
+      setLoadingImageLength(i);
     }
 
+    setIsImageLoading(true);
     const imageUrls = await Promise.all(promiseImageArray);
+    setIsImageLoading(false);
+    setLoadingImageLength(0);
     setImageSrcList([...imageSrcList, ...imageUrls]);
   };
 
@@ -131,6 +145,14 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+  };
+
+  const loadingIndicator = () => {
+    const result = [];
+    for (let i = 0; i <= loadingImageLength; i += 1) {
+      result.push(<ImageSkeleton key={i} />);
+    }
+    return result;
   };
 
   return (
@@ -172,6 +194,7 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
               handleImageDelete={() => handleImageDelete(index)}
             />
           ))}
+          {isImageLoading && <>{loadingIndicator()}</>}
         </S.ImageContainer>
         <S.Content
           type="text"
@@ -180,6 +203,9 @@ function Posting({ editTagArray, editContent, editImages, edit }) {
           onChange={handleContentChange}
         />
       </form>
+      {isSnackBarOpen && (
+        <Snackbar content="이미지는 한번에 3개까지 추가할 수 있습니다." />
+      )}
     </S.Container>
   );
 }

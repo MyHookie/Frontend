@@ -8,7 +8,7 @@ import * as S from './index.styles';
 import useDebounceValue from '../../hooks/useDebounceValue';
 
 import searchUser from '../../api/search';
-import SearchSkeleton from '../Skeleton/Search';
+import SearchSkeleton from '../Skeleton/SearchSkeleton';
 
 function UserSearch() {
   const [keyword, setKeyword] = useState('');
