@@ -1,70 +1,175 @@
-# Getting Started with Create React App
+<img id="top" src='https://i.imgur.com/Peev1Mz.png' alt="Hookie"/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+**[🔗 배포 링크](https://hookie.netlify.app/)**
 
-In the project directory, you can run:
+- **🗝️서비스 이용을 위한 계정**
+  - ID: hookie13@gmail.com
+  - PW: 123123
 
-### `yarn start`
+- 주의사항 : hookie라는 accountName을 사용하지 않는 계정을 follow할 경우 에러가 발생할 수 있습니다!<br>
+(부트캠프에서 제공된 공용 서버를 사용하는데 우리 프로젝트만의 태그 기능을 위해 기존 데이터를 파싱한 코드가 존재하기 때문입니다.)
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🖥️ 서비스 소개
+> 내가 만든 후기 너를 위해 썼지~ 🎶   
+> **후키**를 통해 나의 후기를 자유롭게 작성하고 공유해보세요! 영화, 장소, 물건... 뭐든 좋아요 😀  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
 
-### `yarn test`
+## 👥 팀원 소개
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **Frontend**  
+|신윤철|왕유린|김설하|서유림|
+|:----:|:----:|:----:|:----:|
+|<img src="https://avatars.githubusercontent.com/u/71367408?v=4" alt="신윤철" width="150" height="150">|<img src="https://avatars.githubusercontent.com/u/101461874?v=4" alt="왕유린" width="150" height="150">|<img src="https://avatars.githubusercontent.com/u/95897068?v=4" alt="김설하" width="150" height="150">|<img src="https://avatars.githubusercontent.com/u/74060716?v=4" alt="서유림" width="150" height="150">|
+|[dev-yun](https://github.com/dev-yun)|[wang-yurin](https://github.com/wang-yurin)|[zldnlto](https://github.com/zldnlto)|[yoorimseo](https://github.com/yoorimseo)|
 
-### `yarn build`
+### **Backend**  
+부트캠프 제공 API 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 👨‍👩‍👧‍👦 역할 분담
+### 🧑🏻‍💻 신윤철
+- 홈 페이지, 게시글 업로드 페이지, 게시글 수정 페이지, 프로필 페이지, 프로필 수정 페이지, 검색 페이지
+- bottom Sheet, SnackBar, Dialog 모달 구현
+- Loading Skeleton 구현
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 👩🏻‍💻 왕유린
+- splash 페이지, 회원가입 페이지, 로그인 페이지, 프로필 설정 페이지
+- 다크모드 기능 구현
 
-### `yarn eject`
+### 👩🏻‍💻 김설하
+- myPicks 페이지, 채팅 페이지, 404페이지
+- 디자인 기획 및 에셋 제작
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 👩🏻‍💻 서유림
+- 게시글 상세 페이지, 팔로워 페이지, 팔로잉 페이지
+- 디자인 기획 및 에셋 제작
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 👥 공통
+- Header, Navigation, Button 컴포넌트
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<p align="right"><a href="#top">(🔼 Top)</a></p>
+<br>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🤝 팀문화
+- 매일 오전 9시에 **회고 및 진행 상황**을 공유해요.
+- **감정 나누기 시간**을 가지며 팀원들과 함께 멘탈도 챙겨요.
+- **'쉴땐 쉰다!'** 지속가능한 개발 지향해요.
 
-## Learn More
+<p align="right"><a href="#top">(🔼 Top)</a></p>
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠 테크 스택
+<img src='https://i.imgur.com/tbB78SU.png' width="800" />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<p align="right"><a href="#top">(🔼 Top)</a></p>
+<br>
 
-### Code Splitting
+## 🔀 Git Flow
+![Git Flow](https://i.imgur.com/EvI6Zny.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<p align="right"><a href="#top">(🔼 Top)</a></p>
+<br>
 
-### Analyzing the Bundle Size
+## 🖥️ 페이지 소개 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+|스플래시|회원가입|
+|:----:|:----:|
+|<img src='https://i.imgur.com/NrkBgAe.gif' width="300" />|<img src='https://i.imgur.com/Ynj45pS.gif' width="300"/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 앱 구동 시작화면<br>✨ 로그인 정보 유무에 따른 페이지 이동</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 사용자의 오류를 최소화하기 위해 인풋 입력 시 유효성 검사<br>✨ 유효성 검사 통과하면 버튼 활성화</pre>|
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+|프로필 설정|로그인|
+|:----:|:----:|
+|<img src='https://i.imgur.com/7z6YZYt.gif' width="300" />|<img src='https://i.imgur.com/0NHwPYU.gif' width="300"/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 사용자의 오류를 최소화하기 위해 인풋 입력 시 유효성 검사<br>✨ 유효성 검사 통과하면 버튼 활성화<br>✨ 이미지 설정하지 않으면 기본 프로필 이미지 적용</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 사용자의 오류를 최소화하기 위해 인풋 모두 입력해야 버튼 활성화<br>✨ 로컬스토리지에 토큰 저장<br>✨ 로그인 완료 후 홈 페이지로 이동</pre>|
 
-### Advanced Configuration
+|홈 페이지|검색 페이지|
+|:----:|:----:|
+|<img src='https://i.imgur.com/wNaJtA7.gif' width="300"/>|<img src='https://i.imgur.com/atXjz5c.gif' width="300"/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 게시글 수정, 삭제, 신고, 좋아요 기능 구현<br>✨ Loading Indicator 구현</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 사용자를 검색하고 프로필로 이동하는 기능 구현<br>✨ debounce 기능 적용<br>✨ Loading Indicator 구현</pre>|
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+|업로드 페이지|게시글 상세 페이지|
+|:----:|:----:|
+|<img src='https://i.imgur.com/PVHIpVN.gif' width="300"/>|<img src='https://i.imgur.com/q4E5FJp.gif' width="300"/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div><br>✨ 이미지, 후기, 태그 추가 기능 구현<br>✨ 작성한 포스트 수정 기능 구현 <br>✨ Loading Indicator 구현 <br>✨ HEIC 파일 변환하여 추가 기능 구현</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div></br>✨ 게시글 삭제, 수정, 신고, 좋아요 기능 구현<br>✨ 댓글 작성, 삭제, 신고 기능 구현<br>✨ 댓글 작성 시 스크롤 이동 구현<br>✨ 입력에 따라 입력창의 세로 길이가 유동적으로 변하도록 구현</pre>|
 
-### Deployment
+|프로필 페이지|프로필 수정 페이지|
+|:----:|:----:|
+|<img src='https://i.imgur.com/K2PbWhx.gif' width="300"/>|<img src='https://i.imgur.com/9p66u8E.gif' width="300"/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div></br>✨ 게시글 수정, 삭제, 신고 좋아요<br>✨ 프로필 수정, 팔로우, 팔로잉 페이지 이동<br>✨ 게시글 리스트형, 앨범형 보기 <br>✨ 무한 스크롤 구현</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div></br>✨ 기존 프로필 정보를 유지하며 수정 페이지로 이동<br>✨ validation을 통과해야 수정할 수 있도록 구현</pre>|
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+|팔로우 페이지|채팅 페이지|
+|:----:|:----:|
+|<img src='https://i.imgur.com/drRX0XL.gif' width="300"/>|<img src='https://i.imgur.com/r8AybVb.gif' width="300"/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 유저 팔로우, 팔로잉 기능 구현<br>✨ 타 유저 프로필 페이지 이동 </pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 채팅 페이지 구현 <br> ✨ 나의 메세지, 상대방 메세지 컴포넌트 구분</pre>|
 
-### `yarn build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+|MyPicks|MyPicks 업로드 페이지|
+|:----:|:----:|
+|<img src='https://i.imgur.com/sTl1bjD.gif' width='300' />|<img src='https://i.imgur.com/sQ6Dld0.gif' width='300' />|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 모달 형식으로 띄워지는 상세 조회 페이지 <br>✨ myPicks 수정, 삭제 기능 구현 <br>✨ 기존의 작성 내용을 유지하며 수정 페이지로 이동</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 이미지 파일 등록, 미리보기 기능 구현 <br> ✨ 유효성 검사 통과해야 등록 가능 <br> ✨ 가격 미정 항목에 대한 예외처리</pre>| 
+
+|다크모드|404|
+|:----:|:----:|
+|<img src='https://i.imgur.com/ydVU5yM.gif' width='300'/>|<img src='https://i.imgur.com/vono9VQ.png' width='300'/>|
+|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 사용자 OS에 따른 다크모드, 라이트모드 적용<br>✨ 사용자가 선택하여 테마 모드 설정</pre>|<pre><div>ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ</div>✨ 유효하지 않은 url 접근 시 404페이지 표시</pre>|
+
+<p align="right"><a href="#top">(🔼 Top)</a></p>
+<br>
+
+## 🗓️ 개발 기간 (22년 11월 27일 ~ 23년 1월 4일)
+
+### 📌 주차별 프로젝트 마일스톤    
+|주차||
+|----|----|
+|**1주차**<br>(11/27 ~ 12/8)|- 프로젝트 컨셉 회의 및 기술 스택, 협업툴 결정 (`Notion`, `Discord`, `Figma`)<br>- GitProject, GitIssue 템플릿 적용, GitFlow 실습, Figma 디자인 작업 및 기획, 컨벤션 설정|
+|**2주차**<br>(12/9 ~ 12/15)|- 초기 개발환경 세팅<br>- 공통 컴포넌트 페어프로그래밍으로 구현|
+|**3주차**<br>(12/16 ~ 12/22)|- 페이지 단위로 업무를 분담하여 작업 시작|
+|**4주차**<br>(12/23 ~ 12/29)|- 주요 기능 구현 1차 완료<br>- 추가기능 구현(다크모드, Loading Indicator)<br>- 배포|
+|**5주차**<br>(12/30~1/4)|- 프로젝트를 시연해보며 보이는 에러 수정<br>- SEO작업<br>- 프로젝트 PPT, README 작성|
+
+<p align="right"><a href="#top">(🔼 Top)</a></p>
+<br>
+
+## 📁 프로젝트 폴더 구조
+```
+├── 📁 src
+│   ├── App.jsx
+│   ├── 📁 api
+│   ├── 📁 assets
+│   ├── 📁 atoms
+│   ├── 📁 components
+│   │   ├── 📁 AuthInputForm
+│   │   ├── 📁 ChatUserItem
+│   │   ├── 📁 Comment
+│   │   ├── 📁 FollowItem
+│   │   ├── 📁 Message
+│   │   ├── 📁 Modal
+│   │   ├── 📁 Post
+│   │   ├── 📁 Profile
+│   │   ├── 📁 Skeleton
+│   │   ├── 📁 Title
+│   │   ├── 📁 UserSearch
+│   │   └── 📁 common
+│   ├── 📁 constants
+│   ├── 📁 hooks
+│   ├── 📁 pages
+│   │   ├── 📁 Auth
+│   │   ├── 📁 Chat
+│   │   ├── 📁 Home
+│   │   ├── 📁 MyPicksUpload
+│   │   ├── 📁 NotFound
+│   │   ├── 📁 Post
+│   │   ├── 📁 Profile
+│   │   ├── 📁 Search
+│   │   ├── 📁 Splash
+│   │   └── 📁 Welcome
+│   ├── 📁 routes
+│   └── 📁 styles
+└──
+```
+<p align="right"><a href="#top">(🔼 Top)</a></p>
