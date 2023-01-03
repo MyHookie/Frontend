@@ -31,7 +31,7 @@ function FollowItem({ data }) {
         }
       );
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -50,7 +50,7 @@ function FollowItem({ data }) {
         }
       );
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
