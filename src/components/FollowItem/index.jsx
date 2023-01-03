@@ -22,17 +22,6 @@ function FollowItem({ data }) {
     navigate(`../../profile/${data.accountname}`);
   };
 
-  // const deletePost = useMutation(() => deleteMyPost(postId), {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries();
-  //   },
-  // });
-  // const postLike = useMutation(() => postLikeFeed(postId), {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries();
-  //   },
-  // });
-
   const postFollowItem = useMutation(() => postFollow(data.accountname), {
     onSuccess: () => {
       queryClient.invalidateQueries();
