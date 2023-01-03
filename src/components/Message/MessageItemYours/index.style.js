@@ -24,7 +24,7 @@ export const Time = styled.time`
   left: -3rem;
   bottom: 0;
   font-size: 1rem;
-  color: #ddd;
+  color: ${({ theme }) => theme.SUB_TEXT};
 `;
 
 export const UploadedImgContainer = styled.div`
