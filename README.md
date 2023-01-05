@@ -60,12 +60,18 @@
 - 매일 오전 9시에 **회고 및 진행 상황**을 공유해요.
 - **감정 나누기 시간**을 가지며 팀원들과 함께 멘탈도 챙겨요.
 - **'쉴땐 쉰다!'** 지속가능한 개발 지향해요.
+- 모든 **기록**은 노션과 GitHub Wiki에 작성해요. [Wiki](https://github.com/MyHookie/hookie_front/wiki)
 
 <p align="right"><a href="#top">(🔼 Top)</a></p>
 <br>
 
 ## 🛠 테크 스택
 <img src='https://i.imgur.com/tbB78SU.png' width="700" />
+
+<br>
+
+## ⚙️ 협업 툴
+<img src='https://user-images.githubusercontent.com/101461874/210704523-07719a4d-1d61-4a3c-8edf-eef35f4720b4.png' width="700" />
 
 <p align="right"><a href="#top">(🔼 Top)</a></p>
 <br>
