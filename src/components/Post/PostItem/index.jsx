@@ -21,6 +21,15 @@ import arrowIcon from '../../../assets/icon/icon-arrow-left.png';
 import { deleteMyPost, reportFollowPost } from '../../../api/post';
 import { deleteLikeFeed, postLikeFeed } from '../../../api/like';
 
+const hasTag = (content) => {
+  try {
+    JSON.parse(content);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 function PostItem({
   postId,
   content,
@@ -44,11 +53,18 @@ function PostItem({
   const navigate = useNavigate();
   const location = useLocation();
 
-  const jsonContents = JSON.parse(content);
-  const tagArray = jsonContents.tags;
-  const contents = jsonContents.content;
+  let tagArray;
+  let contents;
   const images = image.split(', ');
   const accountName = JSON.parse(localStorage.getItem('accountName'));
+
+  if (hasTag(content)) {
+    const jsonContents = JSON.parse(content);
+    tagArray = jsonContents.tags;
+    contents = jsonContents.content;
+  } else {
+    contents = content;
+  }
 
   const deletePost = useMutation(() => deleteMyPost(postId), {
     onSuccess: () => {
@@ -195,7 +211,7 @@ function PostItem({
         </S.UserInfoContainer>
         <S.Contents detail={detail}>
           <S.TagList>
-            {tagArray.map((tag) => (
+            {tagArray?.map((tag) => (
               <TagItem key={nanoid()} tagText={tag.text} tagColor={tag.color} />
             ))}
           </S.TagList>
