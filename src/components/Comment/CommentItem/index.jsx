@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 
 import * as S from './index.styles';
@@ -134,6 +134,12 @@ function CommentItem({ commentId, content, createdAt, author }) {
     e.target.src = basicProfileImage;
   };
 
+  const navigate = useNavigate();
+
+  const handleToUserProfile = () => {
+    navigate(`../../../profile/${author.accountname}`);
+  };
+
   return (
     <S.Contents>
       <S.CommentsInfo>
@@ -141,8 +147,9 @@ function CommentItem({ commentId, content, createdAt, author }) {
           src={author.image}
           alt="프로필 이미지"
           onError={handleErrorImage}
+          onClick={handleToUserProfile}
         />
-        <S.UserInfo>
+        <S.UserInfo onClick={handleToUserProfile}>
           {author.username}
           <S.CommentTime>{getCommentPostTime(createdAt)}</S.CommentTime>
         </S.UserInfo>
