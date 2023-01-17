@@ -9,10 +9,9 @@ import * as S from './index.style';
 import ConfirmHeader from '../../../components/common/ConfirmHeader';
 import Dialog from '../../../components/Modal/Dialog';
 
-function MyPicksForm({ httpReq, getMyPickItemDetail }) {
+function MyPicksForm({ httpReq, getInfo }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const [imgFile, setImgFile] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [inputPrice, setInputPrice] = useState('');
   const [inputLink, setInputLink] = useState('');
@@ -23,7 +22,7 @@ function MyPicksForm({ httpReq, getMyPickItemDetail }) {
   const [placeholderText, setPlaceholderText] =
     useState('숫자만 입력 가능합니다.');
 
-  const [newImgFile, setNewImgFile] = useState('');
+  const [newItemImage, setNewItemImage] = useState('');
 
   const [isError, setIsError] = useState(false);
   const [warningMsg, setWarningMsg] = useState('');
@@ -40,6 +39,15 @@ function MyPicksForm({ httpReq, getMyPickItemDetail }) {
     navigate(-1);
   };
 
+  useEffect(() => {
+    getInfo().then((res) => {
+      setItemImage(res.itemImage);
+      setInputValue(res.itemName);
+      setInputPrice(res.price);
+      setInputLink(res.link);
+    });
+  }, []);
+
   const handleResizeHeight = useCallback((e) => {
     e.target.style.height = 'inherit';
     e.target.style.height = `${e.target.scrollHeight + 2}px`;
@@ -55,7 +63,7 @@ function MyPicksForm({ httpReq, getMyPickItemDetail }) {
     reader.readAsDataURL(file);
     return new Promise((resolve) => {
       reader.onloadend = () => {
-        setNewImgFile(reader.result);
+        setNewItemImage(reader.result);
         resolve();
       };
     });
@@ -134,7 +142,7 @@ function MyPicksForm({ httpReq, getMyPickItemDetail }) {
         `https://mandarin.api.weniv.co.kr/${response.data.filename}`
       );
       console.log(itemImage);
-      setNewImgFile(itemImage);
+      setNewItemImage(itemImage);
       handleImgPreview(e.target.files[0]);
       return itemImage;
     } catch (error) {
@@ -197,11 +205,11 @@ function MyPicksForm({ httpReq, getMyPickItemDetail }) {
             onChange={fetchImage}
             style={{ display: 'none' }}
           />
-          {itemImage && !newImgFile ? (
+          {itemImage && !newItemImage ? (
             <S.img src={itemImage} alt="mypick 사진" />
           ) : null}
-          {newImgFile && (
-            <S.img src={newImgFile} alt="mypick 새로 등록하는 사진" />
+          {newItemImage && (
+            <S.img src={newItemImage} alt="mypick 새로 등록하는 사진" />
           )}
         </S.ImageContainer>
         <S.Label htmlFor="review">한줄평</S.Label>
