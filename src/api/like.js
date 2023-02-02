@@ -1,29 +1,10 @@
-import axios from 'axios';
-
-const fetcher = axios.create({
-  baseURL: 'https://mandarin.api.weniv.co.kr',
-});
+import { authInstance } from './instance';
+import { API_URLS } from '../constants/apiUrls';
 
 export const postLikeFeed = async (postId) => {
-  const { data } = await fetcher.post(
-    `/post/${postId}/heart`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
-  return data;
+  await authInstance.post(API_URLS.LIKE_POST(postId));
 };
 
 export const deleteLikeFeed = async (postId) => {
-  const { data } = await fetcher.delete(`/post/${postId}/unheart`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
-  return data;
+  await authInstance.delete(API_URLS.UNLIKE_POST(postId));
 };

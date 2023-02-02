@@ -10,7 +10,7 @@ import basicProfileImage from '../../../assets/basic-profile.png';
 import Snackbar from '../../Modal/SnackBar';
 
 import { deleteFollow, postFollow } from '../../../api/follow';
-import getProfileInfo from '../../../api/profile';
+import { getProfileInfo } from '../../../api/profile';
 
 function UserInfo({ isMyPage, accountName }) {
   const queryClient = useQueryClient();

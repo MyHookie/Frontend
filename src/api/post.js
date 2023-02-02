@@ -1,18 +1,9 @@
-import axios from 'axios';
-
-const fetcher = axios.create({
-  baseURL: 'https://mandarin.api.weniv.co.kr',
-});
+import { authInstance } from './instance';
+import { API_URLS } from '../constants/apiUrls';
 
 export const getAccountPost = async (accountName, skip = 0) => {
-  const { data } = await fetcher.get(
-    `/post/${accountName}/userpost/?limit=0&skip=${skip * 3}`,
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
+  const { data } = await authInstance.get(
+    API_URLS.GET_ACCOUNT_POST(accountName, skip)
   );
 
   return {
@@ -22,101 +13,48 @@ export const getAccountPost = async (accountName, skip = 0) => {
   };
 };
 
-const accountName = JSON.parse(localStorage.getItem('accountName'));
-
-export const getMyPost = async (limit) => {
-  const { data } = await fetcher.get(
-    `/post/${accountName}/userpost/?limit=${limit}&skip=0`,
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
+export const getDetailPost = async (postId) => {
+  const { data } = await authInstance.get(API_URLS.GET_POST_DETAIL(postId));
 
   return data.post;
 };
 
-export const getDetailPost = async (pathName) => {
-  const { data } = await fetcher.get(`/post/${pathName}`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
-  return data.post;
-};
-
-export const getFollowPost = async (limit) => {
-  const { data } = await fetcher.get(`/post/feed/?limit=${limit}&skip=0`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
+export const getFollowPost = async () => {
+  const { data } = await authInstance.get(API_URLS.GET_FOLLOW_POST());
 
   return data.posts;
 };
 
 export const createMyPost = async (imageUrls, contents) => {
-  const { data } = await fetcher.post(
-    `/post`,
-    {
-      post: {
-        content: contents,
-        image: imageUrls.join(', '),
-      },
+  const { data } = await authInstance.post(API_URLS.CREATE_POST, {
+    post: {
+      content: contents,
+      image: imageUrls.join(', '),
     },
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
+  });
+
   return data;
 };
 
 export const deleteMyPost = async (postId) => {
-  const { data } = await fetcher.delete(`/post/${postId}`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
+  const { data } = await authInstance.delete(API_URLS.DELETE_POST(postId));
+
   return data;
 };
 
 export const editMyPost = async (imageUrls, contents, postId) => {
-  const { data } = await fetcher.put(
-    `/post/${postId}`,
-    {
-      post: {
-        content: contents,
-        image: imageUrls.join(', '),
-      },
+  const { data } = await authInstance.put(API_URLS.UPDATE_POST(postId), {
+    post: {
+      contents,
+      image: imageUrls.join(', '),
     },
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
+  });
+
   return data;
 };
 
 export const reportFollowPost = async (postId) => {
-  const { data } = await fetcher.post(
-    `/post/${postId}/report`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
+  const { data } = await authInstance.post(API_URLS.REPORT_POST(postId));
+
   return data;
 };

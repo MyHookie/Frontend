@@ -1,17 +1,20 @@
-import axios from 'axios';
+import { authInstance } from './instance';
+import { API_URLS } from '../constants/apiUrls';
 
-const fetcher = axios.create({
-  baseURL: 'https://mandarin.api.weniv.co.kr',
-});
-
-const getProfileInfo = async (accountName) => {
-  const { data } = await fetcher.get(`/profile/${accountName}`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
+export const getProfileInfo = async (accountName) => {
+  const { data } = await authInstance.get(API_URLS.GET_PROFILE(accountName));
   return data;
 };
 
-export default getProfileInfo;
+export const editProfile = async (userName, accountName, intro, image) => {
+  const { data } = await authInstance.put(API_URLS.UPDATE_PROFILE, {
+    user: {
+      username: userName,
+      accountname: accountName,
+      intro,
+      image,
+    },
+  });
+
+  return data;
+};
