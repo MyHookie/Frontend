@@ -14,7 +14,7 @@ import {
   profileUserName,
 } from '../../../atoms/profileInfo';
 
-import { editProfile } from '../../../api/authAxios';
+import { editProfile } from '../../../api/profile';
 
 function ProfileEdit() {
   const { state } = useLocation();

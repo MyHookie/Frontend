@@ -1,16 +1,10 @@
-import axios from 'axios';
+import { authInstance } from './instance';
+import { API_URLS } from '../constants/apiUrls';
 
 const checkTokenValid = async () => {
   try {
-    const res = await axios.get(
-      'https://mandarin.api.weniv.co.kr/user/checktoken',
-      {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-          'Content-type': 'application/json',
-        },
-      }
-    );
+    const res = await authInstance.get(API_URLS.CHECK_USER_TOKEN);
+
     return res.data.isValid;
   } catch (error) {
     return false;
