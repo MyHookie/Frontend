@@ -12,7 +12,7 @@ import PostList from '../../components/Post/PostList';
 import hookieImage from '../../assets/Hookie.png';
 import * as S from './index.styles';
 
-import { getAccountPost, getFollowPost, getMyPost } from '../../api/post';
+import { getAccountPost, getFollowPost } from '../../api/post';
 import PostSkeleton from '../../components/Skeleton/PostSkeleton';
 
 function postSort(a, b) {
