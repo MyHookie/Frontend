@@ -1,3 +1,5 @@
+export const BASE_URL = 'https://mandarin.api.weniv.co.kr';
+
 export const API_URLS = {
   HOME: '/',
   CREATE_IMAGE: '/image/uploadfile',
