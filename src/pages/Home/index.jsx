@@ -12,7 +12,7 @@ import PostList from '../../components/Post/PostList';
 import hookieImage from '../../assets/Hookie.png';
 import * as S from './index.styles';
 
-import { getFollowPost, getMyPost } from '../../api/post';
+import { getAccountPost, getFollowPost, getMyPost } from '../../api/post';
 import PostSkeleton from '../../components/Skeleton/PostSkeleton';
 
 function postSort(a, b) {
@@ -28,12 +28,12 @@ function postSort(a, b) {
 function Home() {
   const [allPost, setAllPost] = useState([]);
   const navigate = useNavigate();
+  const accountName = JSON.parse(localStorage.getItem('accountName'));
 
   const { data: myPost, isLoading: isMyPostLoading } = useQuery(
     'myPostList',
-    getMyPost
+    () => getAccountPost(accountName)
   );
-
   const { data: followPost, isLoading: isFollowPostLoading } = useQuery(
     'followPostList',
     getFollowPost
@@ -45,7 +45,7 @@ function Home() {
 
   useEffect(() => {
     if (!isFollowPostLoading && !isMyPostLoading) {
-      setAllPost([...myPost, ...followPost].sort(postSort));
+      setAllPost([...myPost.data, ...followPost].sort(postSort));
     }
   }, [myPost, followPost]);
 
