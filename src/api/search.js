@@ -1,16 +1,9 @@
-import axios from 'axios';
-
-const fetcher = axios.create({
-  baseURL: 'https://mandarin.api.weniv.co.kr',
-});
+import { authInstance } from './instance';
+import { API_URLS } from '../constants/apiUrls';
 
 const searchUser = async (keyword) => {
-  const { data } = await fetcher.get(`/user/searchuser/?keyword=${keyword}`, {
-    headers: {
-      Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      'Content-type': 'application/json',
-    },
-  });
+  const { data } = await authInstance.get(API_URLS.GET_SEARCHED_USER(keyword));
+
   return data;
 };
 

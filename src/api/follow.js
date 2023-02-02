@@ -1,21 +1,9 @@
-import axios from 'axios';
-
-const fetcher = axios.create({
-  baseURL: 'https://mandarin.api.weniv.co.kr',
-});
+import { authInstance } from './instance';
+import { API_URLS } from '../constants/apiUrls';
 
 export const postFollow = async (accountName) => {
   try {
-    await fetcher.post(
-      `/profile/${accountName}/follow`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-          'Content-type': 'application/json',
-        },
-      }
-    );
+    await authInstance.post(API_URLS.CREATE_FOLLOW(accountName));
   } catch (error) {
     console.error(error);
   }
@@ -23,39 +11,20 @@ export const postFollow = async (accountName) => {
 
 export const deleteFollow = async (accountName) => {
   try {
-    await fetcher.delete(`/profile/${accountName}/unfollow`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    });
+    await authInstance.delete(API_URLS.DELETE_FOLLOW(accountName));
   } catch (error) {
     console.error(error);
   }
 };
 
 export const getFollowerList = async (accountName) => {
-  const { data } = await fetcher.get(
-    `/profile/${accountName}/follower?limit=0&skip=0`,
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
+  const { data } = await authInstance.get(API_URLS.GET_FOLLOWER(accountName));
+
   return data;
 };
 
 export const getFollowingList = async (accountName) => {
-  const { data } = await fetcher.get(
-    `/profile/${accountName}/following?limit=0&skip=0`,
-    {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-        'Content-type': 'application/json',
-      },
-    }
-  );
+  const { data } = await authInstance.get(API_URLS.GET_FOLLOWING(accountName));
+
   return data;
 };
